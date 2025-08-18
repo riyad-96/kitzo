@@ -1,4 +1,4 @@
-import { getButtons } from './helper';
+import { getButtons } from '../helper';
 
 //! Copy function
 function legecyCopy(docs) {
@@ -32,7 +32,7 @@ const copyConfigMap = new WeakMap();
 const allowedEvents = ['click', 'dblclick', 'contextmenu', 'mouseup', 'touchend'];
 const attachedEvents = new Set();
 
-export default function copy(element, config = {}) {
+export default function kitzoCopy(element, config = {}) {
   config = Object.assign(
     {
       doc: '',

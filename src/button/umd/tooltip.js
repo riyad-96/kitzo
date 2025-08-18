@@ -1,4 +1,4 @@
-import { addStyleTagToHtmlHead, getButtons } from './helper';
+import { addStyleTagToHtmlHead, getButtons } from '../helper';
 
 function tooltipStyles() {
   return `:root {

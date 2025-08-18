@@ -1,5 +1,5 @@
-const esm = './src/index.umd.js';
-const umd = './src/index.esm.js';
+const umd = './src/index.umd.js';
+const esm = './src/index.esm.js';
 
 export default [
   {

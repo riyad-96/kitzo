@@ -64,7 +64,7 @@ const copyConfigMap = new WeakMap();
 const allowedEvents = ['click', 'dblclick', 'contextmenu', 'mouseup', 'touchend'];
 const attachedEvents = new Set();
 
-function copy(element, config = {}) {
+function kitzoCopy(element, config = {}) {
   config = Object.assign(
     {
       doc: '',
@@ -135,7 +135,7 @@ function copy(element, config = {}) {
   }
 }
 
-function debounce(fn, delay = 300) {
+function kitzoDebounce(fn, delay = 300) {
   let timer;
 
   return (...args) => {
@@ -186,7 +186,7 @@ function rippleStyles() {
 //! Ripple effect
 let rippleListenerAdded = false;
 
-function ripple(element, config = {}) {
+function kitzoRipple(element, config = {}) {
   if (!element) {
     console.error('A button element/selector is expected');
     return;
@@ -330,7 +330,7 @@ let tooltipDiv;
 let tooltipListenerAdded = false;
 const tooltipConfigMap = new WeakMap();
 
-function tooltip(element, config = {}) {
+function kitzoTooltip(element, config = {}) {
   if (window.matchMedia('(pointer: coarse)').matches) return;
 
   if (!element) {
@@ -451,4 +451,4 @@ function tooltip(element, config = {}) {
   }
 }
 
-export { copy, debounce, ripple, tooltip };
+export { kitzoCopy, kitzoDebounce, kitzoRipple, kitzoTooltip };

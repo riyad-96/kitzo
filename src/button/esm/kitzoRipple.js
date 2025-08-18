@@ -1,4 +1,4 @@
-import { addStyleTagToHtmlHead, getButtons } from './helper';
+import { addStyleTagToHtmlHead, getButtons } from '../helper';
 
 function rippleStyles() {
   return `.zero-ripple {
@@ -42,7 +42,7 @@ function rippleStyles() {
 //! Ripple effect
 let rippleListenerAdded = false;
 
-export default function ripple(element, config = {}) {
+export default function kitzoRipple(element, config = {}) {
   if (!element) {
     console.error('A button element/selector is expected');
     return;

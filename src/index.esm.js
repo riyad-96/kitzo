@@ -1,6 +1,6 @@
-import copy from './button/copy';
-import debounce from './button/debounce';
-import ripple from './button/ripple';
-import tooltip from './button/tooltip';
+import kitzoCopy from './button/esm/kitzoCopy';
+import kitzoDebounce from './button/esm/kitzoDebounce';
+import kitzoRipple from './button/esm/kitzoRipple';
+import kitzoTooltip from './button/esm/kitzoTooltip';
 
-export { copy as kitzoCopy, debounce as kitzoDebounce, ripple as kitzoRipple, tooltip as kitzoTooltip };
+export { kitzoCopy, kitzoDebounce, kitzoRipple, kitzoTooltip };

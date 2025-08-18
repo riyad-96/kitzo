@@ -457,9 +457,9 @@
     }
   }
 
-  exports.kitzoCopy = copy;
-  exports.kitzoDebounce = debounce;
-  exports.kitzoRipple = ripple;
-  exports.kitzoTooltip = tooltip;
+  exports.copy = copy;
+  exports.debounce = debounce;
+  exports.ripple = ripple;
+  exports.tooltip = tooltip;
 
 }));
