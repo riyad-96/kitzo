@@ -1,12 +1,12 @@
 import { addStyleTagToHtmlHead, getButtons } from '../helper';
 
 function rippleStyles() {
-  return `.zero-ripple {
+  return `.kitzo-ripple {
   position: relative;
   overflow: hidden;
 }
 
-.zero-ripples {
+.kitzo-ripples {
   display: block;
   position: absolute;
   top: 0;
@@ -21,7 +21,7 @@ function rippleStyles() {
   pointer-events: none;
 }
 
-.zero-ripples.expand {
+.kitzo-ripples.expand {
   animation: expand-ripple var(--ripples-duration) linear forwards;
 }
 
@@ -64,20 +64,20 @@ export default function ripple(element, config = {}) {
 
   const allButtons = getButtons(element);
   if (!allButtons) {
-    console.error('No elements found for zeroRipple');
+    console.error('No elements found for kitzoRipple');
     return;
   }
   allButtons.forEach((btn) => {
-    btn.classList.add('zero-ripple');
-    btn.setAttribute('data-zero-ripple', 'true');
+    btn.classList.add('kitzo-ripple');
+    btn.setAttribute('data-kitzo-ripple', 'true');
   });
 
   if (!rippleListenerAdded) {
     document.addEventListener('mousedown', (e) => {
-      const btn = e.target.closest('[data-zero-ripple]');
+      const btn = e.target.closest('[data-kitzo-ripple]');
       if (btn) {
         const span = document.createElement('span');
-        span.className = 'zero-ripples';
+        span.className = 'kitzo-ripples';
         btn.appendChild(span);
 
         const { left, top, width } = btn.getBoundingClientRect();

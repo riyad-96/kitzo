@@ -108,18 +108,18 @@
 
     const allButtons = getButtons(element);
     if (!allButtons) {
-      console.error('No elements found for zeroCopy');
+      console.error('No elements found for kitzoCopy');
       return;
     }
 
     if (!allowedEvents.includes(event)) {
-      console.warn(`[zeroCopy] "${event}" is not allowed. Defaulting to "click".`);
+      console.warn(`[kitzoCopy] "${event}" is not allowed. Defaulting to "click".`);
     }
 
     const safeEvent = allowedEvents.includes(event) ? event : 'click';
 
     allButtons.forEach((btn) => {
-      btn.setAttribute('data-zero-copy', 'true');
+      btn.setAttribute('data-kitzo-copy', 'true');
 
       copyConfigMap.set(btn, {
         doc,
@@ -129,7 +129,7 @@
 
     if (!attachedEvents.has(safeEvent)) {
       document.addEventListener(safeEvent, (e) => {
-        const btn = e.target.closest('[data-zero-copy]');
+        const btn = e.target.closest('[data-kitzo-copy]');
         if (!btn) return;
 
         const { doc, event } = copyConfigMap.get(btn);
@@ -151,12 +151,12 @@
   }
 
   function rippleStyles() {
-    return `.zero-ripple {
+    return `.kitzo-ripple {
   position: relative;
   overflow: hidden;
 }
 
-.zero-ripples {
+.kitzo-ripples {
   display: block;
   position: absolute;
   top: 0;
@@ -171,7 +171,7 @@
   pointer-events: none;
 }
 
-.zero-ripples.expand {
+.kitzo-ripples.expand {
   animation: expand-ripple var(--ripples-duration) linear forwards;
 }
 
@@ -214,20 +214,20 @@
 
     const allButtons = getButtons(element);
     if (!allButtons) {
-      console.error('No elements found for zeroRipple');
+      console.error('No elements found for kitzoRipple');
       return;
     }
     allButtons.forEach((btn) => {
-      btn.classList.add('zero-ripple');
-      btn.setAttribute('data-zero-ripple', 'true');
+      btn.classList.add('kitzo-ripple');
+      btn.setAttribute('data-kitzo-ripple', 'true');
     });
 
     if (!rippleListenerAdded) {
       document.addEventListener('mousedown', (e) => {
-        const btn = e.target.closest('[data-zero-ripple]');
+        const btn = e.target.closest('[data-kitzo-ripple]');
         if (btn) {
           const span = document.createElement('span');
-          span.className = 'zero-ripples';
+          span.className = 'kitzo-ripples';
           btn.appendChild(span);
 
           const { left, top, width } = btn.getBoundingClientRect();
@@ -262,7 +262,7 @@
   }
 }
 
-.zero-tooltip {
+.kitzo-tooltip {
   --tooltip-arrow-clr: var(--tooltip-bg-clr);
 
   box-sizing: border-box;
@@ -288,42 +288,42 @@
   pointer-events: none;
 }
 
-.zero-tooltip.show {
+.kitzo-tooltip.show {
   opacity: 1 !important;
 }
 
-.zero-tooltip-top::before,
-.zero-tooltip-right::before,
-.zero-tooltip-bottom::before,
-.zero-tooltip-left::before {
+.kitzo-tooltip-top::before,
+.kitzo-tooltip-right::before,
+.kitzo-tooltip-bottom::before,
+.kitzo-tooltip-left::before {
 
   content: '';
   position: absolute;
   border: 6px solid;
 }
 
-.zero-tooltip-top::before {
+.kitzo-tooltip-top::before {
   top: calc(100% - 1px);
   left: 50%;
   translate: -50% 0;
   border-color: var(--tooltip-arrow-clr) transparent transparent transparent;
 }
 
-.zero-tooltip-right::before {
+.kitzo-tooltip-right::before {
   top: 50%;
   right: calc(100% - 1px);
   translate: 0 -50%;
   border-color: transparent var(--tooltip-arrow-clr) transparent transparent;
 }
 
-.zero-tooltip-bottom::before {
+.kitzo-tooltip-bottom::before {
   bottom: calc(100% - 1px);
   left: 50%;
   translate: -50% 0;
   border-color: transparent transparent var(--tooltip-arrow-clr) transparent;
 }
 
-.zero-tooltip-left::before {
+.kitzo-tooltip-left::before {
   left: calc(100% - 1px);
   top: 50%;
   translate: 0 -50%;
@@ -360,20 +360,20 @@
 
     const allButtons = getButtons(element);
     if (!allButtons) {
-      console.error('No elements found for zeroTooltip');
+      console.error('No elements found for kitzoTooltip');
       return;
     }
 
     const disAllowedStyles = ['top', 'left', 'right', 'bottom', 'position', 'zIndex', 'opacity', 'transform', 'translate', 'scale', 'rotate', 'perspective'];
     for (const key of disAllowedStyles) {
       if (key in config.style) {
-        console.warn(`[zeroTooltip] "${key}" style is managed internally and will be ignored.`);
+        console.warn(`[kitzoTooltip] "${key}" style is managed internally and will be ignored.`);
         delete config.style[key];
       }
     }
 
     allButtons.forEach((btn) => {
-      btn.setAttribute('data-zero-tooltip', true);
+      btn.setAttribute('data-kitzo-tooltip', true);
       tooltipConfigMap.set(btn, config);
     });
 
@@ -415,7 +415,7 @@
 
     if (!tooltipListenerAdded) {
       document.addEventListener('mouseover', (e) => {
-        const btn = e.target.closest('[data-zero-tooltip]');
+        const btn = e.target.closest('[data-kitzo-tooltip]');
         if (btn) {
           const { tooltip, direction, offset, customClass, style, arrow } = tooltipConfigMap.get(btn);
 
@@ -430,7 +430,7 @@
 
           const isArrowOn = arrow === 'on';
           tooltipDiv.textContent = tooltip;
-          tooltipDiv.className = `zero-tooltip ${isArrowOn ? `zero-tooltip-${direction}` : ''} ${customClass.trim() ? customClass : ''}`;
+          tooltipDiv.className = `kitzo-tooltip ${isArrowOn ? `kitzo-tooltip-${direction}` : ''} ${customClass.trim() ? customClass : ''}`;
 
           if (isArrowOn) {
             const color = getComputedStyle(tooltipDiv).backgroundColor;
@@ -447,7 +447,7 @@
       });
 
       document.addEventListener('mouseout', (e) => {
-        const btn = e.target.closest('[data-zero-tooltip]');
+        const btn = e.target.closest('[data-kitzo-tooltip]');
         if (btn) {
           tooltipDiv.classList.remove('show');
         }

@@ -70,18 +70,18 @@ export default function copy(element, config = {}) {
 
   const allButtons = getButtons(element);
   if (!allButtons) {
-    console.error('No elements found for zeroCopy');
+    console.error('No elements found for kitzoCopy');
     return;
   }
 
   if (!allowedEvents.includes(event)) {
-    console.warn(`[zeroCopy] "${event}" is not allowed. Defaulting to "click".`);
+    console.warn(`[kitzoCopy] "${event}" is not allowed. Defaulting to "click".`);
   }
 
   const safeEvent = allowedEvents.includes(event) ? event : 'click';
 
   allButtons.forEach((btn) => {
-    btn.setAttribute('data-zero-copy', 'true');
+    btn.setAttribute('data-kitzo-copy', 'true');
 
     copyConfigMap.set(btn, {
       doc,
@@ -91,7 +91,7 @@ export default function copy(element, config = {}) {
 
   if (!attachedEvents.has(safeEvent)) {
     document.addEventListener(safeEvent, (e) => {
-      const btn = e.target.closest('[data-zero-copy]');
+      const btn = e.target.closest('[data-kitzo-copy]');
       if (!btn) return;
 
       const { doc, event } = copyConfigMap.get(btn);

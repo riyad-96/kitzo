@@ -13,7 +13,7 @@ function tooltipStyles() {
   }
 }
 
-.zero-tooltip {
+.kitzo-tooltip {
   --tooltip-arrow-clr: var(--tooltip-bg-clr);
 
   box-sizing: border-box;
@@ -39,42 +39,42 @@ function tooltipStyles() {
   pointer-events: none;
 }
 
-.zero-tooltip.show {
+.kitzo-tooltip.show {
   opacity: 1 !important;
 }
 
-.zero-tooltip-top::before,
-.zero-tooltip-right::before,
-.zero-tooltip-bottom::before,
-.zero-tooltip-left::before {
+.kitzo-tooltip-top::before,
+.kitzo-tooltip-right::before,
+.kitzo-tooltip-bottom::before,
+.kitzo-tooltip-left::before {
 
   content: '';
   position: absolute;
   border: 6px solid;
 }
 
-.zero-tooltip-top::before {
+.kitzo-tooltip-top::before {
   top: calc(100% - 1px);
   left: 50%;
   translate: -50% 0;
   border-color: var(--tooltip-arrow-clr) transparent transparent transparent;
 }
 
-.zero-tooltip-right::before {
+.kitzo-tooltip-right::before {
   top: 50%;
   right: calc(100% - 1px);
   translate: 0 -50%;
   border-color: transparent var(--tooltip-arrow-clr) transparent transparent;
 }
 
-.zero-tooltip-bottom::before {
+.kitzo-tooltip-bottom::before {
   bottom: calc(100% - 1px);
   left: 50%;
   translate: -50% 0;
   border-color: transparent transparent var(--tooltip-arrow-clr) transparent;
 }
 
-.zero-tooltip-left::before {
+.kitzo-tooltip-left::before {
   left: calc(100% - 1px);
   top: 50%;
   translate: 0 -50%;
@@ -111,20 +111,20 @@ export default function kitzoTooltip(element, config = {}) {
 
   const allButtons = getButtons(element);
   if (!allButtons) {
-    console.error('No elements found for zeroTooltip');
+    console.error('No elements found for kitzoTooltip');
     return;
   }
 
   const disAllowedStyles = ['top', 'left', 'right', 'bottom', 'position', 'zIndex', 'opacity', 'transform', 'translate', 'scale', 'rotate', 'perspective'];
   for (const key of disAllowedStyles) {
     if (key in config.style) {
-      console.warn(`[zeroTooltip] "${key}" style is managed internally and will be ignored.`);
+      console.warn(`[kitzoTooltip] "${key}" style is managed internally and will be ignored.`);
       delete config.style[key];
     }
   }
 
   allButtons.forEach((btn) => {
-    btn.setAttribute('data-zero-tooltip', true);
+    btn.setAttribute('data-kitzo-tooltip', true);
     tooltipConfigMap.set(btn, config);
   });
 
@@ -166,7 +166,7 @@ export default function kitzoTooltip(element, config = {}) {
 
   if (!tooltipListenerAdded) {
     document.addEventListener('mouseover', (e) => {
-      const btn = e.target.closest('[data-zero-tooltip]');
+      const btn = e.target.closest('[data-kitzo-tooltip]');
       if (btn) {
         const { tooltip, direction, offset, customClass, style, arrow } = tooltipConfigMap.get(btn);
 
@@ -181,7 +181,7 @@ export default function kitzoTooltip(element, config = {}) {
 
         const isArrowOn = arrow === 'on';
         tooltipDiv.textContent = tooltip;
-        tooltipDiv.className = `zero-tooltip ${isArrowOn ? `zero-tooltip-${direction}` : ''} ${customClass.trim() ? customClass : ''}`;
+        tooltipDiv.className = `kitzo-tooltip ${isArrowOn ? `kitzo-tooltip-${direction}` : ''} ${customClass.trim() ? customClass : ''}`;
 
         if (isArrowOn) {
           const color = getComputedStyle(tooltipDiv).backgroundColor;
@@ -198,7 +198,7 @@ export default function kitzoTooltip(element, config = {}) {
     });
 
     document.addEventListener('mouseout', (e) => {
-      const btn = e.target.closest('[data-zero-tooltip]');
+      const btn = e.target.closest('[data-kitzo-tooltip]');
       if (btn) {
         tooltipDiv.classList.remove('show');
       }
