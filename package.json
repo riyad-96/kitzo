@@ -1,0 +1,43 @@
+{
+  "name": "kitzo",
+  "version": "0.0.0",
+  "description": "A lightweight JavaScript UI micro-library.",
+  "type": "module",
+  "main": "./dist/kitzo.umd.js",
+  "exports": {
+    ".": {
+      "import": "./dist/kitzo.esm.js",
+      "require": "./dist/kitzo.umd.js",
+      "types": "./dist/kitzo.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "rollup -c",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "tooltip",
+    "ripple",
+    "copy-button",
+    "micro-library",
+    "modular",
+    "ui",
+    "javascript",
+    "kitzo"
+  ],
+  "author": "Riyad",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/riyad-96/kitzo"
+  },
+  "homepage": "https://github.com/riyad-96/kitzo#readme",
+  "devDependencies": {
+    "rollup": "^4.46.2",
+    "vite": "^7.0.4"
+  }
+}
