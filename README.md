@@ -23,21 +23,30 @@ npm i kitzo
 <script src="https://cdn.jsdelivr.net/npm/kitzo@1.0.0/dist/kitzo.umd.min.js"></script>
 ```
 
+> Attach this script tag in the html head tag and you are good to go.
+
 ---
 
 #### Quick usage overview
 
-| [NPM](#npm-usage)                | [CDN](#cdn-usage)  |
-| -------------------------------- | ------------------ |
-| [`kitzoCopy()`](#copy-api-1)     | `kitzo.copy()`     |
-| [`kitzoTooltip()`](#tooltip-api) | `kitzo.tooltip()`  |
-| [`kitzoRipple()`](#ripple-api)   | `kitzo.ripple()`   |
-| [`kitzoDebounce()`](#debounce)   | `kitzo.debounce()` |
+| [NPM](#npm-usage)                | [CDN](#cdn-usage)                     |
+| -------------------------------- | ------------------------------------- |
+| [`kitzoCopy()`](#copy-api)       | [`kitzo.copy()`](#copy-api-1)         |
+| [`kitzoTooltip()`](#tooltip-api) | [`kitzo.tooltip()`](#tooltip-api-1)   |
+| [`kitzoRipple()`](#ripple-api)   | [`kitzo.ripple()`](#ripple-api-1)     |
+| [`kitzoDebounce()`](#debounce)   | [`kitzo.debounce()`](#debounce-api-1) |
 
 #### NPM usage
 
 ```javascript
-import { kitzoCopy, kitzoTooltip, kitzoRipple } from 'kitzo';
+import { kitzoCopy, kitzoTooltip, kitzoRipple, kitzoDebounce } from 'kitzo';
+```
+
+```javascript
+kitzoCopy();
+kitzoTooltip();
+kitzoRipple();
+kitzoDebounce();
 ```
 
 > Use a modern build tool. **vite** - recommended
@@ -90,11 +99,11 @@ kitzoDebounce(callback, delayInMilliseconds);
 ```javascript
 // Log only after typing stops for 500ms
 const logSearch = kitzoDebounce((text) => {
-  console.log("Searching for:", text);
+  console.log('Searching for:', text);
 }, 500);
 
 // Attach to input
-document.querySelector("#search").addEventListener("input", (e) => {
+document.querySelector('#search').addEventListener('input', (e) => {
   logSearch(e.target.value);
 });
 ```
@@ -109,12 +118,11 @@ document.querySelector("#search").addEventListener("input", (e) => {
 <script src="https://cdn.jsdelivr.net/npm/kitzo@1.0.0/dist/kitzo.umd.min.js"></script>
 ```
 
-> Attach this script tag in the html head tag and you are good to go.
-
 ```javascript
 kitzo.copy();
 kitzo.tooltip();
 kitzo.ripple();
+kitzo.debounce();
 ```
 
 ##### Copy API:
@@ -155,14 +163,15 @@ kitzo.ripple(selectors | element | NodeList, {
 ```javascript
 kitzo.debounce(callback, delayInMilliseconds);
 ```
+
 ```javascript
 // Log only after typing stops for 500ms
 const logSearch = kitzo.debounce((text) => {
-  console.log("Searching for:", text);
+  console.log('Searching for:', text);
 }, 500);
 
 // Attach to input
-document.querySelector("#search").addEventListener("input", (e) => {
+document.querySelector('#search').addEventListener('input', (e) => {
   logSearch(e.target.value);
 });
 ```
