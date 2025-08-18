@@ -1,4 +1,4 @@
-# zero-kitzo
+# kitzo
 
 [![npm](https://img.shields.io/npm/v/kitzo)](https://www.npmjs.com/package/kitzo)
 
