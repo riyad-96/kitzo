@@ -77,4 +77,4 @@ export function kitzoCopy(
   }
 ): void;
 
-export function debounce<Args extends any[]>(fn: (...args: Args) => any, delay?: number): (...args: Args) => void;
+export function kitzoDebounce<Args extends any[]>(fn: (...args: Args) => any, delay?: number): (...args: Args) => void;
