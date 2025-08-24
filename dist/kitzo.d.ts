@@ -1,4 +1,5 @@
-export function tooltip(
+// Tooltip
+export type tooltip = (
   element: string | Element | NodeListOf<Element>,
   config?: {
     /**
@@ -27,64 +28,77 @@ export function tooltip(
     customClass?: string;
 
     /**
-     * Inline styles to apply (excluding top, left, right, bottom, position, zIndex, opacity, transform, translate, scale, rotate, perspective)
+     * Inline styles to apply (excluding positioning/z-index/transform stuff)
      */
     style?: Partial<CSSStyleDeclaration>;
   }
-): void;
+) => void;
 
-export function ripple(
+// Ripple
+export type ripple = (
   element: string | Element | NodeListOf<Element>,
   config?: {
-    /**
-     * Ripple opacity (0 to 1). Default: 0.5
-     */
+    /** Ripple opacity (0 to 1). Default: 0.5 */
     opacity?: number;
-    /**
-     * Animation duration in seconds ('s'). Default: 1
-     */
+
+    /** Animation duration in seconds. Default: 1 */
     duration?: number;
-    /**
-     * Ripple color (CSS color). Default: 'white'
-     */
+
+    /** Ripple color (CSS color). Default: 'white' */
     color?: string;
-    /**
-     * Ripple size in pixels ('px'). If null, auto-scales based on button size. Default: null
-     */
+
+    /** Ripple size in pixels. If null, auto-scales. Default: null */
     size?: number | null;
   }
-): void;
+) => void;
 
-export function copy(
+// Copy
+export type copy = (
   element: string | Element | NodeListOf<Element>,
-  config: {
-    /**
-     * The text to be copied to the clipboard.
-     * Must be a non-empty string.
-     */
+  config?: {
+    /** The text to copy to clipboard (default: element textContent) */
     doc?: string;
 
     /**
-     * The DOM event that triggers the copy action.
-     * Only the following events are allowed:
-     * - 'click' (default)
-     * - 'dblclick'
-     * - 'contextmenu'
-     * - 'mouseup'
-     * - 'touchend'
+     * The DOM event that triggers the copy action
+     * Only allowed: 'click' | 'dblclick' | 'contextmenu' | 'mouseup' | 'touchend'
+     * Default: 'click'
      */
     event?: 'click' | 'dblclick' | 'contextmenu' | 'mouseup' | 'touchend';
   }
-): void;
+) => void;
 
-export function debounce<Args extends any[]>(fn: (...args: Args) => any, delay?: number): (...args: Args) => void;
+// Debounce
+export type debounce = <Args extends any[]>(
+  fn: (...args: Args) => any,
+  delay?: number
+) => (...args: Args) => void;
 
-export function clippath(
+// Clippath
+export type clippath = (
   element: string | Element | NodeListOf<Element>,
   config?: {
-    text?: String;
-    clippathSize?: String | Number;
-    smooth?: Boolean;
+    /** Optional text inside the clippath element */
+    text?: string;
+
+    /** Size of the clippath circle (px or %). Default: '20%' */
+    clippathSize?: string | number;
+
+    /** Enable smooth transition (default: true) */
+    smooth?: boolean;
+
+    /** Custom inline styles */
     style?: Partial<CSSStyleDeclaration>;
   }
-): void;
+) => void;
+
+// Kitzo Bundle
+export interface Kitzo {
+  tooltip: tooltip;
+  ripple: ripple;
+  copy: copy;
+  debounce: debounce;
+  clippath: clippath;
+}
+
+export const kitzo: Kitzo;
