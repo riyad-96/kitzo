@@ -21,7 +21,7 @@ npm i kitzo
 or
 
 ```javascript
-<script src="https://cdn.jsdelivr.net/npm/kitzo@1.1.0/dist/kitzo.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/kitzo@1.1.2/dist/kitzo.umd.min.js"></script>
 ```
 
 > Attach this script tag in the html head tag and you are good to go.
@@ -30,10 +30,6 @@ or
 
 #### Quick usage overview
 
-```javascript
-// NPM usage
-import kitzo from 'kitzo';
-```
 
 | [API](#apis)                        |
 | ----------------------------------- |
@@ -41,11 +37,13 @@ import kitzo from 'kitzo';
 | [`kitzo.tooltip()`](#tooltip-api)   |
 | [`kitzo.ripple()`](#ripple-api)     |
 | [`kitzo.debounce()`](#debounce-api) |
-| [`kitzo.clippath()`](#clippath-api)     |
+| [`kitzo.clippath()`](#clippath-api) |
 
 #### APIs
-
 ```javascript
+// NPM usage
+import kitzo from 'kitzo';
+
 kitzo.copy();
 kitzo.tooltip();
 kitzo.ripple();
