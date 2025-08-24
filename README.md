@@ -56,7 +56,7 @@ kitzo.clippath();
 ##### Copy API:
 
 ```javascript
-kitzoCopy(selector | element, {
+kitzo.copy(selector | element, {
   doc: string,
   event: 'click' | 'dblclick' | 'contextmenu' | 'mouseup' | 'touchend',
 });
@@ -67,7 +67,7 @@ kitzoCopy(selector | element, {
 ##### Tooltip API:
 
 ```javascript
-kitzoTooltip(selectors | element | NodeList, {
+kitzo.tooltip(selectors | element | NodeList, {
   tooltip: string,
   direction: 'top' | 'right' | 'bottom' | 'left',
   arrow: 'on' | 'off',
@@ -82,7 +82,7 @@ kitzoTooltip(selectors | element | NodeList, {
 ##### Ripple API:
 
 ```javascript
-kitzoRipple(selectors | element | NodeList, {
+kitzo.ripple(selectors | element | NodeList, {
   opacity: number,
   duration: number,
   color: string,
@@ -95,12 +95,12 @@ kitzoRipple(selectors | element | NodeList, {
 ##### Debounce API:
 
 ```javascript
-kitzoDebounce(callback, delayInMilliseconds);
+kitzo.debounce(callback, delayInMilliseconds);
 ```
 
 ```javascript
 // Log only after typing stops for 500ms
-const logSearch = kitzoDebounce((text) => {
+const logSearch = kitzo.debounce((text) => {
   console.log('Searching for:', text);
 }, 500);
 
