@@ -75,7 +75,7 @@ export default function copy(element, config = {}) {
   }
 
   if (!allowedEvents.includes(event)) {
-    console.warn(`[kitzoCopy] "${event}" is not allowed. Defaulting to "click".`);
+    console.warn(`[kitzo.copy] "${event}" is not allowed. Defaulting to "click".`);
   }
 
   const safeEvent = allowedEvents.includes(event) ? event : 'click';

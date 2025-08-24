@@ -1,4 +1,5 @@
 //! Helper functions
+// Get elements from dom
 function getButtons(element) {
   if (typeof element === 'string') {
     return document.querySelectorAll(element);
@@ -14,6 +15,7 @@ function getButtons(element) {
 // Add style tags
 let tooltipStyleAdded = false;
 let rippleStyleAdded = false;
+let clippathStyleAdded = false;
 
 function addStyleTag(styles) {
   const style = document.createElement('style');
@@ -29,6 +31,10 @@ function addStyleTagToHtmlHead(type, styles) {
   if (type === 'ripple' && !rippleStyleAdded) {
     addStyleTag(styles);
     rippleStyleAdded = true;
+  }
+  if (type === 'clippath' && !clippathStyleAdded) {
+    addStyleTag(styles);
+    clippathStyleAdded = true;
   }
 }
 
@@ -64,7 +70,7 @@ const copyConfigMap = new WeakMap();
 const allowedEvents = ['click', 'dblclick', 'contextmenu', 'mouseup', 'touchend'];
 const attachedEvents = new Set();
 
-function kitzoCopy(element, config = {}) {
+function copy(element, config = {}) {
   config = Object.assign(
     {
       doc: '',
@@ -107,7 +113,7 @@ function kitzoCopy(element, config = {}) {
   }
 
   if (!allowedEvents.includes(event)) {
-    console.warn(`[kitzoCopy] "${event}" is not allowed. Defaulting to "click".`);
+    console.warn(`[kitzo.copy] "${event}" is not allowed. Defaulting to "click".`);
   }
 
   const safeEvent = allowedEvents.includes(event) ? event : 'click';
@@ -135,7 +141,7 @@ function kitzoCopy(element, config = {}) {
   }
 }
 
-function kitzoDebounce(fn, delay = 300) {
+function debounce(fn, delay = 300) {
   let timer;
 
   return (...args) => {
@@ -186,9 +192,9 @@ function rippleStyles() {
 //! Ripple effect
 let rippleListenerAdded = false;
 
-function kitzoRipple(element, config = {}) {
+function ripple(element, config = {}) {
   if (!element) {
-    console.error('A button element/selector is expected');
+    console.error('[kitzo.ripple] A button element/selector is expected');
     return;
   }
 
@@ -208,7 +214,7 @@ function kitzoRipple(element, config = {}) {
 
   const allButtons = getButtons(element);
   if (!allButtons) {
-    console.error('No elements found for kitzoRipple');
+    console.error('[kitzo.ripple] No elements found for kitzoRipple');
     return;
   }
   allButtons.forEach((btn) => {
@@ -330,7 +336,7 @@ let tooltipDiv;
 let tooltipListenerAdded = false;
 const tooltipConfigMap = new WeakMap();
 
-function kitzoTooltip(element, config = {}) {
+function tooltip(element, config = {}) {
   if (window.matchMedia('(pointer: coarse)').matches) return;
 
   if (!element) {
@@ -354,14 +360,14 @@ function kitzoTooltip(element, config = {}) {
 
   const allButtons = getButtons(element);
   if (!allButtons) {
-    console.error('No elements found for kitzoTooltip');
+    console.error('[kitzo.tooltip] No elements found for kitzoTooltip');
     return;
   }
 
   const disAllowedStyles = ['top', 'left', 'right', 'bottom', 'position', 'zIndex', 'opacity', 'transform', 'translate', 'scale', 'rotate', 'perspective'];
   for (const key of disAllowedStyles) {
     if (key in config.style) {
-      console.warn(`[kitzoTooltip] "${key}" style is managed internally and will be ignored.`);
+      console.warn(`[kitzo.tooltip] "${key}" style is managed internally and will be ignored.`);
       delete config.style[key];
     }
   }
@@ -451,4 +457,167 @@ function kitzoTooltip(element, config = {}) {
   }
 }
 
-export { kitzoCopy, kitzoDebounce, kitzoRipple, kitzoTooltip };
+function clippathStyles() {
+  return `.kitzo-clippath-div {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  opacity: 0;
+  clip-path: circle(0 at var(--kitzo-clippath-pos-x) var(--kitzo-clippath-pos-y));
+  transition: var(--kitzo-clippath-transition);
+}
+
+.kitzo-clippath-div.show {
+  opacity: 1;
+  clip-path: circle(var(--kitzo-clippath-size) at var(--kitzo-clippath-pos-x) var(--kitzo-clippath-pos-y));
+}`;
+}
+
+function getClippathSize(size) {
+  if (size?.trim?.() === '') {
+    return '20%';
+  }
+  if (typeof size === 'number') {
+    if (size < 0) {
+      console.warn("[kitzo.clippath] please provide a string value or positive number(px). Default is '20%'");
+      return `20%`;
+    }
+    return `${size}px`;
+  }
+  if (typeof size === 'string') {
+    return `${size}`;
+  }
+  console.warn("[kitzo.clippath] please provide a string value or positive number(px). Default is '20%'");
+  return '20%';
+}
+
+const clippathConfigMap = new WeakMap();
+let isClippathListenersAdded = false;
+let clippathDiv;
+
+function clippath(element, config = {}) {
+  if (window.matchMedia('(pointer:coarse)').matches) return;
+
+  if (!element) {
+    console.error('[kitzo.clippath] A button element/selector is expected');
+    return;
+  }
+
+  addStyleTagToHtmlHead('clippath', clippathStyles());
+
+  config = Object.assign(
+    {
+      text: '',
+      clippathSize: '20%',
+      smooth: true,
+      style: {},
+    },
+    config
+  );
+
+  const allButtons = getButtons(element);
+  if (!allButtons) {
+    console.error('[kitzo.clippath] No elements found for kitzoTooltip');
+    return;
+  }
+
+  const disAllowedStyles = ['top', 'left', 'right', 'bottom', 'position', 'opacity', 'transform', 'translate', 'scale', 'rotate', 'perspective'];
+  for (const key of disAllowedStyles) {
+    if (key in config.style) {
+      console.warn(`[kitzo.clippath] "${key}" style is managed internally and will be ignored.`);
+      delete config.style[key];
+    }
+  }
+
+  allButtons.forEach((btn) => {
+    btn.setAttribute('data-kitzo-clippath', true);
+    clippathConfigMap.set(btn, config);
+  });
+
+  if (!clippathDiv) {
+    clippathDiv = document.createElement('div');
+    clippathDiv.className = 'kitzo-clippath-div';
+    document.body.appendChild(clippathDiv);
+  }
+
+  if (!isClippathListenersAdded) {
+    let isHovering = false;
+
+    document.addEventListener('mouseover', (e) => {
+      const btn = e.target.closest('[data-kitzo-clippath]');
+
+      if (btn) {
+        isHovering = true;
+        const { text, style, clippathSize, smooth } = clippathConfigMap.get(btn);
+        const { width, height, top, left } = btn.getBoundingClientRect();
+
+        clippathDiv.removeAttribute('style');
+
+        clippathDiv.style.width = width + 'px';
+        clippathDiv.style.height = height + 'px';
+        clippathDiv.style.top = top + 'px';
+        clippathDiv.style.left = left + 'px';
+
+        if (!text) {
+          clippathDiv.innerHTML = btn.innerHTML;
+        } else {
+          clippathDiv.innerHTML = text;
+        }
+
+        clippathDiv.style.setProperty('--kitzo-clippath-transition', smooth ? 'clip-path 150ms ease-out, opacity 150ms' : 'none');
+        clippathDiv.style.setProperty('--kitzo-clippath-size', getClippathSize(clippathSize));
+
+        const { borderRadius, font, letterSpacing, lineHeight, border, boxSizing, padding } = window.getComputedStyle(btn);
+
+        Object.assign(clippathDiv.style, {
+          backgroundColor: '#01c2b8',
+          color: 'white',
+          borderRadius,
+          font,
+          letterSpacing,
+          lineHeight,
+          border,
+          boxSizing,
+          padding,
+          ...style,
+        });
+
+        requestAnimationFrame(() => {
+          clippathDiv.classList.add('show');
+        });
+      }
+    });
+
+    document.addEventListener('mouseout', (e) => {
+      const btn = e.target.closest('[data-kitzo-clippath]');
+
+      if (btn) {
+        clippathDiv.classList.remove('show');
+        isHovering = false;
+      }
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isHovering) return;
+      const btn = e.target.closest('[data-kitzo-clippath]');
+
+      if (btn) {
+        const { top, left } = btn.getBoundingClientRect();
+        const localX = e.clientX - left;
+        const localY = e.clientY - top;
+
+        clippathDiv.style.setProperty('--kitzo-clippath-pos-x', `${localX}px`);
+        clippathDiv.style.setProperty('--kitzo-clippath-pos-y', `${localY}px`);
+      }
+    });
+
+    isClippathListenersAdded = true;
+  }
+}
+
+const kitzo = { copy, debounce, ripple, tooltip, clippath };
+
+export { kitzo as default };

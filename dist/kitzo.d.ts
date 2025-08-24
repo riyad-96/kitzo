@@ -1,5 +1,5 @@
-export function kitzoTooltip(
-  element: string | Element | NodeListOf<Element> | HTMLCollection,
+export function tooltip(
+  element: string | Element | NodeListOf<Element>,
   config?: {
     /**
      * The tooltip text to display (default: "Tool tip")
@@ -33,8 +33,8 @@ export function kitzoTooltip(
   }
 ): void;
 
-export function kitzoRipple(
-  element: string | Element | NodeListOf<Element> | HTMLCollection,
+export function ripple(
+  element: string | Element | NodeListOf<Element>,
   config?: {
     /**
      * Ripple opacity (0 to 1). Default: 0.5
@@ -55,7 +55,7 @@ export function kitzoRipple(
   }
 ): void;
 
-export function kitzoCopy(
+export function copy(
   element: string | Element | NodeListOf<Element>,
   config: {
     /**
@@ -77,4 +77,14 @@ export function kitzoCopy(
   }
 ): void;
 
-export function kitzoDebounce<Args extends any[]>(fn: (...args: Args) => any, delay?: number): (...args: Args) => void;
+export function debounce<Args extends any[]>(fn: (...args: Args) => any, delay?: number): (...args: Args) => void;
+
+export function clippath(
+  element: string | Element | NodeListOf<Element>,
+  config?: {
+    text?: String;
+    clippathSize?: String | Number;
+    smooth?: Boolean;
+    style?: Partial<CSSStyleDeclaration>;
+  }
+): void;

@@ -10,6 +10,7 @@ Current features
 - Tooltip on mouseover
 - Ripple effect on mousedown
 - Debounce function
+- Hover clip-path effect
 
 #### Install
 
@@ -17,10 +18,10 @@ Current features
 npm i kitzo
 ```
 
-> or
+or
 
 ```javascript
-<script src="https://cdn.jsdelivr.net/npm/kitzo@1.0.5/dist/kitzo.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/kitzo@1.1.0/dist/kitzo.umd.min.js"></script>
 ```
 
 > Attach this script tag in the html head tag and you are good to go.
@@ -29,24 +30,27 @@ npm i kitzo
 
 #### Quick usage overview
 
-| [NPM](#npm-usage)                | [CDN](#cdn-usage)                     |
-| -------------------------------- | ------------------------------------- |
-| [`kitzoCopy()`](#copy-api)       | [`kitzo.copy()`](#copy-api-1)         |
-| [`kitzoTooltip()`](#tooltip-api) | [`kitzo.tooltip()`](#tooltip-api-1)   |
-| [`kitzoRipple()`](#ripple-api)   | [`kitzo.ripple()`](#ripple-api-1)     |
-| [`kitzoDebounce()`](#debounce)   | [`kitzo.debounce()`](#debounce-api-1) |
-
-#### NPM usage
-
 ```javascript
-import { kitzoCopy, kitzoTooltip, kitzoRipple, kitzoDebounce } from 'kitzo';
+// NPM usage
+import kitzo from 'kitzo';
 ```
 
+| [API](#apis)                        |
+| ----------------------------------- |
+| [`kitzo.copy()`](#copy-api)         |
+| [`kitzo.tooltip()`](#tooltip-api)   |
+| [`kitzo.ripple()`](#ripple-api)     |
+| [`kitzo.debounce()`](#debounce-api) |
+| [`kitzo.clippath()`](#clippath-api)     |
+
+#### APIs
+
 ```javascript
-kitzoCopy();
-kitzoTooltip();
-kitzoRipple();
-kitzoDebounce();
+kitzo.copy();
+kitzo.tooltip();
+kitzo.ripple();
+kitzo.debounce();
+kitzo.clippath();
 ```
 
 > Use a modern build tool. **vite** - recommended
@@ -71,7 +75,7 @@ kitzoTooltip(selectors | element | NodeList, {
   arrow: 'on' | 'off',
   offset: number,
   customClass: string,
-  style: {},
+  style: object,
 });
 ```
 
@@ -84,7 +88,7 @@ kitzoRipple(selectors | element | NodeList, {
   opacity: number,
   duration: number,
   color: string,
-  size: number | null,
+  size: number,
 });
 ```
 
@@ -110,68 +114,13 @@ document.querySelector('#search').addEventListener('input', (e) => {
 
 > Debounce on every call of function.
 
----
-
-#### CDN usage
-
-```html
-<script src="https://cdn.jsdelivr.net/npm/kitzo@1.0.0/dist/kitzo.umd.min.js"></script>
-```
+##### Clippath API:
 
 ```javascript
-kitzo.copy();
-kitzo.tooltip();
-kitzo.ripple();
-kitzo.debounce();
-```
-
-##### Copy API:
-
-```javascript
-kitzo.copy(selectors | element, {
-  doc: string,
-  event: 'click' | 'dblclick' | 'contextmenu' | 'mouseup' | 'touchend',
-});
-```
-
-##### Tooltip API:
-
-```javascript
-kitzo.tooltip(selectors | element | NodeList, {
-  tooltip: string,
-  direction: 'top' | 'right' | 'bottom' | 'left',
-  arrow: 'on' | 'off',
-  offset: number,
-  customClass: string,
-  style: {},
-});
-```
-
-##### Ripple API:
-
-```javascript
-kitzo.ripple(selectors | element | NodeList, {
-  opacity: number,
-  duration: number,
-  color: string,
-  size: number | null,
-});
-```
-
-##### Debounce API:
-
-```javascript
-kitzo.debounce(callback, delayInMilliseconds);
-```
-
-```javascript
-// Log only after typing stops for 500ms
-const logSearch = kitzo.debounce((text) => {
-  console.log('Searching for:', text);
-}, 500);
-
-// Attach to input
-document.querySelector('#search').addEventListener('input', (e) => {
-  logSearch(e.target.value);
+kitzo.clippath(selectors | element | NodeList, {
+  text: string,
+  clippathSize: string | number,
+  smooth: boolean,
+  style: object,
 });
 ```

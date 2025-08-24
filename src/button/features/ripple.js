@@ -42,9 +42,9 @@ function rippleStyles() {
 //! Ripple effect
 let rippleListenerAdded = false;
 
-export default function kitzoRipple(element, config = {}) {
+export default function ripple(element, config = {}) {
   if (!element) {
-    console.error('A button element/selector is expected');
+    console.error('[kitzo.ripple] A button element/selector is expected');
     return;
   }
 
@@ -64,7 +64,7 @@ export default function kitzoRipple(element, config = {}) {
 
   const allButtons = getButtons(element);
   if (!allButtons) {
-    console.error('No elements found for kitzoRipple');
+    console.error('[kitzo.ripple] No elements found for kitzoRipple');
     return;
   }
   allButtons.forEach((btn) => {

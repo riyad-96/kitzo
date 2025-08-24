@@ -111,14 +111,14 @@ export default function tooltip(element, config = {}) {
 
   const allButtons = getButtons(element);
   if (!allButtons) {
-    console.error('No elements found for kitzoTooltip');
+    console.error('[kitzo.tooltip] No elements found for kitzoTooltip');
     return;
   }
 
   const disAllowedStyles = ['top', 'left', 'right', 'bottom', 'position', 'zIndex', 'opacity', 'transform', 'translate', 'scale', 'rotate', 'perspective'];
   for (const key of disAllowedStyles) {
     if (key in config.style) {
-      console.warn(`[kitzoTooltip] "${key}" style is managed internally and will be ignored.`);
+      console.warn(`[kitzo.tooltip] "${key}" style is managed internally and will be ignored.`);
       delete config.style[key];
     }
   }

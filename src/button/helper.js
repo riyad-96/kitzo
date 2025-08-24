@@ -1,4 +1,5 @@
 //! Helper functions
+// Get elements from dom
 export function getButtons(element) {
   if (typeof element === 'string') {
     return document.querySelectorAll(element);
@@ -14,6 +15,7 @@ export function getButtons(element) {
 // Add style tags
 let tooltipStyleAdded = false;
 let rippleStyleAdded = false;
+let clippathStyleAdded = false;
 
 function addStyleTag(styles) {
   const style = document.createElement('style');
@@ -29,5 +31,9 @@ export function addStyleTagToHtmlHead(type, styles) {
   if (type === 'ripple' && !rippleStyleAdded) {
     addStyleTag(styles);
     rippleStyleAdded = true;
+  }
+  if (type === 'clippath' && !clippathStyleAdded) {
+    addStyleTag(styles);
+    clippathStyleAdded = true;
   }
 }

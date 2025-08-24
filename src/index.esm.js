@@ -1,6 +1,9 @@
-import kitzoCopy from './button/esm/kitzoCopy';
-import kitzoDebounce from './button/esm/kitzoDebounce';
-import kitzoRipple from './button/esm/kitzoRipple';
-import kitzoTooltip from './button/esm/kitzoTooltip';
+import copy from './button/features/copy';
+import debounce from './button/features/debounce';
+import ripple from './button/features/ripple';
+import tooltip from './button/features/tooltip';
+import clippath from './button/features/clippath';
 
-export { kitzoCopy, kitzoDebounce, kitzoRipple, kitzoTooltip };
+const kitzo = { copy, debounce, ripple, tooltip, clippath };
+
+export default kitzo;

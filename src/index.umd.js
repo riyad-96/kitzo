@@ -1,6 +1,7 @@
-import copy from './button/umd/copy';
-import debounce from './button/umd/debounce';
-import ripple from './button/umd/ripple';
-import tooltip from './button/umd/tooltip';
+import copy from './button/features/copy';
+import debounce from './button/features/debounce';
+import ripple from './button/features/ripple';
+import tooltip from './button/features/tooltip';
+import clippath from './button/features/clippath';
 
-export { copy, debounce, ripple, tooltip };
+export { copy, debounce, ripple, tooltip, clippath };
