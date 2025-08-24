@@ -69,10 +69,7 @@ export type copy = (
 ) => void;
 
 // Debounce
-export type debounce = <Args extends any[]>(
-  fn: (...args: Args) => any,
-  delay?: number
-) => (...args: Args) => void;
+export type debounce = <Args extends any[]>(fn: (...args: Args) => any, delay?: number) => (...args: Args) => void;
 
 // Clippath
 export type clippath = (
@@ -101,4 +98,5 @@ export interface Kitzo {
   clippath: clippath;
 }
 
-export const kitzo: Kitzo;
+declare const kitzo: Kitzo;
+export default kitzo;
