@@ -1,12 +1,7 @@
 import { addStyleTagToHtmlHead, getButtons } from '../helper';
 
 function rippleStyles() {
-  return `.kitzo-ripple {
-  position: relative;
-  overflow: hidden;
-}
-
-.kitzo-ripples {
+  return `.kitzo-ripples {
   display: block;
   position: absolute;
   top: 0;
@@ -41,6 +36,7 @@ function rippleStyles() {
 
 //! Ripple effect
 let rippleListenerAdded = false;
+const rippleConfigMap = new WeakMap();
 
 export default function ripple(element, config = {}) {
   if (!element) {
@@ -60,22 +56,29 @@ export default function ripple(element, config = {}) {
     config
   );
 
-  const { opacity, color, duration, size } = config;
-
   const allButtons = getButtons(element);
   if (!allButtons) {
     console.error('[kitzo.ripple] No elements found for kitzoRipple');
     return;
   }
   allButtons.forEach((btn) => {
-    btn.classList.add('kitzo-ripple');
-    btn.setAttribute('data-kitzo-ripple', 'true');
+    btn.setAttribute('data-kitzo-ripple', true);
+    rippleConfigMap.set(btn, config);
+    const { position, overflow } = window.getComputedStyle(btn);
+    console.log(position, overflow);
+    if (position === 'static') {
+      btn.style.position = 'relative';
+    }
+    if (overflow === 'visible') {
+      btn.style.overflow = 'hidden';
+    }
   });
 
   if (!rippleListenerAdded) {
     document.addEventListener('mousedown', (e) => {
       const btn = e.target.closest('[data-kitzo-ripple]');
       if (btn) {
+        const { opacity, duration, color, size } = rippleConfigMap.get(btn);
         const span = document.createElement('span');
         span.className = 'kitzo-ripples';
         btn.appendChild(span);
