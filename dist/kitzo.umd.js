@@ -221,7 +221,6 @@
       btn.setAttribute('data-kitzo-ripple', true);
       rippleConfigMap.set(btn, config);
       const { position, overflow } = window.getComputedStyle(btn);
-      console.log(position, overflow);
       if (position === 'static') {
         btn.style.position = 'relative';
       }
