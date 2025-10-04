@@ -2,15 +2,19 @@
 
 [![npm](https://img.shields.io/npm/v/kitzo)](https://www.npmjs.com/package/kitzo)
 
-### A lightweight tool
+### A lightweight library of Vanilla js and React js
 
-Current features
+##### [Vanilla js](#quick-usage-overview-vanilla-js)
 
 - Copy on click
 - Tooltip on mouseover
 - Ripple effect on mousedown
 - Debounce function
 - Hover clip-path effect
+
+##### [React js](#react)
+
+- React Toast notifications
 
 #### Install
 
@@ -21,17 +25,16 @@ npm i kitzo
 or
 
 ```javascript
-<script src="https://cdn.jsdelivr.net/npm/kitzo@1.1.7/dist/kitzo.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/kitzo@2.0.0/dist/kitzo.umd.min.js"></script>
 ```
 
 > Attach this script tag in the html head tag and you are good to go.
 
 ---
 
-#### Quick usage overview
+#### Quick usage overview: Vanilla js
 
-
-| [API](#apis)                        |
+| [API](#vanilla-apis)                |
 | ----------------------------------- |
 | [`kitzo.copy()`](#copy-api)         |
 | [`kitzo.tooltip()`](#tooltip-api)   |
@@ -39,7 +42,8 @@ or
 | [`kitzo.debounce()`](#debounce-api) |
 | [`kitzo.clippath()`](#clippath-api) |
 
-#### APIs
+#### Vanilla APIs
+
 ```javascript
 // NPM usage
 import kitzo from 'kitzo';
@@ -121,4 +125,79 @@ kitzo.clippath(selectors | element | NodeList, {
   smooth: boolean,
   style: object,
 });
+```
+
+---
+
+## React
+
+#### Install
+
+```bash
+npm i kitzo
+```
+
+#### React APIs
+
+```jsx
+import { ToastContainer, toast, ... } from 'kitzo/react';
+```
+
+##### Toast API:
+
+```jsx
+import { toast } from 'kitzo/react';
+
+toast.success('toast message', {});
+toast.error('toast message', {});
+toast.promise(
+  promise(),
+  {
+    loading: 'Saving...',
+    success: 'Saved',
+    error: 'Error occured',
+  },
+  { duration: 2000 }
+);
+```
+
+##### Toast API Usage
+
+```jsx
+import { ToastContainer, toast } from 'kitzo/react';
+
+function App() {
+  function fakePromise() {
+    return new Promise((resolved, rejected) => {
+      setTimeout(() => {
+        Math.random() > 0.5 ? resolved('resolved') : rejected('rejected');
+      }, 2000)
+    })
+  }
+
+  return (
+    <div>
+      <button onClick={() => toast.success('✅ Success toast message')}>Succes</button>
+      <button onClick={() => toast.error('❌ Error toast message')}>Error</button>
+      <button
+        onClick={() => {
+          toast.promise(
+            fakePromise(),
+            {
+              loading: 'Saving data...',
+              success: 'Data saved',
+              error: 'Failed saving data',
+            },
+            { duration: 2500 }
+          );
+        }}
+      >
+        Promise
+      </button>
+
+      {/* Toast container must needed */}
+      <ToastContainer position="top-center" />
+    </div>
+  );
+}
 ```

@@ -1,5 +1,10 @@
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import babel from '@rollup/plugin-babel';
+
 const umd = './src/index.umd.js';
 const esm = './src/index.esm.js';
+const react = './src/react/index.jsx';
 
 export default [
   {
@@ -9,6 +14,7 @@ export default [
       format: 'umd',
       name: 'kitzo',
     },
+    plugins: [resolve(), commonjs()],
   },
   {
     input: esm,
@@ -16,5 +22,23 @@ export default [
       file: './dist/kitzo.esm.js',
       format: 'esm',
     },
+    plugins: [resolve(), commonjs()],
+  },
+  {
+    input: react,
+    output: {
+      file: './dist/react.esm.js',
+      format: 'esm',
+    },
+    external: ['react', 'react-dom'],
+    plugins: [
+      resolve({ extensions: ['.js', '.jsx'] }),
+      commonjs(),
+      babel({
+        presets: ['@babel/preset-react'],
+        babelHelpers: 'bundled',
+        extensions: ['.js', '.jsx'],
+      }),
+    ],
   },
 ];

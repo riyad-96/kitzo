@@ -9,6 +9,10 @@
       "import": "./dist/kitzo.esm.js",
       "require": "./dist/kitzo.umd.js",
       "types": "./dist/kitzo.d.ts"
+    },
+    "./react": {
+      "import": "./dist/react.esm.js",
+      "types": "./dist/react.d.ts"
     }
   },
   "files": [
@@ -27,6 +31,7 @@
     "modular",
     "ui",
     "javascript",
+    "react",
     "kitzo"
   ],
   "author": "Riyad",
@@ -37,7 +42,19 @@
   },
   "homepage": "https://github.com/riyad-96/kitzo#readme",
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.6",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@babel/core": "^7.28.4",
+    "@babel/preset-react": "^7.27.1",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@vitejs/plugin-react": "^5.0.4",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
     "rollup": "^4.46.2",
     "vite": "^7.0.4"
+  },
+  "peerDependencies": {
+    "react": ">=17",
+    "react-dom": ">=17"
   }
 }
