@@ -8,24 +8,25 @@ function Toast({ toast, setToasts, position }) {
 
   useLayoutEffect(() => {
     if (!ref.current) return;
-    const h = ref.current.getBoundingClientRect().height;
+
+    const height = ref.current.getBoundingClientRect().height;
 
     setToasts((prev) => {
-      const idx = prev.findIndex((t) => t.options.id === toast.id);
-      if (idx === -1) return prev;
+      const index = prev.findIndex((t) => t.options.id === toast.options.id);
+      if (index === -1) return prev;
 
       const newToasts = [...prev];
-      newToasts[idx] = { ...newToasts[idx], height: h };
+      newToasts[index] = { ...newToasts[index], height };
 
       let offset = 0;
-      for (let i = 0; i < newToasts.length; i++) {
-        newToasts[i] = { ...newToasts[i], offset };
-        offset += newToasts[i].height + GAP;
+      for (let t of newToasts) {
+        t.offset = offset;
+        offset += (t.height || 0) + GAP;
       }
 
       return newToasts;
     });
-  }, [setToasts, toast.id]);
+  }, [setToasts, toast.options.id]);
 
   const transformY = position.includes('bottom') ? `translateY(-${toast.offset || 0}px)` : `translateY(${toast.offset || 0}px)`;
 

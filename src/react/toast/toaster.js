@@ -206,7 +206,6 @@ export function subscribe(callback) {
 
 export function success(text = 'Toast success', options = {}) {
   const id = Date.now();
-
   options = Object.assign(
     {
       duration: 2000,
@@ -219,7 +218,6 @@ export function success(text = 'Toast success', options = {}) {
 
 export function error(text = 'Toast denied', options = {}) {
   const id = Date.now();
-
   options = Object.assign(
     {
       duration: 2000,

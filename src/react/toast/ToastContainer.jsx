@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { subscribe } from './toaster';
 import Toast from './Toast';
 
@@ -13,11 +13,13 @@ export default function ToastContainer(props) {
   const { position } = props;
 
   const [toasts, setToasts] = useState([]);
+  const timeouts = useRef(new Set());
 
   useEffect(() => {
     const unsub = subscribe((toast) => {
       const duration = toast.options.duration;
       const id = toast.options.id;
+      console.log(toast);
 
       setToasts((prev) => {
         const exists = prev.some((t) => t.options.id === id);
@@ -29,18 +31,36 @@ export default function ToastContainer(props) {
       });
 
       if (toast.type !== 'loading') {
-        setTimeout(() => {
+        const exit = setTimeout(() => {
           setToasts((prev) => prev.map((t) => (t.options.id === id ? { ...t, leaving: true } : t)));
         }, Math.max(0, duration - 300));
 
-        setTimeout(() => {
+        const remove = setTimeout(() => {
           setToasts((prev) => prev.filter((t) => t.options.id !== id));
         }, duration);
+
+        timeouts.current.add(exit);
+        timeouts.current.add(remove);
       }
     });
 
-    return () => unsub();
+    return () => {
+      unsub();
+      timeouts.current.forEach(clearTimeout);
+      timeouts.current.clear();
+    };
   }, []);
+
+  useEffect(() => {
+    let offset = 0;
+    setToasts((prev) =>
+      prev.map((t) => {
+        const newToast = { ...t, offset };
+        offset += (t.height || 0) + 10;
+        return newToast;
+      })
+    );
+  }, [toasts.map((t) => t.height).join(',')]);
 
   return (
     <div
@@ -53,8 +73,8 @@ export default function ToastContainer(props) {
         padding: '1rem',
       }}
     >
-      {toasts.map((t) => (
-        <Toast key={t.options.id} toast={t} setToasts={setToasts} position={position} />
+      {toasts.map((toast) => (
+        <Toast key={toast.options.id} toast={toast} setToasts={setToasts} position={position} />
       ))}
     </div>
   );
