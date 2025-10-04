@@ -15,11 +15,10 @@ export default function ToastContainer(props) {
   const [toasts, setToasts] = useState([]);
 
   useEffect(() => {
-    const timeouts = new Set();
-
     const unsub = subscribe((toast) => {
       const duration = toast.options.duration;
       const id = toast.options.id;
+      console.log(id);
 
       setToasts((prev) => {
         const exists = prev.some((t) => t.options.id === id);
@@ -31,24 +30,17 @@ export default function ToastContainer(props) {
       });
 
       if (toast.type !== 'loading') {
-        const exit = setTimeout(() => {
+        setTimeout(() => {
           setToasts((prev) => prev.map((t) => (t.options.id === id ? { ...t, leaving: true } : t)));
         }, Math.max(0, duration - 300));
 
-        const remove = setTimeout(() => {
+        setTimeout(() => {
           setToasts((prev) => prev.filter((t) => t.options.id !== id));
         }, duration);
-
-        timeouts.add(exit);
-        timeouts.add(remove);
       }
     });
 
-    return () => {
-      unsub();
-      timeouts.forEach(clearTimeout);
-      timeouts.clear();
-    };
+    return () => unsub();
   }, []);
 
   return (

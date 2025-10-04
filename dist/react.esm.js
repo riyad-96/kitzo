@@ -319,6 +319,7 @@ function LoadingSvg() {
   })));
 }
 
+const GAP = 10;
 function Toast({
   toast,
   setToasts,
@@ -328,32 +329,35 @@ function Toast({
   useLayoutEffect(() => {
     if (!ref.current) return;
     const h = ref.current.getBoundingClientRect().height;
-    setToasts(prev => prev.map(t => t.options.id === toast.id ? t : {
-      ...t,
-      offset: t.offset + h + 10
-    }));
-  }, [setToasts, toast.id]);
-  if (position.includes('bottom')) {
-    return /*#__PURE__*/React.createElement("div", {
-      ref: ref,
-      className: "toast",
-      style: {
-        transform: `translateY(-${toast.offset}px)`,
-        ...getToastPosition(position)
+    setToasts(prev => {
+      const idx = prev.findIndex(t => t.options.id === toast.id);
+      if (idx === -1) return prev;
+      const newToasts = [...prev];
+      newToasts[idx] = {
+        ...newToasts[idx],
+        height: h
+      };
+      let offset = 0;
+      for (let i = 0; i < newToasts.length; i++) {
+        newToasts[i] = {
+          ...newToasts[i],
+          offset
+        };
+        offset += newToasts[i].height + GAP;
       }
-    }, /*#__PURE__*/React.createElement("div", {
-      className: `toast-content-bottom ${toast.leaving ? 'exit' : ''}`
-    }, toast.type === 'loading' && /*#__PURE__*/React.createElement(LoadingSvg, null), toast.type === 'success' && /*#__PURE__*/React.createElement(SuccessSvg, null), toast.type === 'error' && /*#__PURE__*/React.createElement(ErrorSvg, null), /*#__PURE__*/React.createElement("span", null, toast.text)));
-  }
+      return newToasts;
+    });
+  }, [setToasts, toast.id]);
+  const transformY = position.includes('bottom') ? `translateY(-${toast.offset || 0}px)` : `translateY(${toast.offset || 0}px)`;
   return /*#__PURE__*/React.createElement("div", {
     ref: ref,
     className: "toast",
     style: {
-      transform: `translateY(${toast.offset}px)`,
+      transform: transformY,
       ...getToastPosition(position)
     }
   }, /*#__PURE__*/React.createElement("div", {
-    className: `toast-content ${toast.leaving ? 'exit' : ''}`
+    className: `toast-content${position.includes('bottom') ? '-bottom' : ''} ${toast.leaving ? 'exit' : ''}`
   }, toast.type === 'loading' && /*#__PURE__*/React.createElement(LoadingSvg, null), toast.type === 'success' && /*#__PURE__*/React.createElement(SuccessSvg, null), toast.type === 'error' && /*#__PURE__*/React.createElement(ErrorSvg, null), /*#__PURE__*/React.createElement("span", null, toast.text)));
 }
 function getToastPosition(position) {
@@ -386,10 +390,10 @@ function ToastContainer(props) {
   } = props;
   const [toasts, setToasts] = useState([]);
   useEffect(() => {
-    const timeouts = new Set();
     const unsub = subscribe(toast => {
       const duration = toast.options.duration;
       const id = toast.options.id;
+      console.log(id);
       setToasts(prev => {
         const exists = prev.some(t => t.options.id === id);
         if (exists) {
@@ -406,24 +410,18 @@ function ToastContainer(props) {
         }, ...prev];
       });
       if (toast.type !== 'loading') {
-        const exit = setTimeout(() => {
+        setTimeout(() => {
           setToasts(prev => prev.map(t => t.options.id === id ? {
             ...t,
             leaving: true
           } : t));
         }, Math.max(0, duration - 300));
-        const remove = setTimeout(() => {
+        setTimeout(() => {
           setToasts(prev => prev.filter(t => t.options.id !== id));
         }, duration);
-        timeouts.add(exit);
-        timeouts.add(remove);
       }
     });
-    return () => {
-      unsub();
-      timeouts.forEach(clearTimeout);
-      timeouts.clear();
-    };
+    return () => unsub();
   }, []);
   return /*#__PURE__*/React.createElement("div", {
     style: {
