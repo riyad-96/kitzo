@@ -17,4 +17,4 @@ export interface ToastAPI {
 }
 
 export declare const toast: ToastAPI;
-export declare function ToastContainer(props: { position?: string }): JSX.Element;
+export declare function ToastContainer(props: { position?: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right' }): JSX.Element;
