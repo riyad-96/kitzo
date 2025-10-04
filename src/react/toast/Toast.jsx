@@ -1,8 +1,6 @@
 import { useRef, useLayoutEffect } from 'react';
 import { SuccessSvg, ErrorSvg, LoadingSvg } from './Svgs';
 
-const GAP = 10;
-
 function Toast({ toast, setToasts, position }) {
   const ref = useRef(null);
 
@@ -10,7 +8,7 @@ function Toast({ toast, setToasts, position }) {
     if (!ref.current) return;
     const h = ref.current.getBoundingClientRect().height;
 
-    setToasts((prev) => prev.map((t) => (t.options.id === toast.id ? t : { ...t, offset: t.offset + h + GAP })));
+    setToasts((prev) => prev.map((t) => (t.options.id === toast.id ? t : { ...t, offset: t.offset + h + 10 })));
   }, [setToasts, toast.id]);
 
   if (position.includes('bottom')) {

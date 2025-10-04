@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import { subscribe } from './toaster';
 import Toast from './Toast';
 
-const EXIT_ANIM_MS = 300;
-
 export default function ToastContainer(props) {
   props = Object.assign(
     {
@@ -33,7 +31,7 @@ export default function ToastContainer(props) {
       if (toast.type !== 'loading') {
         setTimeout(() => {
           setToasts((prev) => prev.map((t) => (t.options.id === id ? { ...t, leaving: true } : t)));
-        }, Math.max(0, duration - EXIT_ANIM_MS));
+        }, Math.max(0, duration - 300));
 
         setTimeout(() => {
           setToasts((prev) => prev.filter((t) => t.options.id !== id));
