@@ -15,6 +15,8 @@ function Toast({ toast, setToasts, position }) {
       const index = prev.findIndex((t) => t.options.id === toast.options.id);
       if (index === -1) return prev;
 
+      if (prev[index].height === height) return prev;
+
       const newToasts = [...prev];
       newToasts[index] = { ...newToasts[index], height };
 
