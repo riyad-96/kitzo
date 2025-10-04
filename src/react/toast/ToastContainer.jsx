@@ -18,7 +18,6 @@ export default function ToastContainer(props) {
     const unsub = subscribe((toast) => {
       const duration = toast.options.duration;
       const id = toast.options.id;
-      console.log(id);
 
       setToasts((prev) => {
         const exists = prev.some((t) => t.options.id === id);
