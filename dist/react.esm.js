@@ -8,19 +8,18 @@ function toastStyles() {
   .toast-content-bottom {
     font-size: 0.925rem;
   }
-}
-
-.toast-content,
-.toast-content-bottom {
-  pointer-events: all;
-  padding-inline: 0.625rem 0.825rem;
-  padding-block: 0.625rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background-color: white;
-  border-radius: 0.5525rem;
-  box-shadow: 0 2px 8px -3px rgba(0, 0, 0, 0.3);
+  .toast-content,
+  .toast-content-bottom {
+    pointer-events: all;
+    padding-inline: 0.625rem 0.825rem;
+    padding-block: 0.625rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: white;
+    border-radius: 0.5525rem;
+    box-shadow: 0 2px 8px -3px rgba(0, 0, 0, 0.3);
+  }
 }
 
 .toast-content {
@@ -332,6 +331,7 @@ function Toast({
     setToasts(prev => {
       const index = prev.findIndex(t => t.options.id === toast.options.id);
       if (index === -1) return prev;
+      if (prev[index].height === height) return prev;
       const newToasts = [...prev];
       newToasts[index] = {
         ...newToasts[index],
