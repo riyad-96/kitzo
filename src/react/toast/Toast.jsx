@@ -35,7 +35,6 @@ function Toast({ toast, setToasts, position }) {
   return (
     <div
       ref={ref}
-      className="toast"
       style={{
         transform: transformY,
         ...getToastPosition(position),

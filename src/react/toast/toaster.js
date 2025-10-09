@@ -2,23 +2,21 @@ const listeners = new Set();
 let isStyleAdded = false;
 
 function toastStyles() {
-  return `@layer base {
-  .toast-content,
-  .toast-content-bottom {
-    font-size: 0.925rem;
-  }
-  .toast-content,
-  .toast-content-bottom {
-    pointer-events: all;
-    padding-inline: 0.625rem 0.825rem;
-    padding-block: 0.625rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background-color: white;
-    border-radius: 0.5525rem;
-    box-shadow: 0 2px 8px -3px rgba(0, 0, 0, 0.3);
-  }
+  return `.toast-content,
+.toast-content-bottom {
+  font-size: 0.925rem;
+}
+.toast-content,
+.toast-content-bottom {
+  pointer-events: all;
+  padding-inline: 0.625rem 0.825rem;
+  padding-block: 0.625rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: white;
+  border-radius: 0.5525rem;
+  box-shadow: 0 2px 8px -3px rgba(0, 0, 0, 0.3);
 }
 
 .toast-content {
