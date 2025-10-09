@@ -347,6 +347,7 @@ function Toast({
   return /*#__PURE__*/React.createElement("div", {
     ref: ref,
     style: {
+      maxHeight: 'fit-content',
       transform: transformY,
       ...getToastPosition(position)
     }

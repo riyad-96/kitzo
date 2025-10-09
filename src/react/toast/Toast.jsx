@@ -36,6 +36,7 @@ function Toast({ toast, setToasts, position }) {
     <div
       ref={ref}
       style={{
+        maxHeight: 'fit-content',
         transform: transformY,
         ...getToastPosition(position),
       }}
