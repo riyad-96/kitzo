@@ -63,7 +63,13 @@ export type clippath = (
   element: string | Element | NodeListOf<Element>,
   config?: {
     /** Optional text inside the clippath element */
-    text?: string;
+    textOption?: {
+      selector: string;
+      value: string | number;
+    };
+
+    /** Custom class to clip-path element */
+    class?: string;
 
     /** Size of the clippath circle (px or %). Default: '20%' */
     clippathSize?: string | number;

@@ -453,9 +453,10 @@
 
     config = Object.assign(
       {
-        text: '',
+        textOption: null,
         clippathSize: '20%',
         smooth: true,
+        class: '',
         style: {},
       },
       config
@@ -491,70 +492,61 @@
 
       document.addEventListener('mouseover', (e) => {
         const btn = e.target.closest('[data-kitzo-clippath]');
-
         if (btn) {
           isHovering = true;
-          const { text, style, clippathSize, smooth } = clippathConfigMap.get(btn);
-          const { width, height, top, left } = btn.getBoundingClientRect();
-
           clippathDiv.removeAttribute('style');
+          const { textOption, clippathSize, smooth, style } = clippathConfigMap.get(btn);
 
-          clippathDiv.style.width = width + 'px';
-          clippathDiv.style.height = height + 'px';
-          clippathDiv.style.top = top + 'px';
-          clippathDiv.style.left = left + 'px';
-
-          if (!text) {
-            clippathDiv.innerHTML = btn.innerHTML;
-          } else {
-            clippathDiv.innerHTML = text;
-          }
-
-          clippathDiv.style.setProperty('--kitzo-clippath-transition', smooth ? 'clip-path 150ms ease-out, opacity 150ms' : 'none');
-          clippathDiv.style.setProperty('--kitzo-clippath-size', getClippathSize(clippathSize));
-
-          const { borderRadius, font, letterSpacing, lineHeight, border, boxSizing, padding, display } = window.getComputedStyle(btn);
-
-          Object.assign(clippathDiv.style, {
+          const { top, left, width, height } = btn.getBoundingClientRect();
+          const cloned = btn.cloneNode(true);
+          cloned.className = cloned.className + ` ${clippathConfigMap.get(btn).class}`;
+          cloned.removeAttribute('data-kitzo-clippath');
+          cloned.setAttribute('data-temp-clippath-el', true);
+          Object.assign(cloned.style, {
             backgroundColor: '#01c2b8',
             color: 'white',
-            borderRadius,
-            font,
-            letterSpacing,
-            lineHeight,
-            border,
-            boxSizing,
-            padding,
-            display,
             ...style,
           });
 
+          if (textOption && textOption instanceof Object) {
+            const target = cloned.querySelector(textOption.selector);
+            if (target && (typeof textOption.value === 'string' || typeof textOption.value === 'number')) {
+              target.textContent = textOption.value;
+            }
+          }
+
+          clippathDiv.style.width = `${width}px`;
+          clippathDiv.style.height = `${height}px`;
+          clippathDiv.style.translate = `${left}px ${top}px`;
+          clippathDiv.style.setProperty('--kitzo-clippath-size', getClippathSize(clippathSize));
+          clippathDiv.style.setProperty('--kitzo-clippath-transition', smooth ? 'clip-path 150ms ease-out, opacity 150ms' : 'none');
+          clippathDiv.appendChild(cloned);
           requestAnimationFrame(() => {
             clippathDiv.classList.add('show');
           });
         }
       });
-
       document.addEventListener('mouseout', (e) => {
         const btn = e.target.closest('[data-kitzo-clippath]');
-
         if (btn) {
           clippathDiv.classList.remove('show');
-          isHovering = false;
+          setTimeout(() => {
+            clippathDiv.querySelectorAll('[data-temp-clippath-el]').forEach((el) => el.remove());
+          }, 150);
         }
       });
 
       document.addEventListener('mousemove', (e) => {
         if (!isHovering) return;
+
         const btn = e.target.closest('[data-kitzo-clippath]');
-
         if (btn) {
-          const { top, left } = btn.getBoundingClientRect();
-          const localX = e.clientX - left;
-          const localY = e.clientY - top;
+          const { left, top } = btn.getBoundingClientRect();
+          const x = e.clientX - left;
+          const y = e.clientY - top;
 
-          clippathDiv.style.setProperty('--kitzo-clippath-pos-x', `${localX}px`);
-          clippathDiv.style.setProperty('--kitzo-clippath-pos-y', `${localY}px`);
+          clippathDiv.style.setProperty('--kitzo-clippath-pos-x', `${x}px`);
+          clippathDiv.style.setProperty('--kitzo-clippath-pos-y', `${y}px`);
         }
       });
 
