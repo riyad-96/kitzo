@@ -409,6 +409,7 @@
   opacity: 0;
   clip-path: circle(0 at var(--kitzo-clippath-pos-x) var(--kitzo-clippath-pos-y));
   transition: var(--kitzo-clippath-transition);
+  font-family: inherit;
 }
 .kitzo-clippath-div.show {
   opacity: 1;
@@ -505,6 +506,7 @@
           Object.assign(cloned.style, {
             backgroundColor: '#01c2b8',
             color: 'white',
+            fontFamily: getComputedStyle(btn).fontFamily || 'inherit',
             ...style,
           });
 
@@ -529,10 +531,14 @@
       document.addEventListener('mouseout', (e) => {
         const btn = e.target.closest('[data-kitzo-clippath]');
         if (btn) {
+          const { smooth } = clippathConfigMap.get(btn);
           clippathDiv.classList.remove('show');
-          setTimeout(() => {
-            clippathDiv.querySelectorAll('[data-temp-clippath-el]').forEach((el) => el.remove());
-          }, 150);
+          setTimeout(
+            () => {
+              clippathDiv.querySelectorAll('[data-temp-clippath-el]').forEach((el) => el.remove());
+            },
+            smooth ? 150 : 150
+          );
         }
       });
 
