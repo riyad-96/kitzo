@@ -12,10 +12,12 @@ function clippathStyles() {
   clip-path: circle(0 at var(--kitzo-clippath-pos-x) var(--kitzo-clippath-pos-y));
   transition: var(--kitzo-clippath-transition);
 }
-
 .kitzo-clippath-div.show {
   opacity: 1;
   clip-path: circle(var(--kitzo-clippath-size) at var(--kitzo-clippath-pos-x) var(--kitzo-clippath-pos-y));
+}
+[data-kitzo-clippath] * {
+  pointer-events: none !important;
 }`;
 }
 
