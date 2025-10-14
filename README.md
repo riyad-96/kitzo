@@ -25,7 +25,7 @@ npm i kitzo
 or
 
 ```javascript
-<script src="https://cdn.jsdelivr.net/npm/kitzo@2.0.17/dist/kitzo.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/kitzo@2.0.18/dist/kitzo.umd.min.js"></script>
 ```
 
 > Attach this script tag in the html head tag and you are good to go.
@@ -60,13 +60,10 @@ kitzo.clippath();
 ##### Copy API:
 
 ```javascript
-kitzo.copy(selector | element, {
-  doc: string,
-  event: 'click' | 'dblclick' | 'contextmenu' | 'mouseup' | 'touchend',
-});
+kitzo.copy(doc);
 ```
 
-> Instantly adds click-to-copy functionality to buttons, reliably and with fallback.
+> Copy functionality on call.
 
 ##### Tooltip API:
 
@@ -94,7 +91,7 @@ kitzo.ripple(selectors | element | NodeList, {
 });
 ```
 
-> Adds a lightweight, clean ripple effect to your buttons on click.
+> Adds a lightweight, clean ripple effect to your elements on click.
 
 ##### Debounce API:
 

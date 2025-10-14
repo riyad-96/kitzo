@@ -4,4 +4,6 @@ import ripple from './button/features/ripple';
 import tooltip from './button/features/tooltip';
 import clippath from './button/features/clippath';
 
-export { copy, debounce, ripple, tooltip, clippath };
+const kitzo = { copy, debounce, ripple, tooltip, clippath };
+
+export default kitzo;

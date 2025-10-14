@@ -1,7 +1,7 @@
 export interface ToastOptions {
   duration?: number;
   style?: React.CSSProperties;
-  showIcon?: true | false;
+  showIcon?: boolean;
 }
 
 export interface ToastAPI {

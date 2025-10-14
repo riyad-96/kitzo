@@ -1,8 +1,53 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-  typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.kitzo = {}));
-})(this, (function (exports) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof define === 'function' && define.amd ? define(factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.kitzo = factory());
+})(this, (function () { 'use strict';
+
+  //! Copy function
+  function legecyCopy(docs) {
+    try {
+      const textarea = document.createElement('textarea');
+      textarea.value = docs;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+    } catch (error) {
+      alert('Couldn’t complete. Please copy manually.');
+      console.error(error);
+    }
+  }
+
+  async function copyText(docs) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      try {
+        await navigator.clipboard.writeText(docs);
+      } catch (error) {
+        legecyCopy(docs);
+        console.error(error);
+      }
+    } else {
+      legecyCopy(docs);
+    }
+  }
+
+  function copy(doc) {
+    if (typeof doc === 'string' || typeof doc === 'number') {
+      copyText(doc);
+    } else {
+      copyText(JSON.stringify(doc));
+    }
+  }
+
+  function debounce(fn, delay = 300) {
+    let timer;
+
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => fn(...args), delay);
+    };
+  }
 
   //! Helper functions
   // Get elements from dom
@@ -42,118 +87,6 @@
       addStyleTag(styles);
       clippathStyleAdded = true;
     }
-  }
-
-  //! Copy function
-  function legecyCopy(docs) {
-    try {
-      const textarea = document.createElement('textarea');
-      textarea.value = docs;
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textarea);
-    } catch (error) {
-      alert('Couldn’t copy automatically. Please copy manually.');
-      console.error(error);
-    }
-  }
-
-  async function copyText(docs) {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      try {
-        await navigator.clipboard.writeText(docs);
-      } catch (error) {
-        legecyCopy(docs);
-        console.error(error);
-      }
-    } else {
-      legecyCopy(docs);
-    }
-  }
-
-  const copyConfigMap = new WeakMap();
-  const allowedEvents = ['click', 'dblclick', 'contextmenu', 'mouseup', 'touchend'];
-  const attachedEvents = new Set();
-
-  function copy(element, config = {}) {
-    config = Object.assign(
-      {
-        doc: '',
-        event: 'click',
-      },
-      config
-    );
-
-    const { doc, event } = config;
-
-    if (!element) {
-      console.error('A button element/selector is expected');
-      return;
-    }
-
-    if (!doc) {
-      console.error('doc cannot be empty');
-      return;
-    }
-
-    if (typeof doc !== 'string') {
-      console.error('Doc should be in string format');
-      return;
-    }
-
-    if (typeof event !== 'string') {
-      console.error('Only strings are allowed as events');
-      return;
-    }
-
-    if (!event.trim()) {
-      console.error('event cannot be empty');
-      return;
-    }
-
-    const allButtons = getButtons(element);
-    if (!allButtons) {
-      console.error('No elements found for kitzoCopy');
-      return;
-    }
-
-    if (!allowedEvents.includes(event)) {
-      console.warn(`[kitzo.copy] "${event}" is not allowed. Defaulting to "click".`);
-    }
-
-    const safeEvent = allowedEvents.includes(event) ? event : 'click';
-
-    allButtons.forEach((btn) => {
-      btn.setAttribute('data-kitzo-copy', 'true');
-
-      copyConfigMap.set(btn, {
-        doc,
-        event: safeEvent,
-      });
-    });
-
-    if (!attachedEvents.has(safeEvent)) {
-      document.addEventListener(safeEvent, (e) => {
-        const btn = e.target.closest('[data-kitzo-copy]');
-        if (!btn) return;
-
-        const { doc, event } = copyConfigMap.get(btn);
-        if (event && event === safeEvent) {
-          copyText(doc);
-        }
-      });
-      attachedEvents.add(safeEvent);
-    }
-  }
-
-  function debounce(fn, delay = 300) {
-    let timer;
-
-    return (...args) => {
-      clearTimeout(timer);
-      timer = setTimeout(() => fn(...args), delay);
-    };
   }
 
   function rippleStyles() {
@@ -626,10 +559,8 @@
     }
   }
 
-  exports.clippath = clippath;
-  exports.copy = copy;
-  exports.debounce = debounce;
-  exports.ripple = ripple;
-  exports.tooltip = tooltip;
+  const kitzo = { copy, debounce, ripple, tooltip, clippath };
+
+  return kitzo;
 
 }));

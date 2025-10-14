@@ -53,20 +53,7 @@ export type ripple = (
 ) => void;
 
 // Copy
-export type copy = (
-  element: string | Element | NodeListOf<Element>,
-  config?: {
-    /** The text to copy to clipboard (default: element textContent) */
-    doc?: string;
-
-    /**
-     * The DOM event that triggers the copy action
-     * Only allowed: 'click' | 'dblclick' | 'contextmenu' | 'mouseup' | 'touchend'
-     * Default: 'click'
-     */
-    event?: 'click' | 'dblclick' | 'contextmenu' | 'mouseup' | 'touchend';
-  }
-) => void;
+export type copy = (doc?: any) => void;
 
 // Debounce
 export type debounce = <Args extends any[]>(fn: (...args: Args) => any, delay?: number) => (...args: Args) => void;
