@@ -2,8 +2,8 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import babel from '@rollup/plugin-babel';
 
-const umd = './src/index.umd.js';
-const esm = './src/index.esm.js';
+const umd = './src/vanilla/index.umd.js';
+const esm = './src/vanilla/index.esm.js';
 const react = './src/react/index.jsx';
 
 export default [
