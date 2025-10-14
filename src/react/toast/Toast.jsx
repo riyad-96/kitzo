@@ -1,36 +1,18 @@
 import { useRef, useLayoutEffect } from 'react';
 import { SuccessSvg, ErrorSvg, LoadingSvg } from './Svgs';
 
-const GAP = 10;
-
-function Toast({ toast, setToasts, position }) {
+function Toast({ toast, setToasts, position, gap }) {
+  const { id, leaving, offset, text, type, options } = toast;
+  const { style, showIcon } = options;
   const ref = useRef(null);
+  console.log(toast);
 
   useLayoutEffect(() => {
-    if (!ref.current) return;
+    const height = ref.current.getBoundingClientRect().height + gap;
+    setToasts((prev) => prev.map((t) => (t.id == id ? { ...t, height } : t)));
+  }, []);
 
-    const height = ref.current.getBoundingClientRect().height;
-
-    setToasts((prev) => {
-      const index = prev.findIndex((t) => t.options.id === toast.options.id);
-      if (index === -1) return prev;
-
-      if (prev[index].height === height) return prev;
-
-      const newToasts = [...prev];
-      newToasts[index] = { ...newToasts[index], height };
-
-      let offset = 0;
-      for (let t of newToasts) {
-        t.offset = offset;
-        offset += (t.height || 0) + GAP;
-      }
-
-      return newToasts;
-    });
-  }, [setToasts, toast.options.id]);
-
-  const transformY = position.includes('bottom') ? `translateY(-${toast.offset || 0}px)` : `translateY(${toast.offset || 0}px)`;
+  const transformY = position.includes('bottom') ? `translateY(-${offset || 0}px)` : `translateY(${offset || 0}px)`;
 
   return (
     <div
@@ -41,11 +23,15 @@ function Toast({ toast, setToasts, position }) {
         ...getToastPosition(position),
       }}
     >
-      <div className={`toast-content${position.includes('bottom') ? '-bottom' : ''} ${toast.leaving ? 'exit' : ''}`}>
-        {toast.type === 'loading' && <LoadingSvg />}
-        {toast.type === 'success' && <SuccessSvg />}
-        {toast.type === 'error' && <ErrorSvg />}
-        <span>{toast.text}</span>
+      <div style={{ ...style }} className={`toast-content${position.includes('bottom') ? '-bottom' : ''} ${leaving ? 'exit' : ''}`}>
+        {showIcon && (
+          <>
+            {type === 'loading' && <LoadingSvg />}
+            {type === 'success' && <SuccessSvg />}
+            {type === 'error' && <ErrorSvg />}
+          </>
+        )}
+        <span>{text}</span>
       </div>
     </div>
   );
@@ -59,18 +45,18 @@ function getToastPosition(position) {
 
   const styles = {
     position: 'absolute',
-    width: 'calc(100% - 2rem)',
+    width: '100%',
     pointerEvents: 'none',
     transition: 'transform 230ms',
     display: 'flex',
   };
 
   if (position.includes('top')) {
-    styles.top = '1rem';
+    styles.top = '0';
     styles.justifyContent = isLeft ? 'flex-start' : isRight ? 'flex-end' : 'center';
   }
   if (position.includes('bottom')) {
-    styles.bottom = '1rem';
+    styles.bottom = '0';
     styles.justifyContent = isLeft ? 'flex-start' : isRight ? 'flex-end' : 'center';
   }
 

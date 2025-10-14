@@ -1,10 +1,7 @@
-/* @layer base {
-  .toast-content,
-  .toast-content-bottom {
-    font-size: 0.925rem;
-  }
+/* .toast-content,
+.toast-content-bottom {
+  font-size: 0.925rem;
 }
-
 .toast-content,
 .toast-content-bottom {
   pointer-events: all;

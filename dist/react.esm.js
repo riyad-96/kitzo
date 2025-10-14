@@ -10,7 +10,7 @@ function toastStyles() {
 .toast-content,
 .toast-content-bottom {
   pointer-events: all;
-  padding-inline: 0.625rem 0.825rem;
+  padding-inline: 0.825rem;
   padding-block: 0.625rem;
   display: flex;
   align-items: center;
@@ -202,7 +202,9 @@ function success(text = 'Toast success', options = {}) {
   const id = Date.now();
   options = Object.assign({
     duration: 2000,
-    id
+    id,
+    style: {},
+    showIcon: true
   }, options);
   addToast({
     type: 'success',
@@ -214,7 +216,9 @@ function error(text = 'Toast denied', options = {}) {
   const id = Date.now();
   options = Object.assign({
     duration: 2000,
-    id
+    id,
+    style: {},
+    showIcon: true
   }, options);
   addToast({
     type: 'error',
@@ -226,7 +230,9 @@ function promise(callback, msgs = {}, options = {}) {
   const id = Date.now();
   options = Object.assign({
     duration: 2000,
-    id
+    id,
+    style: {},
+    showIcon: true
   }, options);
   msgs = Object.assign({
     loading: 'Saving...',
@@ -316,34 +322,34 @@ function LoadingSvg() {
   })));
 }
 
-const GAP = 10;
 function Toast({
   toast,
   setToasts,
-  position
+  position,
+  gap
 }) {
+  const {
+    id,
+    leaving,
+    offset,
+    text,
+    type,
+    options
+  } = toast;
+  const {
+    style,
+    showIcon
+  } = options;
   const ref = useRef(null);
+  console.log(toast);
   useLayoutEffect(() => {
-    if (!ref.current) return;
-    const height = ref.current.getBoundingClientRect().height;
-    setToasts(prev => {
-      const index = prev.findIndex(t => t.options.id === toast.options.id);
-      if (index === -1) return prev;
-      if (prev[index].height === height) return prev;
-      const newToasts = [...prev];
-      newToasts[index] = {
-        ...newToasts[index],
-        height
-      };
-      let offset = 0;
-      for (let t of newToasts) {
-        t.offset = offset;
-        offset += (t.height || 0) + GAP;
-      }
-      return newToasts;
-    });
-  }, [setToasts, toast.options.id]);
-  const transformY = position.includes('bottom') ? `translateY(-${toast.offset || 0}px)` : `translateY(${toast.offset || 0}px)`;
+    const height = ref.current.getBoundingClientRect().height + gap;
+    setToasts(prev => prev.map(t => t.id == id ? {
+      ...t,
+      height
+    } : t));
+  }, []);
+  const transformY = position.includes('bottom') ? `translateY(-${offset || 0}px)` : `translateY(${offset || 0}px)`;
   return /*#__PURE__*/React.createElement("div", {
     ref: ref,
     style: {
@@ -352,25 +358,28 @@ function Toast({
       ...getToastPosition(position)
     }
   }, /*#__PURE__*/React.createElement("div", {
-    className: `toast-content${position.includes('bottom') ? '-bottom' : ''} ${toast.leaving ? 'exit' : ''}`
-  }, toast.type === 'loading' && /*#__PURE__*/React.createElement(LoadingSvg, null), toast.type === 'success' && /*#__PURE__*/React.createElement(SuccessSvg, null), toast.type === 'error' && /*#__PURE__*/React.createElement(ErrorSvg, null), /*#__PURE__*/React.createElement("span", null, toast.text)));
+    style: {
+      ...style
+    },
+    className: `toast-content${position.includes('bottom') ? '-bottom' : ''} ${leaving ? 'exit' : ''}`
+  }, showIcon && /*#__PURE__*/React.createElement(React.Fragment, null, type === 'loading' && /*#__PURE__*/React.createElement(LoadingSvg, null), type === 'success' && /*#__PURE__*/React.createElement(SuccessSvg, null), type === 'error' && /*#__PURE__*/React.createElement(ErrorSvg, null)), /*#__PURE__*/React.createElement("span", null, text)));
 }
 function getToastPosition(position) {
   const isLeft = position.includes('left');
   const isRight = position.includes('right');
   const styles = {
     position: 'absolute',
-    width: 'calc(100% - 2rem)',
+    width: '100%',
     pointerEvents: 'none',
     transition: 'transform 230ms',
     display: 'flex'
   };
   if (position.includes('top')) {
-    styles.top = '1rem';
+    styles.top = '0';
     styles.justifyContent = isLeft ? 'flex-start' : isRight ? 'flex-end' : 'center';
   }
   if (position.includes('bottom')) {
-    styles.bottom = '1rem';
+    styles.bottom = '0';
     styles.justifyContent = isLeft ? 'flex-start' : isRight ? 'flex-end' : 'center';
   }
   return styles;
@@ -378,13 +387,14 @@ function getToastPosition(position) {
 
 function ToastContainer(props) {
   props = Object.assign({
-    position: 'top-center'
+    position: 'top-center',
+    gap: 8
   }, props);
   const {
-    position
+    position,
+    gap
   } = props;
   const [toasts, setToasts] = useState([]);
-  const timeouts = useRef(new Set());
   useEffect(() => {
     const unsub = subscribe(toast => {
       const duration = toast.options.duration;
@@ -401,40 +411,37 @@ function ToastContainer(props) {
           id,
           ...toast,
           offset: 0,
+          height: 0,
           leaving: false
         }, ...prev];
       });
       if (toast.type !== 'loading') {
-        const exit = setTimeout(() => {
+        setTimeout(() => {
           setToasts(prev => prev.map(t => t.options.id === id ? {
             ...t,
             leaving: true
           } : t));
         }, Math.max(0, duration - 300));
-        const remove = setTimeout(() => {
+        setTimeout(() => {
           setToasts(prev => prev.filter(t => t.options.id !== id));
         }, duration);
-        timeouts.current.add(exit);
-        timeouts.current.add(remove);
       }
     });
-    return () => {
-      unsub();
-      timeouts.current.forEach(clearTimeout);
-      timeouts.current.clear();
-    };
+    return () => unsub();
   }, []);
   useEffect(() => {
     let offset = 0;
-    setToasts(prev => prev.map(t => {
-      const newToast = {
-        ...t,
-        offset
+    const updated = toasts.map(toast => {
+      const top = offset;
+      offset += toast.height;
+      return {
+        ...toast,
+        offset: top
       };
-      offset += (t.height || 0) + 10;
-      return newToast;
-    }));
-  }, [toasts.map(t => t.height).join(',')]);
+    });
+    const changed = updated.some((u, i) => u.offset != toasts[i].offset);
+    if (changed) setToasts(updated);
+  }, [toasts]);
   return /*#__PURE__*/React.createElement("div", {
     style: {
       position: 'fixed',
@@ -442,14 +449,21 @@ function ToastContainer(props) {
       zIndex: 100000000,
       pointerEvents: 'none',
       fontFamily: 'inherit',
-      padding: '1rem'
+      display: 'grid',
+      padding: '1rem',
+      boxSizing: 'border-box'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'relative'
     }
   }, toasts.map(toast => /*#__PURE__*/React.createElement(Toast, {
     key: toast.options.id,
     toast: toast,
     setToasts: setToasts,
-    position: position
-  })));
+    position: position,
+    gap: typeof gap === 'string' ? isNaN(+gap) ? 8 : +gap : gap
+  }))));
 }
 
 const toast = {

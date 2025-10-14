@@ -9,7 +9,7 @@ function toastStyles() {
 .toast-content,
 .toast-content-bottom {
   pointer-events: all;
-  padding-inline: 0.625rem 0.825rem;
+  padding-inline: 0.825rem;
   padding-block: 0.625rem;
   display: flex;
   align-items: center;
@@ -207,6 +207,8 @@ export function success(text = 'Toast success', options = {}) {
     {
       duration: 2000,
       id,
+      style: {},
+      showIcon: true,
     },
     options
   );
@@ -219,6 +221,8 @@ export function error(text = 'Toast denied', options = {}) {
     {
       duration: 2000,
       id,
+      style: {},
+      showIcon: true,
     },
     options
   );
@@ -231,6 +235,8 @@ export function promise(callback, msgs = {}, options = {}) {
     {
       duration: 2000,
       id,
+      style: {},
+      showIcon: true,
     },
     options
   );

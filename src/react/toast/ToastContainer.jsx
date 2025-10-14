@@ -6,14 +6,14 @@ export default function ToastContainer(props) {
   props = Object.assign(
     {
       position: 'top-center',
+      gap: 8,
     },
     props
   );
 
-  const { position } = props;
+  const { position, gap } = props;
 
   const [toasts, setToasts] = useState([]);
-  const timeouts = useRef(new Set());
 
   useEffect(() => {
     const unsub = subscribe((toast) => {
@@ -26,40 +26,34 @@ export default function ToastContainer(props) {
           return prev.map((t) => (t.options.id === id ? { ...t, ...toast } : t));
         }
 
-        return [{ id, ...toast, offset: 0, leaving: false }, ...prev];
+        return [{ id, ...toast, offset: 0, height: 0, leaving: false }, ...prev];
       });
 
       if (toast.type !== 'loading') {
-        const exit = setTimeout(() => {
+        setTimeout(() => {
           setToasts((prev) => prev.map((t) => (t.options.id === id ? { ...t, leaving: true } : t)));
         }, Math.max(0, duration - 300));
 
-        const remove = setTimeout(() => {
+        setTimeout(() => {
           setToasts((prev) => prev.filter((t) => t.options.id !== id));
         }, duration);
-
-        timeouts.current.add(exit);
-        timeouts.current.add(remove);
       }
     });
 
-    return () => {
-      unsub();
-      timeouts.current.forEach(clearTimeout);
-      timeouts.current.clear();
-    };
+    return () => unsub();
   }, []);
 
   useEffect(() => {
     let offset = 0;
-    setToasts((prev) =>
-      prev.map((t) => {
-        const newToast = { ...t, offset };
-        offset += (t.height || 0) + 10;
-        return newToast;
-      })
-    );
-  }, [toasts.map((t) => t.height).join(',')]);
+    const updated = toasts.map((toast) => {
+      const top = offset;
+      offset += toast.height;
+      return { ...toast, offset: top };
+    });
+
+    const changed = updated.some((u, i) => u.offset != toasts[i].offset);
+    if (changed) setToasts(updated);
+  }, [toasts]);
 
   return (
     <div
@@ -69,12 +63,16 @@ export default function ToastContainer(props) {
         zIndex: 100000000,
         pointerEvents: 'none',
         fontFamily: 'inherit',
+        display: 'grid',
         padding: '1rem',
+        boxSizing: 'border-box',
       }}
     >
-      {toasts.map((toast) => (
-        <Toast key={toast.options.id} toast={toast} setToasts={setToasts} position={position} />
-      ))}
+      <div style={{ position: 'relative' }}>
+        {toasts.map((toast) => (
+          <Toast key={toast.options.id} toast={toast} setToasts={setToasts} position={position} gap={typeof gap === 'string' ? (isNaN(+gap) ? 8 : +gap) : gap} />
+        ))}
+      </div>
     </div>
   );
 }
