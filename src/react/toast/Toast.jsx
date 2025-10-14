@@ -5,7 +5,6 @@ function Toast({ toast, setToasts, position, gap }) {
   const { id, leaving, offset, text, type, options } = toast;
   const { style, showIcon } = options;
   const ref = useRef(null);
-  console.log(toast);
 
   useLayoutEffect(() => {
     const height = ref.current.getBoundingClientRect().height + gap;

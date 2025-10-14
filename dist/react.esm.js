@@ -341,7 +341,6 @@ function Toast({
     showIcon
   } = options;
   const ref = useRef(null);
-  console.log(toast);
   useLayoutEffect(() => {
     const height = ref.current.getBoundingClientRect().height + gap;
     setToasts(prev => prev.map(t => t.id == id ? {
