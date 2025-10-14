@@ -410,6 +410,7 @@
   clip-path: circle(0 at var(--kitzo-clippath-pos-x) var(--kitzo-clippath-pos-y));
   transition: var(--kitzo-clippath-transition);
   font-family: inherit;
+  overflow: hidden;
 }
 .kitzo-clippath-div.show {
   opacity: 1;
