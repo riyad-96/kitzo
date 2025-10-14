@@ -115,7 +115,7 @@ export default function clippath(element, config = {}) {
         clippathDiv.style.setProperty('--kitzo-clippath-transition', smooth ? 'clip-path 150ms ease-out, opacity 150ms' : 'none');
         clippathDiv.style.setProperty('--kitzo-clippath-size', getClippathSize(clippathSize));
 
-        const { borderRadius, font, letterSpacing, lineHeight, border, boxSizing, padding } = window.getComputedStyle(btn);
+        const { borderRadius, font, letterSpacing, lineHeight, border, boxSizing, padding, display } = window.getComputedStyle(btn);
 
         Object.assign(clippathDiv.style, {
           backgroundColor: '#01c2b8',
@@ -127,6 +127,7 @@ export default function clippath(element, config = {}) {
           border,
           boxSizing,
           padding,
+          display,
           ...style,
         });
 

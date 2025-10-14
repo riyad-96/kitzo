@@ -410,10 +410,12 @@
   clip-path: circle(0 at var(--kitzo-clippath-pos-x) var(--kitzo-clippath-pos-y));
   transition: var(--kitzo-clippath-transition);
 }
-
 .kitzo-clippath-div.show {
   opacity: 1;
   clip-path: circle(var(--kitzo-clippath-size) at var(--kitzo-clippath-pos-x) var(--kitzo-clippath-pos-y));
+}
+[data-kitzo-clippath] * {
+  pointer-events: none !important;
 }`;
   }
 
@@ -511,7 +513,7 @@
           clippathDiv.style.setProperty('--kitzo-clippath-transition', smooth ? 'clip-path 150ms ease-out, opacity 150ms' : 'none');
           clippathDiv.style.setProperty('--kitzo-clippath-size', getClippathSize(clippathSize));
 
-          const { borderRadius, font, letterSpacing, lineHeight, border, boxSizing, padding } = window.getComputedStyle(btn);
+          const { borderRadius, font, letterSpacing, lineHeight, border, boxSizing, padding, display } = window.getComputedStyle(btn);
 
           Object.assign(clippathDiv.style, {
             backgroundColor: '#01c2b8',
@@ -523,6 +525,7 @@
             border,
             boxSizing,
             padding,
+            display,
             ...style,
           });
 
