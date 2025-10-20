@@ -63,7 +63,7 @@ export default function clippath(element, config = {}) {
       class: '',
       style: {},
     },
-    config
+    config,
   );
 
   const allButtons = getButtons(element);
@@ -111,6 +111,7 @@ export default function clippath(element, config = {}) {
           color: 'white',
           fontFamily: getComputedStyle(btn).fontFamily || 'inherit',
           ...style,
+          margin: 0,
         });
 
         if (textOption && textOption instanceof Object) {
@@ -140,7 +141,7 @@ export default function clippath(element, config = {}) {
           () => {
             clippathDiv.querySelectorAll('[data-temp-clippath-el]').forEach((el) => el.remove());
           },
-          smooth ? 150 : 0 || 150
+          smooth ? 150 : 0 || 150,
         );
       }
     });
@@ -154,8 +155,10 @@ export default function clippath(element, config = {}) {
         const x = e.clientX - left;
         const y = e.clientY - top;
 
-        clippathDiv.style.setProperty('--kitzo-clippath-pos-x', `${x}px`);
-        clippathDiv.style.setProperty('--kitzo-clippath-pos-y', `${y}px`);
+        requestAnimationFrame(() => {
+          clippathDiv.style.setProperty('--kitzo-clippath-pos-x', `${x}px`);
+          clippathDiv.style.setProperty('--kitzo-clippath-pos-y', `${y}px`);
+        });
       }
     });
 

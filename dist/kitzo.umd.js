@@ -461,7 +461,7 @@
         class: '',
         style: {},
       },
-      config
+      config,
     );
 
     const allButtons = getButtons(element);
@@ -509,6 +509,7 @@
             color: 'white',
             fontFamily: getComputedStyle(btn).fontFamily || 'inherit',
             ...style,
+            margin: 0,
           });
 
           if (textOption && textOption instanceof Object) {
@@ -538,7 +539,7 @@
             () => {
               clippathDiv.querySelectorAll('[data-temp-clippath-el]').forEach((el) => el.remove());
             },
-            smooth ? 150 : 150
+            smooth ? 150 : 150,
           );
         }
       });
@@ -552,8 +553,10 @@
           const x = e.clientX - left;
           const y = e.clientY - top;
 
-          clippathDiv.style.setProperty('--kitzo-clippath-pos-x', `${x}px`);
-          clippathDiv.style.setProperty('--kitzo-clippath-pos-y', `${y}px`);
+          requestAnimationFrame(() => {
+            clippathDiv.style.setProperty('--kitzo-clippath-pos-x', `${x}px`);
+            clippathDiv.style.setProperty('--kitzo-clippath-pos-y', `${y}px`);
+          });
         }
       });
 
