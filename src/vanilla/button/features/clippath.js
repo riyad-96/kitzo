@@ -102,23 +102,32 @@ export default function clippath(element, config = {}) {
         const { textOption, clippathSize, smooth, style } = clippathConfigMap.get(btn);
 
         const { top, left, width, height } = btn.getBoundingClientRect();
+
         const cloned = btn.cloneNode(true);
         cloned.className = cloned.className + ` ${clippathConfigMap.get(btn).class}`;
         cloned.removeAttribute('data-kitzo-clippath');
         cloned.setAttribute('data-temp-clippath-el', true);
-        Object.assign(cloned.style, {
-          backgroundColor: '#01c2b8',
-          color: 'white',
-          fontFamily: getComputedStyle(btn).fontFamily || 'inherit',
-          ...style,
-          margin: 0,
-        });
+
+        setTimeout(() => {
+          const fontFamily = window.getComputedStyle(btn).fontFamily;
+          Object.assign(cloned.style, {
+            backgroundColor: '#01c2b8',
+            color: 'white',
+            fontFamily,
+            margin: 0,
+            width: '100%',
+            ...style,
+          });
+        }, 0);
 
         if (textOption && textOption instanceof Object) {
-          const target = cloned.querySelector(textOption.selector);
-          if (target && (typeof textOption.value === 'string' || typeof textOption.value === 'number')) {
-            target.textContent = textOption.value;
-          }
+          requestAnimationFrame(() => {
+            const target = typeof textOption.selector === 'string' ? clippathDiv.querySelector(textOption.selector.trim() ? textOption.selector.trim() : cloned.tagName) : cloned;
+
+            if (target && (typeof textOption.value === 'string' || typeof textOption.value === 'number')) {
+              target.textContent = textOption.value;
+            }
+          });
         }
 
         clippathDiv.style.width = `${width}px`;
@@ -132,6 +141,7 @@ export default function clippath(element, config = {}) {
         });
       }
     });
+
     document.addEventListener('mouseout', (e) => {
       const btn = e.target.closest('[data-kitzo-clippath]');
       if (btn) {
