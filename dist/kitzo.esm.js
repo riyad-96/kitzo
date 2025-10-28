@@ -568,6 +568,22 @@ function clippath(element, config = {}) {
   }
 }
 
-const kitzo = { copy, debounce, ripple, tooltip, clippath };
+function getType(value) {
+  if (value === null) return 'null';
 
-export { clippath, copy, debounce, kitzo as default, ripple, tooltip };
+  if (Array.isArray(value)) return 'array';
+
+  if (value instanceof Date) return 'date';
+
+  if (value instanceof RegExp) return 'regexp';
+
+  if (typeof value === 'object') return 'object';
+
+  return typeof value;
+}
+
+// button effects
+
+const kitzo = { copy, debounce, ripple, tooltip, clippath, getType };
+
+export { clippath, copy, debounce, kitzo as default, getType, ripple, tooltip };

@@ -25,7 +25,7 @@ npm i kitzo
 or
 
 ```javascript
-<script src="https://cdn.jsdelivr.net/npm/kitzo@2.0.26/dist/kitzo.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/kitzo@2.0.27/dist/kitzo.umd.min.js"></script>
 ```
 
 > Attach this script tag in the html head tag and you are good to go.
@@ -41,6 +41,7 @@ or
 | [`kitzo.ripple()`](#ripple-api)     |
 | [`kitzo.debounce()`](#debounce-api) |
 | [`kitzo.clippath()`](#clippath-api) |
+| [`kitzo.getType()`](#typecheck-api) |
 
 #### Vanilla APIs
 
@@ -53,6 +54,7 @@ kitzo.tooltip();
 kitzo.ripple();
 kitzo.debounce();
 kitzo.clippath();
+kitzo.getType();
 ```
 
 > Use a modern build tool. **vite** - recommended
@@ -123,6 +125,14 @@ kitzo.clippath(selectors | element | NodeList, {
   class: string,
   style: object,
 });
+```
+##### TypeCheck API:
+
+```javascript
+kitzo.getType(type);
+
+const data = [];
+console.log(kitzo.getType(data)) // 'array'
 ```
 
 ---
