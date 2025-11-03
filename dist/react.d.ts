@@ -20,7 +20,7 @@ export interface ToastAPI {
     },
     options?: ToastOptions,
   ): Promise<T>;
-  custom(content: CustomContent, options?: { duration?: number | Infinity; }): void;
+  custom(content: CustomContent, options?: { duration?: number | Infinity; exitDelay: number }): void;
 }
 
 export declare const toast: ToastAPI;
