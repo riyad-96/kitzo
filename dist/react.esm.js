@@ -1,7 +1,5 @@
 import React, { useRef, useLayoutEffect, useState, useEffect } from 'react';
 
-const listeners = new Set();
-let isStyleAdded = false;
 function toastStyles() {
   return `.toast-content,
 .toast-content-bottom {
@@ -183,6 +181,8 @@ function toastStyles() {
 }
 `;
 }
+const listeners = new Set();
+let isStyleAdded = false;
 function addToast(toast) {
   listeners.forEach(callback => {
     callback(toast);
@@ -265,6 +265,27 @@ function promise(callback, msgs = {}, options = {}) {
       options
     });
     return Promise.reject(normalizedError);
+  });
+}
+function custom(render, options = {}) {
+  const id = Date.now();
+  options = Object.assign({
+    duration: 3000,
+    id,
+    exitDelay: 50
+  }, options);
+  addToast({
+    type: 'custom',
+    render,
+    options
+  });
+  return id;
+}
+function dismiss(id, exitDelay) {
+  addToast({
+    type: 'dismiss',
+    id,
+    exitDelay
   });
 }
 
@@ -361,7 +382,7 @@ function Toast({
       ...style
     },
     className: `toast-content${position.includes('bottom') ? '-bottom' : ''} ${leaving ? 'exit' : ''}`
-  }, showIcon && /*#__PURE__*/React.createElement(React.Fragment, null, type === 'loading' && /*#__PURE__*/React.createElement(LoadingSvg, null), type === 'success' && /*#__PURE__*/React.createElement(SuccessSvg, null), type === 'error' && /*#__PURE__*/React.createElement(ErrorSvg, null)), /*#__PURE__*/React.createElement("span", null, text)));
+  }, type === 'custom' ? typeof toast.render === 'function' ? toast.render(() => dismiss(toast.id, toast.options.exitDelay)) : typeof toast.render === 'string' ? /*#__PURE__*/React.createElement("span", null, toast.render) : toast.render : /*#__PURE__*/React.createElement(React.Fragment, null, showIcon && /*#__PURE__*/React.createElement(React.Fragment, null, type === 'loading' && /*#__PURE__*/React.createElement(LoadingSvg, null), type === 'success' && /*#__PURE__*/React.createElement(SuccessSvg, null), type === 'error' && /*#__PURE__*/React.createElement(ErrorSvg, null)), /*#__PURE__*/React.createElement("span", null, text))));
 }
 function getToastPosition(position) {
   const isLeft = position.includes('left');
@@ -396,6 +417,18 @@ function ToastContainer(props) {
   const [toasts, setToasts] = useState([]);
   useEffect(() => {
     const unsub = subscribe(toast => {
+      if (toast.type === 'dismiss') {
+        setTimeout(() => {
+          setToasts(prev => prev.map(t => t.options.id === toast.id ? {
+            ...t,
+            leaving: true
+          } : t));
+        }, Math.max(0, Number(toast.exitDelay)));
+        setTimeout(() => {
+          setToasts(prev => prev.filter(t => t.options.id !== toast.id));
+        }, Math.max(0, Number(toast.exitDelay) + 300));
+        return;
+      }
       const duration = toast.options.duration;
       const id = toast.options.id;
       setToasts(prev => {
@@ -414,7 +447,7 @@ function ToastContainer(props) {
           leaving: false
         }, ...prev];
       });
-      if (toast.type !== 'loading') {
+      if (toast.type !== 'loading' && isFinite(duration)) {
         setTimeout(() => {
           setToasts(prev => prev.map(t => t.options.id === id ? {
             ...t,
@@ -468,7 +501,8 @@ function ToastContainer(props) {
 const toast = {
   success,
   error,
-  promise
+  promise,
+  custom
 };
 
 export { ToastContainer, toast };
