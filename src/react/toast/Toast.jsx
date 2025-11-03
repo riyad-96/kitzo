@@ -14,6 +14,18 @@ function Toast({ toast, setToasts, position, gap }) {
 
   const transformY = position.includes('bottom') ? `translateY(-${offset || 0}px)` : `translateY(${offset || 0}px)`;
 
+  function renderCustomContent() {
+    const render = toast.render;
+
+    if (typeof render === 'function') {
+      return render(() => dismiss(toast.id, toast.options.exitDelay));
+    }
+    if (typeof render === 'string') {
+      return <span>{render}</span>;
+    }
+    return render;
+  }
+
   return (
     <div
       ref={ref}
@@ -23,17 +35,11 @@ function Toast({ toast, setToasts, position, gap }) {
         ...getToastPosition(position),
       }}
     >
-      <div style={{ ...style }} className={`toast-content${position.includes('bottom') ? '-bottom' : ''} ${leaving ? 'exit' : ''}`}>
+      <div className={`toast-content${position.includes('bottom') ? '-bottom' : ''} ${leaving ? 'exit' : ''}`}>
         {type === 'custom' ? (
-          typeof toast.render === 'function' ? (
-            toast.render(() => dismiss(toast.id, toast.options.exitDelay))
-          ) : typeof toast.render === 'string' ? (
-            <span>{toast.render}</span>
-          ) : (
-            toast.render
-          )
+          renderCustomContent()
         ) : (
-          <>
+          <div style={{ ...style }} className="pre-styled">
             {showIcon && (
               <>
                 {type === 'loading' && <LoadingSvg />}
@@ -42,7 +48,7 @@ function Toast({ toast, setToasts, position, gap }) {
               </>
             )}
             <span>{text}</span>
-          </>
+          </div>
         )}
       </div>
     </div>

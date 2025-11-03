@@ -6,6 +6,9 @@ function toastStyles() {
 .toast-content,
 .toast-content-bottom {
   pointer-events: all;
+}
+  
+.pre-styled {
   padding-inline: 0.825rem;
   padding-block: 0.625rem;
   display: flex;

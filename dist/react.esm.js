@@ -8,6 +8,9 @@ function toastStyles() {
 .toast-content,
 .toast-content-bottom {
   pointer-events: all;
+}
+  
+.pre-styled {
   padding-inline: 0.825rem;
   padding-block: 0.625rem;
   display: flex;
@@ -370,6 +373,16 @@ function Toast({
     } : t));
   }, []);
   const transformY = position.includes('bottom') ? `translateY(-${offset || 0}px)` : `translateY(${offset || 0}px)`;
+  function renderCustomContent() {
+    const render = toast.render;
+    if (typeof render === 'function') {
+      return render(() => dismiss(toast.id, toast.options.exitDelay));
+    }
+    if (typeof render === 'string') {
+      return /*#__PURE__*/React.createElement("span", null, render);
+    }
+    return render;
+  }
   return /*#__PURE__*/React.createElement("div", {
     ref: ref,
     style: {
@@ -378,11 +391,13 @@ function Toast({
       ...getToastPosition(position)
     }
   }, /*#__PURE__*/React.createElement("div", {
+    className: `toast-content${position.includes('bottom') ? '-bottom' : ''} ${leaving ? 'exit' : ''}`
+  }, type === 'custom' ? renderCustomContent() : /*#__PURE__*/React.createElement("div", {
     style: {
       ...style
     },
-    className: `toast-content${position.includes('bottom') ? '-bottom' : ''} ${leaving ? 'exit' : ''}`
-  }, type === 'custom' ? typeof toast.render === 'function' ? toast.render(() => dismiss(toast.id, toast.options.exitDelay)) : typeof toast.render === 'string' ? /*#__PURE__*/React.createElement("span", null, toast.render) : toast.render : /*#__PURE__*/React.createElement(React.Fragment, null, showIcon && /*#__PURE__*/React.createElement(React.Fragment, null, type === 'loading' && /*#__PURE__*/React.createElement(LoadingSvg, null), type === 'success' && /*#__PURE__*/React.createElement(SuccessSvg, null), type === 'error' && /*#__PURE__*/React.createElement(ErrorSvg, null)), /*#__PURE__*/React.createElement("span", null, text))));
+    className: "pre-styled"
+  }, showIcon && /*#__PURE__*/React.createElement(React.Fragment, null, type === 'loading' && /*#__PURE__*/React.createElement(LoadingSvg, null), type === 'success' && /*#__PURE__*/React.createElement(SuccessSvg, null), type === 'error' && /*#__PURE__*/React.createElement(ErrorSvg, null)), /*#__PURE__*/React.createElement("span", null, text))));
 }
 function getToastPosition(position) {
   const isLeft = position.includes('left');
