@@ -26,7 +26,7 @@ function Toast({ toast, setToasts, position, gap }) {
       <div style={{ ...style }} className={`toast-content${position.includes('bottom') ? '-bottom' : ''} ${leaving ? 'exit' : ''}`}>
         {type === 'custom' ? (
           typeof toast.render === 'function' ? (
-            toast.render(() => dismiss(toast.id))
+            toast.render(() => dismiss(toast.id, toast.options.exitDelay))
           ) : typeof toast.render === 'string' ? (
             <span>{toast.render}</span>
           ) : (

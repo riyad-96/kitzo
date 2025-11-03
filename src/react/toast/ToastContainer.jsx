@@ -18,11 +18,19 @@ export default function ToastContainer(props) {
   useEffect(() => {
     const unsub = subscribe((toast) => {
       if (toast.type === 'dismiss') {
-        setToasts((prev) => prev.map((t) => (t.options.id === toast.id ? { ...t, leaving: true } : t)));
-        setTimeout(() => {
-          setToasts((prev) => prev.filter((t) => t.options.id !== toast.id));
-        }, 300);
-        console.log(toasts);
+        setTimeout(
+          () => {
+            setToasts((prev) => prev.map((t) => (t.options.id === toast.id ? { ...t, leaving: true } : t)));
+          },
+          Math.max(0, Number(toast.exitDelay)),
+        );
+
+        setTimeout(
+          () => {
+            setToasts((prev) => prev.filter((t) => t.options.id !== toast.id));
+          },
+          Math.max(0, Number(toast.exitDelay) + 300),
+        );
         return;
       }
 

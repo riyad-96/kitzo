@@ -275,6 +275,7 @@ export function custom(render, options = {}) {
     {
       duration: 3000,
       id,
+      exitDelay: 50,
     },
     options,
   );
@@ -288,6 +289,6 @@ export function custom(render, options = {}) {
   return id;
 }
 
-export function dismiss(id) {
-  addToast({ type: 'dismiss', id });
+export function dismiss(id, exitDelay) {
+  addToast({ type: 'dismiss', id, exitDelay });
 }
