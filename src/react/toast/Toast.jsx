@@ -1,5 +1,6 @@
 import { useRef, useLayoutEffect } from 'react';
 import { SuccessSvg, ErrorSvg, LoadingSvg } from './Svgs';
+import { dismiss } from './toaster';
 
 function Toast({ toast, setToasts, position, gap }) {
   const { id, leaving, offset, text, type, options } = toast;
@@ -23,14 +24,26 @@ function Toast({ toast, setToasts, position, gap }) {
       }}
     >
       <div style={{ ...style }} className={`toast-content${position.includes('bottom') ? '-bottom' : ''} ${leaving ? 'exit' : ''}`}>
-        {showIcon && (
+        {type === 'custom' ? (
+          typeof toast.render === 'function' ? (
+            toast.render(() => dismiss(toast.id))
+          ) : typeof toast.render === 'string' ? (
+            <span>{toast.render}</span>
+          ) : (
+            toast.render
+          )
+        ) : (
           <>
-            {type === 'loading' && <LoadingSvg />}
-            {type === 'success' && <SuccessSvg />}
-            {type === 'error' && <ErrorSvg />}
+            {showIcon && (
+              <>
+                {type === 'loading' && <LoadingSvg />}
+                {type === 'success' && <SuccessSvg />}
+                {type === 'error' && <ErrorSvg />}
+              </>
+            )}
+            <span>{text}</span>
           </>
         )}
-        <span>{text}</span>
       </div>
     </div>
   );

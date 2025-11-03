@@ -126,13 +126,14 @@ kitzo.clippath(selectors | element | NodeList, {
   style: object,
 });
 ```
+
 ##### TypeCheck API:
 
 ```javascript
 kitzo.getType(type);
 
 const data = [];
-console.log(kitzo.getType(data)) // 'array'
+console.log(kitzo.getType(data)); // 'array'
 ```
 
 ---
@@ -156,17 +157,32 @@ import { ToastContainer, toast, ... } from 'kitzo/react';
 ```jsx
 import { toast } from 'kitzo/react';
 
-toast.success('toast message', {});
-toast.error('toast message', {});
+toast.success('toast message', { duration: 2000, style: {}, showIcon: true });
+toast.error('toast message', { duration: 2000, style: {}, showIcon: true });
+
 toast.promise(
-  promise(),
+  promise(), // call a function that returns promise
   {
     loading: 'Saving...',
-    success: 'Saved',
-    error: 'Error occured',
+    success: 'Saved' | (response) => 'Saved',
+    error: 'Error occured' | (error) => 'Error occured',
   },
-  { duration: 2000 }
+  { duration: 2000, style: {}, showIcon: true },
 );
+
+// JSX element
+toast.custom(<MyCustomComponent />, { duration: 2000 });
+
+// Function that receives a dismiss handler
+toast.custom((dismiss) => (
+  <div>
+    <span>Custom toast message</span>
+    <button onClick={dismiss}>Close</button>
+  </div>
+), { duration: 3000 | Infinity });
+
+// (and optionally)
+toast.custom("string");
 ```
 
 ##### Toast API Usage
@@ -179,29 +195,42 @@ function App() {
     return new Promise((resolved, rejected) => {
       setTimeout(() => {
         Math.random() > 0.5 ? resolved('resolved') : rejected('rejected');
-      }, 2000)
-    })
+      }, 2000);
+    });
+  }
+
+  function promiseToast() {
+    toast.promise(
+      fakePromise(),
+      {
+        loading: 'Saving data...',
+        success: 'Data saved',
+        error: 'Failed saving data',
+      },
+      { duration: 2500 },
+    );
+  }
+
+  function customToast() {
+    toast.custom(
+      (dismiss) => (
+        <div>
+          <span>Funtion that return jsx</span>
+          <button onClick={dismiss}>Close</button>
+        </div>
+      ),
+      {
+        duration: 2000,
+      },
+    );
   }
 
   return (
     <div>
       <button onClick={() => toast.success('✅ Success toast message')}>Succes</button>
       <button onClick={() => toast.error('❌ Error toast message')}>Error</button>
-      <button
-        onClick={() => {
-          toast.promise(
-            fakePromise(),
-            {
-              loading: 'Saving data...',
-              success: 'Data saved',
-              error: 'Failed saving data',
-            },
-            { duration: 2500 }
-          );
-        }}
-      >
-        Promise
-      </button>
+      <button onClick={promiseToast}>Promise</button>
+      <button onClick={customToast}>Custom Toast</button>
 
       {/* Toast container must needed */}
       <ToastContainer position="top-center" />

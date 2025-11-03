@@ -1,6 +1,3 @@
-const listeners = new Set();
-let isStyleAdded = false;
-
 function toastStyles() {
   return `.toast-content,
 .toast-content-bottom {
@@ -183,6 +180,9 @@ function toastStyles() {
 `;
 }
 
+const listeners = new Set();
+let isStyleAdded = false;
+
 function addToast(toast) {
   listeners.forEach((callback) => {
     callback(toast);
@@ -210,7 +210,7 @@ export function success(text = 'Toast success', options = {}) {
       style: {},
       showIcon: true,
     },
-    options
+    options,
   );
   addToast({ type: 'success', text, options });
 }
@@ -224,7 +224,7 @@ export function error(text = 'Toast denied', options = {}) {
       style: {},
       showIcon: true,
     },
-    options
+    options,
   );
   addToast({ type: 'error', text, options });
 }
@@ -238,7 +238,7 @@ export function promise(callback, msgs = {}, options = {}) {
       style: {},
       showIcon: true,
     },
-    options
+    options,
   );
 
   msgs = Object.assign(
@@ -247,7 +247,7 @@ export function promise(callback, msgs = {}, options = {}) {
       success: 'Success',
       error: 'Something went wrong',
     },
-    msgs
+    msgs,
   );
 
   addToast({ type: 'loading', text: msgs.loading, options: { ...options, duration: Infinity, id } });
@@ -266,4 +266,28 @@ export function promise(callback, msgs = {}, options = {}) {
       addToast({ type: 'error', text: errorMsg, options });
       return Promise.reject(normalizedError);
     });
+}
+
+export function custom(render, options = {}) {
+  const id = Date.now();
+
+  options = Object.assign(
+    {
+      duration: 3000,
+      id,
+    },
+    options,
+  );
+
+  addToast({
+    type: 'custom',
+    render,
+    options,
+  });
+
+  return id;
+}
+
+export function dismiss(id) {
+  addToast({ type: 'dismiss', id });
 }

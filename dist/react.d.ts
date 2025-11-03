@@ -1,8 +1,12 @@
+import React from 'react';
+
 export interface ToastOptions {
   duration?: number;
   style?: React.CSSProperties;
   showIcon?: boolean;
 }
+
+export type CustomContent = string | React.ReactNode | ((dismiss: () => void) => React.ReactNode);
 
 export interface ToastAPI {
   success(text?: string, options?: ToastOptions): void;
@@ -14,12 +18,11 @@ export interface ToastAPI {
       success?: string | ((res: T) => string);
       error?: string | ((err: Error) => string);
     },
-    options?: ToastOptions
+    options?: ToastOptions,
   ): Promise<T>;
+  custom(content: CustomContent, options?: { duration?: number | Infinity; }): void;
 }
 
 export declare const toast: ToastAPI;
-export declare function ToastContainer(props: {
-  position?: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
-  gap?: number;
-}): JSX.Element;
+
+export declare function ToastContainer(props: { position?: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'; gap?: number }): JSX.Element;

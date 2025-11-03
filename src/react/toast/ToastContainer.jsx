@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { subscribe } from './toaster';
 import Toast from './Toast';
 
@@ -8,7 +8,7 @@ export default function ToastContainer(props) {
       position: 'top-center',
       gap: 8,
     },
-    props
+    props,
   );
 
   const { position, gap } = props;
@@ -17,6 +17,15 @@ export default function ToastContainer(props) {
 
   useEffect(() => {
     const unsub = subscribe((toast) => {
+      if (toast.type === 'dismiss') {
+        setToasts((prev) => prev.map((t) => (t.options.id === toast.id ? { ...t, leaving: true } : t)));
+        setTimeout(() => {
+          setToasts((prev) => prev.filter((t) => t.options.id !== toast.id));
+        }, 300);
+        console.log(toasts);
+        return;
+      }
+
       const duration = toast.options.duration;
       const id = toast.options.id;
 
@@ -29,10 +38,13 @@ export default function ToastContainer(props) {
         return [{ id, ...toast, offset: 0, height: 0, leaving: false }, ...prev];
       });
 
-      if (toast.type !== 'loading') {
-        setTimeout(() => {
-          setToasts((prev) => prev.map((t) => (t.options.id === id ? { ...t, leaving: true } : t)));
-        }, Math.max(0, duration - 300));
+      if (toast.type !== 'loading' && isFinite(duration)) {
+        setTimeout(
+          () => {
+            setToasts((prev) => prev.map((t) => (t.options.id === id ? { ...t, leaving: true } : t)));
+          },
+          Math.max(0, duration - 300),
+        );
 
         setTimeout(() => {
           setToasts((prev) => prev.filter((t) => t.options.id !== id));
