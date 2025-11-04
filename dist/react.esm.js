@@ -204,6 +204,7 @@ function subscribe(callback) {
 function success(text = 'Toast success', options = {}) {
   const id = Date.now();
   options = Object.assign({
+    position: 'top-center',
     duration: 2000,
     id,
     style: {},
@@ -218,6 +219,7 @@ function success(text = 'Toast success', options = {}) {
 function error(text = 'Toast denied', options = {}) {
   const id = Date.now();
   options = Object.assign({
+    position: 'top-center',
     duration: 2000,
     id,
     style: {},
@@ -232,6 +234,7 @@ function error(text = 'Toast denied', options = {}) {
 function promise(callback, msgs = {}, options = {}) {
   const id = Date.now();
   options = Object.assign({
+    position: 'top-center',
     duration: 2000,
     id,
     style: {},
@@ -273,6 +276,7 @@ function promise(callback, msgs = {}, options = {}) {
 function custom(render, options = {}) {
   const id = Date.now();
   options = Object.assign({
+    position: 'top-center',
     duration: 3000,
     id,
     exitDelay: 50
@@ -366,10 +370,12 @@ function Toast({
   } = options;
   const ref = useRef(null);
   useLayoutEffect(() => {
-    const height = ref.current.getBoundingClientRect().height + gap;
-    setToasts(prev => prev.map(t => t.id == id ? {
+    if (!ref.current) return;
+    const height = ref.current.getBoundingClientRect().height;
+    const totalHeight = height + gap;
+    setToasts(prev => prev.map(t => t.id === id ? {
       ...t,
-      height
+      height: totalHeight
     } : t));
   }, []);
   const transformY = position.includes('bottom') ? `translateY(-${offset || 0}px)` : `translateY(${offset || 0}px)`;
@@ -422,14 +428,15 @@ function getToastPosition(position) {
 
 function ToastContainer(props) {
   props = Object.assign({
-    position: 'top-center',
     gap: 8
   }, props);
   const {
-    position,
     gap
   } = props;
+  const position = props.position;
   const [toasts, setToasts] = useState([]);
+
+  // event listener
   useEffect(() => {
     const unsub = subscribe(toast => {
       if (toast.type === 'dismiss') {
@@ -476,19 +483,33 @@ function ToastContainer(props) {
     });
     return () => unsub();
   }, []);
-  useEffect(() => {
-    let offset = 0;
+
+  // measue height and offset for each toast
+  useLayoutEffect(() => {
+    const grouped = toasts.reduce((acc, t) => {
+      const pos = t.options.position || position || 'top-center';
+      (acc[pos] ||= []).push(t);
+      return acc;
+    }, {});
+    let hasChanged = false;
     const updated = toasts.map(toast => {
-      const top = offset;
-      offset += toast.height;
+      const pos = toast.options.position || position || 'top-center';
+      const group = grouped[pos];
+      const index = group.findIndex(t => t.id === toast.id);
+      const offset = group.slice(0, index).reduce((acc, t) => acc + (t.height || 0), 0);
+      if (offset !== toast.offset) {
+        hasChanged = true;
+      }
       return {
         ...toast,
-        offset: top
+        offset
       };
     });
-    const changed = updated.some((u, i) => u.offset != toasts[i].offset);
-    if (changed) setToasts(updated);
+    if (hasChanged) {
+      setToasts(updated);
+    }
   }, [toasts]);
+  const positions = ['top-left', 'top-center', 'top-right', 'bottom-left', 'bottom-center', 'bottom-right'];
   return /*#__PURE__*/React.createElement("div", {
     style: {
       position: 'fixed',
@@ -496,9 +517,14 @@ function ToastContainer(props) {
       zIndex: 100000000,
       pointerEvents: 'none',
       fontFamily: 'inherit',
-      display: 'grid',
-      padding: '1rem',
       boxSizing: 'border-box'
+    }
+  }, position ? /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'absolute',
+      inset: 0,
+      display: 'grid',
+      padding: '1rem'
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -510,7 +536,29 @@ function ToastContainer(props) {
     setToasts: setToasts,
     position: position,
     gap: typeof gap === 'string' ? isNaN(+gap) ? 8 : +gap : gap
-  }))));
+  })))) : /*#__PURE__*/React.createElement(React.Fragment, null, positions.map(pos => {
+    const group = toasts.filter(t => t.options.position === pos);
+    if (!group.length) return null;
+    return /*#__PURE__*/React.createElement("div", {
+      key: pos,
+      style: {
+        position: 'absolute',
+        inset: 0,
+        display: 'grid',
+        padding: '1rem'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative'
+      }
+    }, group.map(toast => /*#__PURE__*/React.createElement(Toast, {
+      key: toast.options.id,
+      toast: toast,
+      setToasts: setToasts,
+      position: pos,
+      gap: typeof gap === 'string' ? isNaN(+gap) ? 8 : +gap : gap
+    }))));
+  })));
 }
 
 const toast = {

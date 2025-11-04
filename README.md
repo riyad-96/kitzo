@@ -157,8 +157,8 @@ import { ToastContainer, toast, ... } from 'kitzo/react';
 ```jsx
 import { toast } from 'kitzo/react';
 
-toast.success('toast message', { duration: 2000, style: {}, showIcon: true });
-toast.error('toast message', { duration: 2000, style: {}, showIcon: true });
+toast.success('toast message', { duration: 2000, style: {}, showIcon: true, position: 'top-center' });
+toast.error('toast message', { duration: 2000, style: {}, showIcon: true, position: 'top-center' });
 
 toast.promise(
   promise(), // call a function that returns promise
@@ -167,11 +167,11 @@ toast.promise(
     success: 'Saved' | (response) => 'Saved',
     error: 'Error occured' | (error) => 'Error occured',
   },
-  { duration: 2000, style: {}, showIcon: true },
+  { duration: 2000, style: {}, showIcon: true, position: 'top-center' },
 );
 
 // JSX element
-toast.custom(<MyCustomComponent />, { duration: 2000 });
+toast.custom(<MyCustomComponent />, { duration: 2000, position: 'top-center' });
 
 // Function that receives a dismiss handler
 toast.custom((dismiss) => (
@@ -186,6 +186,7 @@ toast.custom("string");
 ```
 
 ##### Toast API Usage
+
 
 ```jsx
 import { ToastContainer, toast } from 'kitzo/react';
@@ -207,7 +208,7 @@ function App() {
         success: 'Data saved',
         error: 'Failed saving data',
       },
-      { duration: 2500 },
+      { duration: 2500, position: 'top-center' },
     );
   }
 
@@ -221,6 +222,7 @@ function App() {
       ),
       {
         duration: 2000,
+        position: 'top-center',
       },
     );
   }
@@ -233,8 +235,9 @@ function App() {
       <button onClick={customToast}>Custom Toast</button>
 
       {/* Toast container must needed */}
-      <ToastContainer position="top-center" />
+      <ToastContainer />
     </div>
   );
 }
 ```
+> Each toast can have its own position, but if you specify a position on `<ToastContainer />`, that position will apply to all toasts.

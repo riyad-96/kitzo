@@ -1,6 +1,7 @@
 import React from 'react';
 
 export interface ToastOptions {
+  position?: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
   duration?: number;
   style?: React.CSSProperties;
   showIcon?: boolean;
@@ -20,9 +21,9 @@ export interface ToastAPI {
     },
     options?: ToastOptions,
   ): Promise<T>;
-  custom(content: CustomContent, options?: { duration?: number | Infinity; exitDelay?: number }): void;
+  custom(content: CustomContent, options?: { duration?: number; exitDelay?: number; position?: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right' }): void;
 }
 
 export declare const toast: ToastAPI;
 
-export declare function ToastContainer(props: { position?: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'; gap?: number }): JSX.Element;
+export declare function ToastContainer(props: { position?: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'; gap?: number }): void;
