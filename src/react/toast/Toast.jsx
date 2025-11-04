@@ -8,8 +8,12 @@ function Toast({ toast, setToasts, position, gap }) {
   const ref = useRef(null);
 
   useLayoutEffect(() => {
-    const height = ref.current.getBoundingClientRect().height + gap;
-    setToasts((prev) => prev.map((t) => (t.id == id ? { ...t, height } : t)));
+    if (!ref.current) return;
+
+    const height = ref.current.getBoundingClientRect().height;
+    const totalHeight = height + gap;
+
+    setToasts((prev) => prev.map((t) => (t.id === id ? { ...t, height: totalHeight } : t)));
   }, []);
 
   const transformY = position.includes('bottom') ? `translateY(-${offset || 0}px)` : `translateY(${offset || 0}px)`;
