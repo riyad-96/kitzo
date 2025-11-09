@@ -208,7 +208,6 @@ export function success(text = 'Toast success', options = {}) {
   const id = Date.now();
   options = Object.assign(
     {
-      position: 'top-center',
       duration: 2000,
       id,
       style: {},
@@ -223,7 +222,6 @@ export function error(text = 'Toast denied', options = {}) {
   const id = Date.now();
   options = Object.assign(
     {
-      position: 'top-center',
       duration: 2000,
       id,
       style: {},
@@ -238,7 +236,6 @@ export function promise(callback, msgs = {}, options = {}) {
   const id = Date.now();
   options = Object.assign(
     {
-      position: 'top-center',
       duration: 2000,
       id,
       style: {},
@@ -279,7 +276,6 @@ export function custom(render, options = {}) {
 
   options = Object.assign(
     {
-      position: 'top-center',
       duration: 3000,
       id,
       exitDelay: 50,

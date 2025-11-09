@@ -25,7 +25,7 @@ npm i kitzo
 or
 
 ```javascript
-<script src="https://cdn.jsdelivr.net/npm/kitzo@2.0.33/dist/kitzo.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/kitzo@2.0.34/dist/kitzo.umd.min.js"></script>
 ```
 
 > Attach this script tag in the html head tag and you are good to go.
@@ -187,7 +187,6 @@ toast.custom("string");
 
 ##### Toast API Usage
 
-
 ```jsx
 import { ToastContainer, toast } from 'kitzo/react';
 
@@ -240,4 +239,5 @@ function App() {
   );
 }
 ```
-> Each toast can have its own position, but if you specify a position on `<ToastContainer />`, that position will apply to all toasts.
+
+> Each toast can have its own position. default position is `top-center`.

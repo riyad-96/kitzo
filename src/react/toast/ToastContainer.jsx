@@ -5,6 +5,7 @@ import Toast from './Toast';
 export default function ToastContainer(props) {
   props = Object.assign(
     {
+      position: 'top-center',
       gap: 8,
     },
     props,
@@ -107,32 +108,20 @@ export default function ToastContainer(props) {
         boxSizing: 'border-box',
       }}
     >
-      {position ? (
-        <div style={{ position: 'absolute', inset: 0, display: 'grid', padding: '1rem' }}>
-          <div style={{ position: 'relative' }}>
-            {toasts.map((toast) => (
-              <Toast key={toast.options.id} toast={toast} setToasts={setToasts} position={position} gap={typeof gap === 'string' ? (isNaN(+gap) ? 8 : +gap) : gap} />
-            ))}
-          </div>
-        </div>
-      ) : (
-        <>
-          {positions.map((pos) => {
-            const group = toasts.filter((t) => t.options.position === pos);
-            if (!group.length) return null;
+      {positions.map((pos) => {
+        const group = toasts.filter((t) => (t.options.position || position || 'top-center') === pos);
+        if (!group.length) return null;
 
-            return (
-              <div key={pos} style={{ position: 'absolute', inset: 0, display: 'grid', padding: '1rem' }}>
-                <div style={{ position: 'relative' }}>
-                  {group.map((toast) => (
-                    <Toast key={toast.options.id} toast={toast} setToasts={setToasts} position={pos} gap={typeof gap === 'string' ? (isNaN(+gap) ? 8 : +gap) : gap} />
-                  ))}
-                </div>
-              </div>
-            );
-          })}
-        </>
-      )}
+        return (
+          <div key={pos} style={{ position: 'absolute', inset: 0, display: 'grid', padding: '1rem' }}>
+            <div style={{ position: 'relative' }}>
+              {group.map((toast) => (
+                <Toast key={toast.options.id} toast={toast} setToasts={setToasts} position={pos} gap={typeof gap === 'string' ? (isNaN(+gap) ? 8 : +gap) : gap} />
+              ))}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
