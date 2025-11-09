@@ -204,7 +204,6 @@ function subscribe(callback) {
 function success(text = 'Toast success', options = {}) {
   const id = Date.now();
   options = Object.assign({
-    position: 'top-center',
     duration: 2000,
     id,
     style: {},
@@ -219,7 +218,6 @@ function success(text = 'Toast success', options = {}) {
 function error(text = 'Toast denied', options = {}) {
   const id = Date.now();
   options = Object.assign({
-    position: 'top-center',
     duration: 2000,
     id,
     style: {},
@@ -234,7 +232,6 @@ function error(text = 'Toast denied', options = {}) {
 function promise(callback, msgs = {}, options = {}) {
   const id = Date.now();
   options = Object.assign({
-    position: 'top-center',
     duration: 2000,
     id,
     style: {},
@@ -276,7 +273,6 @@ function promise(callback, msgs = {}, options = {}) {
 function custom(render, options = {}) {
   const id = Date.now();
   options = Object.assign({
-    position: 'top-center',
     duration: 3000,
     id,
     exitDelay: 50
@@ -428,6 +424,7 @@ function getToastPosition(position) {
 
 function ToastContainer(props) {
   props = Object.assign({
+    position: 'top-center',
     gap: 8
   }, props);
   const {
@@ -519,25 +516,8 @@ function ToastContainer(props) {
       fontFamily: 'inherit',
       boxSizing: 'border-box'
     }
-  }, position ? /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      inset: 0,
-      display: 'grid',
-      padding: '1rem'
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'relative'
-    }
-  }, toasts.map(toast => /*#__PURE__*/React.createElement(Toast, {
-    key: toast.options.id,
-    toast: toast,
-    setToasts: setToasts,
-    position: position,
-    gap: typeof gap === 'string' ? isNaN(+gap) ? 8 : +gap : gap
-  })))) : /*#__PURE__*/React.createElement(React.Fragment, null, positions.map(pos => {
-    const group = toasts.filter(t => t.options.position === pos);
+  }, positions.map(pos => {
+    const group = toasts.filter(t => (t.options.position || position || 'top-center') === pos);
     if (!group.length) return null;
     return /*#__PURE__*/React.createElement("div", {
       key: pos,
@@ -558,7 +538,7 @@ function ToastContainer(props) {
       position: pos,
       gap: typeof gap === 'string' ? isNaN(+gap) ? 8 : +gap : gap
     }))));
-  })));
+  }));
 }
 
 const toast = {
