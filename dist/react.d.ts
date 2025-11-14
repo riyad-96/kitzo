@@ -1,15 +1,17 @@
-import React from 'react';
+import { ReactNode, CSSProperties } from 'react';
 
+// Toast API types declaration
 export interface ToastOptions {
   position?: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
   duration?: number;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
   showIcon?: boolean;
 }
 
-export type CustomContent = string | React.ReactNode | ((dismiss: () => void) => React.ReactNode);
+export type CustomContent = string | ReactNode | ((dismiss: () => void) => ReactNode);
 
 export interface ToastAPI {
+  (text?: string, options?: ToastOptions): void;
   success(text?: string, options?: ToastOptions): void;
   error(text?: string, options?: ToastOptions): void;
   promise<T>(
@@ -26,4 +28,13 @@ export interface ToastAPI {
 
 export declare const toast: ToastAPI;
 
-export declare function ToastContainer(props: { position?: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'; gap?: number }): void;
+export declare function ToastContainer(props: { position?: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'; gap?: number }): JSX.Element;
+
+// Tooltip API types declaration
+export interface TooltipProps {
+  content: string | ReactNode;
+  position?: 'top' | 'right' | 'bottom' | 'left';
+  offset?: number;
+}
+
+export declare function Tooltip(props: TooltipProps): JSX.Element;

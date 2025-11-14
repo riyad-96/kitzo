@@ -15,6 +15,7 @@
 ##### [React js](#react)
 
 - React Toast notifications
+- Tooltip wrapper component
 
 #### Install
 
@@ -28,20 +29,14 @@ or
 <script src="https://cdn.jsdelivr.net/npm/kitzo@2.0.34/dist/kitzo.umd.min.js"></script>
 ```
 
-> Attach this script tag in the html head tag and you are good to go.
+> Vanilla: Attach this script tag in the html head tag and you are good to go.
 
 ---
 
-#### Quick usage overview: Vanilla js
+#### API links
 
-| [API](#vanilla-apis)                |
-| ----------------------------------- |
-| [`kitzo.copy()`](#copy-api)         |
-| [`kitzo.tooltip()`](#tooltip-api)   |
-| [`kitzo.ripple()`](#ripple-api)     |
-| [`kitzo.debounce()`](#debounce-api) |
-| [`kitzo.clippath()`](#clippath-api) |
-| [`kitzo.getType()`](#typecheck-api) |
+- **Vanilla**: [copy](#copy-api), [Tooltip](#tooltip-api), [Ripple](#ripple-api), [Debounce](#debounce-api), [Clippath](#clippath-api), [Get type](#typecheck-api)
+- **React**: [Toast](#react-toast-api-usage), [Tooltip](#react-tooltip-api)
 
 #### Vanilla APIs
 
@@ -149,7 +144,7 @@ npm i kitzo
 #### React APIs
 
 ```jsx
-import { ToastContainer, toast, ... } from 'kitzo/react';
+import { ToastContainer, toast, Tooltip, ... } from 'kitzo/react';
 ```
 
 ##### Toast API:
@@ -185,7 +180,7 @@ toast.custom((dismiss) => (
 toast.custom("string");
 ```
 
-##### Toast API Usage
+##### React Toast API Usage
 
 ```jsx
 import { ToastContainer, toast } from 'kitzo/react';
@@ -241,3 +236,25 @@ function App() {
 ```
 
 > Each toast can have its own position. default position is `top-center`.
+
+##### React Tooltip API:
+
+```jsx
+import { Tooltip } from 'kitzo/react';
+
+function App() {
+  return (
+    <div>
+      <h1>Tooltip api</h1>
+
+      <div>
+        <Tooltip content="Tooltip" position="top" offset="10">
+          <button>Hover me</button>
+        </Tooltip>
+      </div>
+    </div>
+  );
+}
+```
+
+> what short description about this api need to written here bro?

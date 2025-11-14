@@ -204,7 +204,7 @@ export function subscribe(callback) {
   return () => listeners.delete(callback);
 }
 
-export function success(text = 'Toast success', options = {}) {
+function toast(text = 'Toast message', options = {}) {
   const id = Date.now();
   options = Object.assign(
     {
@@ -218,7 +218,21 @@ export function success(text = 'Toast success', options = {}) {
   addToast({ type: 'success', text, options });
 }
 
-export function error(text = 'Toast denied', options = {}) {
+toast.success = (text = 'Toast success', options = {}) => {
+  const id = Date.now();
+  options = Object.assign(
+    {
+      duration: 2000,
+      id,
+      style: {},
+      showIcon: true,
+    },
+    options,
+  );
+  addToast({ type: 'success', text, options });
+};
+
+toast.error = (text = 'Toast denied', options = {}) => {
   const id = Date.now();
   options = Object.assign(
     {
@@ -230,9 +244,9 @@ export function error(text = 'Toast denied', options = {}) {
     options,
   );
   addToast({ type: 'error', text, options });
-}
+};
 
-export function promise(callback, msgs = {}, options = {}) {
+toast.promise = (callback, msgs = {}, options = {}) => {
   const id = Date.now();
   options = Object.assign(
     {
@@ -269,9 +283,9 @@ export function promise(callback, msgs = {}, options = {}) {
       addToast({ type: 'error', text: errorMsg, options });
       return Promise.reject(normalizedError);
     });
-}
+};
 
-export function custom(render, options = {}) {
+toast.custom = (render, options = {}) => {
   const id = Date.now();
 
   options = Object.assign(
@@ -290,8 +304,9 @@ export function custom(render, options = {}) {
   });
 
   return id;
-}
+};
 
-export function dismiss(id, exitDelay) {
+function dismiss(id, exitDelay) {
   addToast({ type: 'dismiss', id, exitDelay });
 }
+export { toast, dismiss };

@@ -1,11 +1,5 @@
 import ToastContainer from './toast/ToastContainer.jsx';
-import { success, error, promise, custom } from './toast/toaster';
+import { toast } from './toast/toaster';
+import Tooltip from './tooltip/Tooltip.jsx';
 
-const toast = {
-  success,
-  error,
-  promise,
-  custom,
-};
-
-export { ToastContainer, toast };
+export { ToastContainer, toast, Tooltip };
