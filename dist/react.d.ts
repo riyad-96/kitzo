@@ -35,6 +35,7 @@ export interface TooltipProps {
   content: string | ReactNode;
   position?: 'top' | 'right' | 'bottom' | 'left';
   offset?: number;
+  hideOnTouch?: boolean;
 }
 
 export declare function Tooltip(props: TooltipProps): JSX.Element;
