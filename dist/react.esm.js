@@ -657,8 +657,13 @@ function Tooltip({
   content = 'Tooltip',
   position = '',
   offset = 8,
+  hideOnTouch = true,
   children
 }) {
+  if (typeof hideOnTouch !== 'boolean') hideOnTouch = true;
+  const isTouch = window.matchMedia('(pointer: coarse)').matches;
+  if (isTouch && hideOnTouch) return children;
+
   // sanitize props
   if (typeof position !== 'string') {
     console.warn(`[kitzo/react]: Tooltip position ignored due to invalid data type.`);

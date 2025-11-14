@@ -26,7 +26,7 @@ npm i kitzo
 or
 
 ```javascript
-<script src="https://cdn.jsdelivr.net/npm/kitzo@2.1.5/dist/kitzo.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/kitzo@2.1.6/dist/kitzo.umd.min.js"></script>
 ```
 
 > Vanilla: Attach this script tag in the html head tag and you are good to go.
@@ -248,7 +248,7 @@ function App() {
       <h1>Tooltip api</h1>
 
       <div>
-        <Tooltip content="Tooltip" position="top" offset="10">
+        <Tooltip content="Tooltip" position="top" offset="10" hideOnTouch={true}>
           <button>Hover me</button>
         </Tooltip>
       </div>
@@ -257,4 +257,4 @@ function App() {
 }
 ```
 
-> what short description about this api need to written here bro?
+> You can provide your own custom jsx element as `content`. e.g. `content={<div>Custom tooltip</div>}`
