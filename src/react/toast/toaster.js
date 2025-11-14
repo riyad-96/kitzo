@@ -184,7 +184,6 @@ function toastStyles() {
 }
 
 const listeners = new Set();
-let isStyleAdded = false;
 
 function addToast(toast) {
   listeners.forEach((callback) => {
@@ -193,32 +192,32 @@ function addToast(toast) {
 }
 
 export function subscribe(callback) {
-  if (!isStyleAdded) {
+  if (!document.getElementById('kitzo-react-toast-styles')) {
     const styleTag = document.createElement('style');
+    styleTag.id = 'kitzo-react-toast-styles';
     styleTag.textContent = toastStyles();
     document.head.appendChild(styleTag);
-    isStyleAdded = true;
   }
 
   listeners.add(callback);
   return () => listeners.delete(callback);
 }
 
-function toast(text = 'Toast message', options = {}) {
+function baseToast(text = 'Toast message', options = {}) {
   const id = Date.now();
   options = Object.assign(
     {
       duration: 2000,
       id,
       style: {},
-      showIcon: true,
+      showIcon: false,
     },
     options,
   );
   addToast({ type: 'success', text, options });
 }
 
-toast.success = (text = 'Toast success', options = {}) => {
+baseToast.success = (text = 'Toast success', options = {}) => {
   const id = Date.now();
   options = Object.assign(
     {
@@ -232,7 +231,7 @@ toast.success = (text = 'Toast success', options = {}) => {
   addToast({ type: 'success', text, options });
 };
 
-toast.error = (text = 'Toast denied', options = {}) => {
+baseToast.error = (text = 'Toast denied', options = {}) => {
   const id = Date.now();
   options = Object.assign(
     {
@@ -246,7 +245,7 @@ toast.error = (text = 'Toast denied', options = {}) => {
   addToast({ type: 'error', text, options });
 };
 
-toast.promise = (callback, msgs = {}, options = {}) => {
+baseToast.promise = (callback, msgs = {}, options = {}) => {
   const id = Date.now();
   options = Object.assign(
     {
@@ -285,7 +284,7 @@ toast.promise = (callback, msgs = {}, options = {}) => {
     });
 };
 
-toast.custom = (render, options = {}) => {
+baseToast.custom = (render, options = {}) => {
   const id = Date.now();
 
   options = Object.assign(
@@ -309,4 +308,5 @@ toast.custom = (render, options = {}) => {
 function dismiss(id, exitDelay) {
   addToast({ type: 'dismiss', id, exitDelay });
 }
+const toast = baseToast;
 export { toast, dismiss };

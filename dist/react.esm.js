@@ -185,29 +185,28 @@ function toastStyles() {
 `;
 }
 const listeners = new Set();
-let isStyleAdded$1 = false;
 function addToast(toast) {
   listeners.forEach(callback => {
     callback(toast);
   });
 }
 function subscribe(callback) {
-  if (!isStyleAdded$1) {
+  if (!document.getElementById('kitzo-react-toast-styles')) {
     const styleTag = document.createElement('style');
+    styleTag.id = 'kitzo-react-toast-styles';
     styleTag.textContent = toastStyles();
     document.head.appendChild(styleTag);
-    isStyleAdded$1 = true;
   }
   listeners.add(callback);
   return () => listeners.delete(callback);
 }
-function toast(text = 'Toast message', options = {}) {
+function baseToast(text = 'Toast message', options = {}) {
   const id = Date.now();
   options = Object.assign({
     duration: 2000,
     id,
     style: {},
-    showIcon: true
+    showIcon: false
   }, options);
   addToast({
     type: 'success',
@@ -215,7 +214,7 @@ function toast(text = 'Toast message', options = {}) {
     options
   });
 }
-toast.success = (text = 'Toast success', options = {}) => {
+baseToast.success = (text = 'Toast success', options = {}) => {
   const id = Date.now();
   options = Object.assign({
     duration: 2000,
@@ -229,7 +228,7 @@ toast.success = (text = 'Toast success', options = {}) => {
     options
   });
 };
-toast.error = (text = 'Toast denied', options = {}) => {
+baseToast.error = (text = 'Toast denied', options = {}) => {
   const id = Date.now();
   options = Object.assign({
     duration: 2000,
@@ -243,7 +242,7 @@ toast.error = (text = 'Toast denied', options = {}) => {
     options
   });
 };
-toast.promise = (callback, msgs = {}, options = {}) => {
+baseToast.promise = (callback, msgs = {}, options = {}) => {
   const id = Date.now();
   options = Object.assign({
     duration: 2000,
@@ -284,7 +283,7 @@ toast.promise = (callback, msgs = {}, options = {}) => {
     return Promise.reject(normalizedError);
   });
 };
-toast.custom = (render, options = {}) => {
+baseToast.custom = (render, options = {}) => {
   const id = Date.now();
   options = Object.assign({
     duration: 3000,
@@ -305,6 +304,7 @@ function dismiss(id, exitDelay) {
     exitDelay
   });
 }
+const toast = baseToast;
 
 function SuccessSvg() {
   return /*#__PURE__*/React.createElement("div", {
