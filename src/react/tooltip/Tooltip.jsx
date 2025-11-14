@@ -4,7 +4,7 @@ const tooltipStyles = `
   font-size: 0.875rem;
   background-color: hsl(0, 0%, 15%);
   color: hsl(0, 0%, 95%);
-  padding-block: 8px;
+  padding-block: 6px;
   padding-inline: 10px;
   border-radius: 0.325rem;
 

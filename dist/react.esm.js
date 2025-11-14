@@ -1,7 +1,6 @@
 import React, { useRef, useLayoutEffect, useState, useEffect } from 'react';
 
-function toastStyles() {
-  return `.toast-content,
+const toastStyles = `.toast-content,
 .toast-content-bottom {
   font-size: 0.925rem;
 }
@@ -183,7 +182,6 @@ function toastStyles() {
   }
 }
 `;
-}
 const listeners = new Set();
 function addToast(toast) {
   listeners.forEach(callback => {
@@ -194,13 +192,13 @@ function subscribe(callback) {
   if (!document.getElementById('kitzo-react-toast-styles')) {
     const styleTag = document.createElement('style');
     styleTag.id = 'kitzo-react-toast-styles';
-    styleTag.textContent = toastStyles();
+    styleTag.textContent = toastStyles;
     document.head.appendChild(styleTag);
   }
   listeners.add(callback);
   return () => listeners.delete(callback);
 }
-function baseToast(text = 'Toast message', options = {}) {
+function toast(text = 'Toast message', options = {}) {
   const id = Date.now();
   options = Object.assign({
     duration: 2000,
@@ -214,7 +212,7 @@ function baseToast(text = 'Toast message', options = {}) {
     options
   });
 }
-baseToast.success = (text = 'Toast success', options = {}) => {
+toast.success = (text = 'Toast success', options = {}) => {
   const id = Date.now();
   options = Object.assign({
     duration: 2000,
@@ -228,7 +226,7 @@ baseToast.success = (text = 'Toast success', options = {}) => {
     options
   });
 };
-baseToast.error = (text = 'Toast denied', options = {}) => {
+toast.error = (text = 'Toast denied', options = {}) => {
   const id = Date.now();
   options = Object.assign({
     duration: 2000,
@@ -242,7 +240,7 @@ baseToast.error = (text = 'Toast denied', options = {}) => {
     options
   });
 };
-baseToast.promise = (callback, msgs = {}, options = {}) => {
+toast.promise = (callback, msgs = {}, options = {}) => {
   const id = Date.now();
   options = Object.assign({
     duration: 2000,
@@ -283,7 +281,7 @@ baseToast.promise = (callback, msgs = {}, options = {}) => {
     return Promise.reject(normalizedError);
   });
 };
-baseToast.custom = (render, options = {}) => {
+toast.custom = (render, options = {}) => {
   const id = Date.now();
   options = Object.assign({
     duration: 3000,
@@ -304,7 +302,6 @@ function dismiss(id, exitDelay) {
     exitDelay
   });
 }
-const toast = baseToast;
 
 function SuccessSvg() {
   return /*#__PURE__*/React.createElement("div", {
@@ -561,7 +558,7 @@ const tooltipStyles = `
   font-size: 0.875rem;
   background-color: hsl(0, 0%, 15%);
   color: hsl(0, 0%, 95%);
-  padding-block: 8px;
+  padding-block: 6px;
   padding-inline: 10px;
   border-radius: 0.325rem;
 
