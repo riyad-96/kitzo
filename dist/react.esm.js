@@ -645,7 +645,6 @@ const tooltipStyles = `
     styleTag.id = 'kitzo-react-tooltip-styles';
     styleTag.textContent = tooltipStyles;
     document.head.appendChild(styleTag);
-    isStyleAdded = true;
   }
 })();
 function getPositionBasedClassName(position) {
