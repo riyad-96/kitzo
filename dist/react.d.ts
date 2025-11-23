@@ -1,4 +1,4 @@
-import { ReactNode, CSSProperties } from 'react';
+import { type ReactNode, type CSSProperties, type JSX, type PropsWithChildren } from 'react';
 
 // Toast API types declaration
 export interface ToastOptions {
@@ -31,11 +31,13 @@ export declare const toast: ToastAPI;
 export declare function ToastContainer(props: { position?: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'; gap?: number }): JSX.Element;
 
 // Tooltip API types declaration
-export interface TooltipProps {
+export interface TooltipCoreProps {
   content: string | ReactNode;
   position?: 'top' | 'right' | 'bottom' | 'left';
   offset?: number;
   hideOnTouch?: boolean;
 }
+
+export type TooltipProps = PropsWithChildren<TooltipCoreProps>;
 
 export declare function Tooltip(props: TooltipProps): JSX.Element;
