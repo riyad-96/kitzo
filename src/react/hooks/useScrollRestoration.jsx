@@ -2,7 +2,9 @@ import { useEffect, useRef } from 'react';
 
 function useScrollRestoration(path, key, options = {}) {
   if (!path || (typeof path !== 'object' && typeof path !== 'string')) {
-    throw new Error('kitzo/react: useScrollRestoration(path, ...) expect location object from the react useLocation hook or unique path string(location.pathname)');
+    throw new Error(
+      'kitzo/react: useScrollRestoration(path, ...) expect location object from the react useLocation hook or unique path string(location.pathname)',
+    );
   }
   if (!key || (typeof key !== 'string' && typeof key !== 'number')) {
     throw new Error('kitzo/react: useScrollRestoration(..., key) expect unique string or number');
@@ -26,7 +28,11 @@ function useScrollRestoration(path, key, options = {}) {
     const saved = history.current.get(mapKey);
 
     const restore = () => {
-      if (!saved) return;
+      if (!saved) {
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+        element.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+        return;
+      }
       if (isWindow) {
         window.scrollTo({ top: saved.top, left: saved.left, behavior });
       } else if (element) {
