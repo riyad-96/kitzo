@@ -201,7 +201,7 @@ function subscribe(callback) {
 function toast(text = 'Toast message', options = {}) {
   const id = Date.now();
   options = Object.assign({
-    duration: 2000,
+    duration: 2800,
     id,
     style: {},
     showIcon: false
@@ -215,7 +215,7 @@ function toast(text = 'Toast message', options = {}) {
 toast.success = (text = 'Toast success', options = {}) => {
   const id = Date.now();
   options = Object.assign({
-    duration: 2000,
+    duration: 2800,
     id,
     style: {},
     showIcon: true
@@ -229,7 +229,7 @@ toast.success = (text = 'Toast success', options = {}) => {
 toast.error = (text = 'Toast denied', options = {}) => {
   const id = Date.now();
   options = Object.assign({
-    duration: 2000,
+    duration: 2800,
     id,
     style: {},
     showIcon: true
@@ -243,7 +243,7 @@ toast.error = (text = 'Toast denied', options = {}) => {
 toast.promise = (callback, msgs = {}, options = {}) => {
   const id = Date.now();
   options = Object.assign({
-    duration: 2000,
+    duration: 2800,
     id,
     style: {},
     showIcon: true
