@@ -1,7 +1,13 @@
 import type { ReactNode, CSSProperties, JSX, PropsWithChildren, RefObject } from 'react';
 
 //! Toast API types declaration
-export type Positions = 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
+export type Positions =
+  | 'top-left'
+  | 'top-center'
+  | 'top-right'
+  | 'bottom-left'
+  | 'bottom-center'
+  | 'bottom-right';
 
 export interface ToastOptions {
   position?: Positions;
@@ -29,7 +35,10 @@ export interface ToastAPI {
     options?: ToastOptions,
   ): void;
 
-  custom(content: CustomContent, options?: { duration?: number; exitDelay?: number; position?: Positions }): void;
+  custom(
+    content: CustomContent,
+    options?: { duration?: number; exitDelay?: number; position?: Positions },
+  ): void;
 }
 
 export declare const toast: ToastAPI;
@@ -59,4 +68,8 @@ type LocationLike = {
   [key: string]: any;
 };
 
-export declare function useScrollRestoration(path: LocationLike | string, key: string | number, options?: ScrollHookOptions): RefObject<HTMLElement | null>;
+export declare function useScrollRestoration<T extends HTMLElement = HTMLElement>(
+  path: LocationLike | string,
+  key: string | number,
+  options?: ScrollHookOptions,
+): RefObject<T | null>;
