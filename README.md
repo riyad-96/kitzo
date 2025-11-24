@@ -26,7 +26,7 @@ npm i kitzo
 or
 
 ```javascript
-<script src="https://cdn.jsdelivr.net/npm/kitzo@2.1.11/dist/kitzo.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/kitzo@2.1.12/dist/kitzo.umd.min.js"></script>
 ```
 
 > Vanilla: Attach this script tag in the html head tag and you are good to go.

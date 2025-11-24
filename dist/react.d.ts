@@ -1,4 +1,4 @@
-import type { ReactNode, CSSProperties, JSX, PropsWithChildren } from 'react';
+import type { ReactNode, CSSProperties, JSX, PropsWithChildren, RefObject } from 'react';
 
 //! Toast API types declaration
 export type Positions = 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
@@ -47,3 +47,16 @@ export interface TooltipCoreProps {
 export type TooltipProps = PropsWithChildren<TooltipCoreProps>;
 
 export declare function Tooltip(props: TooltipProps): JSX.Element;
+
+//! useScrollRestoration hook types declaration
+type ScrollHookOptions = {
+  behavior?: 'auto' | 'smooth' | 'instant';
+  delay?: number;
+};
+
+type LocationLike = {
+  pathname: string;
+  [key: string]: any;
+};
+
+export declare function useScrollRestoration(path: LocationLike | string, key: string | number, options?: ScrollHookOptions): RefObject<HTMLElement | null>;
