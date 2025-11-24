@@ -28,11 +28,7 @@ function useScrollRestoration(path, key, options = {}) {
     const saved = history.current.get(mapKey);
 
     const restore = () => {
-      if (!saved) {
-        window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
-        element.scrollTo({ top: 0, left: 0, behavior: 'auto' });
-        return;
-      }
+      if (!saved) return;
       if (isWindow) {
         window.scrollTo({ top: saved.top, left: saved.left, behavior });
       } else if (element) {
@@ -46,6 +42,12 @@ function useScrollRestoration(path, key, options = {}) {
         return () => clearTimeout(timeoutId);
       } else {
         restore();
+      }
+    } else {
+      if (isWindow) {
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      } else if (element) {
+        element.scrollTo({ top: 0, left: 0, behavior: 'auto' });
       }
     }
 
