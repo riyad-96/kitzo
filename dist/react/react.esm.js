@@ -554,12 +554,23 @@ function ToastContainer(props) {
 
 const tooltipStyles = `
 .kitzo-react-tooltip-content-default-style {
-  font-family: sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Open Sans',
+    'Helvetica Neue',
+    sans-serif;
   font-size: 0.875rem;
   background-color: hsl(0, 0%, 15%);
   color: hsl(0, 0%, 95%);
-  padding-block: 6px;
-  padding-inline: 10px;
+  padding-block: 0.25rem;
+  padding-inline: 0.5rem;
   border-radius: 0.325rem;
 
   @media (prefers-color-scheme: dark) {
@@ -569,8 +580,11 @@ const tooltipStyles = `
 }
 
 .kitzo-react-tooltip-wrapper {
-  transition-duration: 120ms, 50ms;
-  transition-property: scale opacity;
+  --tooltip-transition-delay: calc(var(--delay) * 1ms);
+  will-change: transform, opacity;
+  transition:
+    transform 110ms var(--tooltip-transition-delay),
+    opacity 110ms var(--tooltip-transition-delay);
 }
 
 .kitzo-react-tooltip-wrapper.top {
@@ -578,8 +592,7 @@ const tooltipStyles = `
 
   bottom: calc(var(--tooltip-offset) + 100%);
   left: 50%;
-  translate: -50% 0;
-  scale: 0.7;
+  transform: translateX(-50%) translateY(0) scale(0.8);
   opacity: 0;
   transform-origin: bottom;
 }
@@ -589,8 +602,7 @@ const tooltipStyles = `
 
   left: calc(var(--tooltip-offset) + 100%);
   top: 50%;
-  translate: 0 -50%;
-  scale: 0.7;
+  transform: translateX(0) translateY(-50%) scale(0.8);
   opacity: 0;
   transform-origin: left;
 }
@@ -600,8 +612,7 @@ const tooltipStyles = `
 
   top: calc(var(--tooltip-offset) + 100%);
   left: 50%;
-  translate: -50% 0;
-  scale: 0.7;
+  transform: translateX(-50%) translateY(0) scale(0.8);
   opacity: 0;
   transform-origin: top;
 }
@@ -611,27 +622,26 @@ const tooltipStyles = `
 
   right: calc(var(--tooltip-offset) + 100%);
   top: 50%;
-  translate: 0 -50%;
-  scale: 0.7;
+  transform: translateX(0) translateY(-50%) scale(0.8);
   opacity: 0;
   transform-origin: right;
 }
 
 .kitzo-react-tooltip-root:hover {
   .kitzo-react-tooltip-wrapper.top {
-    scale: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
     opacity: 1;
   }
   .kitzo-react-tooltip-wrapper.right {
-    scale: 1;
+    transform: translateX(0) translateY(-50%) scale(1);
     opacity: 1;
   }
   .kitzo-react-tooltip-wrapper.bottom {
-    scale: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
     opacity: 1;
   }
   .kitzo-react-tooltip-wrapper.left {
-    scale: 1;
+    transform: translateX(0) translateY(-50%) scale(1);
     opacity: 1;
   }
 }
@@ -644,9 +654,9 @@ const tooltipStyles = `
     document.head.appendChild(styleTag);
   }
 })();
+const allowedPositions = ['top', 'right', 'bottom', 'left'];
 function getPositionBasedClassName(position) {
   let defaultClass = 'kitzo-react-tooltip-wrapper';
-  const allowedPositions = ['top', 'right', 'bottom', 'left'];
   if (allowedPositions.includes(position)) {
     return defaultClass + ' ' + position;
   } else {
@@ -655,26 +665,29 @@ function getPositionBasedClassName(position) {
 }
 function Tooltip({
   content = 'Tooltip',
-  position = '',
-  offset = 8,
-  hideOnTouch = true,
+  tooltipOptions = {},
   children
 }) {
-  if (typeof hideOnTouch !== 'boolean') hideOnTouch = true;
+  const {
+    position = 'top',
+    offset = 8,
+    hideOnTouch = true,
+    delay = 0
+  } = tooltipOptions ?? {};
+  const finalOptions = {
+    position: typeof position === 'string' ? position.trim().toLowerCase() : 'top',
+    offset: !isNaN(Number(offset)) ? Number(offset) : 8,
+    delay: !isNaN(Number(delay)) ? Number(delay) : 0,
+    hideOnTouch: typeof hideOnTouch === 'boolean' ? hideOnTouch : true
+  };
   const isTouch = window.matchMedia('(pointer: coarse)').matches;
-  if (isTouch && hideOnTouch) return children;
-
-  // sanitize props
-  if (typeof position !== 'string') {
-    console.warn(`[kitzo/react]: Tooltip position ignored due to invalid data type.`);
-    position = 'top';
-  }
-  if (isNaN(Number(offset))) offset = 8;
+  if (isTouch && finalOptions.hideOnTouch) return children;
   return /*#__PURE__*/React.createElement("div", {
     style: {
       position: 'relative',
       width: 'fit-content',
-      '--offset': Math.max(0, offset)
+      '--offset': Math.max(0, finalOptions.offset),
+      '--delay': Math.max(0, finalOptions.delay)
     },
     className: "kitzo-react-tooltip-root"
   }, children, /*#__PURE__*/React.createElement("div", {
@@ -684,93 +697,10 @@ function Tooltip({
       pointerEvents: 'none'
     },
     tabIndex: -1,
-    className: getPositionBasedClassName(position.trim().toLowerCase())
+    className: getPositionBasedClassName(finalOptions.position)
   }, typeof content === 'string' || typeof content === 'number' ? /*#__PURE__*/React.createElement("div", {
     className: "kitzo-react-tooltip-content-default-style"
   }, content) : /*#__PURE__*/React.createElement(React.Fragment, null, content)));
 }
 
-function useScrollRestoration(path, key, options = {}) {
-  if (!path || typeof path !== 'object' && typeof path !== 'string') {
-    throw new Error('kitzo/react: useScrollRestoration(path, ...) expect location object from the react useLocation hook or unique path string(location.pathname)');
-  }
-  if (!key || typeof key !== 'string' && typeof key !== 'number') {
-    throw new Error('kitzo/react: useScrollRestoration(..., key) expect unique string or number');
-  }
-  const pathname = typeof path === 'object' ? path.pathname : path;
-  const behavior = options?.behavior ? options.behavior : 'instant';
-  const delay = options?.delay ? isNaN(Number(options.delay)) ? 0 : Number(options.delay) : 0;
-
-  // hook management
-  const ref = useRef(null);
-  const history = useRef(new Map());
-
-  // hook logic
-  useEffect(() => {
-    const element = ref.current;
-    const target = element || window;
-    const isWindow = target === window;
-    const mapKey = `${pathname}::${key}`;
-    const saved = history.current.get(mapKey);
-    const restore = () => {
-      if (!saved) return;
-      if (isWindow) {
-        window.scrollTo({
-          top: saved.top,
-          left: saved.left,
-          behavior
-        });
-      } else if (element) {
-        element.scrollTo({
-          top: saved.top,
-          left: saved.left,
-          behavior
-        });
-      }
-    };
-    if (saved) {
-      if (delay > 0) {
-        const timeoutId = setTimeout(restore, delay);
-        return () => clearTimeout(timeoutId);
-      } else {
-        restore();
-      }
-    } else {
-      if (isWindow) {
-        window.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: 'auto'
-        });
-      } else if (element) {
-        element.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: 'auto'
-        });
-      }
-    }
-    let timeoutId = null;
-    const save = () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        const top = isWindow ? window.scrollY : element?.scrollTop ?? 0;
-        const left = isWindow ? window.scrollX : element?.scrollLeft ?? 0;
-        history.current.set(mapKey, {
-          top,
-          left
-        });
-      }, 50);
-    };
-    target.addEventListener('scroll', save, {
-      passive: true
-    });
-    return () => {
-      target.removeEventListener('scroll', save);
-      clearTimeout(timeoutId);
-    };
-  }, [pathname, key, behavior, delay]);
-  return ref;
-}
-
-export { ToastContainer, Tooltip, toast, useScrollRestoration };
+export { ToastContainer, Tooltip, toast };

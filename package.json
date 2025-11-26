@@ -11,7 +11,7 @@
       "require": "./dist/vanilla/vanilla.umd.js"
     },
     "./react": {
-      "types": "./dist/react/react.d.ts",
+      "types": "./dist/react/index.d.ts",
       "import": "./dist/react/react.esm.js"
     }
   },
