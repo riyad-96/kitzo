@@ -27,7 +27,6 @@ const tooltipStyles = `
 
 .kitzo-react-tooltip-wrapper {
   --tooltip-transition-delay: calc(var(--delay) * 1ms);
-  will-change: transform, opacity;
   transition:
     transform 110ms var(--tooltip-transition-delay),
     opacity 110ms var(--tooltip-transition-delay);
