@@ -141,7 +141,6 @@ function Tooltip({ content = 'Tooltip', tooltipOptions = {}, children }) {
       <div
         style={{
           position: 'absolute',
-          textWrap: 'nowrap',
           pointerEvents: 'none',
         }}
         tabIndex={-1}

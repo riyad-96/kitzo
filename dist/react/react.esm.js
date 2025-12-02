@@ -692,7 +692,6 @@ function Tooltip({
   }, children, /*#__PURE__*/React.createElement("div", {
     style: {
       position: 'absolute',
-      textWrap: 'nowrap',
       pointerEvents: 'none'
     },
     tabIndex: -1,
