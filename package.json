@@ -1,6 +1,6 @@
 {
   "name": "kitzo",
-  "version": "2.1.19",
+  "version": "2.1.20",
   "description": "A lightweight JavaScript & React UI micro-library.",
   "type": "module",
   "main": "./dist/vanilla/vanilla.umd.js",
