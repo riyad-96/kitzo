@@ -29,7 +29,11 @@ type TooltipOptions = {
    */
   smartHover?: boolean;
   /**
-   * @default true true
+   * @default true
+   */
+  arrow: boolean;
+  /**
+   * @default true
    */
   hideOnTouch?: boolean;
 };
