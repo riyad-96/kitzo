@@ -26,7 +26,7 @@ npm i kitzo
 or
 
 ```javascript
-<script src="https://cdn.jsdelivr.net/npm/kitzo@2.1.21/dist/kitzo.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/kitzo@2.1.22/dist/kitzo.umd.min.js"></script>
 ```
 
 > Vanilla: Attach this script tag in the html head tag and you are good to go.
@@ -248,7 +248,22 @@ function App() {
       <h1>Tooltip api</h1>
 
       <div>
-        <Tooltip content="Tooltip" position="top" offset="10" hideOnTouch={true}>
+        <Tooltip
+          content="Tooltip"
+          tooltipOptions={{
+            offset: 10,
+            smartHover: true,
+          }}
+          animate={{
+            duration: 120,
+            startDelay: 400,
+            endDelay: 50,
+          }}
+          style={{
+            '--arrow-size': 6,
+            '--arrow-color': 'red'
+          }}
+        >
           <button>Hover me</button>
         </Tooltip>
       </div>
