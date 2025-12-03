@@ -2,29 +2,64 @@ import type { JSX, PropsWithChildren, ReactNode } from 'react';
 
 type TooltipOptions = {
   /**
-   * Default position: 'top'
+   * @default 'top'
    */
-  position?: 'top' | 'right' | 'bottom' | 'left';
+  position?:
+    | 'top-start'
+    | 'top'
+    | 'top-end'
+    | 'right-start'
+    | 'right'
+    | 'right-end'
+    | 'bottom-start'
+    | 'bottom'
+    | 'bottom-end'
+    | 'left-start'
+    | 'left'
+    | 'left-end';
   /**
-   * Default offset: 8
+   * @default 8
    */
   offset?: number;
   /**
-   * Default delay: 0
+   * Enables “Smart Hover Persistence”, allowing the tooltip to remain open
+   * while the cursor moves between the trigger and the tooltip.
+   *
+   * @default true
    */
-  delay?: number;
+  smartHover?: boolean;
   /**
-   * Default hideOnTouch: true
+   * @default true true
    */
   hideOnTouch?: boolean;
+};
+
+type AnimationOptions = {
+  /**
+   * @default 110ms
+   */
+  duration?: number;
+  startDuration?: number;
+  endDuration?: number;
+  delay?: number;
+  startDelay?: number;
+  endDelay?: number;
+};
+type TooltipAnimation = boolean | AnimationOptions;
+
+type TooltipStyles = {
+  '--arrow-size'?: number;
+  '--arrow-color'?: string;
 };
 
 type TooltipCoreProps = {
   /**
    * content is necessary
    */
-  content: ReactNode;
+  content: string | ReactNode;
   tooltipOptions?: TooltipOptions;
+  animation?: TooltipAnimation;
+  style?: TooltipStyles;
 };
 
 type TooltipProps = PropsWithChildren<TooltipCoreProps>;
