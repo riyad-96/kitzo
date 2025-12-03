@@ -31,7 +31,7 @@ type TooltipOptions = {
   /**
    * @default true
    */
-  arrow: boolean;
+  arrow?: boolean;
   /**
    * @default true
    */
