@@ -797,8 +797,6 @@ function Tooltip({
   style = {},
   children
 }) {
-  const isTouch = window.matchMedia('(pointer: coarse)').matches;
-  if (isTouch && finalOptions.hideOnTouch) return children;
   if (typeof content === 'string') {
     if (!content.trim()) throw new Error('kitzo/react: tooltip content is required');
   } else if (!content) {
@@ -819,6 +817,10 @@ function Tooltip({
     smartHover: typeof smartHover === 'boolean' ? smartHover : true,
     hideOnTouch: typeof hideOnTouch === 'boolean' ? hideOnTouch : true
   };
+
+  // Hide on touch device
+  const isTouch = window.matchMedia('(pointer: coarse)').matches;
+  if (isTouch && finalOptions.hideOnTouch) return children;
   const positionClass = getPositionClass(finalOptions.position);
 
   // Define animations
