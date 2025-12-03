@@ -29,7 +29,7 @@ type TooltipOptions = {
    */
   smartHover?: boolean;
   /**
-   * @default true
+   * @default false
    */
   arrow?: boolean;
   /**

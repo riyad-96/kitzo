@@ -277,14 +277,14 @@ export default function Tooltip({
     position = 'top',
     offset = 8,
     hideOnTouch = true,
-    arrow = true,
+    arrow = false,
     smartHover = true,
   } = tooltipOptions ?? {};
 
   const finalOptions = {
     position: typeof position === 'string' ? position.trim().toLowerCase() : 'top',
     offset: !isNaN(Number(offset)) ? Number(offset) : 8,
-    arrow: typeof arrow === 'boolean' ? arrow : true,
+    arrow: typeof arrow === 'boolean' ? arrow : false,
     smartHover: typeof smartHover === 'boolean' ? smartHover : true,
     hideOnTouch: typeof hideOnTouch === 'boolean' ? hideOnTouch : true,
   };
