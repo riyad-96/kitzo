@@ -262,8 +262,11 @@ export default function Tooltip({
   tooltipOptions = {},
   animation = true,
   style = {},
+  isHidden = false,
   children,
 }) {
+  if (typeof isHidden === 'boolean' && isHidden) return children;
+
   if (typeof content === 'string') {
     if (!content.trim()) throw new Error('kitzo/react: tooltip content is required');
   } else if (!content) {

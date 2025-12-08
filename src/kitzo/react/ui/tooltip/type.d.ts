@@ -64,6 +64,7 @@ type TooltipCoreProps = {
   tooltipOptions?: TooltipOptions;
   animation?: TooltipAnimation;
   style?: TooltipStyles;
+  isHidden?: boolean;
 };
 
 type TooltipProps = PropsWithChildren<TooltipCoreProps>;
