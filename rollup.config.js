@@ -2,40 +2,31 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import babel from '@rollup/plugin-babel';
 
-const umd = './src/kitzo/vanilla/index.umd.js';
-const esm = './src/kitzo/vanilla/index.esm.js';
-const react = './src/kitzo/react/index.jsx';
+const react = './src/kitzo/index.jsx';
+const functions = './src/kitzo/functions.js';
 
 export default [
   {
-    input: umd,
+    input: functions,
     output: {
-      file: './dist/vanilla/vanilla.umd.js',
-      format: 'umd',
-      name: 'kitzo',
-    },
-    plugins: [resolve(), commonjs()],
-  },
-  {
-    input: esm,
-    output: {
-      file: './dist/vanilla/vanilla.esm.js',
+      file: './dist/functions/index.js',
       format: 'esm',
+      sourcemap: true,
     },
-    plugins: [resolve(), commonjs()],
   },
   {
     input: react,
     output: {
-      file: './dist/react/react.esm.js',
+      file: './dist/react/index.js',
       format: 'esm',
+      sourcemap: true,
     },
-    external: ['react', 'react-dom'],
+    external: ['react', 'react-dom', 'react/jsx-runtime'],
     plugins: [
       resolve({ extensions: ['.js', '.jsx'] }),
       commonjs(),
       babel({
-        presets: ['@babel/preset-react'],
+        presets: [['@babel/preset-env', { modules: false }], '@babel/preset-react'],
         babelHelpers: 'bundled',
         extensions: ['.js', '.jsx'],
       }),

@@ -2,138 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/kitzo)](https://www.npmjs.com/package/kitzo)
 
-### A lightweight library of Vanilla js and React js
-
-##### [Vanilla js](#quick-usage-overview-vanilla-js)
-
-- Copy on click
-- Tooltip on mouseover
-- Ripple effect on mousedown
-- Debounce function
-- Hover clip-path effect
-
-##### [React js](#react)
-
-- React Toast notifications
-- Tooltip wrapper component
-
-#### Install
-
-```bash
-npm i kitzo
-```
-
-or
-
-```javascript
-<script src="https://cdn.jsdelivr.net/npm/kitzo@2.1.29/dist/kitzo.umd.min.js"></script>
-```
-
-> Vanilla: Attach this script tag in the html head tag and you are good to go.
-
----
-
-#### API links
-
-- **Vanilla**: [copy](#copy-api), [Tooltip](#tooltip-api), [Ripple](#ripple-api), [Debounce](#debounce-api), [Clippath](#clippath-api), [Get type](#typecheck-api)
-- **React**: [Toast](#react-toast-api-usage), [Tooltip](#react-tooltip-api)
-
-#### Vanilla APIs
-
-```javascript
-// NPM usage
-import kitzo from 'kitzo';
-
-kitzo.copy();
-kitzo.tooltip();
-kitzo.ripple();
-kitzo.debounce();
-kitzo.clippath();
-kitzo.getType();
-```
-
-> Use a modern build tool. **vite** - recommended
-
-##### Copy API:
-
-```javascript
-kitzo.copy(doc);
-```
-
-> Copy functionality on call.
-
-##### Tooltip API:
-
-```javascript
-kitzo.tooltip(selectors | element | NodeList, {
-  tooltip: string,
-  direction: 'top' | 'right' | 'bottom' | 'left',
-  arrow: 'on' | 'off',
-  offset: number,
-  customClass: string,
-  style: object,
-});
-```
-
-> Attach minimal tooltips to buttons for clean, helpful hover hints.
-
-##### Ripple API:
-
-```javascript
-kitzo.ripple(selectors | element | NodeList, {
-  opacity: number,
-  duration: number,
-  color: string,
-  size: number,
-});
-```
-
-> Adds a lightweight, clean ripple effect to your elements on click.
-
-##### Debounce API:
-
-```javascript
-kitzo.debounce(callback, delayInMilliseconds);
-```
-
-```javascript
-// Log only after typing stops for 500ms
-const logSearch = kitzo.debounce((text) => {
-  console.log('Searching for:', text);
-}, 500);
-
-// Attach to input
-document.querySelector('#search').addEventListener('input', (e) => {
-  logSearch(e.target.value);
-});
-```
-
-> Debounce on every call of function.
-
-##### Clippath API:
-
-```javascript
-kitzo.clippath(selectors | element | NodeList, {
-  textOption: null | { selector: string, value: string | number },
-  clippathSize: string | number,
-  smooth: boolean,
-  class: string,
-  style: object,
-});
-```
-
-##### TypeCheck API:
-
-```javascript
-kitzo.getType(type);
-
-const data = [];
-console.log(kitzo.getType(data)); // 'array'
-```
-
----
-
-## React
+### A lightweight React micro-utility.
 
 #### Install
 
@@ -144,13 +13,21 @@ npm i kitzo
 #### React APIs
 
 ```jsx
-import { ToastContainer, toast, Tooltip, ... } from 'kitzo/react';
+import { ToastContainer, toast, Tooltip, useDebounce, useWindowSize } from 'kitzo';
 ```
+
+> You can import only what you need.
+
+#### UI
+
+- Toast message
+- Tooltip
 
 ##### Toast API:
 
 ```jsx
-import { toast } from 'kitzo/react';
+import { toast } from 'kitzo';
+import MyCustomComponent from './MyCustomComponent';
 
 toast.success('toast message', { duration: 2000, style: {}, showIcon: true, position: 'top-center' });
 toast.error('toast message', { duration: 2000, style: {}, showIcon: true, position: 'top-center' });
@@ -183,7 +60,7 @@ toast.custom("string");
 ##### React Toast API Usage
 
 ```jsx
-import { ToastContainer, toast } from 'kitzo/react';
+import { ToastContainer, toast } from 'kitzo';
 
 function App() {
   function fakePromise() {
@@ -228,7 +105,7 @@ function App() {
       <button onClick={promiseToast}>Promise</button>
       <button onClick={customToast}>Custom Toast</button>
 
-      {/* Toast container must needed */}
+      {/* Toast container must be placed */}
       <ToastContainer />
     </div>
   );
@@ -237,10 +114,10 @@ function App() {
 
 > Each toast can have its own position. default position is `top-center`.
 
-##### React Tooltip API:
+##### React Tooltip API usage:
 
 ```jsx
-import { Tooltip } from 'kitzo/react';
+import { Tooltip } from 'kitzo';
 
 function App() {
   return (
@@ -261,7 +138,7 @@ function App() {
           }}
           style={{
             '--arrow-size': 6,
-            '--arrow-color': 'red'
+            '--arrow-color': 'red',
           }}
         >
           <button>Hover me</button>
@@ -273,3 +150,86 @@ function App() {
 ```
 
 > You can provide your own custom jsx element as `content`. e.g. `content={<div>Custom tooltip</div>}`
+
+---
+
+### Hooks
+
+- useDebounce
+- useWindowSize
+
+#### useDebounce usage:
+
+```jsx
+import { useDebounce } from 'kitzo';
+
+function App() {
+  const [value, setValue] = useState('');
+  const debouncedValue = useDebounce(value, 500);
+
+  return (
+    <div>
+      <input
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+      <p>Debounced value: {debouncedValue}</p>
+    </div>
+  );
+}
+```
+
+#### useWindowSize usage:
+
+```jsx
+import { useWindowSize } from 'kitzo';
+
+function App() {
+  const { screenWidth, screenHeight } = useWindowSize({ delay: 100 });
+
+  return (
+    <div>
+      <p>Window width: {width}</p>
+      <p>Window height: {height}</p>
+    </div>
+  );
+}
+```
+
+---
+
+### Functions
+
+- copy _(Copy text to clipboard)_
+
+#### copy usage:
+```jsx
+import { copy } from 'kitzo/fns';
+import { ToastContainer, toast } from 'kitzo';
+
+// copy(text: string): Promise<void>;
+
+function App() {
+  async function copyText(text) {
+    try {
+      await copy(text);
+      toast.success('Copied to clipboard');
+    } catch (err) {
+      console.error(err);
+      toast.error('Failed to copy to clipboard');
+    }
+  }
+
+  return (
+    <div>
+      <button onClick={() => copyText('hello world')}>Copy text</button>
+      <ToastContainer />
+    </div>
+  );
+}
+
+// or just
+copy('hello world');
+```
+
+> Use `copy` function to copy text to clipboard.

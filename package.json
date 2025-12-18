@@ -1,18 +1,19 @@
 {
   "name": "kitzo",
   "version": "2.1.29",
-  "description": "A lightweight JavaScript & React UI micro-library.",
+  "description": "A lightweight React micro-utility.",
   "type": "module",
-  "main": "./dist/vanilla/vanilla.umd.js",
+  "sideEffects": false,
   "exports": {
     ".": {
-      "types": "./dist/vanilla/vanilla.d.ts",
-      "import": "./dist/vanilla/vanilla.esm.js",
-      "require": "./dist/vanilla/vanilla.umd.js"
+      "types": "./dist/react/types.d.ts",
+      "import": "./dist/react/index.js",
+      "default": "./dist/react/index.js"
     },
-    "./react": {
-      "types": "./dist/react/index.d.ts",
-      "import": "./dist/react/react.esm.js"
+    "./fns": {
+      "types": "./dist/functions/types.d.ts",
+      "import": "./dist/functions/index.js",
+      "default": "./dist/functions/index.js"
     }
   },
   "files": [
@@ -21,18 +22,18 @@
   "scripts": {
     "dev": "vite",
     "build": "rollup -c",
-    "build-test": "vite buil",
+    "build-test": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "keywords": [
     "tooltip",
-    "ripple",
-    "copy-button",
-    "micro-library",
-    "modular",
+    "toast",
+    "hooks",
+    "",
+    "micro-utility",
     "ui",
-    "javascript",
+    "reactjs",
     "react",
     "kitzo"
   ],
@@ -45,6 +46,7 @@
   "homepage": "https://github.com/riyad-96/kitzo#readme",
   "devDependencies": {
     "@babel/core": "^7.28.5",
+    "@babel/preset-env": "^7.28.5",
     "@babel/preset-react": "^7.28.5",
     "@eslint/js": "^9.39.1",
     "@rollup/plugin-babel": "^6.1.0",
