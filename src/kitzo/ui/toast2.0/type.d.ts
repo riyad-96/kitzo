@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { JSX, ReactNode } from 'react';
 
 //! Toast API types declaration
 type Positions =
@@ -29,6 +29,7 @@ type Toast = {
   (Content: Content, options?: ToastOptions): void;
   success(content: Content, options?: ToastOptions): void;
   error(content: Content, options?: ToastOptions): void;
+  info(content: Content, options?: ToastOptions): void;
   promise<T, E>(
     callback: Promise<T>,
     msgs: {
