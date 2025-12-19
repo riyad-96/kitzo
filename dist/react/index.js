@@ -11,6 +11,31 @@ function _arrayWithHoles(r) {
 function _arrayWithoutHoles(r) {
   if (Array.isArray(r)) return _arrayLikeToArray(r);
 }
+function asyncGeneratorStep(n, t, e, r, o, a, c) {
+  try {
+    var i = n[a](c),
+      u = i.value;
+  } catch (n) {
+    return void e(n);
+  }
+  i.done ? t(u) : Promise.resolve(u).then(r, o);
+}
+function _asyncToGenerator(n) {
+  return function () {
+    var t = this,
+      e = arguments;
+    return new Promise(function (r, o) {
+      var a = n.apply(t, e);
+      function _next(n) {
+        asyncGeneratorStep(a, r, o, _next, _throw, "next", n);
+      }
+      function _throw(n) {
+        asyncGeneratorStep(a, r, o, _next, _throw, "throw", n);
+      }
+      _next(void 0);
+    });
+  };
+}
 function _defineProperty(e, r, t) {
   return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
     value: t,
@@ -73,6 +98,114 @@ function _objectSpread2(e) {
   }
   return e;
 }
+function _regenerator() {
+  /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */
+  var e,
+    t,
+    r = "function" == typeof Symbol ? Symbol : {},
+    n = r.iterator || "@@iterator",
+    o = r.toStringTag || "@@toStringTag";
+  function i(r, n, o, i) {
+    var c = n && n.prototype instanceof Generator ? n : Generator,
+      u = Object.create(c.prototype);
+    return _regeneratorDefine(u, "_invoke", function (r, n, o) {
+      var i,
+        c,
+        u,
+        f = 0,
+        p = o || [],
+        y = false,
+        G = {
+          p: 0,
+          n: 0,
+          v: e,
+          a: d,
+          f: d.bind(e, 4),
+          d: function (t, r) {
+            return i = t, c = 0, u = e, G.n = r, a;
+          }
+        };
+      function d(r, n) {
+        for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) {
+          var o,
+            i = p[t],
+            d = G.p,
+            l = i[2];
+          r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0));
+        }
+        if (o || r > 1) return a;
+        throw y = true, n;
+      }
+      return function (o, p, l) {
+        if (f > 1) throw TypeError("Generator is already running");
+        for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) {
+          i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u);
+          try {
+            if (f = 2, i) {
+              if (c || (o = "next"), t = i[o]) {
+                if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object");
+                if (!t.done) return t;
+                u = t.value, c < 2 && (c = 0);
+              } else 1 === c && (t = i.return) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1);
+              i = e;
+            } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break;
+          } catch (t) {
+            i = e, c = 1, u = t;
+          } finally {
+            f = 1;
+          }
+        }
+        return {
+          value: t,
+          done: y
+        };
+      };
+    }(r, o, i), true), u;
+  }
+  var a = {};
+  function Generator() {}
+  function GeneratorFunction() {}
+  function GeneratorFunctionPrototype() {}
+  t = Object.getPrototypeOf;
+  var c = [][n] ? t(t([][n]())) : (_regeneratorDefine(t = {}, n, function () {
+      return this;
+    }), t),
+    u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c);
+  function f(e) {
+    return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e;
+  }
+  return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine(u), _regeneratorDefine(u, o, "Generator"), _regeneratorDefine(u, n, function () {
+    return this;
+  }), _regeneratorDefine(u, "toString", function () {
+    return "[object Generator]";
+  }), (_regenerator = function () {
+    return {
+      w: i,
+      m: f
+    };
+  })();
+}
+function _regeneratorDefine(e, r, n, t) {
+  var i = Object.defineProperty;
+  try {
+    i({}, "", {});
+  } catch (e) {
+    i = 0;
+  }
+  _regeneratorDefine = function (e, r, n, t) {
+    function o(r, n) {
+      _regeneratorDefine(e, r, function (e) {
+        return this._invoke(r, n, e);
+      });
+    }
+    r ? i ? i(e, r, {
+      value: n,
+      enumerable: !t,
+      configurable: !t,
+      writable: !t
+    }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2));
+  }, _regeneratorDefine(e, r, n, t);
+}
 function _slicedToArray(r, e) {
   return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest();
 }
@@ -93,6 +226,15 @@ function _toPropertyKey(t) {
   var i = _toPrimitive(t, "string");
   return "symbol" == typeof i ? i : i + "";
 }
+function _typeof(o) {
+  "@babel/helpers - typeof";
+
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+    return typeof o;
+  } : function (o) {
+    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+  }, _typeof(o);
+}
 function _unsupportedIterableToArray(r, a) {
   if (r) {
     if ("string" == typeof r) return _arrayLikeToArray(r, a);
@@ -101,136 +243,280 @@ function _unsupportedIterableToArray(r, a) {
   }
 }
 
-var toastStyles = ".toast-content,\n.toast-content-bottom {\n  font-size: 0.925rem;\n}\n.toast-content,\n.toast-content-bottom {\n  pointer-events: all;\n}\n  \n.pre-styled {\n  padding-inline: 0.825rem;\n  padding-block: 0.625rem;\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n  background-color: white;\n  border-radius: 0.5525rem;\n  box-shadow: 0 2px 8px -3px rgba(0, 0, 0, 0.3);\n}\n\n.toast-content {\n  animation: slide-in 230ms forwards;\n}\n.toast-content.exit {\n  animation: slide-out 110ms forwards;\n}\n\n.toast-content-bottom {\n  animation: bottom-slide-in 230ms forwards;\n}\n.toast-content-bottom.exit {\n  animation: bottom-slide-out 110ms forwards;\n}\n\n@keyframes slide-in {\n  from {\n    opacity: 0;\n    translate: 0 -100%;\n    scale: 0.7;\n  }\n  to {\n    opacity: 1;\n    translate: 0 0;\n    scale: 1;\n  }\n}\n\n@keyframes slide-out {\n  from {\n    opacity: 1;\n    translate: 0 0;\n    scale: 1;\n  }\n  to {\n    opacity: 0;\n    translate: 0 -100%;\n    scale: 0.7;\n  }\n}\n\n@keyframes bottom-slide-in {\n  from {\n    opacity: 0;\n    translate: 0 100%;\n    scale: 0.7;\n  }\n  to {\n    opacity: 1;\n    translate: 0 0;\n    scale: 1;\n  }\n}\n\n@keyframes bottom-slide-out {\n  from {\n    opacity: 1;\n    translate: 0 0;\n    scale: 1;\n  }\n  to {\n    opacity: 0;\n    translate: 0 100%;\n    scale: 0.7;\n  }\n}\n\n.svg-container {\n  display: grid;\n  place-items: center;\n  border-radius: 10rem;\n  background-color: #61d345;\n  color: white;\n  height: 20px;\n  width: 20px;\n  position: relative;\n  overflow: hidden;\n\n  scale: 1.1;\n  animation: svg-container-animation 400ms ease-in-out forwards;\n\n  svg {\n    width: 14px;\n    height: 14px;\n    stroke-width: 4px;\n    display: inline-block;\n  }\n}\n\n.svg-container.success {\n  background-color: #61d345;\n}\n.svg-container.error {\n  background-color: #ff4b4b;\n\n  svg {\n    scale: 0;\n    animation: error-svg-zoom-in 170ms 130ms forwards;\n  }\n}\n\n.svg-container.success::before {\n  content: '';\n  position: absolute;\n  inset: 0;\n  z-index: 5;\n  border-radius: 10rem;\n  background-color: #61d345;\n  animation: success-container-before-animation 250ms 150ms forwards;\n}\n\n@keyframes svg-container-animation {\n  0% {\n    scale: 1;\n  }\n  50% {\n    scale: 1.15;\n  }\n  100% {\n    scale: 1;\n  }\n}\n\n@keyframes success-container-before-animation {\n  from {\n    translate: 0 0;\n  }\n  to {\n    translate: 100% -50%;\n  }\n}\n\n@keyframes error-svg-zoom-in {\n  from {\n    scale: 0;\n  }\n  to {\n    scale: 1;\n  }\n}\n\n.promise-svg-container {\n  width: 20px;\n  height: 20px;\n  display: grid;\n  place-items: center;\n  color: #474747;\n\n  svg {\n    width: 14px;\n    height: 14px;\n    stroke-width: 3px;\n    display: inline-block;\n    animation: rotate-infinity 1000ms infinite linear;\n  }\n}\n\n@keyframes rotate-infinity {\n  to {\n    rotate: 360deg;\n  }\n}\n";
+var toastStyles = ".kitzo-toast-container {\n  --normal-bg: hsl(0, 0%, 100%);\n  --success-bg: hsl(152, 65%, 95%);\n  --error-bg: hsl(0, 65%, 95%);\n  --info-bg: hsl(210, 65%, 95%);\n\n  --normal-text: hsl(0, 0%, 10%);\n  --success-text: hsl(142, 98%, 30%);\n  --error-text: hsl(6, 98%, 40%);\n  --info-text: hsl(210, 100%, 20%);\n\n  --normal-border: hsl(0, 0%, 94%);\n  --success-border: hsl(123, 100%, 93%);\n  --error-border: hsl(0, 100%, 94%);\n  --info-border: hsl(210, 100%, 94%);\n\n  --success-svg-bg: hsl(142, 98%, 40%);\n  --error-svg-bg: hsl(6, 98%, 50%);\n  --info-svg-bg: hsl(210, 100%, 40%);\n\n  --loader-stroke: hsl(0, 0%, 50%);\n  --loader-bg: hsl(0, 0%, 80%);\n}\n\n.kitzo-toast-container.kitzo-toast-dark {\n  --normal-bg: hsl(0, 0%, 15%);\n  --success-bg: hsl(152, 65%, 15%);\n  --error-bg: hsl(0, 65%, 15%);\n  --info-bg: hsl(210, 65%, 15%);\n\n  --normal-text: hsl(0, 0%, 95%);\n  --success-text: hsl(142, 98%, 70%);\n  --error-text: hsl(6, 98%, 70%);\n  --info-text: hsl(210, 100%, 70%);\n\n  --normal-border: hsl(0, 0%, 17%);\n  --success-border: hsl(123, 100%, 15%);\n  --error-border: hsl(0, 100%, 15%);\n  --info-border: hsl(210, 100%, 16%);\n\n  --success-svg-bg: hsl(142, 98%, 40%);\n  --error-svg-bg: hsl(6, 98%, 50%);\n  --info-svg-bg: hsl(210, 100%, 40%);\n\n  --loader-stroke: hsl(0, 0%, 80%);\n  --loader-bg: hsl(0, 0%, 50%);\n}\n\n.kitzo-toast {\n  font-family: inherit;\n  font-size: 0.875rem;\n  transition:\n    opacity 160ms,\n    transform 210ms;\n}\n\n/*! toast transition styles */\n.kitzo-toast.pos-y-top {\n  transform-origin: top;\n}\n.kitzo-toast.pos-y-bottom {\n  transform-origin: bottom;\n}\n\n.kitzo-toast.type-normal {\n  background-color: var(--normal-bg);\n  color: var(--normal-text);\n  border: 1px solid var(--normal-border);\n}\n.kitzo-toast.type-loading {\n  background-color: var(--normal-bg);\n  color: var(--normal-text);\n  border: 1px solid var(--normal-border);\n}\n\n.kitzo-toast.type-success {\n  background-color: var(--success-bg);\n  color: var(--success-text);\n  border: 1px solid var(--success-border);\n}\n\n.kitzo-toast.type-error {\n  background-color: var(--error-bg);\n  color: var(--error-text);\n  border: 1px solid var(--error-border);\n}\n\n.kitzo-toast.type-info {\n  background-color: var(--info-bg);\n  color: var(--info-text);\n  border: 1px solid var(--info-border);\n}\n\n.kitzo-toast.type-normal,\n.kitzo-toast.type-loading,\n.kitzo-toast.type-success,\n.kitzo-toast.type-error,\n.kitzo-toast.type-info {\n  border-radius: 0.425rem;\n  padding: 0.2525rem 0.5rem;\n  box-shadow: 0 3px 8px -3px hsl(0, 0%, 0%, 0.15);\n}\n\n.kitzo-toast.status-entering.pos-y-top {\n  opacity: 0;\n  transform: translateY(-120%) scale(0.5);\n}\n\n.kitzo-toast.status-visible.pos-y-top {\n  opacity: 1;\n  transform: translateY(0) scale(1);\n}\n\n.kitzo-toast.status-leaving.pos-y-top {\n  opacity: 0;\n  transform: translateY(-120%) scale(0.5);\n}\n\n.kitzo-toast.status-entering.pos-y-bottom {\n  opacity: 0;\n  transform: translateY(120%) scale(0.5);\n}\n\n.kitzo-toast.status-visible.pos-y-bottom {\n  opacity: 1;\n  transform: translateY(0) scale(1);\n}\n\n.kitzo-toast.status-leaving.pos-y-bottom {\n  opacity: 0;\n  transform: translateY(120%) scale(0.5);\n}\n\n.action-update {\n  animation: update 150ms;\n}\n\n@keyframes update {\n  0% {\n    opacity: 0.5;\n  }\n  100% {\n    opacity: 1;\n  }\n}\n\n/*! svg stylings */\n.svg-container {\n  display: grid;\n  place-items: center;\n  border-radius: 10rem;\n  color: white;\n  height: 18px;\n  width: 18px;\n  position: relative;\n  overflow: hidden;\n\n  scale: 1.1;\n  animation: svg-container-animation 400ms ease-in-out forwards;\n\n  svg {\n    width: 12px;\n    height: 12px;\n    stroke-width: 4px;\n    display: inline-block;\n  }\n}\n\n.svg-container.success {\n  background-color: var(--success-svg-bg);\n}\n.svg-container.error {\n  background-color: var(--error-svg-bg);\n\n  svg {\n    scale: 0;\n    animation: error-svg-zoom-in 170ms 130ms forwards;\n  }\n}\n\n.svg-container.info {\n  background-color: var(--info-svg-bg);\n  animation: info-svg-bell 400ms 200ms;\n\n  svg {\n    width: 14px;\n    height: 14px;\n    color: white;\n  }\n}\n\n.svg-container.success::before {\n  content: '';\n  position: absolute;\n  inset: 0;\n  z-index: 5;\n  border-radius: 10rem;\n  background-color: var(--success-svg-bg);\n  animation: success-container-before-animation 250ms 150ms forwards;\n}\n\n@keyframes svg-container-animation {\n  0% {\n    scale: 1;\n  }\n  50% {\n    scale: 1.15;\n  }\n  100% {\n    scale: 1;\n  }\n}\n\n@keyframes success-container-before-animation {\n  from {\n    translate: 0 0;\n  }\n  to {\n    translate: 100% -50%;\n  }\n}\n\n@keyframes error-svg-zoom-in {\n  from {\n    scale: 0;\n  }\n  to {\n    scale: 1;\n  }\n}\n\n@keyframes info-svg-bell {\n  0% {\n    transform: rotate(0);\n  }\n  25% {\n    transform: rotate(15deg);\n  }\n  75% {\n    transform: rotate(-15deg);\n  }\n  100% {\n    transform: rotate(0);\n  }\n}\n\n.promise-svg-container {\n  width: 20px;\n  height: 20px;\n  display: grid;\n  place-items: center;\n\n  .loader {\n    width: 14px;\n    height: 14px;\n    background-image: conic-gradient(\n      var(--loader-stroke) 0 25%,\n      var(--loader-bg) 0 100%\n    );\n    border-radius: 10rem;\n    position: relative;\n    animation: rotate-infinity 1000ms linear infinite;\n  }\n  .loader::before {\n    content: '';\n    position: absolute;\n    inset: 2px;\n    border-radius: inherit;\n    background-color: var(--normal-bg);\n  }\n}\n\n@keyframes rotate-infinity {\n  to {\n    rotate: 360deg;\n  }\n}\n";
 var listeners = new Set();
-function addToast(toast) {
-  listeners.forEach(function (callback) {
-    callback(toast);
-  });
-}
-function subscribe(callback) {
-  if (!document.getElementById('kitzo-react-toast-styles')) {
+function subscribe(fn) {
+  if (!document.getElementById('kitzo-toast-styles')) {
     var styleTag = document.createElement('style');
-    styleTag.id = 'kitzo-react-toast-styles';
+    styleTag.id = 'kitzo-toast-styles';
     styleTag.textContent = toastStyles;
     document.head.appendChild(styleTag);
   }
-  listeners.add(callback);
+  listeners.add(fn);
   return function () {
-    return listeners["delete"](callback);
+    return listeners["delete"](fn);
   };
 }
-function toast() {
-  var text = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'Toast message';
-  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  var id = Date.now();
-  options = Object.assign({
-    duration: 2800,
-    id: id,
-    style: {},
-    showIcon: false
-  }, options);
-  addToast({
-    type: 'success',
-    text: text,
-    options: options
+function notify(toast) {
+  listeners.forEach(function (fn) {
+    return fn(toast);
   });
 }
-toast.success = function () {
-  var text = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'Toast success';
-  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  var id = Date.now();
-  options = Object.assign({
-    duration: 2800,
-    id: id,
-    style: {},
-    showIcon: true
-  }, options);
-  addToast({
-    type: 'success',
-    text: text,
-    options: options
-  });
+var DEFAULTS = {
+  duration: 2800,
+  showIcon: true
 };
-toast.error = function () {
-  var text = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'Toast denied';
-  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  var id = Date.now();
-  options = Object.assign({
-    duration: 2800,
-    id: id,
-    style: {},
-    showIcon: true
-  }, options);
-  addToast({
-    type: 'error',
-    text: text,
-    options: options
-  });
+var uid = 0;
+var genId = function genId() {
+  var _crypto$randomUUID, _crypto$randomUUID2, _crypto;
+  return (_crypto$randomUUID = (_crypto$randomUUID2 = (_crypto = crypto).randomUUID) === null || _crypto$randomUUID2 === void 0 ? void 0 : _crypto$randomUUID2.call(_crypto)) !== null && _crypto$randomUUID !== void 0 ? _crypto$randomUUID : "kitzo_toast_id_".concat(++uid);
 };
-toast.promise = function (callback) {
-  var msgs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+var zIndex = 1;
+function createToast(type, content) {
+  var _opts$id, _opts$duration, _opts$showIcon;
   var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  var id = Date.now();
-  options = Object.assign({
-    duration: 2800,
-    id: id,
-    style: {},
-    showIcon: true
-  }, options);
-  msgs = Object.assign({
-    loading: 'Saving...',
-    success: 'Success',
-    error: 'Something went wrong'
-  }, msgs);
-  addToast({
-    type: 'loading',
-    text: msgs.loading,
-    options: _objectSpread2(_objectSpread2({}, options), {}, {
-      duration: Infinity,
-      id: id
-    })
-  });
-  callback.then(function (res) {
-    var successMsg = typeof msgs.success === 'function' ? msgs.success(res) : msgs.success;
-    addToast({
-      type: 'success',
-      text: successMsg,
-      options: options
-    });
-    return res;
-  })["catch"](function (err) {
-    var normalizedError = err instanceof Error ? err : new Error(String(err));
-    var errorMsg = typeof msgs.error === 'function' ? msgs.error(normalizedError) : msgs.error;
-    addToast({
-      type: 'error',
-      text: errorMsg,
-      options: options
-    });
-    return Promise.reject(normalizedError);
+  var opts = _typeof(options) === 'object' && options !== null ? options : {};
+  return _objectSpread2({
+    id: (_opts$id = opts.id) !== null && _opts$id !== void 0 ? _opts$id : genId(),
+    type: type,
+    zIndex: ++zIndex,
+    render: content,
+    duration: (_opts$duration = opts.duration) !== null && _opts$duration !== void 0 ? _opts$duration : DEFAULTS.duration,
+    showIcon: (_opts$showIcon = opts.showIcon) !== null && _opts$showIcon !== void 0 ? _opts$showIcon : DEFAULTS.showIcon,
+    action: 'add'
+  }, opts);
+}
+function toast(content, options) {
+  if (content == null) return;
+  notify(createToast('normal', content, options));
+}
+toast.success = function (content, options) {
+  if (content == null) return;
+  notify(createToast('success', content, options));
+};
+toast.error = function (content, options) {
+  if (content == null) return;
+  notify(createToast('error', content, options));
+};
+toast.info = function (content, options) {
+  if (content == null) return;
+  notify(createToast('info', content, options));
+};
+toast.custom = function (content, options) {
+  if (content == null) return;
+  notify(createToast('custom', content, options));
+};
+toast.dismiss = function (id) {
+  notify({
+    action: 'dismiss',
+    id: id
   });
 };
-toast.custom = function (render) {
+toast.update = function (id, content) {
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  if (!id) return;
+  notify(_objectSpread2(_objectSpread2({}, options), {}, {
+    id: id,
+    render: content,
+    action: 'update'
+  }));
+};
+var loading = function loading(content) {
   var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  var id = Date.now();
-  options = Object.assign({
-    duration: 3000,
-    id: id,
-    exitDelay: 50
-  }, options);
-  addToast({
-    type: 'custom',
-    render: render,
-    options: options
-  });
-  return id;
+  notify(createToast('loading', content, _objectSpread2(_objectSpread2({}, options), {}, {
+    duration: Infinity
+  })));
 };
-function dismiss(id, exitDelay) {
-  addToast({
-    type: 'dismiss',
+toast.promise = function (promise, handlers) {
+  var _options$id;
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  if (!promise) return;
+  if (!handlers) return;
+  if (!handlers.loading) return;
+  if (!handlers.success) return;
+  if (!handlers.error) return;
+  var id = (_options$id = options.id) !== null && _options$id !== void 0 ? _options$id : genId();
+  loading(handlers.loading, _objectSpread2(_objectSpread2({}, options), {}, {
     id: id,
-    exitDelay: exitDelay
+    duration: Infinity
+  }));
+  promise.then(/*#__PURE__*/function () {
+    var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(result) {
+      var _options$duration;
+      var _t, _t2;
+      return _regenerator().w(function (_context) {
+        while (1) switch (_context.n) {
+          case 0:
+            _t = toast;
+            _t2 = id;
+            _context.n = 1;
+            return handlers.success(result);
+          case 1:
+            _t.update.call(_t, _t2, _context.v, {
+              type: 'success',
+              duration: (_options$duration = options.duration) !== null && _options$duration !== void 0 ? _options$duration : 2800
+            });
+            return _context.a(2, result);
+        }
+      }, _callee);
+    }));
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }())["catch"](/*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(error) {
+      var _options$duration2;
+      var _t3, _t4;
+      return _regenerator().w(function (_context2) {
+        while (1) switch (_context2.n) {
+          case 0:
+            _t3 = toast;
+            _t4 = id;
+            _context2.n = 1;
+            return handlers.error(error);
+          case 1:
+            _t3.update.call(_t3, _t4, _context2.v, {
+              type: 'error',
+              duration: (_options$duration2 = options.duration) !== null && _options$duration2 !== void 0 ? _options$duration2 : 3800
+            });
+            throw error;
+          case 2:
+            return _context2.a(2);
+        }
+      }, _callee2);
+    }));
+    return function (_x2) {
+      return _ref2.apply(this, arguments);
+    };
+  }());
+  return promise;
+};
+
+var timeouts = new Map();
+var LEAVE_DELAY = 600;
+var MIN_VISIBLE = 700;
+function clearToastTimers(id) {
+  var t = timeouts.get(id);
+  if (!t) return;
+  clearTimeout(t.leaving);
+  clearTimeout(t.left);
+  timeouts["delete"](id);
+}
+function getDurations(duration) {
+  var d = Number(duration);
+  if (!isFinite(d)) return null;
+  var visible = Math.max(MIN_VISIBLE, d);
+  return {
+    leaving: visible,
+    left: visible + LEAVE_DELAY
+  };
+}
+function armToastTimers(toast, setToasts) {
+  var durations = getDurations(toast.duration);
+  if (!durations) return;
+  clearToastTimers(toast.id);
+  var leaving = setTimeout(function () {
+    setToasts(function (prev) {
+      return prev.map(function (t) {
+        return t.id === toast.id ? _objectSpread2(_objectSpread2({}, t), {}, {
+          status: 'leaving'
+        }) : t;
+      });
+    });
+  }, durations.leaving);
+  var left = setTimeout(function () {
+    setToasts(function (prev) {
+      return prev.filter(function (t) {
+        return t.id !== toast.id;
+      });
+    });
+    timeouts["delete"](toast.id);
+  }, durations.left);
+  timeouts.set(toast.id, {
+    leaving: leaving,
+    left: left
   });
+}
+function manageToasts(toast, setToasts) {
+  // dismiss
+  if (toast.action === 'dismiss') {
+    if (!toast.id) {
+      setToasts(function (prev) {
+        return prev.map(function (t) {
+          return _objectSpread2(_objectSpread2({}, t), {}, {
+            status: 'leaving'
+          });
+        });
+      });
+      setTimeout(function () {
+        setToasts([]);
+      }, LEAVE_DELAY);
+      timeouts.forEach(function (_ref) {
+        var leaving = _ref.leaving,
+          left = _ref.left;
+        clearTimeout(leaving);
+        clearTimeout(left);
+      });
+      timeouts.clear();
+      return;
+    }
+    clearToastTimers(toast.id);
+    setToasts(function (prev) {
+      return prev.map(function (t) {
+        return t.id === toast.id ? _objectSpread2(_objectSpread2({}, t), {}, {
+          status: 'leaving'
+        }) : t;
+      });
+    });
+    setTimeout(function () {
+      setToasts(function (prev) {
+        return prev.filter(function (t) {
+          return t.id !== toast.id;
+        });
+      });
+    }, LEAVE_DELAY);
+    return;
+  }
+
+  // update
+  if (toast.action === 'update') {
+    setToasts(function (prev) {
+      var prevToast = prev.find(function (t) {
+        return t.id === toast.id;
+      });
+      if (!prevToast) return prev;
+      if (prevToast.type !== 'custom' && prevToast.type !== 'loading') return prev;
+      return prev.map(function (t) {
+        return t.id === toast.id ? _objectSpread2(_objectSpread2(_objectSpread2({}, t), toast), {}, {
+          status: 'visible'
+        }) : t;
+      });
+    });
+    armToastTimers(toast, setToasts);
+    return;
+  }
+
+  // add
+  var enteringToast = _objectSpread2(_objectSpread2({}, toast), {}, {
+    status: 'entering'
+  });
+  setToasts(function (prev) {
+    var prevToast = prev.find(function (t) {
+      return t.id === enteringToast.id;
+    });
+    if (prevToast) return prev;
+    return [enteringToast].concat(_toConsumableArray(prev));
+  });
+  requestAnimationFrame(function () {
+    setToasts(function (prev) {
+      return prev.map(function (t) {
+        return t.id === toast.id ? _objectSpread2(_objectSpread2({}, t), {}, {
+          status: 'visible'
+        }) : t;
+      });
+    });
+  });
+  armToastTimers(enteringToast, setToasts);
 }
 
 function SuccessSvg() {
@@ -272,237 +558,169 @@ function ErrorSvg() {
 function LoadingSvg() {
   return /*#__PURE__*/React.createElement("div", {
     className: "promise-svg-container"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "loader"
+  }));
+}
+function InfoSvg() {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "svg-container info"
   }, /*#__PURE__*/React.createElement("svg", {
     xmlns: "http://www.w3.org/2000/svg",
-    width: "24",
-    height: "24",
     viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: "2",
-    strokeLinecap: "round",
-    strokeLinejoin: "round"
+    width: "16",
+    height: "16",
+    fill: "currentColor"
   }, /*#__PURE__*/React.createElement("path", {
-    d: "M21 12a9 9 0 1 1-6.219-8.56"
+    d: "M12 6C12.8284 6 13.5 5.32843 13.5 4.5C13.5 3.67157 12.8284 3 12 3C11.1716 3 10.5 3.67157 10.5 4.5C10.5 5.32843 11.1716 6 12 6ZM9 10H11V18H9V20H15V18H13V8H9V10Z"
   })));
 }
 
 function Toast(_ref) {
-  var toast = _ref.toast,
-    setToasts = _ref.setToasts,
-    position = _ref.position,
-    gap = _ref.gap;
-  var id = toast.id,
-    leaving = toast.leaving,
-    offset = toast.offset,
-    text = toast.text,
-    type = toast.type,
-    options = toast.options;
-  var style = options.style,
-    showIcon = options.showIcon;
+  var t = _ref.t,
+    containerPosition = _ref.containerPosition,
+    gap = _ref.gap,
+    setToasts = _ref.setToasts;
+  var id = t.id,
+    type = t.type,
+    render = t.render,
+    action = t.action,
+    status = t.status;
   var ref = useRef(null);
   useLayoutEffect(function () {
     if (!ref.current) return;
-    var height = ref.current.getBoundingClientRect().height;
-    var totalHeight = height + gap;
-    setToasts(function (prev) {
-      return prev.map(function (t) {
-        return t.id === id ? _objectSpread2(_objectSpread2({}, t), {}, {
-          height: totalHeight
-        }) : t;
+    var g = typeof gap === 'number' ? gap : Number.isFinite(Number(gap)) ? Number(gap) : 8;
+    var el = ref.current;
+    var observer = new ResizeObserver(function () {
+      var height = el.offsetHeight + g;
+      setToasts(function (prev) {
+        return prev.map(function (t) {
+          return t.id === id ? _objectSpread2(_objectSpread2({}, t), {}, {
+            height: height
+          }) : t;
+        });
       });
     });
+    observer.observe(el);
+    return function () {
+      return observer.disconnect();
+    };
   }, []);
-  var transformY = position.includes('bottom') ? "translateY(-".concat(offset || 0, "px)") : "translateY(".concat(offset || 0, "px)");
-  function renderCustomContent() {
-    var render = toast.render;
-    if (typeof render === 'function') {
-      return render(function () {
-        return dismiss(toast.id, toast.options.exitDelay);
-      });
-    }
-    if (typeof render === 'string') {
-      return /*#__PURE__*/React.createElement("span", null, render);
-    }
-    return render;
-  }
+  var allowedPositions = ['top-left', 'top-center', 'top-right', 'bottom-left', 'bottom-center', 'bottom-right'];
+  var userPosition = t.position || containerPosition;
+  var position = allowedPositions.includes(userPosition) ? userPosition : 'top-center';
   return /*#__PURE__*/React.createElement("div", {
     ref: ref,
-    style: _objectSpread2({
-      maxHeight: 'fit-content',
-      transform: transformY
-    }, getToastPosition(position))
+    style: getToastStyles(t, position)
   }, /*#__PURE__*/React.createElement("div", {
-    className: "toast-content".concat(position.includes('bottom') ? '-bottom' : '', " ").concat(leaving ? 'exit' : '')
-  }, type === 'custom' ? renderCustomContent() : /*#__PURE__*/React.createElement("div", {
-    style: _objectSpread2({}, style),
-    className: "pre-styled"
-  }, showIcon && /*#__PURE__*/React.createElement(React.Fragment, null, type === 'loading' && /*#__PURE__*/React.createElement(LoadingSvg, null), type === 'success' && /*#__PURE__*/React.createElement(SuccessSvg, null), type === 'error' && /*#__PURE__*/React.createElement(ErrorSvg, null)), /*#__PURE__*/React.createElement("span", null, text))));
+    style: {
+      pointerEvents: 'all',
+      display: 'flex',
+      alignItems: 'center',
+      gap: 8
+    },
+    className: "kitzo-toast type-".concat(type, " action-").concat(action, " status-").concat(status, " pos-y-").concat(position.split('-')[0], " pos-x-").concat(position.split('-')[1], " ")
+  }, t.showIcon && type !== 'normal' && type !== 'custom' && /*#__PURE__*/React.createElement("div", {
+    style: {
+      flexShrink: 0
+    }
+  }, type === 'loading' && /*#__PURE__*/React.createElement(LoadingSvg, null), type === 'success' && /*#__PURE__*/React.createElement(SuccessSvg, null), type === 'error' && /*#__PURE__*/React.createElement(ErrorSvg, null), type === 'info' && /*#__PURE__*/React.createElement(InfoSvg, null)), /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1
+    }
+  }, typeof render === 'function' ? render(function () {
+    return toast.dismiss(id);
+  }) : render)));
 }
-function getToastPosition(position) {
-  var isLeft = position.includes('left');
-  var isRight = position.includes('right');
+function getToastStyles(t, position) {
   var styles = {
     position: 'absolute',
+    zIndex: t.zIndex,
+    left: 0,
     width: '100%',
-    pointerEvents: 'none',
-    transition: 'transform 230ms',
+    transition: 'transform 260ms',
     display: 'flex'
   };
-  if (position.includes('top')) {
-    styles.top = '0';
-    styles.justifyContent = isLeft ? 'flex-start' : isRight ? 'flex-end' : 'center';
-  }
-  if (position.includes('bottom')) {
-    styles.bottom = '0';
-    styles.justifyContent = isLeft ? 'flex-start' : isRight ? 'flex-end' : 'center';
-  }
+  var transform = position.includes('top') ? "translateY(".concat(t.distance || 0, "px)") : "translateY(-".concat(t.distance || 0, "px)");
+  var justifyContent = position.includes('left') ? 'flex-start' : position.includes('center') ? 'center' : 'flex-end';
+  styles.transform = transform;
+  styles.justifyContent = justifyContent;
+  if (position.includes('top')) styles.top = 0;
+  if (position.includes('bottom')) styles.bottom = 0;
   return styles;
 }
 
-function ToastContainer(props) {
-  props = Object.assign({
-    position: 'top-center',
-    gap: 8
-  }, props);
-  var _props = props,
-    gap = _props.gap;
-  var position = props.position;
+function ToastContainer(_ref) {
+  var _ref$position = _ref.position,
+    position = _ref$position === void 0 ? 'top-center' : _ref$position,
+    _ref$gap = _ref.gap,
+    gap = _ref$gap === void 0 ? 8 : _ref$gap,
+    _ref$edgeOffset = _ref.edgeOffset,
+    edgeOffset = _ref$edgeOffset === void 0 ? 16 : _ref$edgeOffset,
+    _ref$isDark = _ref.isDark,
+    isDark = _ref$isDark === void 0 ? window.matchMedia('(prefers-color-scheme: dark)').matches : _ref$isDark;
   var _useState = useState([]),
     _useState2 = _slicedToArray(_useState, 2),
     toasts = _useState2[0],
     setToasts = _useState2[1];
-
-  // event listener
   useEffect(function () {
     var unsub = subscribe(function (toast) {
-      if (toast.type === 'dismiss') {
-        setTimeout(function () {
-          setToasts(function (prev) {
-            return prev.map(function (t) {
-              return t.options.id === toast.id ? _objectSpread2(_objectSpread2({}, t), {}, {
-                leaving: true
-              }) : t;
-            });
-          });
-        }, Math.max(0, Number(toast.exitDelay)));
-        setTimeout(function () {
-          setToasts(function (prev) {
-            return prev.filter(function (t) {
-              return t.options.id !== toast.id;
-            });
-          });
-        }, Math.max(0, Number(toast.exitDelay) + 300));
-        return;
-      }
-      var duration = toast.options.duration;
-      var id = toast.options.id;
-      setToasts(function (prev) {
-        var exists = prev.some(function (t) {
-          return t.options.id === id;
-        });
-        if (exists) {
-          return prev.map(function (t) {
-            return t.options.id === id ? _objectSpread2(_objectSpread2({}, t), toast) : t;
-          });
-        }
-        return [_objectSpread2(_objectSpread2({
-          id: id
-        }, toast), {}, {
-          offset: 0,
-          height: 0,
-          leaving: false
-        })].concat(_toConsumableArray(prev));
-      });
-      if (toast.type !== 'loading' && isFinite(duration)) {
-        setTimeout(function () {
-          setToasts(function (prev) {
-            return prev.map(function (t) {
-              return t.options.id === id ? _objectSpread2(_objectSpread2({}, t), {}, {
-                leaving: true
-              }) : t;
-            });
-          });
-        }, Math.max(0, duration - 300));
-        setTimeout(function () {
-          setToasts(function (prev) {
-            return prev.filter(function (t) {
-              return t.options.id !== id;
-            });
-          });
-        }, duration);
-      }
+      return manageToasts(toast, setToasts);
     });
-    return function () {
-      return unsub();
-    };
+    return unsub;
   }, []);
-
-  // measue height and offset for each toast
   useLayoutEffect(function () {
-    var grouped = toasts.reduce(function (acc, t) {
-      var pos = t.options.position || position || 'top-center';
-      (acc[pos] || (acc[pos] = [])).push(t);
-      return acc;
+    var grouped = toasts.reduce(function (prev, t) {
+      var pos = t.position || position || 'top-center';
+      (prev[pos] || (prev[pos] = [])).push(t);
+      return prev;
     }, {});
     var hasChanged = false;
     var updated = toasts.map(function (toast) {
-      var pos = toast.options.position || position || 'top-center';
+      var pos = toast.position || position || 'top-center';
       var group = grouped[pos];
       var index = group.findIndex(function (t) {
         return t.id === toast.id;
       });
-      var offset = group.slice(0, index).reduce(function (acc, t) {
+      var distance = group.slice(0, index).reduce(function (acc, t) {
         return acc + (t.height || 0);
       }, 0);
-      if (offset !== toast.offset) {
+      if (distance !== toast.distance) {
         hasChanged = true;
       }
       return _objectSpread2(_objectSpread2({}, toast), {}, {
-        offset: offset
+        distance: distance
       });
     });
     if (hasChanged) {
-      setToasts(updated);
+      setTimeout(function () {
+        setToasts(updated);
+      }, 30);
     }
-  }, [toasts]);
-  var positions = ['top-left', 'top-center', 'top-right', 'bottom-left', 'bottom-center', 'bottom-right'];
+  }, [toasts, position]);
   return /*#__PURE__*/React.createElement("div", {
     style: {
       position: 'fixed',
       inset: 0,
-      zIndex: 100000000,
+      zIndex: 2147483647,
       pointerEvents: 'none',
-      fontFamily: 'inherit',
-      boxSizing: 'border-box'
+      display: 'grid',
+      padding: edgeOffset != null ? edgeOffset : 16
+    },
+    className: "kitzo-toast-container ".concat(isDark ? 'kitzo-toast-dark' : '')
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'relative'
     }
-  }, positions.map(function (pos) {
-    var group = toasts.filter(function (t) {
-      return (t.options.position || position || 'top-center') === pos;
+  }, toasts.map(function (t) {
+    return /*#__PURE__*/React.createElement(Toast, {
+      key: t.id,
+      t: t,
+      containerPosition: position,
+      gap: gap,
+      setToasts: setToasts
     });
-    if (!group.length) return null;
-    return /*#__PURE__*/React.createElement("div", {
-      key: pos,
-      style: {
-        position: 'absolute',
-        inset: 0,
-        display: 'grid',
-        padding: '1rem'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative'
-      }
-    }, group.map(function (toast) {
-      return /*#__PURE__*/React.createElement(Toast, {
-        key: toast.options.id,
-        toast: toast,
-        setToasts: setToasts,
-        position: pos,
-        gap: typeof gap === 'string' ? isNaN(+gap) ? 8 : +gap : gap
-      });
-    })));
-  }));
+  })));
 }
 
 // import './style.css';

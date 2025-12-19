@@ -16,14 +16,14 @@ type ToastOptions = {
   showIcon?: boolean;
 };
 
-type CustomContent = string | ReactNode | ((dismiss: () => void) => ReactNode);
+type CustomContent = ReactNode | ((dismiss: () => void) => ReactNode);
 
 type ToastAPI = {
-  (text: string, options?: ToastOptions): void;
+  (text: ReactNode, options?: ToastOptions): void;
 
-  success(text: string, options?: ToastOptions): void;
+  success(text: ReactNode, options?: ToastOptions): void;
 
-  error(text: string, options?: ToastOptions): void;
+  error(text: ReactNode, options?: ToastOptions): void;
 
   promise<T>(
     callback: Promise<T>,

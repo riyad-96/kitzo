@@ -13,7 +13,13 @@ npm i kitzo
 #### React APIs
 
 ```jsx
-import { ToastContainer, toast, Tooltip, useDebounce, useWindowSize } from 'kitzo';
+import {
+  ToastContainer,
+  toast,
+  Tooltip,
+  useDebounce,
+  useWindowSize,
+} from 'kitzo';
 ```
 
 > You can import only what you need.
@@ -23,93 +29,109 @@ import { ToastContainer, toast, Tooltip, useDebounce, useWindowSize } from 'kitz
 - Toast message
 - Tooltip
 
-##### Toast API:
+##### Toast API usage:
 
 ```jsx
 import { toast } from 'kitzo';
 import MyCustomComponent from './MyCustomComponent';
 
-toast.success('toast message', { duration: 2000, style: {}, showIcon: true, position: 'top-center' });
-toast.error('toast message', { duration: 2000, style: {}, showIcon: true, position: 'top-center' });
+// ---------------------
+// Normal / Success / Error
+// ---------------------
+
+toast('Toast message', {
+  id: 'normat_toast',
+  duration: 2000,
+  showIcon: true,
+  position: 'top-center',
+});
+
+toast.success('Toast message', {
+  id: 'success_toast',
+  duration: 2000,
+  showIcon: true,
+  position: 'top-center',
+});
+
+toast.error('Toast message', {
+  id: 'error_toast',
+  duration: 2000,
+  showIcon: true,
+  position: 'top-center',
+});
+
+// content can be: (dismiss) => (
+// <div>
+//   <span>any thing</span>
+//   <button onClick={dismiss} >❌</button>
+// </div>
+//)
+
+// ---------------------
+// Promise-based toast
+// ---------------------
 
 toast.promise(
-  promise(), // call a function that returns promise
+  promise(), // function that returns a promise
   {
     loading: 'Saving...',
-    success: 'Saved' | (response) => 'Saved',
-    error: 'Error occured' | (error) => 'Error occured',
+    success: (res) => `Saved: ${res}`, // or just 'Saved'
+    error: (err) => `Error occurred: ${err}`, // or just 'Error occurred'
   },
-  { duration: 2000, style: {}, showIcon: true, position: 'top-center' },
+  {
+    id: 'promise_toast',
+    duration: 2000,
+    showIcon: true,
+    position: 'top-center',
+  },
 );
 
+// ---------------------
+// Custom toast
+// ---------------------
+
 // JSX element
-toast.custom(<MyCustomComponent />, { duration: 2000, position: 'top-center' });
+toast.custom(<MyCustomComponent />, {
+  id: 'custom_toast',
+  duration: 2000,
+  position: 'top-center',
+});
 
 // Function that receives a dismiss handler
-toast.custom((dismiss) => (
-  <div>
-    <span>Custom toast message</span>
-    <button onClick={dismiss}>Close</button>
-  </div>
-), { duration: 3000 | Infinity });
-
-// (and optionally)
-toast.custom("string");
-```
-
-##### React Toast API Usage
-
-```jsx
-import { ToastContainer, toast } from 'kitzo';
-
-function App() {
-  function fakePromise() {
-    return new Promise((resolved, rejected) => {
-      setTimeout(() => {
-        Math.random() > 0.5 ? resolved('resolved') : rejected('rejected');
-      }, 2000);
-    });
-  }
-
-  function promiseToast() {
-    toast.promise(
-      fakePromise(),
-      {
-        loading: 'Saving data...',
-        success: 'Data saved',
-        error: 'Failed saving data',
-      },
-      { duration: 2500, position: 'top-center' },
-    );
-  }
-
-  function customToast() {
-    toast.custom(
-      (dismiss) => (
-        <div>
-          <span>Funtion that return jsx</span>
-          <button onClick={dismiss}>Close</button>
-        </div>
-      ),
-      {
-        duration: 2000,
-        position: 'top-center',
-      },
-    );
-  }
-
-  return (
+toast.custom(
+  (dismiss) => (
     <div>
-      <button onClick={() => toast.success('✅ Success toast message')}>Succes</button>
-      <button onClick={() => toast.error('❌ Error toast message')}>Error</button>
-      <button onClick={promiseToast}>Promise</button>
-      <button onClick={customToast}>Custom Toast</button>
-
-      {/* Toast container must be placed */}
-      <ToastContainer />
+      <span>Custom toast message</span>
+      <button onClick={dismiss}>Close</button>
     </div>
-  );
-}
+  ),
+  {
+    id: 'custom_toast',
+    duration: Infinity, // or 3000
+    position: 'top-center',
+  },
+);
+
+// Simple string
+toast.custom('Simple string toast', {
+  id: 'custom_toast',
+  duration: 2000,
+  position: 'top-center',
+});
+
+// ---------------------
+// Update / Dismiss
+// ---------------------
+// ❗ Update is only supported on custom toasts
+
+toast.update('my-toast', 'Updated content!', {
+  duration: 3000,
+});
+
+// Dismiss by id (optional)
+toast.dismiss('my-toast');
+// Or dismiss all toasts
+toast.dismiss();
 ```
 
 > Each toast can have its own position. default position is `top-center`.
@@ -203,6 +225,7 @@ function App() {
 - copy _(Copy text to clipboard)_
 
 #### copy usage:
+
 ```jsx
 import { copy } from 'kitzo/fns';
 import { ToastContainer, toast } from 'kitzo';

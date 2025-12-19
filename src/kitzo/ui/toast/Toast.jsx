@@ -14,9 +14,11 @@ function Toast({ toast, setToasts, position, gap }) {
     const totalHeight = height + gap;
 
     setToasts((prev) => prev.map((t) => (t.id === id ? { ...t, height: totalHeight } : t)));
-  }, []);
+  }, [gap, id, setToasts]);
 
-  const transformY = position.includes('bottom') ? `translateY(-${offset || 0}px)` : `translateY(${offset || 0}px)`;
+  const transformY = position.includes('bottom')
+    ? `translateY(-${offset || 0}px)`
+    : `translateY(${offset || 0}px)`;
 
   function renderCustomContent() {
     const render = toast.render;
@@ -39,11 +41,16 @@ function Toast({ toast, setToasts, position, gap }) {
         ...getToastPosition(position),
       }}
     >
-      <div className={`toast-content${position.includes('bottom') ? '-bottom' : ''} ${leaving ? 'exit' : ''}`}>
+      <div
+        className={`toast-content${position.includes('bottom') ? '-bottom' : ''} ${leaving ? 'exit' : ''}`}
+      >
         {type === 'custom' ? (
           renderCustomContent()
         ) : (
-          <div style={{ ...style }} className="pre-styled">
+          <div
+            style={{ ...style }}
+            className="pre-styled"
+          >
             {showIcon && (
               <>
                 {type === 'loading' && <LoadingSvg />}

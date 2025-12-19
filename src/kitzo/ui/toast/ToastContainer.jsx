@@ -22,7 +22,11 @@ export default function ToastContainer(props) {
       if (toast.type === 'dismiss') {
         setTimeout(
           () => {
-            setToasts((prev) => prev.map((t) => (t.options.id === toast.id ? { ...t, leaving: true } : t)));
+            setToasts((prev) =>
+              prev.map((t) =>
+                t.options.id === toast.id ? { ...t, leaving: true } : t,
+              ),
+            );
           },
           Math.max(0, Number(toast.exitDelay)),
         );
@@ -42,16 +46,25 @@ export default function ToastContainer(props) {
       setToasts((prev) => {
         const exists = prev.some((t) => t.options.id === id);
         if (exists) {
-          return prev.map((t) => (t.options.id === id ? { ...t, ...toast } : t));
+          return prev.map((t) =>
+            t.options.id === id ? { ...t, ...toast } : t,
+          );
         }
 
-        return [{ id, ...toast, offset: 0, height: 0, leaving: false }, ...prev];
+        return [
+          { id, ...toast, offset: 0, height: 0, leaving: false },
+          ...prev,
+        ];
       });
 
       if (toast.type !== 'loading' && isFinite(duration)) {
         setTimeout(
           () => {
-            setToasts((prev) => prev.map((t) => (t.options.id === id ? { ...t, leaving: true } : t)));
+            setToasts((prev) =>
+              prev.map((t) =>
+                t.options.id === id ? { ...t, leaving: true } : t,
+              ),
+            );
           },
           Math.max(0, duration - 300),
         );
@@ -80,7 +93,9 @@ export default function ToastContainer(props) {
       const group = grouped[pos];
       const index = group.findIndex((t) => t.id === toast.id);
 
-      const offset = group.slice(0, index).reduce((acc, t) => acc + (t.height || 0), 0);
+      const offset = group
+        .slice(0, index)
+        .reduce((acc, t) => acc + (t.height || 0), 0);
 
       if (offset !== toast.offset) {
         hasChanged = true;
@@ -92,9 +107,16 @@ export default function ToastContainer(props) {
     if (hasChanged) {
       setToasts(updated);
     }
-  }, [toasts]);
+  }, [toasts, position]);
 
-  const positions = ['top-left', 'top-center', 'top-right', 'bottom-left', 'bottom-center', 'bottom-right'];
+  const positions = [
+    'top-left',
+    'top-center',
+    'top-right',
+    'bottom-left',
+    'bottom-center',
+    'bottom-right',
+  ];
 
   return (
     <div
@@ -109,14 +131,30 @@ export default function ToastContainer(props) {
       }}
     >
       {positions.map((pos) => {
-        const group = toasts.filter((t) => (t.options.position || position || 'top-center') === pos);
+        const group = toasts.filter(
+          (t) => (t.options.position || position || 'top-center') === pos,
+        );
         if (!group.length) return null;
 
         return (
-          <div key={pos} style={{ position: 'absolute', inset: 0, display: 'grid', padding: '1rem' }}>
+          <div
+            key={pos}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              display: 'grid',
+              padding: '1rem',
+            }}
+          >
             <div style={{ position: 'relative' }}>
               {group.map((toast) => (
-                <Toast key={toast.options.id} toast={toast} setToasts={setToasts} position={pos} gap={typeof gap === 'string' ? (isNaN(+gap) ? 8 : +gap) : gap} />
+                <Toast
+                  key={toast.options.id}
+                  toast={toast}
+                  setToasts={setToasts}
+                  position={pos}
+                  gap={typeof gap === 'string' ? (isNaN(+gap) ? 8 : +gap) : gap}
+                />
               ))}
             </div>
           </div>
