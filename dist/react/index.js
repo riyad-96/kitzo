@@ -343,16 +343,30 @@ toast.promise = function (promise, handlers) {
   promise.then(/*#__PURE__*/function () {
     var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(result) {
       var _options$duration;
-      var _t, _t2;
+      var successContent, _t, _t2, _t3;
       return _regenerator().w(function (_context) {
         while (1) switch (_context.n) {
           case 0:
-            _t = toast;
-            _t2 = id;
+            if (!(typeof handlers.success === 'function')) {
+              _context.n = 2;
+              break;
+            }
             _context.n = 1;
             return handlers.success(result);
           case 1:
-            _t.update.call(_t, _t2, _context.v, {
+            _t = _context.v;
+            _context.n = 3;
+            break;
+          case 2:
+            _t = handlers.success;
+          case 3:
+            successContent = _t;
+            _t2 = toast;
+            _t3 = id;
+            _context.n = 4;
+            return successContent;
+          case 4:
+            _t2.update.call(_t2, _t3, _context.v, {
               type: 'success',
               duration: (_options$duration = options.duration) !== null && _options$duration !== void 0 ? _options$duration : 2800
             });
@@ -366,21 +380,30 @@ toast.promise = function (promise, handlers) {
   }())["catch"](/*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(error) {
       var _options$duration2;
-      var _t3, _t4;
+      var errorContent, _t4;
       return _regenerator().w(function (_context2) {
         while (1) switch (_context2.n) {
           case 0:
-            _t3 = toast;
-            _t4 = id;
+            if (!(typeof handlers.error === 'function')) {
+              _context2.n = 2;
+              break;
+            }
             _context2.n = 1;
             return handlers.error(error);
           case 1:
-            _t3.update.call(_t3, _t4, _context2.v, {
+            _t4 = _context2.v;
+            _context2.n = 3;
+            break;
+          case 2:
+            _t4 = handlers.error;
+          case 3:
+            errorContent = _t4;
+            toast.update(id, errorContent, {
               type: 'error',
               duration: (_options$duration2 = options.duration) !== null && _options$duration2 !== void 0 ? _options$duration2 : 3800
             });
             throw error;
-          case 2:
+          case 4:
             return _context2.a(2);
         }
       }, _callee2);

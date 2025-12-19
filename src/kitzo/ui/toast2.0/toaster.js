@@ -382,14 +382,24 @@ toast.promise = (promise, handlers, options = {}) => {
 
   promise
     .then(async (result) => {
-      toast.update(id, await handlers.success(result), {
+      const successContent =
+        typeof handlers.success === 'function'
+          ? await handlers.success(result)
+          : handlers.success;
+
+      toast.update(id, await successContent, {
         type: 'success',
         duration: options.duration ?? 2800,
       });
       return result;
     })
     .catch(async (error) => {
-      toast.update(id, await handlers.error(error), {
+      const errorContent =
+        typeof handlers.error === 'function'
+          ? await handlers.error(error)
+          : handlers.error;
+
+      toast.update(id, errorContent, {
         type: 'error',
         duration: options.duration ?? 3800,
       });
