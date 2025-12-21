@@ -10,7 +10,7 @@ const toastStyles = `.kitzo-toast-container {
   --info-text: hsl(210, 100%, 20%);
 
   --normal-border: hsl(0, 0%, 94%);
-  --success-border: hsl(123, 100%, 93%);
+  --success-border: hsl(142, 100%, 93%);
   --error-border: hsl(0, 100%, 94%);
   --info-border: hsl(210, 100%, 94%);
 
@@ -34,7 +34,7 @@ const toastStyles = `.kitzo-toast-container {
   --info-text: hsl(210, 100%, 70%);
 
   --normal-border: hsl(0, 0%, 17%);
-  --success-border: hsl(123, 100%, 15%);
+  --success-border: hsl(142, 100%, 15%);
   --error-border: hsl(0, 100%, 15%);
   --info-border: hsl(210, 100%, 16%);
 
@@ -97,7 +97,7 @@ const toastStyles = `.kitzo-toast-container {
 .kitzo-toast.type-error,
 .kitzo-toast.type-info {
   border-radius: 0.425rem;
-  padding: 0.2525rem 0.5rem;
+  padding: 0.325rem 0.5rem;
   box-shadow: 0 3px 8px -3px hsl(0, 0%, 0%, 0.15);
 }
 
