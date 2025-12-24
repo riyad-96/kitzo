@@ -42,9 +42,7 @@ export default function ToastContainer({
     });
 
     if (hasChanged) {
-      setTimeout(() => {
-        setToasts(updated);
-      }, 30);
+      setToasts(updated);
     }
   }, [toasts, position]);
 

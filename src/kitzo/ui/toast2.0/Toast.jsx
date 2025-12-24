@@ -45,10 +45,7 @@ export default function Toast({ t, containerPosition, gap, setToasts }) {
     : 'top-center';
 
   return (
-    <div
-      ref={ref}
-      style={getToastStyles(t, position)}
-    >
+    <div ref={ref} style={getToastStyles(t, position)}>
       <div
         style={{
           pointerEvents: 'all',
@@ -91,7 +88,7 @@ function getToastStyles(t, position) {
     zIndex: t.zIndex,
     left: 0,
     width: '100%',
-    transition: 'transform 260ms',
+    transition: 'transform 300ms',
     display: 'flex',
   };
 

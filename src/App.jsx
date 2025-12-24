@@ -4,9 +4,13 @@ export default function App() {
   return (
     <div>
       <div>
-        <button onClick={() => {
-          toast.success('hello world');
-        }} >de thashi</button>
+        <button
+          onClick={() => {
+            toast.success('Success message');
+          }}
+        >
+          Click
+        </button>
       </div>
 
       <ToastContainer />

@@ -49,9 +49,7 @@ const toastStyles = `.kitzo-toast-container {
 .kitzo-toast {
   font-family: inherit;
   font-size: 0.875rem;
-  transition:
-    opacity 160ms,
-    transform 210ms;
+  transition: 260ms;
 }
 
 /*! toast transition styles */
@@ -103,7 +101,7 @@ const toastStyles = `.kitzo-toast-container {
 
 .kitzo-toast.status-entering.pos-y-top {
   opacity: 0;
-  transform: translateY(-120%) scale(0.5);
+  transform: translateY(-120%) scale(0.2);
 }
 
 .kitzo-toast.status-visible.pos-y-top {
@@ -113,12 +111,12 @@ const toastStyles = `.kitzo-toast-container {
 
 .kitzo-toast.status-leaving.pos-y-top {
   opacity: 0;
-  transform: translateY(-120%) scale(0.5);
+  transform: translateY(-120%) scale(0.2);
 }
 
 .kitzo-toast.status-entering.pos-y-bottom {
   opacity: 0;
-  transform: translateY(120%) scale(0.5);
+  transform: translateY(120%) scale(0.2);
 }
 
 .kitzo-toast.status-visible.pos-y-bottom {
@@ -128,7 +126,7 @@ const toastStyles = `.kitzo-toast-container {
 
 .kitzo-toast.status-leaving.pos-y-bottom {
   opacity: 0;
-  transform: translateY(120%) scale(0.5);
+  transform: translateY(120%) scale(0.2);
 }
 
 .action-update {
