@@ -1,4 +1,4 @@
-import React, { useRef, useLayoutEffect, useState, useEffect } from 'react';
+import { useRef, useLayoutEffect, useState, useEffect } from 'react';
 
 function _arrayLikeToArray(r, a) {
   (null == a || a > r.length) && (a = r.length);

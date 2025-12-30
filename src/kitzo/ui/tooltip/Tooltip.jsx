@@ -268,7 +268,8 @@ export default function Tooltip({
   if (typeof isHidden === 'boolean' && isHidden) return children;
 
   if (typeof content === 'string') {
-    if (!content.trim()) throw new Error("kitzo: tooltip 'content' property is required");
+    if (!content.trim())
+      throw new Error("kitzo: tooltip 'content' property is required");
   } else if (!content) {
     throw new Error("kitzo: tooltip 'content' property is required");
   }
@@ -282,7 +283,8 @@ export default function Tooltip({
   } = tooltipOptions ?? {};
 
   const finalOptions = {
-    position: typeof position === 'string' ? position.trim().toLowerCase() : 'top',
+    position:
+      typeof position === 'string' ? position.trim().toLowerCase() : 'top',
     offset: !isNaN(Number(offset)) ? Number(offset) : 8,
     arrow: typeof arrow === 'boolean' ? arrow : false,
     smartHover: typeof smartHover === 'boolean' ? smartHover : true,
@@ -330,7 +332,9 @@ export default function Tooltip({
           className={`kitzo-react-tooltip-content ${positionClass} ${finalOptions.arrow ? 'tooltip-arrow' : ''}`}
         >
           {typeof content === 'string' || typeof content === 'number' ? (
-            <div className="kitzo-react-tooltip-content-default-style">{content}</div>
+            <div className="kitzo-react-tooltip-content-default-style">
+              {content}
+            </div>
           ) : (
             <>{content}</>
           )}
