@@ -799,9 +799,9 @@ function Tooltip(_ref) {
     children = _ref.children;
   if (typeof isHidden === 'boolean' && isHidden) return children;
   if (typeof content === 'string') {
-    if (!content.trim()) throw new Error('kitzo/react: tooltip content is required');
+    if (!content.trim()) throw new Error("kitzo: tooltip 'content' property is required");
   } else if (!content) {
-    throw new Error('kitzo/react: tooltip content is required');
+    throw new Error("kitzo: tooltip 'content' property is required");
   }
   // Define options
   var _ref2 = tooltipOptions !== null && tooltipOptions !== void 0 ? tooltipOptions : {},
