@@ -64,12 +64,11 @@ type TooltipCoreProps = {
   content: string | ReactNode;
   position?: Position;
   tooltipOptions?: TooltipOptions;
-  className?: string;
   tooltipClassName?: string;
-  style?: CSSProperties;
   tooltipStyle?: TooltipStyles & CSSProperties;
   animation?: TooltipAnimation;
   isHidden?: boolean;
+  isDark?: boolean;
 };
 
 type TooltipProps = PropsWithChildren<TooltipCoreProps>;

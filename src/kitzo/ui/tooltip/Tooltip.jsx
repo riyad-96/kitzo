@@ -8,11 +8,11 @@ const tooltipStyles = `/* Default styling */
   --transition-endDuration: calc(var(--endDuration) * 1ms);
   --transition-startDelay: calc(var(--startDelay) * 1ms);
   --transition-endDelay: calc(var(--endDelay) * 1ms);
+}
 
-  @media (prefers-color-scheme: dark) {
-    --bg-clr: hsl(0, 0%, 95%);
-    --text-clr: hsl(0, 0%, 15%);
-  }
+.kitzo-tooltip-root.tooltip-theme-dark {
+  --bg-clr: hsl(0, 0%, 95%);
+  --text-clr: hsl(0, 0%, 15%);
 }
 
 .kitzo-tooltip-content-default-style {
@@ -277,16 +277,18 @@ function getAnimationProperties(animation) {
   };
 }
 
+const isWindowThemeDark = () =>
+  window.matchMedia('(prefers-color-scheme: dark)').matches;
+
 export default function Tooltip({
   content,
   position = 'top',
   tooltipOptions = {},
-  className = '',
-  style = {},
   tooltipStyle = {},
   tooltipClassName = '',
   animation = true,
   isHidden = false,
+  isDark,
   children,
 }) {
   if (typeof isHidden === 'boolean' && isHidden) return children;
@@ -324,6 +326,9 @@ export default function Tooltip({
   const animationObj = animation === true ? {} : animation;
   const finalAnimationProperties = getAnimationProperties(animationObj);
 
+  // theme
+  isDark = typeof isDark === 'boolean' ? isDark : isWindowThemeDark();
+
   return (
     <div
       style={{
@@ -337,12 +342,10 @@ export default function Tooltip({
         '--arrow-color': tooltipStyle?.['--arrow-color'],
         '--arrow-size': tooltipStyle?.['--arrow-size'],
       }}
-      className={`kitzo-tooltip-root ${finalOptions.smartHover ? 'smart-hover' : ''} ${animationEnabled ? 'animate-tooltip' : ''}`}
+      className={`kitzo-tooltip-root ${isDark ? 'tooltip-theme-dark' : ''} ${finalOptions.smartHover ? 'smart-hover' : ''} ${animationEnabled ? 'animate-tooltip' : ''}`}
     >
       {/* children string or component */}
-      <div className={className} style={style}>
-        {children}
-      </div>
+      {children}
 
       <div
         style={{
@@ -356,9 +359,7 @@ export default function Tooltip({
           className={`kitzo-tooltip-content ${positionClass} ${finalOptions.arrow ? 'tooltip-arrow' : ''}`}
         >
           {typeof content === 'string' || typeof content === 'number' ? (
-            <div className="kitzo-tooltip-content-default-style">
-              {content}
-            </div>
+            <div className="kitzo-tooltip-content-default-style">{content}</div>
           ) : (
             <div className={tooltipClassName} style={tooltipStyle}>
               {content}

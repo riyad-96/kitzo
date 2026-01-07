@@ -13,6 +13,12 @@ export default function App() {
         </button>
       </div>
 
+      <div className="m-20">
+        <Tooltip className="fixed top-1/2 size-fit" content="This is a tooltip">
+          <button>Hover me</button>
+        </Tooltip>
+      </div>
+
       <ToastContainer />
     </div>
   );

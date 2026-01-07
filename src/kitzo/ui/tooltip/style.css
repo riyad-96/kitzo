@@ -7,11 +7,11 @@
   --transition-endDuration: calc(var(--endDuration) * 1ms);
   --transition-startDelay: calc(var(--startDelay) * 1ms);
   --transition-endDelay: calc(var(--endDelay) * 1ms);
+}
 
-  @media (prefers-color-scheme: dark) {
-    --bg-clr: hsl(0, 0%, 95%);
-    --text-clr: hsl(0, 0%, 15%);
-  }
+.kitzo-tooltip-root.tooltip-theme-dark {
+  --bg-clr: hsl(0, 0%, 95%);
+  --text-clr: hsl(0, 0%, 15%);
 }
 
 .kitzo-tooltip-content-default-style {
