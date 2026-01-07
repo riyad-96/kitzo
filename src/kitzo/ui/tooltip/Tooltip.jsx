@@ -1,8 +1,13 @@
 // import './style.css';
 const tooltipStyles = `/* Default styling */
-.kitzo-react-tooltip-root {
+.kitzo-tooltip-root {
   --bg-clr: hsl(0, 0%, 15%);
   --text-clr: hsl(0, 0%, 95%);
+
+  --transition-startDuration: calc(var(--startDuration) * 1ms);
+  --transition-endDuration: calc(var(--endDuration) * 1ms);
+  --transition-startDelay: calc(var(--startDelay) * 1ms);
+  --transition-endDelay: calc(var(--endDelay) * 1ms);
 
   @media (prefers-color-scheme: dark) {
     --bg-clr: hsl(0, 0%, 95%);
@@ -10,7 +15,7 @@ const tooltipStyles = `/* Default styling */
   }
 }
 
-.kitzo-react-tooltip-content-default-style {
+.kitzo-tooltip-content-default-style {
   font-family:
     inherit,
     system-ui,
@@ -33,185 +38,197 @@ const tooltipStyles = `/* Default styling */
 }
 
 /* Tooltip positioning */
-.kitzo-react-tooltip-wrapper {
+.kitzo-tooltip-wrapper {
   --tooltip-offset: calc(var(--offset) * 1px + 1px);
+  opacity: 0;
+  transition-property: opacity;
+  transition-delay: calc(
+    var(--transition-endDuration) + var(--transition-endDelay)
+  );
 }
+
+.kitzo-tooltip-root:hover .kitzo-tooltip-wrapper {
+  opacity: 1;
+  transition-delay: 0ms;
+}
+
 /* Top */
-.kitzo-react-tooltip-wrapper.top {
+.kitzo-tooltip-wrapper.top {
   bottom: 100%;
   padding-block-end: var(--tooltip-offset);
 }
-.kitzo-react-tooltip-wrapper.top {
+.kitzo-tooltip-wrapper.top {
   left: 50%;
   translate: -50% 0;
 }
-.kitzo-react-tooltip-wrapper.top.start {
+.kitzo-tooltip-wrapper.top.start {
   left: 0;
   translate: 0 0;
 }
-.kitzo-react-tooltip-wrapper.top.end {
+.kitzo-tooltip-wrapper.top.end {
   right: 0;
   translate: 0 0;
 }
 
 /* Right */
-.kitzo-react-tooltip-wrapper.right {
+.kitzo-tooltip-wrapper.right {
   left: 100%;
   padding-inline-start: var(--tooltip-offset);
 }
-.kitzo-react-tooltip-wrapper.right {
+.kitzo-tooltip-wrapper.right {
   top: 50%;
   translate: 0 -50%;
 }
-.kitzo-react-tooltip-wrapper.right.start {
+.kitzo-tooltip-wrapper.right.start {
   top: 0;
   translate: 0 0;
 }
-.kitzo-react-tooltip-wrapper.right.end {
+.kitzo-tooltip-wrapper.right.end {
   top: 100%;
   translate: 0 -100%;
 }
 
 /* Bottom */
-.kitzo-react-tooltip-wrapper.bottom {
+.kitzo-tooltip-wrapper.bottom {
   top: 100%;
   padding-block-start: var(--tooltip-offset);
 }
-.kitzo-react-tooltip-wrapper.bottom {
+.kitzo-tooltip-wrapper.bottom {
   left: 50%;
   translate: -50% 0;
 }
-.kitzo-react-tooltip-wrapper.bottom.start {
+.kitzo-tooltip-wrapper.bottom.start {
   left: 0;
   translate: 0 0;
 }
-.kitzo-react-tooltip-wrapper.bottom.end {
+.kitzo-tooltip-wrapper.bottom.end {
   left: 100%;
   translate: -100% 0;
 }
 
 /* Left */
-.kitzo-react-tooltip-wrapper.left {
+.kitzo-tooltip-wrapper.left {
   right: 100%;
   padding-inline-end: var(--tooltip-offset);
 }
-.kitzo-react-tooltip-wrapper.left {
+.kitzo-tooltip-wrapper.left {
   top: 50%;
   translate: 0 -50%;
 }
-.kitzo-react-tooltip-wrapper.left.start {
+.kitzo-tooltip-wrapper.left.start {
   top: 0;
   translate: 0 0;
 }
-.kitzo-react-tooltip-wrapper.left.end {
+.kitzo-tooltip-wrapper.left.end {
   top: 100%;
   translate: 0 -100%;
 }
 
 /* Tooltip transitions */
-.kitzo-react-tooltip-root.animate-tooltip {
-  --transition-startDuration: calc(var(--startDuration) * 1ms);
-  --transition-endDuration: calc(var(--endDuration) * 1ms);
-  --transition-startDelay: calc(var(--startDelay) * 1ms);
-  --transition-endDelay: calc(var(--endDelay) * 1ms);
+.kitzo-tooltip-root.animate-tooltip {
+  .kitzo-tooltip-content {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    backface-visibility: hidden;
+    contain: layout paint;
 
-  .kitzo-react-tooltip-content {
     transition:
       transform var(--transition-endDuration) var(--transition-endDelay),
       opacity var(--transition-endDuration) var(--transition-endDelay);
   }
 }
 
-.kitzo-react-tooltip-content {
+.kitzo-tooltip-content {
   transform: scale(0.8);
   opacity: 0;
 }
 
-.kitzo-react-tooltip-content.top {
+.kitzo-tooltip-content.top {
   transform-origin: bottom;
 }
-.kitzo-react-tooltip-content.right {
+.kitzo-tooltip-content.right {
   transform-origin: left;
 }
-.kitzo-react-tooltip-content.bottom {
+.kitzo-tooltip-content.bottom {
   transform-origin: top;
 }
-.kitzo-react-tooltip-content.left {
+.kitzo-tooltip-content.left {
   transform-origin: right;
 }
 
-.kitzo-react-tooltip-root.animate-tooltip:hover {
-  .kitzo-react-tooltip-content {
+.kitzo-tooltip-root.animate-tooltip:hover {
+  .kitzo-tooltip-content {
     transition:
       transform var(--transition-startDuration) var(--transition-startDelay),
       opacity var(--transition-startDuration) var(--transition-startDelay);
   }
 }
-.kitzo-react-tooltip-root:hover {
-  .kitzo-react-tooltip-content {
+.kitzo-tooltip-root:hover {
+  .kitzo-tooltip-content {
     transform: scale(1);
     opacity: 1;
   }
 }
 
 /* smart hover persistence feature */
-.kitzo-react-tooltip-root {
-  .kitzo-react-tooltip-wrapper {
+.kitzo-tooltip-root {
+  .kitzo-tooltip-wrapper {
     pointer-events: none;
   }
 }
-.kitzo-react-tooltip-root.smart-hover:hover {
-  .kitzo-react-tooltip-wrapper {
+.kitzo-tooltip-root.smart-hover:hover {
+  .kitzo-tooltip-wrapper {
     pointer-events: all;
   }
 }
 
 /* Arrow */
-.kitzo-react-tooltip-content.tooltip-arrow {
+.kitzo-tooltip-content.tooltip-arrow {
   --effective-size: calc(var(--arrow-size, 6) * 1px);
   --effective-color: var(--arrow-color, var(--bg-clr));
 
   position: relative;
 }
-.kitzo-react-tooltip-content.tooltip-arrow::before {
+.kitzo-tooltip-content.tooltip-arrow::before {
   content: '';
   position: absolute;
   z-index: -1;
   border: var(--effective-size) solid transparent;
 }
-.kitzo-react-tooltip-content.tooltip-arrow.top::before {
+.kitzo-tooltip-content.tooltip-arrow.top::before {
   left: 50%;
   translate: -50% 0;
   top: calc(100% - 1px);
   border-top: var(--effective-size) solid var(--effective-color);
 }
-.kitzo-react-tooltip-content.tooltip-arrow.right::before {
+.kitzo-tooltip-content.tooltip-arrow.right::before {
   top: 50%;
   translate: 0 -50%;
   right: calc(100% - 1px);
   border-right: var(--effective-size) solid var(--effective-color);
 }
-.kitzo-react-tooltip-content.tooltip-arrow.bottom::before {
+.kitzo-tooltip-content.tooltip-arrow.bottom::before {
   left: 50%;
   translate: -50% 0;
   bottom: calc(100% - 1px);
   border-bottom: var(--effective-size) solid var(--effective-color);
 }
-.kitzo-react-tooltip-content.tooltip-arrow.left::before {
+.kitzo-tooltip-content.tooltip-arrow.left::before {
   top: 50%;
   translate: 0 -50%;
   left: calc(100% - 1px);
   border-left: var(--effective-size) solid var(--effective-color);
 }`;
 
-(() => {
-  if (!document.getElementById('kitzo-react-tooltip-styles')) {
+function addTooltipStyles() {
+  if (!document.getElementById('kitzo-tooltip-styles')) {
     const styleTag = document.createElement('style');
-    styleTag.id = 'kitzo-react-tooltip-styles';
+    styleTag.id = 'kitzo-tooltip-styles';
     styleTag.textContent = tooltipStyles;
     document.head.appendChild(styleTag);
   }
-})();
+}
 
 const allowedPositions = [
   'top-start',
@@ -229,6 +246,9 @@ const allowedPositions = [
 ];
 
 function getPositionClass(position = '') {
+  position =
+    typeof position === 'string' ? position.trim().toLowerCase() : 'top';
+
   const allowedPos = allowedPositions.find((p) => p === position);
   if (!allowedPos) return 'top';
 
@@ -259,23 +279,27 @@ function getAnimationProperties(animation) {
 
 export default function Tooltip({
   content,
+  position = 'top',
   tooltipOptions = {},
-  animation = true,
+  className = '',
   style = {},
+  tooltipStyle = {},
+  tooltipClassName = '',
+  animation = true,
   isHidden = false,
   children,
 }) {
   if (typeof isHidden === 'boolean' && isHidden) return children;
 
-  if (typeof content === 'string') {
-    if (!content.trim())
-      throw new Error("kitzo: tooltip 'content' property is required");
-  } else if (!content) {
-    throw new Error("kitzo: tooltip 'content' property is required");
+  if (content == null) {
+    console.warn("kitzo: tooltip 'content' property is required");
+    return children;
   }
+  // Add styles once
+  addTooltipStyles();
+
   // Define options
   const {
-    position = 'top',
     offset = 8,
     hideOnTouch = true,
     arrow = false,
@@ -283,8 +307,6 @@ export default function Tooltip({
   } = tooltipOptions ?? {};
 
   const finalOptions = {
-    position:
-      typeof position === 'string' ? position.trim().toLowerCase() : 'top',
     offset: !isNaN(Number(offset)) ? Number(offset) : 8,
     arrow: typeof arrow === 'boolean' ? arrow : false,
     smartHover: typeof smartHover === 'boolean' ? smartHover : true,
@@ -295,7 +317,7 @@ export default function Tooltip({
   const isTouch = window.matchMedia('(pointer: coarse)').matches;
   if (isTouch && finalOptions.hideOnTouch) return children;
 
-  const positionClass = getPositionClass(finalOptions.position);
+  const positionClass = getPositionClass(position);
 
   // Define animations
   const animationEnabled = animation ? true : false;
@@ -312,13 +334,15 @@ export default function Tooltip({
         '--endDuration': Math.max(0, finalAnimationProperties.endDuration),
         '--startDelay': Math.max(0, finalAnimationProperties.startDelay),
         '--endDelay': Math.max(0, finalAnimationProperties.endDelay),
-        '--arrow-color': style?.['--arrow-color'],
-        '--arrow-size': style?.['--arrow-size'],
+        '--arrow-color': tooltipStyle?.['--arrow-color'],
+        '--arrow-size': tooltipStyle?.['--arrow-size'],
       }}
-      className={`kitzo-react-tooltip-root ${finalOptions.smartHover ? 'smart-hover' : ''} ${animationEnabled ? 'animate-tooltip' : ''}`}
+      className={`kitzo-tooltip-root ${finalOptions.smartHover ? 'smart-hover' : ''} ${animationEnabled ? 'animate-tooltip' : ''}`}
     >
       {/* children string or component */}
-      {children}
+      <div className={className} style={style}>
+        {children}
+      </div>
 
       <div
         style={{
@@ -326,17 +350,19 @@ export default function Tooltip({
           whiteSpace: typeof content === 'string' ? 'nowrap' : 'normal',
         }}
         tabIndex={-1}
-        className={`kitzo-react-tooltip-wrapper ${positionClass}`}
+        className={`kitzo-tooltip-wrapper ${positionClass}`}
       >
         <div
-          className={`kitzo-react-tooltip-content ${positionClass} ${finalOptions.arrow ? 'tooltip-arrow' : ''}`}
+          className={`kitzo-tooltip-content ${positionClass} ${finalOptions.arrow ? 'tooltip-arrow' : ''}`}
         >
           {typeof content === 'string' || typeof content === 'number' ? (
-            <div className="kitzo-react-tooltip-content-default-style">
+            <div className="kitzo-tooltip-content-default-style">
               {content}
             </div>
           ) : (
-            <>{content}</>
+            <div className={tooltipClassName} style={tooltipStyle}>
+              {content}
+            </div>
           )}
         </div>
       </div>

@@ -745,18 +745,19 @@ function ToastContainer(_ref) {
 }
 
 // import './style.css';
-var tooltipStyles = "/* Default styling */\n.kitzo-react-tooltip-root {\n  --bg-clr: hsl(0, 0%, 15%);\n  --text-clr: hsl(0, 0%, 95%);\n\n  @media (prefers-color-scheme: dark) {\n    --bg-clr: hsl(0, 0%, 95%);\n    --text-clr: hsl(0, 0%, 15%);\n  }\n}\n\n.kitzo-react-tooltip-content-default-style {\n  font-family:\n    inherit,\n    system-ui,\n    -apple-system,\n    BlinkMacSystemFont,\n    'Segoe UI',\n    Roboto,\n    Oxygen,\n    Ubuntu,\n    Cantarell,\n    'Open Sans',\n    'Helvetica Neue',\n    sans-serif;\n  font-size: 0.875rem;\n  background-color: var(--bg-clr);\n  color: var(--text-clr);\n  padding-block: 0.25rem;\n  padding-inline: 0.5rem;\n  border-radius: 0.325rem;\n}\n\n/* Tooltip positioning */\n.kitzo-react-tooltip-wrapper {\n  --tooltip-offset: calc(var(--offset) * 1px + 1px);\n}\n/* Top */\n.kitzo-react-tooltip-wrapper.top {\n  bottom: 100%;\n  padding-block-end: var(--tooltip-offset);\n}\n.kitzo-react-tooltip-wrapper.top {\n  left: 50%;\n  translate: -50% 0;\n}\n.kitzo-react-tooltip-wrapper.top.start {\n  left: 0;\n  translate: 0 0;\n}\n.kitzo-react-tooltip-wrapper.top.end {\n  right: 0;\n  translate: 0 0;\n}\n\n/* Right */\n.kitzo-react-tooltip-wrapper.right {\n  left: 100%;\n  padding-inline-start: var(--tooltip-offset);\n}\n.kitzo-react-tooltip-wrapper.right {\n  top: 50%;\n  translate: 0 -50%;\n}\n.kitzo-react-tooltip-wrapper.right.start {\n  top: 0;\n  translate: 0 0;\n}\n.kitzo-react-tooltip-wrapper.right.end {\n  top: 100%;\n  translate: 0 -100%;\n}\n\n/* Bottom */\n.kitzo-react-tooltip-wrapper.bottom {\n  top: 100%;\n  padding-block-start: var(--tooltip-offset);\n}\n.kitzo-react-tooltip-wrapper.bottom {\n  left: 50%;\n  translate: -50% 0;\n}\n.kitzo-react-tooltip-wrapper.bottom.start {\n  left: 0;\n  translate: 0 0;\n}\n.kitzo-react-tooltip-wrapper.bottom.end {\n  left: 100%;\n  translate: -100% 0;\n}\n\n/* Left */\n.kitzo-react-tooltip-wrapper.left {\n  right: 100%;\n  padding-inline-end: var(--tooltip-offset);\n}\n.kitzo-react-tooltip-wrapper.left {\n  top: 50%;\n  translate: 0 -50%;\n}\n.kitzo-react-tooltip-wrapper.left.start {\n  top: 0;\n  translate: 0 0;\n}\n.kitzo-react-tooltip-wrapper.left.end {\n  top: 100%;\n  translate: 0 -100%;\n}\n\n/* Tooltip transitions */\n.kitzo-react-tooltip-root.animate-tooltip {\n  --transition-startDuration: calc(var(--startDuration) * 1ms);\n  --transition-endDuration: calc(var(--endDuration) * 1ms);\n  --transition-startDelay: calc(var(--startDelay) * 1ms);\n  --transition-endDelay: calc(var(--endDelay) * 1ms);\n\n  .kitzo-react-tooltip-content {\n    transition:\n      transform var(--transition-endDuration) var(--transition-endDelay),\n      opacity var(--transition-endDuration) var(--transition-endDelay);\n  }\n}\n\n.kitzo-react-tooltip-content {\n  transform: scale(0.8);\n  opacity: 0;\n}\n\n.kitzo-react-tooltip-content.top {\n  transform-origin: bottom;\n}\n.kitzo-react-tooltip-content.right {\n  transform-origin: left;\n}\n.kitzo-react-tooltip-content.bottom {\n  transform-origin: top;\n}\n.kitzo-react-tooltip-content.left {\n  transform-origin: right;\n}\n\n.kitzo-react-tooltip-root.animate-tooltip:hover {\n  .kitzo-react-tooltip-content {\n    transition:\n      transform var(--transition-startDuration) var(--transition-startDelay),\n      opacity var(--transition-startDuration) var(--transition-startDelay);\n  }\n}\n.kitzo-react-tooltip-root:hover {\n  .kitzo-react-tooltip-content {\n    transform: scale(1);\n    opacity: 1;\n  }\n}\n\n/* smart hover persistence feature */\n.kitzo-react-tooltip-root {\n  .kitzo-react-tooltip-wrapper {\n    pointer-events: none;\n  }\n}\n.kitzo-react-tooltip-root.smart-hover:hover {\n  .kitzo-react-tooltip-wrapper {\n    pointer-events: all;\n  }\n}\n\n/* Arrow */\n.kitzo-react-tooltip-content.tooltip-arrow {\n  --effective-size: calc(var(--arrow-size, 6) * 1px);\n  --effective-color: var(--arrow-color, var(--bg-clr));\n\n  position: relative;\n}\n.kitzo-react-tooltip-content.tooltip-arrow::before {\n  content: '';\n  position: absolute;\n  z-index: -1;\n  border: var(--effective-size) solid transparent;\n}\n.kitzo-react-tooltip-content.tooltip-arrow.top::before {\n  left: 50%;\n  translate: -50% 0;\n  top: calc(100% - 1px);\n  border-top: var(--effective-size) solid var(--effective-color);\n}\n.kitzo-react-tooltip-content.tooltip-arrow.right::before {\n  top: 50%;\n  translate: 0 -50%;\n  right: calc(100% - 1px);\n  border-right: var(--effective-size) solid var(--effective-color);\n}\n.kitzo-react-tooltip-content.tooltip-arrow.bottom::before {\n  left: 50%;\n  translate: -50% 0;\n  bottom: calc(100% - 1px);\n  border-bottom: var(--effective-size) solid var(--effective-color);\n}\n.kitzo-react-tooltip-content.tooltip-arrow.left::before {\n  top: 50%;\n  translate: 0 -50%;\n  left: calc(100% - 1px);\n  border-left: var(--effective-size) solid var(--effective-color);\n}";
-(function () {
-  if (!document.getElementById('kitzo-react-tooltip-styles')) {
+var tooltipStyles = "/* Default styling */\n.kitzo-tooltip-root {\n  --bg-clr: hsl(0, 0%, 15%);\n  --text-clr: hsl(0, 0%, 95%);\n\n  --transition-startDuration: calc(var(--startDuration) * 1ms);\n  --transition-endDuration: calc(var(--endDuration) * 1ms);\n  --transition-startDelay: calc(var(--startDelay) * 1ms);\n  --transition-endDelay: calc(var(--endDelay) * 1ms);\n\n  @media (prefers-color-scheme: dark) {\n    --bg-clr: hsl(0, 0%, 95%);\n    --text-clr: hsl(0, 0%, 15%);\n  }\n}\n\n.kitzo-tooltip-content-default-style {\n  font-family:\n    inherit,\n    system-ui,\n    -apple-system,\n    BlinkMacSystemFont,\n    'Segoe UI',\n    Roboto,\n    Oxygen,\n    Ubuntu,\n    Cantarell,\n    'Open Sans',\n    'Helvetica Neue',\n    sans-serif;\n  font-size: 0.875rem;\n  background-color: var(--bg-clr);\n  color: var(--text-clr);\n  padding-block: 0.25rem;\n  padding-inline: 0.5rem;\n  border-radius: 0.325rem;\n}\n\n/* Tooltip positioning */\n.kitzo-tooltip-wrapper {\n  --tooltip-offset: calc(var(--offset) * 1px + 1px);\n  opacity: 0;\n  transition-property: opacity;\n  transition-delay: calc(\n    var(--transition-endDuration) + var(--transition-endDelay)\n  );\n}\n\n.kitzo-tooltip-root:hover .kitzo-tooltip-wrapper {\n  opacity: 1;\n  transition-delay: 0ms;\n}\n\n/* Top */\n.kitzo-tooltip-wrapper.top {\n  bottom: 100%;\n  padding-block-end: var(--tooltip-offset);\n}\n.kitzo-tooltip-wrapper.top {\n  left: 50%;\n  translate: -50% 0;\n}\n.kitzo-tooltip-wrapper.top.start {\n  left: 0;\n  translate: 0 0;\n}\n.kitzo-tooltip-wrapper.top.end {\n  right: 0;\n  translate: 0 0;\n}\n\n/* Right */\n.kitzo-tooltip-wrapper.right {\n  left: 100%;\n  padding-inline-start: var(--tooltip-offset);\n}\n.kitzo-tooltip-wrapper.right {\n  top: 50%;\n  translate: 0 -50%;\n}\n.kitzo-tooltip-wrapper.right.start {\n  top: 0;\n  translate: 0 0;\n}\n.kitzo-tooltip-wrapper.right.end {\n  top: 100%;\n  translate: 0 -100%;\n}\n\n/* Bottom */\n.kitzo-tooltip-wrapper.bottom {\n  top: 100%;\n  padding-block-start: var(--tooltip-offset);\n}\n.kitzo-tooltip-wrapper.bottom {\n  left: 50%;\n  translate: -50% 0;\n}\n.kitzo-tooltip-wrapper.bottom.start {\n  left: 0;\n  translate: 0 0;\n}\n.kitzo-tooltip-wrapper.bottom.end {\n  left: 100%;\n  translate: -100% 0;\n}\n\n/* Left */\n.kitzo-tooltip-wrapper.left {\n  right: 100%;\n  padding-inline-end: var(--tooltip-offset);\n}\n.kitzo-tooltip-wrapper.left {\n  top: 50%;\n  translate: 0 -50%;\n}\n.kitzo-tooltip-wrapper.left.start {\n  top: 0;\n  translate: 0 0;\n}\n.kitzo-tooltip-wrapper.left.end {\n  top: 100%;\n  translate: 0 -100%;\n}\n\n/* Tooltip transitions */\n.kitzo-tooltip-root.animate-tooltip {\n  .kitzo-tooltip-content {\n    text-rendering: optimizeLegibility;\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n    backface-visibility: hidden;\n    contain: layout paint;\n\n    transition:\n      transform var(--transition-endDuration) var(--transition-endDelay),\n      opacity var(--transition-endDuration) var(--transition-endDelay);\n  }\n}\n\n.kitzo-tooltip-content {\n  transform: scale(0.8);\n  opacity: 0;\n}\n\n.kitzo-tooltip-content.top {\n  transform-origin: bottom;\n}\n.kitzo-tooltip-content.right {\n  transform-origin: left;\n}\n.kitzo-tooltip-content.bottom {\n  transform-origin: top;\n}\n.kitzo-tooltip-content.left {\n  transform-origin: right;\n}\n\n.kitzo-tooltip-root.animate-tooltip:hover {\n  .kitzo-tooltip-content {\n    transition:\n      transform var(--transition-startDuration) var(--transition-startDelay),\n      opacity var(--transition-startDuration) var(--transition-startDelay);\n  }\n}\n.kitzo-tooltip-root:hover {\n  .kitzo-tooltip-content {\n    transform: scale(1);\n    opacity: 1;\n  }\n}\n\n/* smart hover persistence feature */\n.kitzo-tooltip-root {\n  .kitzo-tooltip-wrapper {\n    pointer-events: none;\n  }\n}\n.kitzo-tooltip-root.smart-hover:hover {\n  .kitzo-tooltip-wrapper {\n    pointer-events: all;\n  }\n}\n\n/* Arrow */\n.kitzo-tooltip-content.tooltip-arrow {\n  --effective-size: calc(var(--arrow-size, 6) * 1px);\n  --effective-color: var(--arrow-color, var(--bg-clr));\n\n  position: relative;\n}\n.kitzo-tooltip-content.tooltip-arrow::before {\n  content: '';\n  position: absolute;\n  z-index: -1;\n  border: var(--effective-size) solid transparent;\n}\n.kitzo-tooltip-content.tooltip-arrow.top::before {\n  left: 50%;\n  translate: -50% 0;\n  top: calc(100% - 1px);\n  border-top: var(--effective-size) solid var(--effective-color);\n}\n.kitzo-tooltip-content.tooltip-arrow.right::before {\n  top: 50%;\n  translate: 0 -50%;\n  right: calc(100% - 1px);\n  border-right: var(--effective-size) solid var(--effective-color);\n}\n.kitzo-tooltip-content.tooltip-arrow.bottom::before {\n  left: 50%;\n  translate: -50% 0;\n  bottom: calc(100% - 1px);\n  border-bottom: var(--effective-size) solid var(--effective-color);\n}\n.kitzo-tooltip-content.tooltip-arrow.left::before {\n  top: 50%;\n  translate: 0 -50%;\n  left: calc(100% - 1px);\n  border-left: var(--effective-size) solid var(--effective-color);\n}";
+function addTooltipStyles() {
+  if (!document.getElementById('kitzo-tooltip-styles')) {
     var styleTag = document.createElement('style');
-    styleTag.id = 'kitzo-react-tooltip-styles';
+    styleTag.id = 'kitzo-tooltip-styles';
     styleTag.textContent = tooltipStyles;
     document.head.appendChild(styleTag);
   }
-})();
+}
 var allowedPositions = ['top-start', 'top', 'top-end', 'right-start', 'right', 'right-end', 'bottom-start', 'bottom', 'bottom-end', 'left-start', 'left', 'left-end'];
 function getPositionClass() {
   var position = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+  position = typeof position === 'string' ? position.trim().toLowerCase() : 'top';
   var allowedPos = allowedPositions.find(function (p) {
     return p === position;
   });
@@ -788,25 +789,33 @@ function getAnimationProperties(animation) {
 }
 function Tooltip(_ref) {
   var content = _ref.content,
+    _ref$position = _ref.position,
+    position = _ref$position === void 0 ? 'top' : _ref$position,
     _ref$tooltipOptions = _ref.tooltipOptions,
     tooltipOptions = _ref$tooltipOptions === void 0 ? {} : _ref$tooltipOptions,
-    _ref$animation = _ref.animation,
-    animation = _ref$animation === void 0 ? true : _ref$animation,
+    _ref$className = _ref.className,
+    className = _ref$className === void 0 ? '' : _ref$className,
     _ref$style = _ref.style,
     style = _ref$style === void 0 ? {} : _ref$style,
+    _ref$tooltipStyle = _ref.tooltipStyle,
+    tooltipStyle = _ref$tooltipStyle === void 0 ? {} : _ref$tooltipStyle,
+    _ref$tooltipClassName = _ref.tooltipClassName,
+    tooltipClassName = _ref$tooltipClassName === void 0 ? '' : _ref$tooltipClassName,
+    _ref$animation = _ref.animation,
+    animation = _ref$animation === void 0 ? true : _ref$animation,
     _ref$isHidden = _ref.isHidden,
     isHidden = _ref$isHidden === void 0 ? false : _ref$isHidden,
     children = _ref.children;
   if (typeof isHidden === 'boolean' && isHidden) return children;
-  if (typeof content === 'string') {
-    if (!content.trim()) throw new Error("kitzo: tooltip 'content' property is required");
-  } else if (!content) {
-    throw new Error("kitzo: tooltip 'content' property is required");
+  if (content == null) {
+    console.warn("kitzo: tooltip 'content' property is required");
+    return children;
   }
+  // Add styles once
+  addTooltipStyles();
+
   // Define options
   var _ref2 = tooltipOptions !== null && tooltipOptions !== void 0 ? tooltipOptions : {},
-    _ref2$position = _ref2.position,
-    position = _ref2$position === void 0 ? 'top' : _ref2$position,
     _ref2$offset = _ref2.offset,
     offset = _ref2$offset === void 0 ? 8 : _ref2$offset,
     _ref2$hideOnTouch = _ref2.hideOnTouch,
@@ -816,7 +825,6 @@ function Tooltip(_ref) {
     _ref2$smartHover = _ref2.smartHover,
     smartHover = _ref2$smartHover === void 0 ? true : _ref2$smartHover;
   var finalOptions = {
-    position: typeof position === 'string' ? position.trim().toLowerCase() : 'top',
     offset: !isNaN(Number(offset)) ? Number(offset) : 8,
     arrow: typeof arrow === 'boolean' ? arrow : false,
     smartHover: typeof smartHover === 'boolean' ? smartHover : true,
@@ -826,7 +834,7 @@ function Tooltip(_ref) {
   // Hide on touch device
   var isTouch = window.matchMedia('(pointer: coarse)').matches;
   if (isTouch && finalOptions.hideOnTouch) return children;
-  var positionClass = getPositionClass(finalOptions.position);
+  var positionClass = getPositionClass(position);
 
   // Define animations
   var animationEnabled = animation ? true : false;
@@ -841,22 +849,28 @@ function Tooltip(_ref) {
       '--endDuration': Math.max(0, finalAnimationProperties.endDuration),
       '--startDelay': Math.max(0, finalAnimationProperties.startDelay),
       '--endDelay': Math.max(0, finalAnimationProperties.endDelay),
-      '--arrow-color': style === null || style === void 0 ? void 0 : style['--arrow-color'],
-      '--arrow-size': style === null || style === void 0 ? void 0 : style['--arrow-size']
+      '--arrow-color': tooltipStyle === null || tooltipStyle === void 0 ? void 0 : tooltipStyle['--arrow-color'],
+      '--arrow-size': tooltipStyle === null || tooltipStyle === void 0 ? void 0 : tooltipStyle['--arrow-size']
     },
-    className: "kitzo-react-tooltip-root ".concat(finalOptions.smartHover ? 'smart-hover' : '', " ").concat(animationEnabled ? 'animate-tooltip' : '')
-  }, children, /*#__PURE__*/React.createElement("div", {
+    className: "kitzo-tooltip-root ".concat(finalOptions.smartHover ? 'smart-hover' : '', " ").concat(animationEnabled ? 'animate-tooltip' : '')
+  }, /*#__PURE__*/React.createElement("div", {
+    className: className,
+    style: style
+  }, children), /*#__PURE__*/React.createElement("div", {
     style: {
       position: 'absolute',
       whiteSpace: typeof content === 'string' ? 'nowrap' : 'normal'
     },
     tabIndex: -1,
-    className: "kitzo-react-tooltip-wrapper ".concat(positionClass)
+    className: "kitzo-tooltip-wrapper ".concat(positionClass)
   }, /*#__PURE__*/React.createElement("div", {
-    className: "kitzo-react-tooltip-content ".concat(positionClass, " ").concat(finalOptions.arrow ? 'tooltip-arrow' : '')
+    className: "kitzo-tooltip-content ".concat(positionClass, " ").concat(finalOptions.arrow ? 'tooltip-arrow' : '')
   }, typeof content === 'string' || typeof content === 'number' ? /*#__PURE__*/React.createElement("div", {
-    className: "kitzo-react-tooltip-content-default-style"
-  }, content) : /*#__PURE__*/React.createElement(React.Fragment, null, content))));
+    className: "kitzo-tooltip-content-default-style"
+  }, content) : /*#__PURE__*/React.createElement("div", {
+    className: tooltipClassName,
+    style: tooltipStyle
+  }, content))));
 }
 
 function useDebounce(value, delay) {

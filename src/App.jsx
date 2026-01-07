@@ -1,4 +1,4 @@
-import { ToastContainer, toast } from './kitzo/index';
+import { ToastContainer, toast, Tooltip } from './kitzo/index';
 
 export default function App() {
   return (

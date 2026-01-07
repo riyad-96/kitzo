@@ -1,22 +1,23 @@
-import type { JSX, PropsWithChildren, ReactNode } from 'react';
+import type { CSSProperties, JSX, PropsWithChildren, ReactNode } from 'react';
+
+type Position =
+  | 'top-start'
+  | 'top'
+  | 'top-end'
+  | 'right-start'
+  | 'right'
+  | 'right-end'
+  | 'bottom-start'
+  | 'bottom'
+  | 'bottom-end'
+  | 'left-start'
+  | 'left'
+  | 'left-end';
 
 type TooltipOptions = {
   /**
    * @default 'top'
    */
-  position?:
-    | 'top-start'
-    | 'top'
-    | 'top-end'
-    | 'right-start'
-    | 'right'
-    | 'right-end'
-    | 'bottom-start'
-    | 'bottom'
-    | 'bottom-end'
-    | 'left-start'
-    | 'left'
-    | 'left-end';
   /**
    * @default 8
    */
@@ -61,9 +62,13 @@ type TooltipCoreProps = {
    * content is necessary
    */
   content: string | ReactNode;
+  position?: Position;
   tooltipOptions?: TooltipOptions;
+  className?: string;
+  tooltipClassName?: string;
+  style?: CSSProperties;
+  tooltipStyle?: TooltipStyles & CSSProperties;
   animation?: TooltipAnimation;
-  style?: TooltipStyles;
   isHidden?: boolean;
 };
 
