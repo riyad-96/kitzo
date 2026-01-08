@@ -243,7 +243,7 @@ function _unsupportedIterableToArray(r, a) {
   }
 }
 
-var toastStyles = ".kitzo-toast-container {\n  --normal-bg: hsl(0, 0%, 100%);\n  --success-bg: hsl(152, 65%, 95%);\n  --error-bg: hsl(0, 65%, 95%);\n  --info-bg: hsl(210, 65%, 95%);\n\n  --normal-text: hsl(0, 0%, 10%);\n  --success-text: hsl(142, 98%, 30%);\n  --error-text: hsl(6, 98%, 40%);\n  --info-text: hsl(210, 100%, 20%);\n\n  --normal-border: hsl(0, 0%, 94%);\n  --success-border: hsl(142, 100%, 93%);\n  --error-border: hsl(0, 100%, 94%);\n  --info-border: hsl(210, 100%, 94%);\n\n  --success-svg-bg: hsl(142, 98%, 40%);\n  --error-svg-bg: hsl(6, 98%, 50%);\n  --info-svg-bg: hsl(210, 100%, 40%);\n\n  --loader-stroke: hsl(0, 0%, 50%);\n  --loader-bg: hsl(0, 0%, 80%);\n}\n\n.kitzo-toast-container.kitzo-toast-dark {\n  --normal-bg: hsl(0, 0%, 15%);\n  --success-bg: hsl(152, 65%, 15%);\n  --error-bg: hsl(0, 65%, 15%);\n  --info-bg: hsl(210, 65%, 15%);\n\n  --normal-text: hsl(0, 0%, 95%);\n  --success-text: hsl(142, 98%, 70%);\n  --error-text: hsl(6, 98%, 70%);\n  --info-text: hsl(210, 100%, 70%);\n\n  --normal-border: hsl(0, 0%, 17%);\n  --success-border: hsl(142, 100%, 15%);\n  --error-border: hsl(0, 100%, 15%);\n  --info-border: hsl(210, 100%, 16%);\n\n  --success-svg-bg: hsl(142, 98%, 40%);\n  --error-svg-bg: hsl(6, 98%, 50%);\n  --info-svg-bg: hsl(210, 100%, 40%);\n\n  --loader-stroke: hsl(0, 0%, 80%);\n  --loader-bg: hsl(0, 0%, 50%);\n}\n\n.kitzo-toast {\n  font-family: inherit;\n  font-size: 0.875rem;\n  transition: 260ms;\n}\n\n/*! toast transition styles */\n.kitzo-toast.pos-y-top {\n  transform-origin: top;\n}\n.kitzo-toast.pos-y-bottom {\n  transform-origin: bottom;\n}\n\n.kitzo-toast.type-normal {\n  background-color: var(--normal-bg);\n  color: var(--normal-text);\n  border: 1px solid var(--normal-border);\n}\n.kitzo-toast.type-loading {\n  background-color: var(--normal-bg);\n  color: var(--normal-text);\n  border: 1px solid var(--normal-border);\n}\n\n.kitzo-toast.type-success {\n  background-color: var(--success-bg);\n  color: var(--success-text);\n  border: 1px solid var(--success-border);\n}\n\n.kitzo-toast.type-error {\n  background-color: var(--error-bg);\n  color: var(--error-text);\n  border: 1px solid var(--error-border);\n}\n\n.kitzo-toast.type-info {\n  background-color: var(--info-bg);\n  color: var(--info-text);\n  border: 1px solid var(--info-border);\n}\n\n.kitzo-toast.type-normal,\n.kitzo-toast.type-loading,\n.kitzo-toast.type-success,\n.kitzo-toast.type-error,\n.kitzo-toast.type-info {\n  border-radius: 0.425rem;\n  padding: 0.325rem 0.5rem;\n  box-shadow: 0 3px 8px -3px hsl(0, 0%, 0%, 0.15);\n}\n\n.kitzo-toast.status-entering.pos-y-top {\n  opacity: 0;\n  transform: translateY(-120%) scale(0.2);\n}\n\n.kitzo-toast.status-visible.pos-y-top {\n  opacity: 1;\n  transform: translateY(0) scale(1);\n}\n\n.kitzo-toast.status-leaving.pos-y-top {\n  opacity: 0;\n  transform: translateY(-120%) scale(0.2);\n}\n\n.kitzo-toast.status-entering.pos-y-bottom {\n  opacity: 0;\n  transform: translateY(120%) scale(0.2);\n}\n\n.kitzo-toast.status-visible.pos-y-bottom {\n  opacity: 1;\n  transform: translateY(0) scale(1);\n}\n\n.kitzo-toast.status-leaving.pos-y-bottom {\n  opacity: 0;\n  transform: translateY(120%) scale(0.2);\n}\n\n.action-update {\n  animation: update 150ms;\n}\n\n@keyframes update {\n  0% {\n    opacity: 0.5;\n  }\n  100% {\n    opacity: 1;\n  }\n}\n\n/*! svg stylings */\n.svg-container {\n  display: grid;\n  place-items: center;\n  border-radius: 10rem;\n  color: white;\n  height: 18px;\n  width: 18px;\n  position: relative;\n  overflow: hidden;\n\n  scale: 1.1;\n  animation: svg-container-animation 400ms ease-in-out forwards;\n\n  svg {\n    width: 12px;\n    height: 12px;\n    stroke-width: 4px;\n    display: inline-block;\n  }\n}\n\n.svg-container.success {\n  background-color: var(--success-svg-bg);\n}\n.svg-container.error {\n  background-color: var(--error-svg-bg);\n\n  svg {\n    scale: 0;\n    animation: error-svg-zoom-in 170ms 130ms forwards;\n  }\n}\n\n.svg-container.info {\n  background-color: var(--info-svg-bg);\n  animation: info-svg-bell 400ms 200ms;\n\n  svg {\n    width: 14px;\n    height: 14px;\n    color: white;\n  }\n}\n\n.svg-container.success::before {\n  content: '';\n  position: absolute;\n  inset: 0;\n  z-index: 5;\n  border-radius: 10rem;\n  background-color: var(--success-svg-bg);\n  animation: success-container-before-animation 250ms 150ms forwards;\n}\n\n@keyframes svg-container-animation {\n  0% {\n    scale: 1;\n  }\n  50% {\n    scale: 1.15;\n  }\n  100% {\n    scale: 1;\n  }\n}\n\n@keyframes success-container-before-animation {\n  from {\n    translate: 0 0;\n  }\n  to {\n    translate: 100% -50%;\n  }\n}\n\n@keyframes error-svg-zoom-in {\n  from {\n    scale: 0;\n  }\n  to {\n    scale: 1;\n  }\n}\n\n@keyframes info-svg-bell {\n  0% {\n    transform: rotate(0);\n  }\n  25% {\n    transform: rotate(15deg);\n  }\n  75% {\n    transform: rotate(-15deg);\n  }\n  100% {\n    transform: rotate(0);\n  }\n}\n\n.promise-svg-container {\n  width: 20px;\n  height: 20px;\n  display: grid;\n  place-items: center;\n\n  .loader {\n    width: 14px;\n    height: 14px;\n    background-image: conic-gradient(\n      var(--loader-stroke) 0 25%,\n      var(--loader-bg) 0 100%\n    );\n    border-radius: 10rem;\n    position: relative;\n    animation: rotate-infinity 1000ms linear infinite;\n  }\n  .loader::before {\n    content: '';\n    position: absolute;\n    inset: 2px;\n    border-radius: inherit;\n    background-color: var(--normal-bg);\n  }\n}\n\n@keyframes rotate-infinity {\n  to {\n    rotate: 360deg;\n  }\n}\n";
+var toastStyles = ".kitzo-toast-container {\n  --normal-bg: hsl(0, 0%, 100%);\n  --normal-text: hsl(0, 0%, 10%);\n  --normal-border: hsl(0, 0%, 94%);\n\n  --success-bg: var(--normal-bg);\n  --success-text: var(--normar-text);\n  --success-border: var(--normal-border);\n  --success-svg-bg: var(--normal-text);\n\n  --error-bg: var(--normal-bg);\n  --error-text: var(--normar-text);\n  --error-border: var(--normal-border);\n  --error-svg-bg: var(--normal-text);\n\n  --info-bg: var(--normal-bg);\n  --info-text: var(--normar-text);\n  --info-border: var(--normal-border);\n  --info-svg-bg: var(--normal-text);\n\n  --loader-stroke: hsl(0, 0%, 50%);\n  --loader-bg: hsl(0, 0%, 80%);\n}\n\n.kitzo-toast-container.kitzo-toast-dark {\n  --normal-bg: hsl(0, 0%, 15%);\n  --normal-text: hsl(0, 0%, 95%);\n  --normal-border: hsl(0, 0%, 17%);\n\n  --success-bg: var(--normal-bg);\n  --success-text: var(--normar-text);\n  --success-border: var(--normal-border);\n  --success-svg-bg: var(--normal-text);\n\n  --error-bg: var(--normal-bg);\n  --error-text: var(--normar-text);\n  --error-border: var(--normal-border);\n  --error-svg-bg: var(--normal-text);\n\n  --info-bg: var(--normal-bg);\n  --info-text: var(--normar-text);\n  --info-border: var(--normal-border);\n  --info-svg-bg: var(--normal-text);\n\n  --loader-stroke: hsl(0, 0%, 80%);\n  --loader-bg: hsl(0, 0%, 50%);\n}\n\n.kitzo-toast-container.kitzo-toast-rich-colors {\n  --success-bg: hsl(152, 65%, 95%);\n  --success-text: hsl(142, 98%, 30%);\n  --success-border: hsl(142, 100%, 93%);\n  --success-svg-bg: hsl(142, 98%, 40%);\n\n  --error-bg: hsl(0, 65%, 95%);\n  --error-text: hsl(6, 98%, 40%);\n  --error-border: hsl(0, 100%, 94%);\n  --error-svg-bg: hsl(6, 98%, 50%);\n\n  --info-bg: hsl(210, 65%, 95%);\n  --info-text: hsl(210, 100%, 20%);\n  --info-border: hsl(210, 100%, 94%);\n  --info-svg-bg: hsl(210, 100%, 40%);\n}\n\n.kitzo-toast-container.kitzo-toast-rich-colors.kitzo-toast-dark {\n  --success-bg: hsl(152, 65%, 15%);\n  --success-text: hsl(142, 98%, 70%);\n  --success-border: hsl(142, 100%, 15%);\n  --success-svg-bg: hsl(142, 98%, 40%);\n\n  --error-bg: hsl(0, 65%, 15%);\n  --error-text: hsl(6, 98%, 70%);\n  --error-border: hsl(0, 100%, 15%);\n  --error-svg-bg: hsl(6, 98%, 50%);\n\n  --info-bg: hsl(210, 65%, 15%);\n  --info-text: hsl(210, 100%, 70%);\n  --info-border: hsl(210, 100%, 16%);\n  --info-svg-bg: hsl(210, 100%, 40%);\n}\n\n.kitzo-toast {\n  font-family: inherit;\n  font-size: 0.875rem;\n  transition: 260ms;\n}\n\n/*! toast transition styles */\n.kitzo-toast.pos-y-top {\n  transform-origin: top;\n}\n.kitzo-toast.pos-y-bottom {\n  transform-origin: bottom;\n}\n\n.kitzo-toast.type-normal {\n  background-color: var(--normal-bg);\n  color: var(--normal-text);\n  border: 1px solid var(--normal-border);\n}\n.kitzo-toast.type-loading {\n  background-color: var(--normal-bg);\n  color: var(--normal-text);\n  border: 1px solid var(--normal-border);\n}\n\n.kitzo-toast.type-success {\n  background-color: var(--success-bg);\n  color: var(--success-text);\n  border: 1px solid var(--success-border);\n}\n\n.kitzo-toast.type-error {\n  background-color: var(--error-bg);\n  color: var(--error-text);\n  border: 1px solid var(--error-border);\n}\n\n.kitzo-toast.type-info {\n  background-color: var(--info-bg);\n  color: var(--info-text);\n  border: 1px solid var(--info-border);\n}\n\n.kitzo-toast.type-normal,\n.kitzo-toast.type-loading,\n.kitzo-toast.type-success,\n.kitzo-toast.type-error,\n.kitzo-toast.type-info {\n  border-radius: 0.425rem;\n  padding: 0.325rem 0.5rem;\n  box-shadow: 0 3px 8px -3px hsl(0, 0%, 0%, 0.15);\n}\n\n.kitzo-toast.status-entering.pos-y-top {\n  opacity: 0;\n  transform: translateY(-120%) scale(0.2);\n}\n\n.kitzo-toast.status-visible.pos-y-top {\n  opacity: 1;\n  transform: translateY(0) scale(1);\n}\n\n.kitzo-toast.status-leaving.pos-y-top {\n  opacity: 0;\n  transform: translateY(-120%) scale(0.2);\n}\n\n.kitzo-toast.status-entering.pos-y-bottom {\n  opacity: 0;\n  transform: translateY(120%) scale(0.2);\n}\n\n.kitzo-toast.status-visible.pos-y-bottom {\n  opacity: 1;\n  transform: translateY(0) scale(1);\n}\n\n.kitzo-toast.status-leaving.pos-y-bottom {\n  opacity: 0;\n  transform: translateY(120%) scale(0.2);\n}\n\n.action-update {\n  animation: update 150ms;\n}\n\n@keyframes update {\n  0% {\n    opacity: 0.5;\n  }\n  100% {\n    opacity: 1;\n  }\n}\n\n/*! svg stylings */\n.svg-container {\n  display: grid;\n  place-items: center;\n  border-radius: 10rem;\n  color: white;\n  height: 18px;\n  width: 18px;\n  position: relative;\n  overflow: hidden;\n\n  scale: 1.1;\n  animation: svg-container-animation 400ms ease-in-out forwards;\n\n  svg {\n    width: 12px;\n    height: 12px;\n    stroke-width: 4px;\n    display: inline-block;\n  }\n}\n\n.svg-container.success {\n  background-color: var(--success-svg-bg);\n}\n.svg-container.error {\n  background-color: var(--error-svg-bg);\n\n  svg {\n    scale: 0;\n    animation: error-svg-zoom-in 170ms 130ms forwards;\n  }\n}\n\n.svg-container.info {\n  background-color: var(--info-svg-bg);\n  animation: info-svg-bell 400ms 200ms;\n\n  svg {\n    width: 14px;\n    height: 14px;\n    color: white;\n  }\n}\n\n.svg-container.success::before {\n  content: '';\n  position: absolute;\n  inset: 0;\n  z-index: 5;\n  border-radius: 10rem;\n  background-color: var(--success-svg-bg);\n  animation: success-container-before-animation 250ms 150ms forwards;\n}\n\n@keyframes svg-container-animation {\n  0% {\n    scale: 1;\n  }\n  50% {\n    scale: 1.15;\n  }\n  100% {\n    scale: 1;\n  }\n}\n\n@keyframes success-container-before-animation {\n  from {\n    translate: 0 0;\n  }\n  to {\n    translate: 100% -50%;\n  }\n}\n\n@keyframes error-svg-zoom-in {\n  from {\n    scale: 0;\n  }\n  to {\n    scale: 1;\n  }\n}\n\n@keyframes info-svg-bell {\n  0% {\n    transform: rotate(0);\n  }\n  25% {\n    transform: rotate(15deg);\n  }\n  75% {\n    transform: rotate(-15deg);\n  }\n  100% {\n    transform: rotate(0);\n  }\n}\n\n.promise-svg-container {\n  width: 20px;\n  height: 20px;\n  display: grid;\n  place-items: center;\n\n  .loader {\n    width: 14px;\n    height: 14px;\n    background-image: conic-gradient(\n      var(--loader-stroke) 0 25%,\n      var(--loader-bg) 0 100%\n    );\n    border-radius: 10rem;\n    position: relative;\n    animation: rotate-infinity 1000ms linear infinite;\n  }\n  .loader::before {\n    content: '';\n    position: absolute;\n    inset: 2px;\n    border-radius: inherit;\n    background-color: var(--normal-bg);\n  }\n}\n\n@keyframes rotate-infinity {\n  to {\n    rotate: 360deg;\n  }\n}\n";
 var listeners = new Set();
 function subscribe(fn) {
   if (!document.getElementById('kitzo-toast-styles')) {
@@ -272,9 +272,9 @@ var genId = function genId() {
   return (_crypto$randomUUID = (_crypto$randomUUID2 = (_crypto = crypto).randomUUID) === null || _crypto$randomUUID2 === void 0 ? void 0 : _crypto$randomUUID2.call(_crypto)) !== null && _crypto$randomUUID !== void 0 ? _crypto$randomUUID : "kitzo_toast_id_".concat(++uid);
 };
 var zIndex = 1;
-function createToast(type, content) {
+function createToast(type, action, content) {
   var _opts$id, _opts$duration, _opts$showIcon;
-  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  var options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
   var opts = _typeof(options) === 'object' && options !== null ? options : {};
   return _objectSpread2({
     id: (_opts$id = opts.id) !== null && _opts$id !== void 0 ? _opts$id : genId(),
@@ -283,28 +283,28 @@ function createToast(type, content) {
     render: content,
     duration: (_opts$duration = opts.duration) !== null && _opts$duration !== void 0 ? _opts$duration : DEFAULTS.duration,
     showIcon: (_opts$showIcon = opts.showIcon) !== null && _opts$showIcon !== void 0 ? _opts$showIcon : DEFAULTS.showIcon,
-    action: 'add'
+    action: action
   }, opts);
 }
 function toast(content, options) {
   if (content == null) return;
-  notify(createToast('normal', content, options));
+  notify(createToast('normal', 'add', content, options));
 }
 toast.success = function (content, options) {
   if (content == null) return;
-  notify(createToast('success', content, options));
+  notify(createToast('success', 'add', content, options));
 };
 toast.error = function (content, options) {
   if (content == null) return;
-  notify(createToast('error', content, options));
+  notify(createToast('error', 'add', content, options));
 };
 toast.info = function (content, options) {
   if (content == null) return;
-  notify(createToast('info', content, options));
+  notify(createToast('info', 'add', content, options));
 };
 toast.custom = function (content, options) {
   if (content == null) return;
-  notify(createToast('custom', content, options));
+  notify(createToast('custom', 'add', content, options));
 };
 toast.dismiss = function (id) {
   notify({
@@ -315,11 +315,9 @@ toast.dismiss = function (id) {
 toast.update = function (id, content) {
   var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   if (!id) return;
-  notify(_objectSpread2(_objectSpread2({}, options), {}, {
-    id: id,
-    render: content,
-    action: 'update'
-  }));
+  notify(createToast('custom', 'update', content, _objectSpread2(_objectSpread2({}, options), {}, {
+    id: id
+  })));
 };
 var loading = function loading(content) {
   var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -673,9 +671,11 @@ function getToastStyles(t, position) {
   return styles;
 }
 
-function ToastContainer(_ref) {
+function Toaster(_ref) {
   var _ref$position = _ref.position,
     position = _ref$position === void 0 ? 'top-center' : _ref$position,
+    _ref$richColors = _ref.richColors,
+    richColors = _ref$richColors === void 0 ? false : _ref$richColors,
     _ref$gap = _ref.gap,
     gap = _ref$gap === void 0 ? 8 : _ref$gap,
     _ref$edgeOffset = _ref.edgeOffset,
@@ -728,7 +728,7 @@ function ToastContainer(_ref) {
       display: 'grid',
       padding: edgeOffset != null ? edgeOffset : 16
     },
-    className: "kitzo-toast-container ".concat(isDark ? 'kitzo-toast-dark' : '')
+    className: "kitzo-toast-container ".concat(richColors ? 'kitzo-toast-rich-colors' : '', " ").concat(isDark ? 'kitzo-toast-dark' : '')
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       position: 'relative'
@@ -925,5 +925,5 @@ function useWindowSize() {
   return screenSize;
 }
 
-export { ToastContainer, Tooltip, toast, useDebounce, useWindowSize };
+export { Toaster, Tooltip, toast, useDebounce, useWindowSize };
 //# sourceMappingURL=index.js.map

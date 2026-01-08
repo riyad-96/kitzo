@@ -16,8 +16,9 @@ type ToastOptions = {
   showIcon?: boolean;
 };
 
-type ToastContainerProps = {
+type ToasterProps = {
   position?: Positions;
+  richColors?: boolean;
   gap?: number | `${number}`;
   edgeOffset?: number | `${number}px` | `${number}rem` | `${number}%`;
   isDark?: boolean;
@@ -49,4 +50,4 @@ type Toast = {
 };
 
 export declare const toast: Toast;
-export declare function ToastContainer(props: ToastContainerProps): JSX.Element;
+export declare function Toaster(props: ToasterProps): JSX.Element;

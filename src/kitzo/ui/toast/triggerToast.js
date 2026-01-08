@@ -1,22 +1,22 @@
 const toastStyles = `.kitzo-toast-container {
   --normal-bg: hsl(0, 0%, 100%);
-  --success-bg: hsl(152, 65%, 95%);
-  --error-bg: hsl(0, 65%, 95%);
-  --info-bg: hsl(210, 65%, 95%);
-
   --normal-text: hsl(0, 0%, 10%);
-  --success-text: hsl(142, 98%, 30%);
-  --error-text: hsl(6, 98%, 40%);
-  --info-text: hsl(210, 100%, 20%);
-
   --normal-border: hsl(0, 0%, 94%);
-  --success-border: hsl(142, 100%, 93%);
-  --error-border: hsl(0, 100%, 94%);
-  --info-border: hsl(210, 100%, 94%);
 
-  --success-svg-bg: hsl(142, 98%, 40%);
-  --error-svg-bg: hsl(6, 98%, 50%);
-  --info-svg-bg: hsl(210, 100%, 40%);
+  --success-bg: var(--normal-bg);
+  --success-text: var(--normar-text);
+  --success-border: var(--normal-border);
+  --success-svg-bg: var(--normal-text);
+
+  --error-bg: var(--normal-bg);
+  --error-text: var(--normar-text);
+  --error-border: var(--normal-border);
+  --error-svg-bg: var(--normal-text);
+
+  --info-bg: var(--normal-bg);
+  --info-text: var(--normar-text);
+  --info-border: var(--normal-border);
+  --info-svg-bg: var(--normal-text);
 
   --loader-stroke: hsl(0, 0%, 50%);
   --loader-bg: hsl(0, 0%, 80%);
@@ -24,26 +24,60 @@ const toastStyles = `.kitzo-toast-container {
 
 .kitzo-toast-container.kitzo-toast-dark {
   --normal-bg: hsl(0, 0%, 15%);
-  --success-bg: hsl(152, 65%, 15%);
-  --error-bg: hsl(0, 65%, 15%);
-  --info-bg: hsl(210, 65%, 15%);
-
   --normal-text: hsl(0, 0%, 95%);
-  --success-text: hsl(142, 98%, 70%);
-  --error-text: hsl(6, 98%, 70%);
-  --info-text: hsl(210, 100%, 70%);
-
   --normal-border: hsl(0, 0%, 17%);
-  --success-border: hsl(142, 100%, 15%);
-  --error-border: hsl(0, 100%, 15%);
-  --info-border: hsl(210, 100%, 16%);
 
-  --success-svg-bg: hsl(142, 98%, 40%);
-  --error-svg-bg: hsl(6, 98%, 50%);
-  --info-svg-bg: hsl(210, 100%, 40%);
+  --success-bg: var(--normal-bg);
+  --success-text: var(--normar-text);
+  --success-border: var(--normal-border);
+  --success-svg-bg: var(--normal-text);
+
+  --error-bg: var(--normal-bg);
+  --error-text: var(--normar-text);
+  --error-border: var(--normal-border);
+  --error-svg-bg: var(--normal-text);
+
+  --info-bg: var(--normal-bg);
+  --info-text: var(--normar-text);
+  --info-border: var(--normal-border);
+  --info-svg-bg: var(--normal-text);
 
   --loader-stroke: hsl(0, 0%, 80%);
   --loader-bg: hsl(0, 0%, 50%);
+}
+
+.kitzo-toast-container.kitzo-toast-rich-colors {
+  --success-bg: hsl(152, 65%, 95%);
+  --success-text: hsl(142, 98%, 30%);
+  --success-border: hsl(142, 100%, 93%);
+  --success-svg-bg: hsl(142, 98%, 40%);
+
+  --error-bg: hsl(0, 65%, 95%);
+  --error-text: hsl(6, 98%, 40%);
+  --error-border: hsl(0, 100%, 94%);
+  --error-svg-bg: hsl(6, 98%, 50%);
+
+  --info-bg: hsl(210, 65%, 95%);
+  --info-text: hsl(210, 100%, 20%);
+  --info-border: hsl(210, 100%, 94%);
+  --info-svg-bg: hsl(210, 100%, 40%);
+}
+
+.kitzo-toast-container.kitzo-toast-rich-colors.kitzo-toast-dark {
+  --success-bg: hsl(152, 65%, 15%);
+  --success-text: hsl(142, 98%, 70%);
+  --success-border: hsl(142, 100%, 15%);
+  --success-svg-bg: hsl(142, 98%, 40%);
+
+  --error-bg: hsl(0, 65%, 15%);
+  --error-text: hsl(6, 98%, 70%);
+  --error-border: hsl(0, 100%, 15%);
+  --error-svg-bg: hsl(6, 98%, 50%);
+
+  --info-bg: hsl(210, 65%, 15%);
+  --info-text: hsl(210, 100%, 70%);
+  --info-border: hsl(210, 100%, 16%);
+  --info-svg-bg: hsl(210, 100%, 40%);
 }
 
 .kitzo-toast {
@@ -303,7 +337,7 @@ const genId = () => crypto.randomUUID?.() ?? `kitzo_toast_id_${++uid}`;
 
 let zIndex = 1;
 
-function createToast(type, content, options = {}) {
+function createToast(type, action, content, options = {}) {
   const opts = typeof options === 'object' && options !== null ? options : {};
 
   return {
@@ -313,34 +347,34 @@ function createToast(type, content, options = {}) {
     render: content,
     duration: opts.duration ?? DEFAULTS.duration,
     showIcon: opts.showIcon ?? DEFAULTS.showIcon,
-    action: 'add',
+    action,
     ...opts,
   };
 }
 
 function toast(content, options) {
   if (content == null) return;
-  notify(createToast('normal', content, options));
+  notify(createToast('normal', 'add', content, options));
 }
 
 toast.success = (content, options) => {
   if (content == null) return;
-  notify(createToast('success', content, options));
+  notify(createToast('success', 'add', content, options));
 };
 
 toast.error = (content, options) => {
   if (content == null) return;
-  notify(createToast('error', content, options));
+  notify(createToast('error', 'add', content, options));
 };
 
 toast.info = (content, options) => {
   if (content == null) return;
-  notify(createToast('info', content, options));
+  notify(createToast('info', 'add', content, options));
 };
 
 toast.custom = (content, options) => {
   if (content == null) return;
-  notify(createToast('custom', content, options));
+  notify(createToast('custom', 'add', content, options));
 };
 
 toast.dismiss = (id) => {
@@ -349,13 +383,7 @@ toast.dismiss = (id) => {
 
 toast.update = (id, content, options = {}) => {
   if (!id) return;
-
-  notify({
-    ...options,
-    id,
-    render: content,
-    action: 'update',
-  });
+  notify(createToast('custom', 'update', content, { ...options, id }));
 };
 
 const loading = (content, options = {}) => {

@@ -1,10 +1,11 @@
 import { useEffect, useLayoutEffect, useState } from 'react';
-import { subscribe } from './toaster';
+import { subscribe } from './triggerToast';
 import manageToasts from './manageToasts';
 import Toast from './Toast';
 
-export default function ToastContainer({
+export default function Toaster({
   position = 'top-center',
+  richColors = false,
   gap = 8,
   edgeOffset = 16,
   isDark = window.matchMedia('(prefers-color-scheme: dark)').matches,
@@ -56,7 +57,7 @@ export default function ToastContainer({
         display: 'grid',
         padding: edgeOffset != null ? edgeOffset : 16,
       }}
-      className={`kitzo-toast-container ${isDark ? 'kitzo-toast-dark' : ''}`}
+      className={`kitzo-toast-container ${richColors ? 'kitzo-toast-rich-colors' : ''} ${isDark ? 'kitzo-toast-dark' : ''}`}
     >
       <div
         style={{

@@ -16,8 +16,9 @@ type ToastOptions = {
   showIcon?: boolean;
 };
 
-type ToastContainerProps = {
+type ToasterProps = {
   position?: Positions;
+  richColors?: boolean;
   gap?: number | `${number}`;
   edgeOffset?: number | `${number}px` | `${number}rem` | `${number}%`;
   isDark?: boolean;
@@ -39,15 +40,14 @@ type Toast = {
     },
     options?: ToastOptions,
   ): void;
-  custom(content: Content, options?: ToastOptions): void;
-
-  update(
-    id: string | number,
+  custom(
     content: Content,
-    options?: { duration: number },
+    options?: { duration?: number; exitDelay?: number; position?: Positions },
   ): void;
-  dismiss(id?: string | number): void;
+
+  update(id: string | number, content: Content, options?: ToastOptions): void;
+  dismiss(id: string | number): void;
 };
 
 export declare const toast: Toast;
-export declare function ToastContainer(props: ToastContainerProps): JSX.Element;
+export declare function Toaster(props: ToasterProps): JSX.Element;

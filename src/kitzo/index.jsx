@@ -1,8 +1,8 @@
-import toast from './ui/toast2.0/toaster.js';
-import ToastContainer from './ui/toast2.0/ToastContainer.jsx';
+import toast from './ui/toast/triggerToast.js';
+import Toaster from './ui/toast/Toaster.jsx';
 
 import Tooltip from './ui/tooltip/Tooltip.jsx';
 import useDebounce from './hooks/useDebounce.jsx';
 import useWindowSize from './hooks/useWindowSize.jsx';
 
-export { ToastContainer, toast, Tooltip, useDebounce, useWindowSize };
+export { Toaster, toast, Tooltip, useDebounce, useWindowSize };

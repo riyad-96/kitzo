@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef } from 'react';
 import { ErrorSvg, InfoSvg, LoadingSvg, SuccessSvg } from './Svgs';
-import toast from './toaster';
+import toast from './triggerToast';
 
 export default function Toast({ t, containerPosition, gap, setToasts }) {
   const { id, type, render, action, status } = t;
