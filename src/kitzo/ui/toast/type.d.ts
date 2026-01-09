@@ -16,6 +16,8 @@ type ToastOptions = {
   showIcon?: boolean;
 };
 
+type ToastOptionsWithoutId = Omit<ToastOptions, 'id'>;
+
 type ToasterProps = {
   position?: Positions;
   richColors?: boolean;
@@ -40,13 +42,14 @@ type Toast = {
     },
     options?: ToastOptions,
   ): void;
-  custom(
-    content: Content,
-    options?: { duration?: number; exitDelay?: number; position?: Positions },
-  ): void;
+  custom(content: Content, options?: Omit<ToastOptions, 'showIcon'>): void;
 
-  update(id: string | number, content: Content, options?: ToastOptions): void;
-  dismiss(id: string | number): void;
+  update(
+    id: string | number,
+    content: Content,
+    options?: ToastOptionsWithoutId,
+  ): void;
+  dismiss(id?: string | number): void;
 };
 
 export declare const toast: Toast;
