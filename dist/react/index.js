@@ -1,4 +1,4 @@
-import React, { useRef, useLayoutEffect, useState, useEffect } from 'react';
+import React, { useRef, useLayoutEffect, useState, useEffect, useCallback } from 'react';
 
 function _arrayLikeToArray(r, a) {
   (null == a || a > r.length) && (a = r.length);
@@ -889,10 +889,9 @@ function useDebounce(value, delay) {
   return debouncedValue;
 }
 
-function useWindowSize() {
-  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var _options$delay = options.delay,
-    delay = _options$delay === void 0 ? 50 : _options$delay;
+function useWindowSize(_ref) {
+  var _ref$delay = _ref.delay,
+    delay = _ref$delay === void 0 ? 30 : _ref$delay;
   if (typeof delay !== 'number') throw new Error("Only number is accepted 'useWindowSize' hook configuration: delay");
   var _useState = useState({
       screenWidth: window.innerWidth,
@@ -925,5 +924,147 @@ function useWindowSize() {
   return screenSize;
 }
 
-export { Toaster, Tooltip, toast, useDebounce, useWindowSize };
+//! Copy function
+function legacyCopy(text) {
+  var textarea = document.createElement('textarea');
+  textarea.value = text;
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand('copy');
+  document.body.removeChild(textarea);
+}
+function writeToClipboard(_x) {
+  return _writeToClipboard.apply(this, arguments);
+}
+function _writeToClipboard() {
+  _writeToClipboard = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(text) {
+    var _navigator$clipboard;
+    var _t;
+    return _regenerator().w(function (_context) {
+      while (1) switch (_context.p = _context.n) {
+        case 0:
+          if ((_navigator$clipboard = navigator.clipboard) !== null && _navigator$clipboard !== void 0 && _navigator$clipboard.writeText) {
+            _context.n = 1;
+            break;
+          }
+          legacyCopy(text);
+          return _context.a(2);
+        case 1:
+          _context.p = 1;
+          _context.n = 2;
+          return navigator.clipboard.writeText(text);
+        case 2:
+          _context.n = 4;
+          break;
+        case 3:
+          _context.p = 3;
+          _t = _context.v;
+          legacyCopy(text);
+          console.error(_t);
+        case 4:
+          return _context.a(2);
+      }
+    }, _callee, null, [[1, 3]]);
+  }));
+  return _writeToClipboard.apply(this, arguments);
+}
+function copy(_x2) {
+  return _copy.apply(this, arguments);
+}
+function _copy() {
+  _copy = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(doc) {
+    var text;
+    return _regenerator().w(function (_context2) {
+      while (1) switch (_context2.n) {
+        case 0:
+          if (!(doc == null)) {
+            _context2.n = 1;
+            break;
+          }
+          throw new Error('[kitzo/copy] expected a value to copy, got null or undefined.');
+        case 1:
+          text = typeof doc === 'string' || typeof doc === 'number' ? String(doc) : JSON.stringify(doc);
+          _context2.n = 2;
+          return writeToClipboard(text);
+        case 2:
+          return _context2.a(2);
+      }
+    }, _callee2);
+  }));
+  return _copy.apply(this, arguments);
+}
+
+function useCopy(_ref) {
+  var _ref$resetDelay = _ref.resetDelay,
+    resetDelay = _ref$resetDelay === void 0 ? 1500 : _ref$resetDelay;
+  var _useState = useState('standby'),
+    _useState2 = _slicedToArray(_useState, 2),
+    status = _useState2[0],
+    setStatus = _useState2[1];
+  var _useState3 = useState(null),
+    _useState4 = _slicedToArray(_useState3, 2),
+    error = _useState4[0],
+    setError = _useState4[1];
+  var timeoutRef = useRef(null);
+  var isBusyRef = useRef(false);
+  var copy$1 = useCallback(/*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(doc) {
+      var _t;
+      return _regenerator().w(function (_context) {
+        while (1) switch (_context.p = _context.n) {
+          case 0:
+            if (!isBusyRef.current) {
+              _context.n = 1;
+              break;
+            }
+            return _context.a(2);
+          case 1:
+            if (timeoutRef.current) clearTimeout(timeoutRef.current);
+            _context.p = 2;
+            isBusyRef.current = true;
+            setError(null);
+            setStatus('copying');
+            _context.n = 3;
+            return copy(doc);
+          case 3:
+            setStatus('copied');
+            _context.n = 5;
+            break;
+          case 4:
+            _context.p = 4;
+            _t = _context.v;
+            setError(_t);
+            setStatus('error');
+          case 5:
+            _context.p = 5;
+            timeoutRef.current = setTimeout(function () {
+              isBusyRef.current = false;
+              setStatus('standby');
+            }, Math.max(resetDelay, 500));
+            return _context.f(5);
+          case 6:
+            return _context.a(2);
+        }
+      }, _callee, null, [[2, 4, 5, 6]]);
+    }));
+    return function (_x) {
+      return _ref2.apply(this, arguments);
+    };
+  }(), [resetDelay]);
+  useEffect(function () {
+    return function () {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
+  return {
+    copy: copy$1,
+    status: status,
+    error: error,
+    isCopying: status === 'copying',
+    isCopied: status === 'copied',
+    isError: status === 'error'
+  };
+}
+
+export { Toaster, Tooltip, toast, useCopy, useDebounce, useWindowSize };
 //# sourceMappingURL=index.js.map

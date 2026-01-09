@@ -15,34 +15,13 @@ type Position =
   | 'left-end';
 
 type TooltipOptions = {
-  /**
-   * @default 'top'
-   */
-  /**
-   * @default 8
-   */
   offset?: number;
-  /**
-   * Enables “Smart Hover Persistence”, allowing the tooltip to remain open
-   * while the cursor moves between the trigger and the tooltip.
-   *
-   * @default true
-   */
   smartHover?: boolean;
-  /**
-   * @default false
-   */
   arrow?: boolean;
-  /**
-   * @default true
-   */
   hideOnTouch?: boolean;
 };
 
 type AnimationOptions = {
-  /**
-   * @default 110ms
-   */
   duration?: number;
   startDuration?: number;
   endDuration?: number;
