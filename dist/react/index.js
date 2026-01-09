@@ -998,7 +998,7 @@ function _copy() {
 function useCopy() {
   var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
     _ref$resetDelay = _ref.resetDelay,
-    resetDelay = _ref$resetDelay === void 0 ? 500 : _ref$resetDelay;
+    resetDelay = _ref$resetDelay === void 0 ? 1500 : _ref$resetDelay;
   var _useState = useState('standby'),
     _useState2 = _slicedToArray(_useState, 2),
     status = _useState2[0],

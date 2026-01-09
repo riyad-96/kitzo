@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import copyToClipboard from '../functions/copy';
 
-export default function useCopy({ resetDelay = 500 } = {}) {
+export default function useCopy({ resetDelay = 1500 } = {}) {
   const [status, setStatus] = useState('standby');
   const [error, setError] = useState(null);
 
