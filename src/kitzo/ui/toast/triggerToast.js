@@ -388,7 +388,7 @@ toast.update = (id, content, options = {}) => {
 
 const loading = (content, options = {}) => {
   notify(
-    createToast('loading', content, {
+    createToast('loading', 'add', content, {
       ...options,
       duration: Infinity,
     }),

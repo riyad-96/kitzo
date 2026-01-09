@@ -321,7 +321,7 @@ toast.update = function (id, content) {
 };
 var loading = function loading(content) {
   var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  notify(createToast('loading', content, _objectSpread2(_objectSpread2({}, options), {}, {
+  notify(createToast('loading', 'add', content, _objectSpread2(_objectSpread2({}, options), {}, {
     duration: Infinity
   })));
 };
