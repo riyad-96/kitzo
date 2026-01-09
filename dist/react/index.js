@@ -889,9 +889,10 @@ function useDebounce(value, delay) {
   return debouncedValue;
 }
 
-function useWindowSize(_ref) {
-  var _ref$delay = _ref.delay,
-    delay = _ref$delay === void 0 ? 30 : _ref$delay;
+function useWindowSize() {
+  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var _options$delay = options.delay,
+    delay = _options$delay === void 0 ? 30 : _options$delay;
   if (typeof delay !== 'number') throw new Error("Only number is accepted 'useWindowSize' hook configuration: delay");
   var _useState = useState({
       screenWidth: window.innerWidth,
@@ -994,9 +995,10 @@ function _copy() {
   return _copy.apply(this, arguments);
 }
 
-function useCopy(_ref) {
-  var _ref$resetDelay = _ref.resetDelay,
-    resetDelay = _ref$resetDelay === void 0 ? 1500 : _ref$resetDelay;
+function useCopy() {
+  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var _options$resetDelay = options.resetDelay,
+    resetDelay = _options$resetDelay === void 0 ? 500 : _options$resetDelay;
   var _useState = useState('standby'),
     _useState2 = _slicedToArray(_useState, 2),
     status = _useState2[0],
@@ -1008,7 +1010,7 @@ function useCopy(_ref) {
   var timeoutRef = useRef(null);
   var isBusyRef = useRef(false);
   var copy$1 = useCallback(/*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(doc) {
+    var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(doc) {
       var _t;
       return _regenerator().w(function (_context) {
         while (1) switch (_context.p = _context.n) {
@@ -1048,7 +1050,7 @@ function useCopy(_ref) {
       }, _callee, null, [[2, 4, 5, 6]]);
     }));
     return function (_x) {
-      return _ref2.apply(this, arguments);
+      return _ref.apply(this, arguments);
     };
   }(), [resetDelay]);
   useEffect(function () {

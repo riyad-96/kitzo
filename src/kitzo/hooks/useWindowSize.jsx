@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 
-export default function useWindowSize({ delay = 30 }) {
+export default function useWindowSize(options = {}) {
+  const { delay = 30 } = options;
+
   if (typeof delay !== 'number')
     throw new Error(
       "Only number is accepted 'useWindowSize' hook configuration: delay",
