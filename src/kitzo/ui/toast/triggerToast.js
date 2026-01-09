@@ -83,7 +83,10 @@ const toastStyles = `.kitzo-toast-container {
 .kitzo-toast {
   font-family: inherit;
   font-size: 0.875rem;
-  transition: 260ms;
+  transition:
+    transform 280ms,
+    opacity 280ms;
+  will-change: transform, opacity;
 }
 
 /*! toast transition styles */
@@ -135,7 +138,7 @@ const toastStyles = `.kitzo-toast-container {
 
 .kitzo-toast.status-entering.pos-y-top {
   opacity: 0;
-  transform: translateY(-120%) scale(0.2);
+  transform: translateY(-120%) scale(0.6);
 }
 
 .kitzo-toast.status-visible.pos-y-top {
@@ -145,12 +148,12 @@ const toastStyles = `.kitzo-toast-container {
 
 .kitzo-toast.status-leaving.pos-y-top {
   opacity: 0;
-  transform: translateY(-120%) scale(0.2);
+  transform: translateY(-120%) scale(0.6);
 }
 
 .kitzo-toast.status-entering.pos-y-bottom {
   opacity: 0;
-  transform: translateY(120%) scale(0.2);
+  transform: translateY(120%) scale(0.6);
 }
 
 .kitzo-toast.status-visible.pos-y-bottom {
@@ -160,7 +163,7 @@ const toastStyles = `.kitzo-toast-container {
 
 .kitzo-toast.status-leaving.pos-y-bottom {
   opacity: 0;
-  transform: translateY(120%) scale(0.2);
+  transform: translateY(120%) scale(0.6);
 }
 
 .action-update {
@@ -306,8 +309,7 @@ const toastStyles = `.kitzo-toast-container {
   to {
     rotate: 360deg;
   }
-}
-`;
+}`;
 
 const listeners = new Set();
 

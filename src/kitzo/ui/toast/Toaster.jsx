@@ -9,6 +9,7 @@ export default function Toaster({
   gap = 8,
   edgeOffset = 16,
   isDark = window.matchMedia('(prefers-color-scheme: dark)').matches,
+  animateTransformOrigin = true,
 }) {
   const [toasts, setToasts] = useState([]);
 
@@ -68,9 +69,10 @@ export default function Toaster({
           <Toast
             key={t.id}
             t={t}
-            containerPosition={position}
             gap={gap}
             setToasts={setToasts}
+            animateTransformOrigin={animateTransformOrigin}
+            containerPosition={position}
           />
         ))}
       </div>

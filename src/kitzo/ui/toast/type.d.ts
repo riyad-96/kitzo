@@ -12,6 +12,7 @@ type Positions =
 type ToastOptions = {
   id?: string | number;
   position?: Positions;
+  animateTransformOrigin: boolean;
   duration?: number;
   showIcon?: boolean;
 };
@@ -50,6 +51,7 @@ export declare const toast: Toast;
 type ToasterProps = {
   position?: Positions;
   richColors?: boolean;
+  animateTransformOrigin: boolean;
   gap?: number | `${number}`;
   edgeOffset?: number | `${number}px` | `${number}rem` | `${number}%`;
   isDark?: boolean;

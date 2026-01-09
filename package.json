@@ -27,15 +27,16 @@
     "preview": "vite preview"
   },
   "keywords": [
-    "tooltip",
+    "kitzo",
+    "components",
     "toast",
+    "tooltip",
     "hooks",
     "function",
     "micro-utility",
     "ui",
-    "reactjs",
     "react",
-    "kitzo"
+    "reactjs"
   ],
   "author": "Riyad",
   "license": "MIT",

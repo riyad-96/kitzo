@@ -2,7 +2,13 @@ import { useLayoutEffect, useRef } from 'react';
 import { ErrorSvg, InfoSvg, LoadingSvg, SuccessSvg } from './Svgs';
 import toast from './triggerToast';
 
-export default function Toast({ t, containerPosition, gap, setToasts }) {
+export default function Toast({
+  t,
+  gap,
+  setToasts,
+  animateTransformOrigin,
+  containerPosition,
+}) {
   const { id, type, render, action, status } = t;
 
   const ref = useRef(null);
@@ -45,14 +51,9 @@ export default function Toast({ t, containerPosition, gap, setToasts }) {
     : 'top-center';
 
   return (
-    <div ref={ref} style={getToastStyles(t, position)}>
+    <div ref={ref} style={getToastContainerStyles({ t, position })}>
       <div
-        style={{
-          pointerEvents: 'all',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 8,
-        }}
+        style={getToastStyles({ t, animateTransformOrigin, position })}
         className={`kitzo-toast type-${type} action-${action} status-${status} pos-y-${position.split('-')[0]} pos-x-${position.split('-')[1]} `}
       >
         {t.showIcon && type !== 'normal' && type !== 'custom' && (
@@ -82,13 +83,31 @@ export default function Toast({ t, containerPosition, gap, setToasts }) {
   );
 }
 
-function getToastStyles(t, position) {
+function getToastStyles({ t, animateTransformOrigin, position }) {
+  const styles = {
+    pointerEvents: 'all',
+    display: 'flex',
+    alignItems: 'center',
+    gap: 8,
+  };
+
+  const shouldAnimate =
+    typeof t.animateTransformOrigin === 'boolean'
+      ? t.animateTransformOrigin
+      : animateTransformOrigin;
+
+  if (shouldAnimate) styles.transformOrigin = position.split('-').join(' ');
+
+  return styles;
+}
+
+function getToastContainerStyles({ t, position }) {
   const styles = {
     position: 'absolute',
     zIndex: t.zIndex,
     left: 0,
     width: '100%',
-    transition: 'transform 300ms',
+    transition: 'transform 180ms',
     display: 'flex',
   };
 
