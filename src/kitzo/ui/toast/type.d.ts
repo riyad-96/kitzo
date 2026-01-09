@@ -16,15 +16,8 @@ type ToastOptions = {
   showIcon?: boolean;
 };
 
-type ToastOptionsWithoutId = Omit<ToastOptions, 'id'>;
-
-type ToasterProps = {
-  position?: Positions;
-  richColors?: boolean;
-  gap?: number | `${number}`;
-  edgeOffset?: number | `${number}px` | `${number}rem` | `${number}%`;
-  isDark?: boolean;
-};
+type UpdateToastOptions = Omit<ToastOptions, 'id'>;
+type CustomToastOptions = Omit<ToastOptions, 'showIcon'>;
 
 type Content = ReactNode | ((dismiss?: () => void) => ReactNode);
 
@@ -42,15 +35,24 @@ type Toast = {
     },
     options?: ToastOptions,
   ): void;
-  custom(content: Content, options?: Omit<ToastOptions, 'showIcon'>): void;
+  custom(content: Content, options?: CustomToastOptions): void;
 
   update(
     id: string | number,
     content: Content,
-    options?: ToastOptionsWithoutId,
+    options?: UpdateToastOptions,
   ): void;
   dismiss(id?: string | number): void;
 };
 
 export declare const toast: Toast;
+
+type ToasterProps = {
+  position?: Positions;
+  richColors?: boolean;
+  gap?: number | `${number}`;
+  edgeOffset?: number | `${number}px` | `${number}rem` | `${number}%`;
+  isDark?: boolean;
+};
+
 export declare function Toaster(props: ToasterProps): JSX.Element;
