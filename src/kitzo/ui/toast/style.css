@@ -4,18 +4,21 @@
   --normal-border: hsl(0, 0%, 94%);
 
   --success-bg: var(--normal-bg);
-  --success-text: var(--normar-text);
+  --success-text: var(--normal-text);
   --success-border: var(--normal-border);
+  --success-svg-clr: var(--normal-bg);
   --success-svg-bg: var(--normal-text);
 
   --error-bg: var(--normal-bg);
-  --error-text: var(--normar-text);
+  --error-text: var(--normal-text);
   --error-border: var(--normal-border);
+  --error-svg-clr: var(--normal-bg);
   --error-svg-bg: var(--normal-text);
 
   --info-bg: var(--normal-bg);
-  --info-text: var(--normar-text);
+  --info-text: var(--normal-text);
   --info-border: var(--normal-border);
+  --info-svg-clr: var(--normal-bg);
   --info-svg-bg: var(--normal-text);
 
   --loader-stroke: hsl(0, 0%, 50%);
@@ -28,18 +31,21 @@
   --normal-border: hsl(0, 0%, 17%);
 
   --success-bg: var(--normal-bg);
-  --success-text: var(--normar-text);
+  --success-text: var(--normal-text);
   --success-border: var(--normal-border);
+  --success-svg-clr: var(--normal-bg);
   --success-svg-bg: var(--normal-text);
 
   --error-bg: var(--normal-bg);
-  --error-text: var(--normar-text);
+  --error-text: var(--normal-text);
   --error-border: var(--normal-border);
+  --error-svg-clr: var(--normal-bg);
   --error-svg-bg: var(--normal-text);
 
   --info-bg: var(--normal-bg);
-  --info-text: var(--normar-text);
+  --info-text: var(--normal-text);
   --info-border: var(--normal-border);
+  --info-svg-clr: var(--normal-bg);
   --info-svg-bg: var(--normal-text);
 
   --loader-stroke: hsl(0, 0%, 80%);
@@ -50,16 +56,19 @@
   --success-bg: hsl(152, 65%, 95%);
   --success-text: hsl(142, 98%, 30%);
   --success-border: hsl(142, 100%, 93%);
+  --success-svg-clr: white;
   --success-svg-bg: hsl(142, 98%, 40%);
 
   --error-bg: hsl(0, 65%, 95%);
   --error-text: hsl(6, 98%, 40%);
   --error-border: hsl(0, 100%, 94%);
+  --error-svg-clr: white;
   --error-svg-bg: hsl(6, 98%, 50%);
 
   --info-bg: hsl(210, 65%, 95%);
   --info-text: hsl(210, 100%, 20%);
   --info-border: hsl(210, 100%, 94%);
+  --info-svg-clr: white;
   --info-svg-bg: hsl(210, 100%, 40%);
 }
 
@@ -67,16 +76,19 @@
   --success-bg: hsl(152, 65%, 15%);
   --success-text: hsl(142, 98%, 70%);
   --success-border: hsl(142, 100%, 15%);
+  --success-svg-clr: white;
   --success-svg-bg: hsl(142, 98%, 40%);
 
   --error-bg: hsl(0, 65%, 15%);
   --error-text: hsl(6, 98%, 70%);
   --error-border: hsl(0, 100%, 15%);
+  --error-svg-clr: white;
   --error-svg-bg: hsl(6, 98%, 50%);
 
   --info-bg: hsl(210, 65%, 15%);
   --info-text: hsl(210, 100%, 70%);
   --info-border: hsl(210, 100%, 16%);
+  --info-svg-clr: white;
   --info-svg-bg: hsl(210, 100%, 40%);
 }
 
@@ -184,7 +196,6 @@
   display: grid;
   place-items: center;
   border-radius: 10rem;
-  color: white;
   height: 18px;
   width: 18px;
   position: relative;
@@ -202,9 +213,11 @@
 }
 
 .svg-container.success {
+  color: var(--success-svg-clr);
   background-color: var(--success-svg-bg);
 }
 .svg-container.error {
+  color: var(--error-svg-clr);
   background-color: var(--error-svg-bg);
 
   svg {
@@ -214,13 +227,13 @@
 }
 
 .svg-container.info {
+  color: var(--info-svg-clr);
   background-color: var(--info-svg-bg);
   animation: info-svg-bell 400ms 200ms;
 
   svg {
     width: 14px;
     height: 14px;
-    color: white;
   }
 }
 

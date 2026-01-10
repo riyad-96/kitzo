@@ -1,5 +1,5 @@
+import Test from './test';
+
 export default function App() {
-  return (
-    <div>App</div>
-  );
+  return <Test />
 }
