@@ -101,14 +101,27 @@ const toastStyles = `.kitzo-toast-container {
   will-change: transform, opacity;
 }
 
-/*! toast transition styles */
-.kitzo-toast.pos-y-top {
-  transform-origin: top;
+/*! toast transfor origin */
+.kitzo-toast.transform-origin-top-left {
+  transform-origin: top left;
 }
-.kitzo-toast.pos-y-bottom {
-  transform-origin: bottom;
+.kitzo-toast.transform-origin-top-center {
+  transform-origin: top center;
+}
+.kitzo-toast.transform-origin-top-right {
+  transform-origin: top right;
+}
+.kitzo-toast.transform-origin-bottom-left {
+  transform-origin: bottom left;
+}
+.kitzo-toast.transform-origin-bottom-center {
+  transform-origin: bottom center;
+}
+.kitzo-toast.transform-origin-bottom-right {
+  transform-origin: bottom right;
 }
 
+/*! Toast theme styles  */
 .kitzo-toast.type-normal {
   background-color: var(--normal-bg);
   color: var(--normal-text);
@@ -148,6 +161,7 @@ const toastStyles = `.kitzo-toast-container {
   box-shadow: 0 3px 8px -3px hsl(0, 0%, 0%, 0.15);
 }
 
+/*! toast transition styles */
 .kitzo-toast.status-entering.pos-y-top {
   opacity: 0;
   transform: translateY(-120%) scale(0.6);
@@ -159,6 +173,7 @@ const toastStyles = `.kitzo-toast-container {
 }
 
 .kitzo-toast.status-leaving.pos-y-top {
+  transform-origin: top;
   opacity: 0;
   transform: translateY(-120%) scale(0.6);
 }
@@ -174,6 +189,7 @@ const toastStyles = `.kitzo-toast-container {
 }
 
 .kitzo-toast.status-leaving.pos-y-bottom {
+  transform-origin: bottom;
   opacity: 0;
   transform: translateY(120%) scale(0.6);
 }

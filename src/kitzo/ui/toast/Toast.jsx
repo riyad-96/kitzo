@@ -50,11 +50,16 @@ export default function Toast({
     ? userPosition
     : 'top-center';
 
+  const shouldAnimateTransformOrigin =
+    typeof t.animateTransformOrigin === 'boolean'
+      ? t.animateTransformOrigin
+      : animateTransformOrigin;
+
   return (
     <div ref={ref} style={getToastContainerStyles({ t, position })}>
       <div
-        style={getToastStyles({ t, animateTransformOrigin, position })}
-        className={`kitzo-toast type-${type} action-${action} status-${status} pos-y-${position.split('-')[0]} pos-x-${position.split('-')[1]} `}
+        style={getToastStyles()}
+        className={`kitzo-toast type-${type} action-${action} status-${status} pos-y-${position.split('-')[0]} pos-x-${position.split('-')[1]} ${shouldAnimateTransformOrigin ? `transform-origin-${position}` : ''}`}
       >
         {t.showIcon && type !== 'normal' && type !== 'custom' && (
           <div
@@ -83,20 +88,13 @@ export default function Toast({
   );
 }
 
-function getToastStyles({ t, animateTransformOrigin, position }) {
+function getToastStyles() {
   const styles = {
     pointerEvents: 'all',
     display: 'flex',
     alignItems: 'center',
     gap: 8,
   };
-
-  const shouldAnimate =
-    typeof t.animateTransformOrigin === 'boolean'
-      ? t.animateTransformOrigin
-      : animateTransformOrigin;
-
-  if (shouldAnimate) styles.transformOrigin = position.split('-').join(' ');
 
   return styles;
 }
