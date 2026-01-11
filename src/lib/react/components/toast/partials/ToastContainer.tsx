@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef } from 'react';
-import type { Toast as ToastType } from '../types';
+import type { Positions, Toast as ToastType } from '../types';
 import ToastContent from './Toast';
 
 type ToastContainerProps = {
@@ -76,7 +76,7 @@ export default function ToastContainer({
     >
       <ToastContent
         t={t}
-        position={position}
+        position={position as Positions}
         shouldAnimateTransformOrigin={shouldAnimateTransformOrigin}
       />
     </div>

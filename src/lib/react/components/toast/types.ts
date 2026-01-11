@@ -41,7 +41,7 @@ export type Toast = {
   duration: number;
   showIcon: boolean;
   icon: ReactNode | undefined;
-  position: Positions;
+  position: Positions | undefined;
   animateTransformOrigin: boolean | undefined;
 };
 

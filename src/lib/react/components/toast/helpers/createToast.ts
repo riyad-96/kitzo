@@ -1,5 +1,4 @@
 import type {
-  Positions,
   Toast,
   ToastAction,
   ToastContent,
@@ -11,7 +10,6 @@ const DEFAULTS = {
   duration: 2800,
   showIcon: true,
   animateTransformOrigin: undefined,
-  position: 'top-center',
 };
 
 let uid = 0;
@@ -40,7 +38,7 @@ export function createToast({
     showIcon: opts.showIcon ?? DEFAULTS.showIcon,
     animateTransformOrigin:
       opts.animateTransformOrigin ?? DEFAULTS.animateTransformOrigin,
-    position: opts.position ?? (DEFAULTS.position as Positions),
+    position: opts.position,
     icon: opts.icon,
     type,
     status: 'entering',
