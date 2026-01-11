@@ -1,7 +1,7 @@
 import { useState as u, useRef as i, useCallback as p, useEffect as m } from "react";
 import d from "../../functions/copy/copy.js";
 function g(a = {}) {
-  const { resetDelay: s = 500 } = a, [r, e] = u("standby"), [f, c] = u(null), t = i(null), n = i(!1), l = p(
+  const { resetDelay: s = 1500 } = a, [r, e] = u("standby"), [f, c] = u(null), t = i(null), n = i(!1), l = p(
     async (y) => {
       if (!n.current) {
         t.current && clearTimeout(t.current);

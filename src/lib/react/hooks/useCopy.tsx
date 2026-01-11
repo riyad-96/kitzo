@@ -18,7 +18,7 @@ type UseCopyReturn = {
 };
 
 export default function useCopy(options: UseCopyOptions = {}): UseCopyReturn {
-  const { resetDelay = 500 } = options;
+  const { resetDelay = 1500 } = options;
 
   const [status, setStatus] = useState<CopyStatus>('standby');
   const [error, setError] = useState<Error | null>(null);
