@@ -3,26 +3,25 @@
   "version": "2.3.6",
   "description": "A lightweight React micro-utility.",
   "type": "module",
-  "sideEffects": false,
-  "exports": {
-    ".": {
-      "types": "./dist/react/types.d.ts",
-      "import": "./dist/react/index.js",
-      "default": "./dist/react/index.js"
-    },
-    "./fns": {
-      "types": "./dist/functions/types.d.ts",
-      "import": "./dist/functions/index.js",
-      "default": "./dist/functions/index.js"
-    }
-  },
   "files": [
     "dist"
   ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./fns": {
+      "types": "./dist/fns.d.ts",
+      "import": "./dist/fns.js",
+      "default": "./dist/fns.js"
+    }
+  },
   "scripts": {
     "dev": "vite",
-    "build": "rollup -c",
-    "build-test": "vite build",
+    "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -45,33 +44,30 @@
     "url": "git+https://github.com/riyad-96/kitzo.git"
   },
   "homepage": "https://github.com/riyad-96/kitzo#readme",
+  "peerDependencies": {
+    "react": ">=19",
+    "react-dom": ">=19"
+  },
   "devDependencies": {
-    "@babel/core": "^7.28.5",
-    "@babel/preset-env": "^7.28.5",
-    "@babel/preset-react": "^7.28.5",
     "@eslint/js": "^9.39.2",
-    "@rollup/plugin-babel": "^6.1.0",
-    "@rollup/plugin-commonjs": "^29.0.0",
-    "@rollup/plugin-node-resolve": "^16.0.3",
     "@tailwindcss/vite": "^4.1.18",
-    "@types/react": "^19.2.7",
+    "@types/node": "^25.0.6",
+    "@types/react": "^19.2.8",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^5.1.2",
+    "@vitejs/plugin-react-swc": "^4.2.2",
     "daisyui": "^5.5.14",
     "eslint": "^9.39.2",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.26",
-    "globals": "^16.5.0",
+    "globals": "^17.0.0",
     "prettier": "^3.7.4",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "react-router-dom": "^7.11.0",
     "tailwindcss": "^4.1.18",
-    "vite": "^7.3.0"
-  },
-  "peerDependencies": {
-    "react": ">=19",
-    "react-dom": ">=19"
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.52.0",
+    "vite": "^7.3.1",
+    "vite-plugin-dts": "^4.5.4"
   }
 }

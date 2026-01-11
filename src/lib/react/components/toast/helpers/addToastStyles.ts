@@ -1,0 +1,259 @@
+const toastStyles = `.kitzo-toaster {
+  --default-bg: hsl(0, 0%, 100%);
+  --default-text: hsl(0, 0%, 10%);
+  --default-border: hsl(0, 0%, 94%);
+
+  --success-bg: var(--default-bg);
+  --success-text: var(--default-text);
+  --success-border: var(--default-border);
+
+  --warning-bg: var(--default-bg);
+  --warning-text: var(--default-text);
+  --warning-border: var(--default-border);
+
+  --error-bg: var(--default-bg);
+  --error-text: var(--default-text);
+  --error-border: var(--default-border);
+
+  --info-bg: var(--default-bg);
+  --info-text: var(--default-text);
+  --info-border: var(--default-border);
+
+  --loader-stroke: hsl(0, 0%, 20%);
+  --loader-bg: hsl(0, 0%, 80%);
+}
+
+.kitzo-toaster.kitzo-toaster-dark {
+  --default-bg: hsl(0, 0%, 15%);
+  --default-text: hsl(0, 0%, 95%);
+  --default-border: hsl(0, 0%, 17%);
+
+  --success-bg: var(--default-bg);
+  --success-text: var(--default-text);
+  --success-border: var(--default-border);
+
+  --warning-bg: var(--default-bg);
+  --warning-text: var(--default-text);
+  --warning-border: var(--default-border);
+
+  --error-bg: var(--default-bg);
+  --error-text: var(--default-text);
+  --error-border: var(--default-border);
+
+  --info-bg: var(--default-bg);
+  --info-text: var(--default-text);
+  --info-border: var(--default-border);
+
+  --loader-stroke: hsl(0, 0%, 90%);
+  --loader-bg: hsl(0, 0%, 40%);
+}
+
+.kitzo-toaster.kitzo-toaster-rich-colors {
+  --success-bg: hsl(142, 65%, 95%);
+  --success-text: hsl(142, 98%, 30%);
+  --success-border: hsl(142, 100%, 93%);
+
+  --warning-bg: hsl(35, 68%, 95%);
+  --warning-text: hsl(35, 98%, 40%);
+  --warning-border: hsl(35, 100%, 94%);
+
+  --error-bg: hsl(0, 65%, 95%);
+  --error-text: hsl(0, 98%, 40%);
+  --error-border: hsl(0, 100%, 94%);
+
+  --info-bg: hsl(210, 65%, 95%);
+  --info-text: hsl(210, 100%, 20%);
+  --info-border: hsl(210, 100%, 94%);
+}
+
+.kitzo-toaster.kitzo-toaster-rich-colors.kitzo-toaster-dark {
+  --success-bg: hsl(142, 65%, 15%);
+  --success-text: hsl(142, 98%, 70%);
+  --success-border: hsl(142, 100%, 15%);
+
+  --warning-bg: hsl(35, 65%, 15%);
+  --warning-text: hsl(35, 98%, 70%);
+  --warning-border: hsl(35, 100%, 15%);
+
+  --error-bg: hsl(0, 65%, 15%);
+  --error-text: hsl(0, 98%, 70%);
+  --error-border: hsl(0, 100%, 15%);
+
+  --info-bg: hsl(210, 65%, 15%);
+  --info-text: hsl(210, 100%, 70%);
+  --info-border: hsl(210, 100%, 16%);
+}
+
+.kitzo-toast {
+  font-family: inherit;
+  font-size: 0.875rem;
+  transition:
+    transform 280ms,
+    opacity 280ms;
+  will-change: transform, opacity;
+}
+
+/*! toast transfor origin */
+.kitzo-toast.transform-origin-top-left {
+  transform-origin: top left;
+}
+.kitzo-toast.transform-origin-top-center {
+  transform-origin: top center;
+}
+.kitzo-toast.transform-origin-top-right {
+  transform-origin: top right;
+}
+.kitzo-toast.transform-origin-bottom-left {
+  transform-origin: bottom left;
+}
+.kitzo-toast.transform-origin-bottom-center {
+  transform-origin: bottom center;
+}
+.kitzo-toast.transform-origin-bottom-right {
+  transform-origin: bottom right;
+}
+
+/*! Toast theme styles  */
+.kitzo-toast.type-default {
+  background-color: var(--default-bg);
+  color: var(--default-text);
+  border: 1px solid var(--default-border);
+}
+.kitzo-toast.type-loading {
+  background-color: var(--default-bg);
+  color: var(--default-text);
+  border: 1px solid var(--default-border);
+}
+
+.kitzo-toast.type-success {
+  background-color: var(--success-bg);
+  color: var(--success-text);
+  border: 1px solid var(--success-border);
+}
+
+.kitzo-toast.type-warning {
+  background-color: var(--warning-bg);
+  color: var(--warning-text);
+  border: 1px solid var(--warning-border);
+}
+
+.kitzo-toast.type-error {
+  background-color: var(--error-bg);
+  color: var(--error-text);
+  border: 1px solid var(--error-border);
+}
+
+.kitzo-toast.type-info {
+  background-color: var(--info-bg);
+  color: var(--info-text);
+  border: 1px solid var(--info-border);
+}
+
+.kitzo-toast.type-default,
+.kitzo-toast.type-loading,
+.kitzo-toast.type-success,
+.kitzo-toast.type-warning,
+.kitzo-toast.type-error,
+.kitzo-toast.type-info {
+  border-radius: 0.425rem;
+  padding: 0.375rem 0.625rem;
+  box-shadow: 0 3px 8px -3px hsl(0, 0%, 0%, 0.15);
+}
+
+/*! toast transition styles */
+.kitzo-toast.status-entering.pos-y-top {
+  opacity: 0;
+  transform: translateY(-120%) scale(0.6);
+}
+
+.kitzo-toast.status-visible.pos-y-top {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.kitzo-toast.status-leaving.pos-y-top {
+  transform-origin: top;
+  opacity: 0;
+  transform: translateY(-120%) scale(0.6);
+}
+
+.kitzo-toast.status-entering.pos-y-bottom {
+  opacity: 0;
+  transform: translateY(120%) scale(0.6);
+}
+
+.kitzo-toast.status-visible.pos-y-bottom {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.kitzo-toast.status-leaving.pos-y-bottom {
+  transform-origin: bottom;
+  opacity: 0;
+  transform: translateY(120%) scale(0.6);
+}
+
+.action-update {
+  animation: update 150ms ease;
+}
+
+@keyframes update {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/*! svg stylings */
+.svg-container {
+  display: grid;
+  place-items: center;
+  height: 20px;
+  width: 20px;
+  overflow: hidden;
+}
+
+.loading-svg-container {
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+
+  .loader {
+    width: 14px;
+    height: 14px;
+    background-image: conic-gradient(
+      var(--loader-stroke) 0 25%,
+      var(--loader-bg) 0 100%
+    );
+    border-radius: 10rem;
+    position: relative;
+    animation: rotate-infinity 1000ms linear infinite;
+  }
+  .loader::before {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border-radius: inherit;
+    background-color: var(--default-bg);
+  }
+}
+
+@keyframes rotate-infinity {
+  to {
+    rotate: 360deg;
+  }
+}`;
+
+export default function addToastStyles() {
+  if (!document.getElementById('kitzo-toast-styles')) {
+    const styleTag = document.createElement('style');
+    styleTag.id = 'kitzo-toast-styles';
+    styleTag.textContent = toastStyles;
+    document.head.appendChild(styleTag);
+  }
+}
