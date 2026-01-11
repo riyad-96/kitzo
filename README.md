@@ -16,14 +16,14 @@ npm install kitzo
 
 #### Components
 
-🍞 **Toast** — Accessible, animated notifications.
-💡 **Tooltip** — Smart-positioned contextual labels.
+- 🍞 **Toast** — Accessible, animated notifications.
+- 💡 **Tooltip** — Smart-positioned contextual labels.
 
 #### Hooks
 
-⏱️ **useDebounce** — Optimize performance by delaying execution.
-📏 **useWindowSize** — Real-time viewport dimensions.
-📋 **useCopy** — Simple "copy to clipboard" functionality.
+- ⏱️ **useDebounce** — Optimize performance by delaying execution.
+- 📏 **useWindowSize** — Real-time viewport dimensions.
+- 📋 **useCopy** — Simple "copy to clipboard" functionality.
 
 ---
 
