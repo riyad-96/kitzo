@@ -82,6 +82,6 @@ export type ToasterProps = {
   richColors?: boolean;
   animateTransformOrigin?: boolean;
   gap?: number | `${number}`;
-  edgeOffset?: number | `${number}px` | `${number}rem` | `${number}%`;
+  edgeOffset?: number | `${number}`;
   isDark?: boolean;
 };

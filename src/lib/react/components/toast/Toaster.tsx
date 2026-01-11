@@ -13,7 +13,7 @@ import ToastContainer from './partials/ToastContainer';
 export default function Toaster(props: ToasterProps) {
   const {
     position = 'top-center',
-    richColors = true,
+    richColors = false,
     animateTransformOrigin = true,
     gap = 8,
     edgeOffset = 16,
@@ -55,7 +55,7 @@ export default function Toaster(props: ToasterProps) {
 
       el.style.setProperty('--toast-offset-y', `${stackOffsets[pos]}px`);
 
-      const effectiveGap = isNaN(+gap) ? +gap : 8;
+      const effectiveGap = isNaN(+gap) ? 8 : +gap;
       stackOffsets[pos] += height + effectiveGap;
     });
   }, [gap]);
@@ -73,7 +73,10 @@ export default function Toaster(props: ToasterProps) {
         zIndex: 2147483647,
         pointerEvents: 'none',
         display: 'grid',
-        padding: edgeOffset != null ? edgeOffset : 16,
+        padding:
+          edgeOffset != null
+            ? `${Math.max(Math.min(+edgeOffset, 200), 0)}px`
+            : 16,
       }}
       className={`kitzo-toaster ${richColors ? 'kitzo-toaster-rich-colors' : ''} ${isDark ? 'kitzo-toaster-dark' : ''}`}
     >

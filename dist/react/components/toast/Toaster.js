@@ -1,19 +1,19 @@
 import { jsx as i } from "react/jsx-runtime";
-import { useState as b, useEffect as k, useRef as v, useCallback as x, useLayoutEffect as E } from "react";
+import { useState as b, useEffect as k, useRef as x, useCallback as v, useLayoutEffect as E } from "react";
 import { subscribe as T } from "./helpers/listenar.js";
 import z from "./helpers/manageToasts/manageToasts.js";
 import O from "./partials/ToastContainer.js";
-function A(p) {
+function w(p) {
   const {
-    position: u = "top-center",
-    richColors: l = !0,
+    position: l = "top-center",
+    richColors: u = !1,
     animateTransformOrigin: m = !0,
     gap: o = 8,
     edgeOffset: n = 16,
     isDark: d = window.matchMedia("(prefers-color-scheme: dark)").matches
   } = p, [c, h] = b([]);
   k(() => T((e) => z({ toast: e, setToasts: h })), []);
-  const s = v(null), r = x(() => {
+  const s = x(null), r = v(() => {
     if (!s.current) return;
     const t = s.current.querySelectorAll("[data-toast-container]"), e = {
       "top-left": 0,
@@ -26,7 +26,7 @@ function A(p) {
     t.forEach((a) => {
       const f = a.getAttribute("data-toast-position") || "top-center", g = parseFloat(a.style.getPropertyValue("--toast-height")) || 0;
       a.style.setProperty("--toast-offset-y", `${e[f]}px`);
-      const y = isNaN(+o) ? +o : 8;
+      const y = isNaN(+o) ? 8 : +o;
       e[f] += g + y;
     });
   }, [o]);
@@ -42,9 +42,9 @@ function A(p) {
         zIndex: 2147483647,
         pointerEvents: "none",
         display: "grid",
-        padding: n ?? 16
+        padding: n != null ? `${Math.max(Math.min(+n, 200), 0)}px` : 16
       },
-      className: `kitzo-toaster ${l ? "kitzo-toaster-rich-colors" : ""} ${d ? "kitzo-toaster-dark" : ""}`,
+      className: `kitzo-toaster ${u ? "kitzo-toaster-rich-colors" : ""} ${d ? "kitzo-toaster-dark" : ""}`,
       children: /* @__PURE__ */ i(
         "div",
         {
@@ -56,7 +56,7 @@ function A(p) {
             {
               t,
               animateTransformOrigin: m,
-              containerPosition: u,
+              containerPosition: l,
               updateOffsets: r
             },
             t.id
@@ -67,5 +67,5 @@ function A(p) {
   );
 }
 export {
-  A as default
+  w as default
 };
