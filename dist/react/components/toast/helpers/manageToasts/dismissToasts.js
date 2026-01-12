@@ -1,18 +1,20 @@
-import { LEAVE_DELAY as n, clearAllTimers as f, clearTimer as m } from "./timers.js";
-function t({ toast: e, setToasts: d }) {
-  if (!e.id) {
-    d((i) => i.map((u) => ({ ...u, status: "leaving" }))), setTimeout(() => {
-      d([]);
-    }, n), f();
+import { LEAVE_DELAY as l, clearAllTimers as d, clearTimer as f } from "./timers.js";
+function m({ toast: t, setToasts: n }) {
+  if (!t.id) {
+    let i = 0;
+    if (n((e) => (i = e.length, e.length === 0 ? e : e.map((r) => ({ ...r, status: "leaving" })))), i === 0) return;
+    setTimeout(() => {
+      n([]);
+    }, l), d();
     return;
   }
-  let l = !0;
-  d((i) => i.find((r) => r.id === e.id) ? i.map(
-    (r) => r.id === e.id ? { ...r, status: "leaving" } : r
-  ) : (l = !1, i)), l && (m(e.id), setTimeout(() => {
-    d((i) => i.filter((u) => u.id !== e.id));
-  }, n));
+  let u = !0;
+  n((i) => i.find((r) => r.id === t.id) ? i.map(
+    (r) => r.id === t.id ? { ...r, status: "leaving" } : r
+  ) : (u = !1, i)), u && (f(t.id), setTimeout(() => {
+    n((i) => i.filter((e) => e.id !== t.id));
+  }, l));
 }
 export {
-  t as default
+  m as default
 };

@@ -4,7 +4,15 @@ import { clearAllTimers, clearTimer, LEAVE_DELAY } from './timers';
 export default function dismissToasts({ toast, setToasts }: ManageToastsProps) {
   // clear all toast
   if (!toast.id) {
-    setToasts((prev) => prev.map((t) => ({ ...t, status: 'leaving' })));
+    let toastCount = 0;
+
+    setToasts((prev) => {
+      toastCount = prev.length;
+      if (prev.length === 0) return prev;
+      return prev.map((t) => ({ ...t, status: 'leaving' }));
+    });
+
+    if (toastCount === 0) return;
 
     setTimeout(() => {
       setToasts([]);
