@@ -1,44 +1,44 @@
-const a = {
+const i = {
   duration: 2800,
   showIcon: !0,
   animateTransformOrigin: void 0
 };
-let e = 0;
-const s = () => crypto.randomUUID?.() ?? `kitzo_toast_id_${++e}`;
-let d = 1;
+let r = 0;
+const d = () => crypto.randomUUID?.() ?? `kitzo_toast_id_${++r}`;
+let s = 1;
 function c({
-  type: i,
-  action: r,
+  type: a,
+  action: e,
   content: o,
   options: n
 }) {
   const t = typeof n == "object" && n !== null ? n : {};
   return {
-    id: t.id ?? s(),
-    duration: t.duration ?? a.duration,
-    showIcon: t.showIcon ?? a.showIcon,
-    animateTransformOrigin: t.animateTransformOrigin ?? a.animateTransformOrigin,
+    id: t.id ?? d(),
+    duration: t.duration ?? i.duration,
+    showIcon: t.showIcon ?? i.showIcon,
+    animateTransformOrigin: t.animateTransformOrigin ?? i.animateTransformOrigin,
     position: t.position,
     icon: t.icon,
-    type: i,
+    type: a === "default" ? t.type ?? "default" : a,
     status: "entering",
-    zIndex: ++d,
+    zIndex: ++s,
     content: o,
-    action: r
+    action: e
   };
 }
-function T({ id: i, content: r, options: o }) {
+function T({ id: a, content: e, options: o }) {
   const n = typeof o == "object" && o !== null ? o : {};
   return {
     ...n,
-    id: i,
-    content: r,
+    id: a,
+    content: e,
     action: "update",
-    duration: n.duration ?? a.duration
+    duration: n.duration ?? i.duration
   };
 }
 export {
   c as createToast,
-  s as genId,
+  d as genId,
   T as updateToast
 };

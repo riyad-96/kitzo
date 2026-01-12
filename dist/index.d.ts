@@ -13,6 +13,14 @@ declare type AnimationOptions = {
 
 declare type CopyStatus = 'standby' | 'copying' | 'copied' | 'error';
 
+declare type CustomToastOptions = Omit<ToastOptions, 'type' | 'showIcon' | 'icon'>;
+
+declare type ErrorToastOptions = ToastOptionsWithoutType;
+
+declare type InfoToastOptions = ToastOptionsWithoutType;
+
+declare type LoadingToastOptions = ToastOptionsWithoutType;
+
 declare type Position = 'top' | 'top-start' | 'top-end' | 'right' | 'right-start' | 'right-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end';
 
 declare type Positions = 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
@@ -26,6 +34,8 @@ declare type PromiseToastMsgs<T, E = unknown> = {
 };
 
 declare type PromiseToastOptions = Omit<ToastOptions, 'id' | 'type'>;
+
+declare type SuccessToastOptions = ToastOptionsWithoutType;
 
 export declare const toast: ToastFn;
 
@@ -44,15 +54,15 @@ declare type ToasterProps = {
 
 declare type ToastFn = {
     (content: ToastContent, options?: ToastOptions): void;
-    info: (content: ToastContent, options?: ToastOptions) => void;
-    success: (content: ToastContent, options?: ToastOptions) => void;
-    warning: (content: ToastContent, options?: ToastOptions) => void;
-    error: (content: ToastContent, options?: ToastOptions) => void;
+    info: (content: ToastContent, options?: InfoToastOptions) => void;
+    success: (content: ToastContent, options?: SuccessToastOptions) => void;
+    warning: (content: ToastContent, options?: WarningToastOptions) => void;
+    error: (content: ToastContent, options?: ErrorToastOptions) => void;
     promise: PromiseToastFn;
-    loading: (content: ToastContent, options?: ToastOptions) => void;
-    custom: (content: ToastContent, options?: ToastOptions) => void;
+    loading: (content: ToastContent, options?: LoadingToastOptions) => void;
+    custom: (content: ToastContent, options?: CustomToastOptions) => void;
     dismiss: (id?: string | number) => void;
-    update: (id: string | number, content: ToastContent, options?: ToastUpdateOptions) => void;
+    update: (id: string | number, content: ToastContent, options?: UpdateToastOptions) => void;
 };
 
 declare type ToastOptions = {
@@ -65,9 +75,9 @@ declare type ToastOptions = {
     type?: ToastType;
 };
 
-declare type ToastType = 'default' | 'success' | 'warning' | 'error' | 'info' | 'custom' | 'loading';
+declare type ToastOptionsWithoutType = Omit<ToastOptions, 'type'>;
 
-declare type ToastUpdateOptions = Omit<ToastOptions, 'id'>;
+declare type ToastType = 'default' | 'success' | 'warning' | 'error' | 'info' | 'custom' | 'loading';
 
 export declare function Tooltip(props: TooltipProps): ReactNode;
 
@@ -88,6 +98,8 @@ declare type TooltipCoreProps = {
 };
 
 declare type TooltipProps = PropsWithChildren<TooltipCoreProps>;
+
+declare type UpdateToastOptions = Omit<ToastOptions, 'id'>;
 
 export declare function useCopy(options?: UseCopyOptions): UseCopyReturn;
 
@@ -115,5 +127,7 @@ export declare function useWindowSize(options?: UseWindowSizeOptions): {
 declare type UseWindowSizeOptions = {
     updateDelay?: number;
 };
+
+declare type WarningToastOptions = ToastOptionsWithoutType;
 
 export { }

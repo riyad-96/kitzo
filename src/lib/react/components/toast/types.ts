@@ -45,7 +45,15 @@ export type Toast = {
   animateTransformOrigin: boolean | undefined;
 };
 
-type ToastUpdateOptions = Omit<ToastOptions, 'id'>;
+type ToastOptionsWithoutType = Omit<ToastOptions, 'type'>;
+
+type UpdateToastOptions = Omit<ToastOptions, 'id'>;
+type InfoToastOptions = ToastOptionsWithoutType;
+type SuccessToastOptions = ToastOptionsWithoutType;
+type WarningToastOptions = ToastOptionsWithoutType;
+type ErrorToastOptions = ToastOptionsWithoutType;
+type LoadingToastOptions = ToastOptionsWithoutType;
+type CustomToastOptions = Omit<ToastOptions, 'type' | 'showIcon' | 'icon'>;
 
 export type PromiseToastOptions = Omit<ToastOptions, 'id' | 'type'>;
 
@@ -62,18 +70,18 @@ export type PromiseToastFn = <T, E = unknown>(
 
 export type ToastFn = {
   (content: ToastContent, options?: ToastOptions): void;
-  info: (content: ToastContent, options?: ToastOptions) => void;
-  success: (content: ToastContent, options?: ToastOptions) => void;
-  warning: (content: ToastContent, options?: ToastOptions) => void;
-  error: (content: ToastContent, options?: ToastOptions) => void;
+  info: (content: ToastContent, options?: InfoToastOptions) => void;
+  success: (content: ToastContent, options?: SuccessToastOptions) => void;
+  warning: (content: ToastContent, options?: WarningToastOptions) => void;
+  error: (content: ToastContent, options?: ErrorToastOptions) => void;
   promise: PromiseToastFn;
-  loading: (content: ToastContent, options?: ToastOptions) => void;
-  custom: (content: ToastContent, options?: ToastOptions) => void;
+  loading: (content: ToastContent, options?: LoadingToastOptions) => void;
+  custom: (content: ToastContent, options?: CustomToastOptions) => void;
   dismiss: (id?: string | number) => void;
   update: (
     id: string | number,
     content: ToastContent,
-    options?: ToastUpdateOptions,
+    options?: UpdateToastOptions,
   ) => void;
 };
 

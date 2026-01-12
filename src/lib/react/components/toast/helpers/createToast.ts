@@ -40,7 +40,7 @@ export function createToast({
       opts.animateTransformOrigin ?? DEFAULTS.animateTransformOrigin,
     position: opts.position,
     icon: opts.icon,
-    type,
+    type: type === 'default' ? (opts.type ?? 'default') : type,
     status: 'entering',
     zIndex: ++zIndex,
     content,
