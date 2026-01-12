@@ -14,13 +14,24 @@ export default function dismissToasts({ toast, setToasts }: ManageToastsProps) {
     return;
   }
 
+  // set toast status leaving
+  let doesExists = true;
+
+  setToasts((prev) => {
+    const exists = prev.find((t) => t.id === toast.id);
+    if (!exists) {
+      doesExists = false;
+      return prev;
+    }
+    return prev.map((t) =>
+      t.id === toast.id ? { ...t, status: 'leaving' } : t,
+    );
+  });
+
+  if (!doesExists) return;
+
   // clear timer
   clearTimer(toast.id);
-
-  // set toast status leaving
-  setToasts((prev) =>
-    prev.map((t) => (t.id === toast.id ? { ...t, status: 'leaving' } : t)),
-  );
 
   // remove toast
   setTimeout(() => {
