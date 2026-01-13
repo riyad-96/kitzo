@@ -14,11 +14,6 @@ export type Position =
   | 'left-start'
   | 'left-end';
 
-// export type ArrowStyles = {
-//   '--arrow-size'?: number;
-//   '--arrow-color'?: string;
-// };
-
 export type AnimationOptions = {
   duration?: number;
   startDuration?: number;
@@ -38,8 +33,6 @@ export type TooltipCoreProps = {
 
   offset?: number;
   smartHover?: boolean;
-  // arrow?: boolean;
-  // arrowStyle?: ArrowStyles;
   hideOnTouch?: boolean;
   animation?: TooltipAnimation;
   isHidden?: boolean;

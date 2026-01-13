@@ -13,11 +13,9 @@ export default function Tooltip(props: TooltipProps): ReactNode {
     content,
     children,
     position = 'top',
-    // arrowStyle = {},
     animation = true,
     isHidden = false,
     offset = 8,
-    // arrow = false,
     smartHover = true,
     hideOnTouch = true,
   } = props;

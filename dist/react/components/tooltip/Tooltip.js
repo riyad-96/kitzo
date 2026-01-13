@@ -9,11 +9,9 @@ function H(n) {
     content: r,
     children: t,
     position: c = "top",
-    // arrowStyle = {},
     animation: i = !0,
     isHidden: s = !1,
     offset: m = 8,
-    // arrow = false,
     smartHover: l = !0,
     hideOnTouch: f = !0
   } = n;

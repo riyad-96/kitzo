@@ -1,5 +1,4 @@
-const tooltipStyles = `/* Default styling */
-.kitzo-tooltip-root {
+const tooltipStyles = `.kitzo-tooltip-root {
   --bg-clr: hsl(0, 0%, 15%);
   --text-clr: hsl(0, 0%, 95%);
 
@@ -65,6 +64,7 @@ const tooltipStyles = `/* Default styling */
   translate: 0 0;
 }
 .kitzo-tooltip-wrapper.top.end {
+  left: auto;
   right: 0;
   translate: 0 0;
 }
@@ -180,44 +180,6 @@ const tooltipStyles = `/* Default styling */
   .kitzo-tooltip-wrapper {
     pointer-events: all;
   }
-}
-
-/* Arrow */
-.kitzo-tooltip-content.tooltip-arrow {
-  --effective-size: calc(var(--arrow-size, 6) * 1px);
-  --effective-color: var(--arrow-color, var(--bg-clr));
-
-  position: relative;
-}
-.kitzo-tooltip-content.tooltip-arrow::before {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  border: var(--effective-size) solid transparent;
-}
-.kitzo-tooltip-content.tooltip-arrow.top::before {
-  left: 50%;
-  translate: -50% 0;
-  top: calc(100% - 1px);
-  border-top: var(--effective-size) solid var(--effective-color);
-}
-.kitzo-tooltip-content.tooltip-arrow.right::before {
-  top: 50%;
-  translate: 0 -50%;
-  right: calc(100% - 1px);
-  border-right: var(--effective-size) solid var(--effective-color);
-}
-.kitzo-tooltip-content.tooltip-arrow.bottom::before {
-  left: 50%;
-  translate: -50% 0;
-  bottom: calc(100% - 1px);
-  border-bottom: var(--effective-size) solid var(--effective-color);
-}
-.kitzo-tooltip-content.tooltip-arrow.left::before {
-  top: 50%;
-  translate: 0 -50%;
-  left: calc(100% - 1px);
-  border-left: var(--effective-size) solid var(--effective-color);
 }`;
 
 function addTooltipStyles() {

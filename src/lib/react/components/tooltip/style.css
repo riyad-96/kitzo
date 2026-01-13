@@ -65,6 +65,7 @@
   translate: 0 0;
 }
 .kitzo-tooltip-wrapper.top.end {
+  left: auto;
   right: 0;
   translate: 0 0;
 }
@@ -183,7 +184,7 @@
 }
 
 /* Arrow */
-.kitzo-tooltip-content.tooltip-arrow {
+/* .kitzo-tooltip-content.tooltip-arrow {
   --effective-size: calc(var(--arrow-size, 6) * 1px);
   --effective-color: var(--arrow-color, var(--bg-clr));
 
@@ -218,4 +219,4 @@
   translate: 0 -50%;
   left: calc(100% - 1px);
   border-left: var(--effective-size) solid var(--effective-color);
-}
+} */
