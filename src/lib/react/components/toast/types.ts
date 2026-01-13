@@ -46,14 +46,8 @@ export type Toast = {
 };
 
 type ToastOptionsWithoutType = Omit<ToastOptions, 'type'>;
-
 type UpdateToastOptions = Omit<ToastOptions, 'id'>;
-type InfoToastOptions = ToastOptionsWithoutType;
-type SuccessToastOptions = ToastOptionsWithoutType;
-type WarningToastOptions = ToastOptionsWithoutType;
-type ErrorToastOptions = ToastOptionsWithoutType;
-type LoadingToastOptions = ToastOptionsWithoutType;
-type CustomToastOptions = Omit<ToastOptions, 'type' | 'showIcon' | 'icon'>;
+type Options = ToastOptionsWithoutType;
 
 export type PromiseToastOptions = Omit<ToastOptions, 'id' | 'type'>;
 
@@ -70,13 +64,13 @@ export type PromiseToastFn = <T, E = unknown>(
 
 export type ToastFn = {
   (content: ToastContent, options?: ToastOptions): void;
-  info: (content: ToastContent, options?: InfoToastOptions) => void;
-  success: (content: ToastContent, options?: SuccessToastOptions) => void;
-  warning: (content: ToastContent, options?: WarningToastOptions) => void;
-  error: (content: ToastContent, options?: ErrorToastOptions) => void;
+  info: (content: ToastContent, options?: Options) => void;
+  success: (content: ToastContent, options?: Options) => void;
+  warning: (content: ToastContent, options?: Options) => void;
+  error: (content: ToastContent, options?: Options) => void;
   promise: PromiseToastFn;
-  loading: (content: ToastContent, options?: LoadingToastOptions) => void;
-  custom: (content: ToastContent, options?: CustomToastOptions) => void;
+  loading: (content: ToastContent, options?: Options) => void;
+  custom: (content: ToastContent, options?: Options) => void;
   dismiss: (id?: string | number) => void;
   update: (
     id: string | number,

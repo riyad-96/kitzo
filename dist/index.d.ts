@@ -13,13 +13,7 @@ declare type AnimationOptions = {
 
 declare type CopyStatus = 'standby' | 'copying' | 'copied' | 'error';
 
-declare type CustomToastOptions = Omit<ToastOptions, 'type' | 'showIcon' | 'icon'>;
-
-declare type ErrorToastOptions = ToastOptionsWithoutType;
-
-declare type InfoToastOptions = ToastOptionsWithoutType;
-
-declare type LoadingToastOptions = ToastOptionsWithoutType;
+declare type Options = ToastOptionsWithoutType;
 
 declare type Position = 'top' | 'top-start' | 'top-end' | 'right' | 'right-start' | 'right-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end';
 
@@ -34,8 +28,6 @@ declare type PromiseToastMsgs<T, E = unknown> = {
 };
 
 declare type PromiseToastOptions = Omit<ToastOptions, 'id' | 'type'>;
-
-declare type SuccessToastOptions = ToastOptionsWithoutType;
 
 export declare const toast: ToastFn;
 
@@ -54,13 +46,13 @@ declare type ToasterProps = {
 
 declare type ToastFn = {
     (content: ToastContent, options?: ToastOptions): void;
-    info: (content: ToastContent, options?: InfoToastOptions) => void;
-    success: (content: ToastContent, options?: SuccessToastOptions) => void;
-    warning: (content: ToastContent, options?: WarningToastOptions) => void;
-    error: (content: ToastContent, options?: ErrorToastOptions) => void;
+    info: (content: ToastContent, options?: Options) => void;
+    success: (content: ToastContent, options?: Options) => void;
+    warning: (content: ToastContent, options?: Options) => void;
+    error: (content: ToastContent, options?: Options) => void;
     promise: PromiseToastFn;
-    loading: (content: ToastContent, options?: LoadingToastOptions) => void;
-    custom: (content: ToastContent, options?: CustomToastOptions) => void;
+    loading: (content: ToastContent, options?: Options) => void;
+    custom: (content: ToastContent, options?: Options) => void;
     dismiss: (id?: string | number) => void;
     update: (id: string | number, content: ToastContent, options?: UpdateToastOptions) => void;
 };
@@ -127,7 +119,5 @@ export declare function useWindowSize(options?: UseWindowSizeOptions): {
 declare type UseWindowSizeOptions = {
     updateDelay?: number;
 };
-
-declare type WarningToastOptions = ToastOptionsWithoutType;
 
 export { }
