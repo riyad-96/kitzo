@@ -26,12 +26,18 @@ async function writeToClipboard(text: string) {
 
 // Main exported function
 export default async function copy(doc: unknown) {
-  const text =
-    typeof doc === 'string' ||
-    typeof doc === 'number' ||
-    typeof doc === 'boolean'
-      ? String(doc)
-      : JSON.stringify(doc);
+  let text;
+
+  try {
+    text =
+      typeof doc === 'string' ||
+      typeof doc === 'number' ||
+      typeof doc === 'boolean'
+        ? String(doc)
+        : JSON.stringify(doc);
+  } catch {
+    text = '[Cannot copy circular object]';
+  }
 
   await writeToClipboard(text);
 }
