@@ -1,14 +1,14 @@
-import { useState as u, useRef as c, useEffect as d } from "react";
-function w(i = {}) {
-  const { updateDelay: n = 30 } = i, [r, o] = u({
+import { useState as o, useRef as u, useEffect as c } from "react";
+function d(n = 30) {
+  const [t, r] = o({
     screenWidth: window.innerWidth,
     screenHeight: window.innerHeight
-  }), e = c(null);
-  return d(() => {
-    function t() {
+  }), e = u(null);
+  return c(() => {
+    function i() {
       e.current && clearTimeout(e.current), e.current = setTimeout(
         () => {
-          o({
+          r({
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight
           });
@@ -16,11 +16,11 @@ function w(i = {}) {
         Math.max(0, +n)
       );
     }
-    return typeof window < "u" && window.addEventListener("resize", t), () => {
-      e.current && clearTimeout(e.current), window.removeEventListener("resize", t);
+    return typeof window < "u" && window.addEventListener("resize", i), () => {
+      e.current && clearTimeout(e.current), window.removeEventListener("resize", i);
     };
-  }, [n]), r;
+  }, [n]), t;
 }
 export {
-  w as default
+  d as default
 };

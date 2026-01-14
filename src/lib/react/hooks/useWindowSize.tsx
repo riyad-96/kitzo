@@ -1,12 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-type UseWindowSizeOptions = {
-  updateDelay?: number;
-};
-
-export default function useWindowSize(options: UseWindowSizeOptions = {}) {
-  const { updateDelay = 30 } = options;
-
+export default function useWindowSize(updateDelay: number = 30) {
   const [screenSize, setScreenSize] = useState({
     screenWidth: window.innerWidth,
     screenHeight: window.innerHeight,

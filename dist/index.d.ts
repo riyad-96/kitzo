@@ -113,13 +113,9 @@ export declare function useDebounce<T>(value: T, delay?: number): T;
 
 export declare function useThrottle<T>(value: T, delay?: number): T;
 
-export declare function useWindowSize(options?: UseWindowSizeOptions): {
+export declare function useWindowSize(updateDelay?: number): {
     screenWidth: number;
     screenHeight: number;
-};
-
-declare type UseWindowSizeOptions = {
-    updateDelay?: number;
 };
 
 export { }
