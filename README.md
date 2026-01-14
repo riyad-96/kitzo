@@ -24,6 +24,7 @@ npm install kitzo
 - **useDebounce** — Optimize performance by delaying execution.
 - **useWindowSize** — Real-time viewport dimensions.
 - **useCopy** — Simple "copy to clipboard" functionality.
+- **useThrottle** —  Limits how often a value can change within a specified time interval.
 
 ---
 
