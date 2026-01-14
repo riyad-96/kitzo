@@ -1,3 +1,3 @@
-export declare function copy(doc: string): Promise<void>;
+export declare function copy(doc: unknown): Promise<void>;
 
 export { }

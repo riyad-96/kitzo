@@ -1,4 +1,4 @@
-//! Copy function
+// Legacy fallback copy
 function legacyCopy(text: string) {
   const textarea = document.createElement('textarea');
   textarea.value = text;
@@ -9,6 +9,7 @@ function legacyCopy(text: string) {
   document.body.removeChild(textarea);
 }
 
+// Write to clipboard with fallback
 async function writeToClipboard(text: string) {
   if (!navigator.clipboard?.writeText) {
     legacyCopy(text);
@@ -23,11 +24,14 @@ async function writeToClipboard(text: string) {
   }
 }
 
-export default async function copy(doc: string) {
-  if (doc == null) throw new Error('[kitzo/copy] expected a value to copy, got null or undefined.');
-
+// Main exported function
+export default async function copy(doc: unknown) {
   const text =
-    typeof doc === 'string' || typeof doc === 'number' ? String(doc) : JSON.stringify(doc);
+    typeof doc === 'string' ||
+    typeof doc === 'number' ||
+    typeof doc === 'boolean'
+      ? String(doc)
+      : JSON.stringify(doc);
 
   await writeToClipboard(text);
 }
