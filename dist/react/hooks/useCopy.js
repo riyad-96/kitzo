@@ -1,32 +1,32 @@
-import { useState as u, useRef as i, useCallback as p, useEffect as m } from "react";
-import d from "../../functions/copy/copy.js";
-function g(a = {}) {
-  const { resetDelay: s = 1500 } = a, [r, e] = u("standby"), [f, c] = u(null), t = i(null), n = i(!1), l = p(
-    async (y) => {
+import { useState as u, useRef as i, useCallback as y, useEffect as p } from "react";
+import m from "../../functions/copy/copy.js";
+function E(c = 1500) {
+  const [r, e] = u("standby"), [a, s] = u(null), t = i(null), n = i(!1), f = y(
+    async (l) => {
       if (!n.current) {
         t.current && clearTimeout(t.current);
         try {
-          n.current = !0, c(null), e("copying"), await d(y), e("copied");
+          n.current = !0, s(null), e("copying"), await m(l), e("copied");
         } catch (o) {
-          c(o instanceof Error ? o : new Error(String(o))), e("error");
+          s(o instanceof Error ? o : new Error(String(o))), e("error");
         } finally {
           t.current = setTimeout(
             () => {
               n.current = !1, e("standby");
             },
-            Math.max(s, 500)
+            Math.max(c, 500)
           );
         }
       }
     },
-    [s]
+    [c]
   );
-  return m(() => () => {
+  return p(() => () => {
     t.current && clearTimeout(t.current);
   }, []), {
-    copy: l,
+    copy: f,
     status: r,
-    error: f,
+    error: a,
     isCopying: r === "copying",
     isCopied: r === "copied",
     isError: r === "error",
@@ -34,5 +34,5 @@ function g(a = {}) {
   };
 }
 export {
-  g as default
+  E as default
 };

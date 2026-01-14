@@ -3,10 +3,6 @@ import copyToClipboard from '../../functions/copy/copy';
 
 export type CopyStatus = 'standby' | 'copying' | 'copied' | 'error';
 
-type UseCopyOptions = {
-  resetDelay?: number;
-};
-
 type UseCopyReturn = {
   copy: (doc: string) => Promise<void>;
   status: CopyStatus;
@@ -17,9 +13,7 @@ type UseCopyReturn = {
   isStandby: boolean;
 };
 
-export default function useCopy(options: UseCopyOptions = {}): UseCopyReturn {
-  const { resetDelay = 1500 } = options;
-
+export default function useCopy(resetDelay: number = 1500): UseCopyReturn {
   const [status, setStatus] = useState<CopyStatus>('standby');
   const [error, setError] = useState<Error | null>(null);
 

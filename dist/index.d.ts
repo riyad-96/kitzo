@@ -93,11 +93,7 @@ declare type TooltipProps = PropsWithChildren<TooltipCoreProps>;
 
 declare type UpdateToastOptions = Omit<ToastOptions, 'id'>;
 
-export declare function useCopy(options?: UseCopyOptions): UseCopyReturn;
-
-declare type UseCopyOptions = {
-    resetDelay?: number;
-};
+export declare function useCopy(resetDelay?: number): UseCopyReturn;
 
 declare type UseCopyReturn = {
     copy: (doc: string) => Promise<void>;
