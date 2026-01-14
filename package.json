@@ -1,6 +1,6 @@
 {
   "name": "kitzo",
-  "version": "2.3.20",
+  "version": "2.3.21",
   "description": "A lightweight React micro-utility.",
   "type": "module",
   "files": [
