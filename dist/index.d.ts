@@ -111,6 +111,8 @@ declare type UseCopyReturn = {
 
 export declare function useDebounce<T>(value: T, delay?: number): T;
 
+export declare function useThrottle<T>(value: T, delay?: number): T;
+
 export declare function useWindowSize(options?: UseWindowSizeOptions): {
     screenWidth: number;
     screenHeight: number;
