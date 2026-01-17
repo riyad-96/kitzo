@@ -42,6 +42,7 @@ declare type ToasterProps = {
     gap?: number | `${number}`;
     edgeOffset?: number | `${number}`;
     isDark?: boolean;
+    pauseOnHover?: boolean;
 };
 
 declare type ToastFn = {

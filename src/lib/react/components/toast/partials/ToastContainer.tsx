@@ -1,27 +1,19 @@
-import {
-  useLayoutEffect,
-  useRef,
-  type Dispatch,
-  type SetStateAction,
-} from 'react';
-import type { Positions, Toast, Toast as ToastType } from '../types';
+import { useLayoutEffect, useRef } from 'react';
+import type { Positions, Toast } from '../types';
 import ToastContent from './Toast';
+import { useToasterContext } from '../context/ToasterContext';
 
 type ToastContainerProps = {
-  t: ToastType;
-  animateTransformOrigin: boolean | undefined;
-  containerPosition: string;
-  updateOffsets: () => void;
-  setToasts: Dispatch<SetStateAction<Toast[]>>;
+  t: Toast;
 };
 
-export default function ToastContainer({
-  t,
-  animateTransformOrigin,
-  containerPosition,
-  updateOffsets,
-  setToasts,
-}: ToastContainerProps) {
+export default function ToastContainer({ t }: ToastContainerProps) {
+  const {
+    updateOffsets,
+    position: containerPosition,
+    animateTransformOrigin,
+  } = useToasterContext();
+
   const ref = useRef<HTMLDivElement | null>(null);
 
   useLayoutEffect(() => {
@@ -48,11 +40,11 @@ export default function ToastContainer({
     'bottom-right',
   ];
   const userPosition = t.position || containerPosition;
-  const position = allowedPositions.includes(userPosition)
+  const position = allowedPositions.includes(userPosition!)
     ? userPosition
     : 'top-center';
 
-  const isBottom = position.includes('bottom');
+  const isBottom = position?.includes('bottom');
 
   const shouldAnimateTransformOrigin =
     typeof t.animateTransformOrigin === 'boolean'
@@ -71,9 +63,9 @@ export default function ToastContainer({
         right: 0,
         transition: 'transform 180ms',
         display: 'flex',
-        justifyContent: position.includes('left')
+        justifyContent: position?.includes('left')
           ? 'flex-start'
-          : position.includes('center')
+          : position?.includes('center')
             ? 'center'
             : 'flex-end',
         top: isBottom ? 'auto' : 0,
@@ -85,7 +77,6 @@ export default function ToastContainer({
         t={t}
         position={position as Positions}
         shouldAnimateTransformOrigin={shouldAnimateTransformOrigin}
-        setToasts={setToasts}
       />
     </div>
   );

@@ -1,22 +1,22 @@
-import { jsx as c } from "react/jsx-runtime";
+import { jsx as f } from "react/jsx-runtime";
 import { useRef as d, useLayoutEffect as b } from "react";
-import h from "./Toast.js";
-function v({
-  t,
-  animateTransformOrigin: f,
-  containerPosition: l,
-  updateOffsets: r
-}) {
-  const s = d(null);
+import g from "./Toast.js";
+import { useToasterContext as h } from "../context/ToasterContext.js";
+function v({ t }) {
+  const {
+    updateOffsets: s,
+    position: c,
+    animateTransformOrigin: l
+  } = h(), r = d(null);
   b(() => {
-    const e = s.current;
+    const e = r.current;
     if (!e) return;
     const a = new ResizeObserver(() => {
       const p = e.offsetHeight;
-      e.style.setProperty("--toast-height", `${p}px`), r();
+      e.style.setProperty("--toast-height", `${p}px`), s();
     });
     return a.observe(e), () => a.disconnect();
-  }, [r]);
+  }, [s]);
   const m = [
     "top-left",
     "top-center",
@@ -24,11 +24,11 @@ function v({
     "bottom-left",
     "bottom-center",
     "bottom-right"
-  ], i = t.position || l, o = m.includes(i) ? i : "top-center", n = o.includes("bottom"), u = typeof t.animateTransformOrigin == "boolean" ? t.animateTransformOrigin : f;
-  return /* @__PURE__ */ c(
+  ], i = t.position || c, o = m.includes(i) ? i : "top-center", n = o?.includes("bottom"), u = typeof t.animateTransformOrigin == "boolean" ? t.animateTransformOrigin : l;
+  return /* @__PURE__ */ f(
     "div",
     {
-      ref: s,
+      ref: r,
       "data-toast-container": !0,
       "data-toast-position": o,
       style: {
@@ -38,13 +38,13 @@ function v({
         right: 0,
         transition: "transform 180ms",
         display: "flex",
-        justifyContent: o.includes("left") ? "flex-start" : o.includes("center") ? "center" : "flex-end",
+        justifyContent: o?.includes("left") ? "flex-start" : o?.includes("center") ? "center" : "flex-end",
         top: n ? "auto" : 0,
         bottom: n ? 0 : "auto",
         transform: `translateY(calc(var(--toast-offset-y, 0px) * ${n ? -1 : 1}))`
       },
-      children: /* @__PURE__ */ c(
-        h,
+      children: /* @__PURE__ */ f(
+        g,
         {
           t,
           position: o,

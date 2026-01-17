@@ -1,21 +1,23 @@
-import { jsx as i } from "react/jsx-runtime";
-import { useState as b, useEffect as k, useRef as x, useCallback as v, useLayoutEffect as E } from "react";
-import { subscribe as T } from "./helpers/listenar.js";
+import { jsx as s } from "react/jsx-runtime";
+import { useState as k, useEffect as v, useRef as x, useCallback as T, useLayoutEffect as E } from "react";
+import { subscribe as O } from "./helpers/listenar.js";
 import z from "./helpers/manageToasts/manageToasts.js";
-import O from "./partials/ToastContainer.js";
-function w(p) {
+import C from "./partials/ToastContainer.js";
+import { ToasterContext as $ } from "./context/ToasterContext.js";
+function S(m) {
   const {
-    position: l = "top-center",
-    richColors: u = !1,
-    animateTransformOrigin: m = !0,
-    gap: o = 8,
-    edgeOffset: n = 16,
-    isDark: d = window.matchMedia("(prefers-color-scheme: dark)").matches
-  } = p, [c, h] = b([]);
-  k(() => T((e) => z({ toast: e, setToasts: h })), []);
-  const s = x(null), r = v(() => {
-    if (!s.current) return;
-    const t = s.current.querySelectorAll("[data-toast-container]"), e = {
+    position: d = "top-center",
+    richColors: c = !1,
+    animateTransformOrigin: h = !0,
+    gap: e = 8,
+    edgeOffset: r = 16,
+    isDark: f = window.matchMedia("(prefers-color-scheme: dark)").matches,
+    pauseOnHover: g = !0
+  } = m, [p, l] = k([]);
+  v(() => O((o) => z({ toast: o, setToasts: l })), []);
+  const a = x(null), i = T(() => {
+    if (!a.current) return;
+    const t = a.current.querySelectorAll("[data-toast-container]"), o = {
       "top-left": 0,
       "top-center": 0,
       "top-right": 0,
@@ -23,49 +25,56 @@ function w(p) {
       "bottom-center": 0,
       "bottom-right": 0
     };
-    t.forEach((a) => {
-      const f = a.getAttribute("data-toast-position") || "top-center", g = parseFloat(a.style.getPropertyValue("--toast-height")) || 0;
-      a.style.setProperty("--toast-offset-y", `${e[f]}px`);
-      const y = isNaN(+o) ? 8 : +o;
-      e[f] += g + y;
+    t.forEach((n) => {
+      const u = n.getAttribute("data-toast-position") || "top-center", y = parseFloat(n.style.getPropertyValue("--toast-height")) || 0;
+      n.style.setProperty("--toast-offset-y", `${o[u]}px`);
+      const b = isNaN(+e) ? 8 : +e;
+      o[u] += y + b;
     });
-  }, [o]);
+  }, [e]);
   return E(() => {
-    r();
-  }, [c, r]), /* @__PURE__ */ i(
+    i();
+  }, [p, i]), /* @__PURE__ */ s(
     "div",
     {
-      ref: s,
+      ref: a,
       style: {
         position: "fixed",
         inset: 0,
         zIndex: 2147483647,
         pointerEvents: "none",
         display: "grid",
-        padding: n != null ? `${Math.max(Math.min(+n, 200), 0)}px` : 16
+        padding: r != null ? `${Math.max(Math.min(+r, 200), 0)}px` : 16
       },
-      className: `kitzo-toaster ${u ? "kitzo-toaster-rich-colors" : ""} ${d ? "kitzo-toaster-dark" : ""}`,
-      children: /* @__PURE__ */ i(
+      className: `kitzo-toaster ${c ? "kitzo-toaster-rich-colors" : ""} ${f ? "kitzo-toaster-dark" : ""}`,
+      children: /* @__PURE__ */ s(
         "div",
         {
           style: {
             position: "relative"
           },
-          children: c.map((t) => /* @__PURE__ */ i(
-            O,
+          children: /* @__PURE__ */ s(
+            $.Provider,
             {
-              t,
-              animateTransformOrigin: m,
-              containerPosition: l,
-              updateOffsets: r
-            },
-            t.id
-          ))
+              value: {
+                position: d,
+                richColors: c,
+                isDark: f,
+                gap: e,
+                edgeOffset: r,
+                animateTransformOrigin: h,
+                pauseOnHover: g,
+                setToasts: l,
+                updateOffsets: i
+              },
+              children: p.map((t) => /* @__PURE__ */ s(C, { t }, t.id))
+            }
+          )
         }
       )
     }
   );
 }
 export {
-  w as default
+  S as default
 };

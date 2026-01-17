@@ -1,39 +1,76 @@
-const t = /* @__PURE__ */ new Map(), o = 600, a = 700;
-function m(e) {
+const o = /* @__PURE__ */ new Map(), u = 280, s = 500, f = 0;
+function c(e) {
   const i = Number(e);
   if (!isFinite(i)) return null;
-  const n = Math.max(a, i);
+  const t = Math.max(f, i);
   return {
-    leaving: n,
-    left: n + o
+    totalTime: t,
+    leavingDuration: t,
+    leftDuration: t + s
   };
 }
-function d(e) {
-  const i = t.get(e);
-  i && (clearTimeout(i.leaving), clearTimeout(i.left), t.delete(e));
+function T(e) {
+  const i = o.get(e);
+  i && (clearTimeout(i.leavingTimeoutId), clearTimeout(i.leftTimeoutId), o.delete(e));
 }
-function f() {
-  t.forEach(({ leaving: e, left: i }) => {
+function g() {
+  o.forEach(({ leavingTimeoutId: e, leftTimeoutId: i }) => {
     clearTimeout(e), clearTimeout(i);
-  }), t.clear();
+  }), o.clear();
 }
-function s(e, i) {
-  const n = m(e.duration);
-  if (!n) return;
-  d(e.id);
-  const c = setTimeout(() => {
+function d(e, i) {
+  const t = c(e.duration);
+  if (!t) return;
+  T(e.id);
+  const r = setTimeout(() => {
     i(
-      (l) => l.map((r) => r.id === e.id ? { ...r, status: "leaving" } : r)
+      (a) => a.map((n) => n.id === e.id ? { ...n, status: "leaving" } : n)
     );
-  }, n.leaving), u = setTimeout(() => {
-    i((l) => l.filter((r) => r.id !== e.id)), t.delete(e.id);
-  }, n.left);
-  t.set(e.id, { leaving: c, left: u });
+  }, t.leavingDuration + u), m = setTimeout(() => {
+    i((a) => a.filter((n) => n.id !== e.id)), T(e.id), o.delete(e.id);
+  }, t.leftDuration + u), l = Date.now();
+  o.set(e.id, {
+    leavingTimeoutId: r,
+    leftTimeoutId: m,
+    startingTime: l,
+    totalTime: t.totalTime,
+    remainningTime: 0
+  });
+}
+function I(e) {
+  const i = o.get(e);
+  if (!i || i.remainningTime > 0) return;
+  const r = Date.now() - i.startingTime, m = Math.max(i.totalTime - r, 0);
+  m !== 0 && (o.set(e, { ...i, remainningTime: m }), clearTimeout(i.leavingTimeoutId), clearTimeout(i.leftTimeoutId));
+}
+function D(e, i) {
+  const t = o.get(e);
+  if (!t) return;
+  const r = c(t.remainningTime);
+  if (!r) return;
+  const m = setTimeout(() => {
+    i(
+      (a) => a.map((n) => n.id === e ? { ...n, status: "leaving" } : n)
+    );
+  }, r.leavingDuration + u), l = setTimeout(() => {
+    i((a) => a.filter((n) => n.id !== e)), T(e), o.delete(e);
+  }, r.leftDuration + u);
+  o.set(e, {
+    ...t,
+    startingTime: Date.now(),
+    totalTime: t.remainningTime,
+    remainningTime: 0,
+    leavingTimeoutId: m,
+    leftTimeoutId: l
+  });
 }
 export {
-  o as LEAVE_DELAY,
-  a as MIN_VISIBLE,
-  s as addTimers,
-  f as clearAllTimers,
-  d as clearTimer
+  s as LEAVE_DELAY,
+  f as MIN_VISIBLE,
+  u as TRANSITION_DURATION,
+  d as addTimers,
+  g as clearAllTimers,
+  T as clearTimer,
+  I as pauseToast,
+  D as resumeToast
 };

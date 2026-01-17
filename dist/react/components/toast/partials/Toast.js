@@ -1,48 +1,53 @@
-import { jsxs as m, jsx as n, Fragment as e } from "react/jsx-runtime";
-import p from "../helpers/triggerToasts.js";
-import { InfoSvg as u, ErrorSvg as v, WarningSvg as h, SuccessSvg as y, LoadingSvg as x } from "./Svgs.js";
-function I({
-  t: l,
-  position: s,
-  shouldAnimateTransformOrigin: a
+import { jsxs as g, jsx as t, Fragment as s } from "react/jsx-runtime";
+import { resumeToast as v, pauseToast as h } from "../helpers/manageToasts/timers.js";
+import y from "../helpers/triggerToasts.js";
+import { InfoSvg as x, ErrorSvg as S, WarningSvg as $, SuccessSvg as T, LoadingSvg as k } from "./Svgs.js";
+import { useToasterContext as E } from "../context/ToasterContext.js";
+function C({
+  t: n,
+  position: o,
+  shouldAnimateTransformOrigin: d
 }) {
-  const { id: c, type: i, action: d, content: r, status: f, showIcon: g, icon: t } = l, o = {
-    loading: /* @__PURE__ */ n(x, {}),
-    success: /* @__PURE__ */ n(y, {}),
-    warning: /* @__PURE__ */ n(h, {}),
-    error: /* @__PURE__ */ n(v, {}),
-    info: /* @__PURE__ */ n(u, {}),
+  const { setToasts: m, pauseOnHover: a } = E(), { id: l, type: r, action: f, content: i, status: p, showIcon: u, icon: e } = n, c = {
+    loading: /* @__PURE__ */ t(k, {}),
+    success: /* @__PURE__ */ t(T, {}),
+    warning: /* @__PURE__ */ t($, {}),
+    error: /* @__PURE__ */ t(S, {}),
+    info: /* @__PURE__ */ t(x, {}),
     default: null,
     custom: null
   };
-  return /* @__PURE__ */ m(
+  return /* @__PURE__ */ g(
     "div",
     {
+      id: `toast-id-${l}`,
       style: {
         pointerEvents: "all",
         display: "flex",
         alignItems: "center",
         gap: 8
       },
-      className: `kitzo-toast type-${i} action-${d} status-${f} pos-y-${s.split("-")[0]} pos-x-${s.split("-")[1]} ${a ? `transform-origin-${s}` : ""}`,
+      onMouseEnter: () => a && h(n.id),
+      onMouseLeave: () => a && v(n.id, m),
+      className: `kitzo-toast type-${r} action-${f} status-${p} pos-y-${o.split("-")[0]} pos-x-${o.split("-")[1]} ${d ? `transform-origin-${o}` : ""}`,
       children: [
-        g && /* @__PURE__ */ n(e, { children: t ? /* @__PURE__ */ n(e, { children: typeof t == "string" || typeof t == "number" ? /* @__PURE__ */ n(
+        u && /* @__PURE__ */ t(s, { children: e ? /* @__PURE__ */ t(s, { children: typeof e == "string" || typeof e == "number" ? /* @__PURE__ */ t(
           "div",
           {
             style: {
               flexShrink: 0
             },
             className: "svg-container",
-            children: t
+            children: e
           }
-        ) : /* @__PURE__ */ n(e, { children: t }) }) : /* @__PURE__ */ n(e, { children: o[i] && /* @__PURE__ */ n("div", { style: { flexShrink: 0 }, className: "svg-container", children: o[i] }) }) }),
-        /* @__PURE__ */ n(
+        ) : /* @__PURE__ */ t(s, { children: e }) }) : /* @__PURE__ */ t(s, { children: c[r] && /* @__PURE__ */ t("div", { style: { flexShrink: 0 }, className: "svg-container", children: c[r] }) }) }),
+        /* @__PURE__ */ t(
           "div",
           {
             style: {
               flex: 1
             },
-            children: typeof r == "function" ? r(() => p.dismiss(c)) : r
+            children: typeof i == "function" ? i(() => y.dismiss(l)) : i
           }
         )
       ]
@@ -50,5 +55,5 @@ function I({
   );
 }
 export {
-  I as default
+  C as default
 };

@@ -5,13 +5,12 @@ export default function Test() {
     <div className="p-8">
       <button
         onClick={() => {
-          // copy();
           toast('toast message', {
-            duration: 5000,
+            duration: 2000,
           });
         }}
       >
-        oi kire
+        click to toast
       </button>
 
       <Toaster />

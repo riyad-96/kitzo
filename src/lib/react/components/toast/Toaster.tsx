@@ -9,6 +9,7 @@ import type { Positions, Toast, ToasterProps } from './types';
 import { subscribe } from './helpers/listenar';
 import manageToasts from './helpers/manageToasts/manageToasts';
 import ToastContainer from './partials/ToastContainer';
+import { ToasterContext } from './context/ToasterContext';
 
 export default function Toaster(props: ToasterProps) {
   const {
@@ -18,6 +19,7 @@ export default function Toaster(props: ToasterProps) {
     gap = 8,
     edgeOffset = 16,
     isDark = window.matchMedia('(prefers-color-scheme: dark)').matches,
+    pauseOnHover = true,
   } = props;
 
   const [toasts, setToasts] = useState<Toast[]>([]);
@@ -85,16 +87,23 @@ export default function Toaster(props: ToasterProps) {
           position: 'relative',
         }}
       >
-        {toasts.map((t) => (
-          <ToastContainer
-            key={t.id}
-            t={t}
-            animateTransformOrigin={animateTransformOrigin}
-            containerPosition={position}
-            updateOffsets={updateOffsets}
-            setToasts={setToasts}
-          />
-        ))}
+        <ToasterContext.Provider
+          value={{
+            position,
+            richColors,
+            isDark,
+            gap,
+            edgeOffset,
+            animateTransformOrigin,
+            pauseOnHover,
+            setToasts,
+            updateOffsets,
+          }}
+        >
+          {toasts.map((t) => (
+            <ToastContainer key={t.id} t={t} />
+          ))}
+        </ToasterContext.Provider>
       </div>
     </div>
   );

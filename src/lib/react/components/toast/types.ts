@@ -86,4 +86,5 @@ export type ToasterProps = {
   gap?: number | `${number}`;
   edgeOffset?: number | `${number}`;
   isDark?: boolean;
+  pauseOnHover?: boolean;
 };

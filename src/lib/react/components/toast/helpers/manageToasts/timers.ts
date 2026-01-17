@@ -90,8 +90,8 @@ export function pauseToast(id: string | number) {
   // already paused
   if (timer.remainningTime > 0) return;
 
-  const currentTime = Date.now();
-  const passedTime = currentTime - timer.startingTime;
+  const now = Date.now();
+  const passedTime = now - timer.startingTime;
   const remainningTime = Math.max(timer.totalTime - passedTime, 0);
 
   // already expired, don't pause
