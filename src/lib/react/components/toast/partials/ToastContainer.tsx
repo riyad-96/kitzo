@@ -1,5 +1,10 @@
-import { useLayoutEffect, useRef } from 'react';
-import type { Positions, Toast as ToastType } from '../types';
+import {
+  useLayoutEffect,
+  useRef,
+  type Dispatch,
+  type SetStateAction,
+} from 'react';
+import type { Positions, Toast, Toast as ToastType } from '../types';
 import ToastContent from './Toast';
 
 type ToastContainerProps = {
@@ -7,6 +12,7 @@ type ToastContainerProps = {
   animateTransformOrigin: boolean | undefined;
   containerPosition: string;
   updateOffsets: () => void;
+  setToasts: Dispatch<SetStateAction<Toast[]>>;
 };
 
 export default function ToastContainer({
@@ -14,6 +20,7 @@ export default function ToastContainer({
   animateTransformOrigin,
   containerPosition,
   updateOffsets,
+  setToasts,
 }: ToastContainerProps) {
   const ref = useRef<HTMLDivElement | null>(null);
 
@@ -78,6 +85,7 @@ export default function ToastContainer({
         t={t}
         position={position as Positions}
         shouldAnimateTransformOrigin={shouldAnimateTransformOrigin}
+        setToasts={setToasts}
       />
     </div>
   );

@@ -22,4 +22,4 @@ dist-ssr
 *.sln
 *.sw?
 .npmrc
-src/test.tsx
+# src/test.tsx

@@ -92,6 +92,7 @@ export default function Toaster(props: ToasterProps) {
             animateTransformOrigin={animateTransformOrigin}
             containerPosition={position}
             updateOffsets={updateOffsets}
+            setToasts={setToasts}
           />
         ))}
       </div>
