@@ -1,11 +1,10 @@
 import { jsx as s } from "react/jsx-runtime";
-/* empty css          */
 import { useState as v, useEffect as x, useRef as T, useCallback as C, useLayoutEffect as E } from "react";
 import { subscribe as O } from "./helpers/listenar.js";
 import z from "./helpers/manageToasts/manageToasts.js";
 import $ from "./partials/ToastContainer.js";
 import { ToasterContext as w } from "./context/ToasterContext.js";
-function q(m) {
+function j(m) {
   const {
     position: d = "top-center",
     richColors: c = !1,
@@ -79,5 +78,5 @@ function q(m) {
   );
 }
 export {
-  q as default
+  j as default
 };

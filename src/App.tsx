@@ -1,5 +1,5 @@
-import Test from './Test';
+import TestFile from './TestFile';
 
 export default function App() {
-  return <Test />;
+  return <TestFile />;
 }

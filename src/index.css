@@ -1,2 +1,10 @@
 @import 'tailwindcss';
 @plugin 'daisyui';
+
+.test-wrapper {
+  @apply p-6;
+}
+
+.btn {
+  @apply btn btn-sm;
+}

@@ -1,5 +1,3 @@
-import './style.css';
-
 import {
   useCallback,
   useEffect,
