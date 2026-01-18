@@ -1,4 +1,4 @@
-import Test from './test-file';
+import Test from './Test';
 
 export default function App() {
   return <Test />;

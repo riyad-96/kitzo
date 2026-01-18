@@ -3,7 +3,7 @@ import { clearAllTimers, clearTimer, LEAVE_DELAY } from './timers';
 
 export default function dismissToasts({ toast, setToasts }: ManageToastsProps) {
   // clear all toast
-  if (!toast.id) {
+  if (toast.id == null) {
     setToasts((prev) => prev.map((t) => ({ ...t, status: 'leaving' })));
 
     setTimeout(() => {
@@ -18,14 +18,17 @@ export default function dismissToasts({ toast, setToasts }: ManageToastsProps) {
   clearTimer(toast.id);
 
   // set toast status leaving
+  const id = `toast-id:${toast.id}`;
+  
+  console.log(id);
   setToasts((prev) =>
-    prev.map((t) => (t.id === toast.id ? { ...t, status: 'leaving' } : t)),
+    prev.map((t) => (t.id === id ? { ...t, status: 'leaving' } : t)),
   );
 
   // remove toast
   setTimeout(() => {
     setToasts((prev) =>
-      prev.filter((t) => !(t.id === toast.id && t.status === 'leaving')),
+      prev.filter((t) => !(t.id === id && t.status === 'leaving')),
     );
   }, LEAVE_DELAY);
 }
