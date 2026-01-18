@@ -1,19 +1,21 @@
-import { LEAVE_DELAY as a, clearAllTimers as m, clearTimer as u } from "./timers.js";
-function n({ toast: l, setToasts: r }) {
-  if (!l.id) {
-    r((e) => e.map((i) => ({ ...i, status: "leaving" }))), setTimeout(() => {
-      r((e) => e.filter((i) => i.status !== "leaving"));
-    }, a), m();
+import { LEAVE_DELAY as n, clearAllTimers as t, clearTimer as u } from "./timers.js";
+function m({ toast: a, setToasts: l }) {
+  if (a.id == null) {
+    l((e) => e.map((i) => ({ ...i, status: "leaving" }))), setTimeout(() => {
+      l((e) => e.filter((i) => i.status !== "leaving"));
+    }, n), t();
     return;
   }
-  u(l.id), r(
-    (e) => e.map((i) => i.id === l.id ? { ...i, status: "leaving" } : i)
+  u(a.id);
+  const r = `toast-id:${a.id}`;
+  console.log(r), l(
+    (e) => e.map((i) => i.id === r ? { ...i, status: "leaving" } : i)
   ), setTimeout(() => {
-    r(
-      (e) => e.filter((i) => !(i.id === l.id && i.status === "leaving"))
+    l(
+      (e) => e.filter((i) => !(i.id === r && i.status === "leaving"))
     );
-  }, a);
+  }, n);
 }
 export {
-  n as default
+  m as default
 };

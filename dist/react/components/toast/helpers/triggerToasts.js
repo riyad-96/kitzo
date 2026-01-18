@@ -11,7 +11,7 @@ const i = (r, t) => {
   );
 };
 i.dismiss = (r) => {
-  e({ action: "dismiss", id: `${r}` });
+  e({ action: "dismiss", id: r });
 };
 i.info = (r, t) => {
   r != null && e(
