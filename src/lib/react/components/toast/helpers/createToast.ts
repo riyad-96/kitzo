@@ -10,7 +10,7 @@ const DEFAULTS = {
   duration: 2800,
   showIcon: true,
   animateTransformOrigin: undefined,
-  swipeToClose: true,
+  swipeToClose: undefined,
 };
 
 let uid = 0;

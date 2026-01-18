@@ -38,7 +38,7 @@ export type Toast = {
   action: ToastAction;
   status: ToastStatus;
   isPromise: boolean;
-  swipeToClose: boolean;
+  swipeToClose: boolean | undefined;
   content: ToastContent;
   zIndex: number;
   duration: number;

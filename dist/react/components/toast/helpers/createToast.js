@@ -2,7 +2,7 @@ const n = {
   duration: 2800,
   showIcon: !0,
   animateTransformOrigin: void 0,
-  swipeToClose: !0
+  swipeToClose: void 0
 };
 let r = 0;
 const d = () => crypto.randomUUID?.() ?? ++r;
