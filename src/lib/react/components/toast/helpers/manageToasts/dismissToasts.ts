@@ -18,9 +18,8 @@ export default function dismissToasts({ toast, setToasts }: ManageToastsProps) {
   clearTimer(toast.id);
 
   // set toast status leaving
-  const id = `toast-id:${toast.id}`;
-  
-  console.log(id);
+  const id = toast.id.includes('toast-id:') ? toast.id : `toast-id:${toast.id}`;
+
   setToasts((prev) =>
     prev.map((t) => (t.id === id ? { ...t, status: 'leaving' } : t)),
   );
