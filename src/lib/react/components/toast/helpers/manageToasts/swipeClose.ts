@@ -10,12 +10,12 @@ export let dragStarted = false;
 
 let activePointerId: number | null = null;
 
-const DRAG_THRESHOLD = 0;
+const DRAG_THRESHOLD = 2;
 const CLOSE_THRESHOLD = 90;
 
 // Resistance settings
-const RESTRICTED_MAX = 90;
-const RESTRICTED_SMOOTHNESS = 120;
+const RESTRICTED_MAX = 20;
+const RESTRICTED_SMOOTHNESS = 100;
 
 // smooth resistance curve
 function resisted(dx: number) {
@@ -68,7 +68,6 @@ function endDrag(releasePointer = true) {
     element.dispatchEvent(event);
   }
 }
-
 
 // Pointer Events
 document.addEventListener('pointerdown', (e: PointerEvent) => {

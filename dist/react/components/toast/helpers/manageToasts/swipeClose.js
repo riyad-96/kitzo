@@ -1,6 +1,6 @@
 import f from "../triggerToasts.js";
 let e = null, l = null, d = 0, r = 0, o = !1, i = !1, a = null;
-const w = 0, m = 90, v = 90, E = 120;
+const w = 2, m = 90, v = 20, E = 100;
 function b(t) {
   const s = Math.sign(t) || 1, n = Math.abs(t), p = v * (1 - Math.exp(-n / E));
   return s * p;
