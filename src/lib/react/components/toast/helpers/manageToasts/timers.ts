@@ -1,5 +1,6 @@
 import type { Dispatch, SetStateAction } from 'react';
 import type { Toast } from '../../types';
+import { dragStarted } from './swipeClose';
 
 type TimersKey = string | number;
 type TimersValue = {
@@ -8,6 +9,7 @@ type TimersValue = {
   startingTime: number;
   totalTime: number;
   remainningTime: number;
+  paused: boolean;
 };
 
 const timers = new Map<TimersKey, TimersValue>();
@@ -78,17 +80,20 @@ export function addTimers(toast: Toast, setToasts: SetToasts) {
     startingTime,
     totalTime: durations.totalTime,
     remainningTime: 0,
+    paused: false,
   });
 }
 
 // pause toast and store remainning time
 export function pauseToast(id: string | number) {
+  // if (dragStarted) return;
+
   const timer = timers.get(id);
 
   if (!timer) return;
 
   // already paused
-  if (timer.remainningTime > 0) return;
+  if (timer.paused) return;
 
   const now = Date.now();
   const passedTime = now - timer.startingTime;
@@ -97,7 +102,7 @@ export function pauseToast(id: string | number) {
   // already expired, don't pause
   if (remainningTime === 0) return;
 
-  timers.set(id, { ...timer, remainningTime });
+  timers.set(id, { ...timer, remainningTime, paused: true });
 
   clearTimeout(timer.leavingTimeoutId);
   clearTimeout(timer.leftTimeoutId);
@@ -105,8 +110,12 @@ export function pauseToast(id: string | number) {
 
 // Resume toast with remainning time
 export function resumeToast(id: string | number, setToasts: SetToasts) {
+  if (dragStarted) return;
+
   const timer = timers.get(id);
   if (!timer) return;
+
+  if (!timer.paused) return;
 
   const durations = getDurations(timer.remainningTime);
   if (!durations) return;
@@ -124,11 +133,11 @@ export function resumeToast(id: string | number, setToasts: SetToasts) {
   }, durations.leftDuration + TRANSITION_DURATION);
 
   timers.set(id, {
-    ...timer,
     startingTime: Date.now(),
     totalTime: timer.remainningTime,
     remainningTime: 0,
     leavingTimeoutId,
     leftTimeoutId,
+    paused: false,
   });
 }

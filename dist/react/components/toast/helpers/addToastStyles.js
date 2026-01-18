@@ -91,6 +91,12 @@ const r = `.kitzo-toaster {
     transform 280ms,
     opacity 280ms;
   will-change: transform, opacity;
+  touch-action: pan-y;
+}
+
+.kitzo-toast.is-swiping {
+  transition: none !important;
+  user-select: none;
 }
 
 /*! toast transfor origin */
@@ -114,86 +120,92 @@ const r = `.kitzo-toaster {
 }
 
 /*! Toast theme styles  */
-.kitzo-toast.type-default {
+.kitzo-toast[data-type='default'] {
   background-color: var(--default-bg);
   color: var(--default-text);
   border: 1px solid var(--default-border);
 }
-.kitzo-toast.type-loading {
+.kitzo-toast[data-type='loading'] {
   background-color: var(--default-bg);
   color: var(--default-text);
   border: 1px solid var(--default-border);
 }
 
-.kitzo-toast.type-success {
+.kitzo-toast[data-type='success'] {
   background-color: var(--success-bg);
   color: var(--success-text);
   border: 1px solid var(--success-border);
 }
 
-.kitzo-toast.type-warning {
+.kitzo-toast[data-type='warning'] {
   background-color: var(--warning-bg);
   color: var(--warning-text);
   border: 1px solid var(--warning-border);
 }
 
-.kitzo-toast.type-error {
+.kitzo-toast[data-type='error'] {
   background-color: var(--error-bg);
   color: var(--error-text);
   border: 1px solid var(--error-border);
 }
 
-.kitzo-toast.type-info {
+.kitzo-toast[data-type='info'] {
   background-color: var(--info-bg);
   color: var(--info-text);
   border: 1px solid var(--info-border);
 }
 
-.kitzo-toast.type-default,
-.kitzo-toast.type-loading,
-.kitzo-toast.type-success,
-.kitzo-toast.type-warning,
-.kitzo-toast.type-error,
-.kitzo-toast.type-info {
+.kitzo-toast[data-type='default'],
+.kitzo-toast[data-type='loading'],
+.kitzo-toast[data-type='success'],
+.kitzo-toast[data-type='warning'],
+.kitzo-toast[data-type='error'],
+.kitzo-toast[data-type='info'] {
   border-radius: 0.425rem;
   padding: 0.375rem 0.625rem;
   box-shadow: 0 3px 8px -3px hsl(0, 0%, 0%, 0.15);
 }
 
 /*! toast transition styles */
-.kitzo-toast.status-entering.pos-y-top {
-  opacity: 0;
-  transform: translateY(-120%) scale(0.6);
+.kitzo-toast {
+  --swipe-x: 0px;
+  --motion-y: 0%;
+  --scale: 0.6;
+  --exit-x: 0px;
 }
 
-.kitzo-toast.status-visible.pos-y-top {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-.kitzo-toast.status-leaving.pos-y-top {
+.kitzo-toast[data-screen-y='top'] {
+  --motion-y: -120%;
   transform-origin: top;
-  opacity: 0;
-  transform: translateY(-120%) scale(0.6);
 }
 
-.kitzo-toast.status-entering.pos-y-bottom {
-  opacity: 0;
-  transform: translateY(120%) scale(0.6);
-}
-
-.kitzo-toast.status-visible.pos-y-bottom {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-.kitzo-toast.status-leaving.pos-y-bottom {
+.kitzo-toast[data-screen-y='bottom'] {
+  --motion-y: 120%;
   transform-origin: bottom;
-  opacity: 0;
-  transform: translateY(120%) scale(0.6);
 }
 
-.action-update {
+.kitzo-toast[data-status='leaving'][data-exit='swipe'] {
+  --motion-y: 0%;
+  --scale: 1;
+}
+
+.kitzo-toast[data-status='entering'] {
+  opacity: 0;
+  transform: translateX(0) translateY(var(--motion-y)) scale(var(--scale));
+}
+
+.kitzo-toast[data-status='visible'] {
+  opacity: 1;
+  transform: translateX(var(--swipe-x)) translateY(0) scale(1);
+}
+
+.kitzo-toast[data-status='leaving'] {
+  opacity: 0;
+  transform: translateX(calc(var(--swipe-x) + var(--exit-x)))
+    translateY(var(--motion-y)) scale(var(--scale));
+}
+
+.kitzo-toast[data-action='update'] {
   animation: update 150ms ease;
 }
 

@@ -1,44 +1,49 @@
-const i = {
+const n = {
   duration: 2800,
   showIcon: !0,
-  animateTransformOrigin: void 0
+  animateTransformOrigin: void 0,
+  swipeToClose: !0
 };
 let r = 0;
-const d = () => crypto.randomUUID?.() ?? `kitzo_toast_id_${++r}`;
-let s = 1;
-function c({
-  type: a,
-  action: e,
-  content: o,
-  options: n
+const d = () => crypto.randomUUID?.() ?? ++r;
+let u = 1;
+function T({
+  type: e,
+  action: s,
+  content: t,
+  isPromise: i,
+  options: a
 }) {
-  const t = typeof n == "object" && n !== null ? n : {};
+  const o = typeof a == "object" && a !== null ? a : {};
   return {
-    id: t.id ?? d(),
-    duration: t.duration ?? i.duration,
-    showIcon: t.showIcon ?? i.showIcon,
-    animateTransformOrigin: t.animateTransformOrigin ?? i.animateTransformOrigin,
-    position: t.position,
-    icon: t.icon,
-    type: a === "default" ? t.type ?? "default" : a,
+    id: `toast-id:${o.id ?? d()}`,
+    duration: o.duration ?? n.duration,
+    showIcon: o.showIcon ?? n.showIcon,
+    animateTransformOrigin: o.animateTransformOrigin ?? n.animateTransformOrigin,
+    position: o.position,
+    icon: o.icon,
+    type: e === "default" ? o.type ?? "default" : e,
     status: "entering",
-    zIndex: ++s,
-    content: o,
-    action: e
+    zIndex: ++u,
+    content: t,
+    action: s,
+    isPromise: !!i,
+    swipeToClose: o.swipeToClose ?? n.swipeToClose
   };
 }
-function T({ id: a, content: e, options: o }) {
-  const n = typeof o == "object" && o !== null ? o : {};
+function l({ id: e, content: s, options: t }) {
+  const i = typeof t == "object" && t !== null ? t : {};
   return {
-    ...n,
-    id: a,
-    content: e,
+    ...i,
+    id: `toast-id:${e}`,
+    content: s,
     action: "update",
-    duration: n.duration ?? i.duration
+    isPromise: !1,
+    duration: i.duration ?? n.duration
   };
 }
 export {
-  c as createToast,
+  T as createToast,
   d as genId,
-  T as updateToast
+  l as updateToast
 };

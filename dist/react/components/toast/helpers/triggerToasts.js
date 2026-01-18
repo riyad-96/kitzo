@@ -1,8 +1,8 @@
-import { createToast as n, updateToast as c, genId as s } from "./createToast.js";
-import { notify as a } from "./listenar.js";
+import { createToast as a, updateToast as s, genId as c } from "./createToast.js";
+import { notify as e } from "./listenar.js";
 const i = (r, t) => {
-  r != null && a(
-    n({
+  r != null && e(
+    a({
       type: "default",
       action: "add",
       content: r,
@@ -11,11 +11,11 @@ const i = (r, t) => {
   );
 };
 i.dismiss = (r) => {
-  a({ action: "dismiss", id: r });
+  e({ action: "dismiss", id: `${r}` });
 };
 i.info = (r, t) => {
-  r != null && a(
-    n({
+  r != null && e(
+    a({
       action: "add",
       type: "info",
       content: r,
@@ -24,8 +24,8 @@ i.info = (r, t) => {
   );
 };
 i.success = (r, t) => {
-  r != null && a(
-    n({
+  r != null && e(
+    a({
       action: "add",
       type: "success",
       content: r,
@@ -34,8 +34,8 @@ i.success = (r, t) => {
   );
 };
 i.warning = (r, t) => {
-  r != null && a(
-    n({
+  r != null && e(
+    a({
       action: "add",
       type: "warning",
       content: r,
@@ -44,8 +44,8 @@ i.warning = (r, t) => {
   );
 };
 i.error = (r, t) => {
-  r != null && a(
-    n({
+  r != null && e(
+    a({
       action: "add",
       type: "error",
       content: r,
@@ -54,8 +54,8 @@ i.error = (r, t) => {
   );
 };
 i.loading = (r, t) => {
-  r != null && a(
-    n({
+  r != null && e(
+    a({
       action: "add",
       type: "loading",
       content: r,
@@ -64,8 +64,8 @@ i.loading = (r, t) => {
   );
 };
 i.custom = (r, t) => {
-  r != null && a(
-    n({
+  r != null && e(
+    a({
       action: "add",
       type: "custom",
       content: r,
@@ -73,25 +73,26 @@ i.custom = (r, t) => {
     })
   );
 };
-i.update = (r, t, e) => {
-  t != null && a(c({ id: r, content: t, options: e }));
+i.update = (r, t, n) => {
+  t != null && e(s({ id: `${r}`, content: t, options: n }));
 };
-i.promise = (async (r, t, e) => {
-  const u = s();
-  a(
-    n({
+i.promise = (async (r, t, n) => {
+  const u = c();
+  e(
+    a({
       action: "add",
       type: "loading",
       content: t.loading,
-      options: { ...e, id: u, duration: 1 / 0 }
+      isPromise: !0,
+      options: { ...n, id: u, duration: 1 / 0 }
     })
   );
   try {
     const o = await r, d = typeof t.success == "function" ? await t.success(o) : t.success;
-    return i.update(u, d, { ...e, type: "success" }), o;
+    return i.update(u, d, { ...n, type: "success" }), o;
   } catch (o) {
     const d = typeof t.error == "function" ? await t.error(o) : t.error;
-    throw i.update(u, d, { ...e, type: "error" }), o;
+    throw i.update(u, d, { ...n, type: "error" }), o;
   }
 });
 export {

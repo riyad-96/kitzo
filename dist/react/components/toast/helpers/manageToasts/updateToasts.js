@@ -1,10 +1,9 @@
-import { addTimers as u } from "./timers.js";
-function t({ toast: e, setToasts: d }) {
-  let r = !0;
-  d((s) => s.find((i) => i.id === e.id) ? s.map(
-    (i) => i.id === e.id ? { ...i, ...e, status: "visible" } : i
-  ) : (r = !1, s)), r && u(e, d);
+import { clearTimer as n, addTimers as u } from "./timers.js";
+function s({ toast: i, setToasts: r }) {
+  r((e) => e.find((d) => d.id === i.id) ? (n(i.id), u(i, r), e.map(
+    (d) => d.id === i.id ? { ...d, ...i, status: "visible" } : d
+  )) : e);
 }
 export {
-  t as default
+  s as default
 };

@@ -1,19 +1,20 @@
-import { jsx as f } from "react/jsx-runtime";
-import { useRef as d, useLayoutEffect as b } from "react";
-import g from "./Toast.js";
-import { useToasterContext as h } from "../context/ToasterContext.js";
+import { jsx as l } from "react/jsx-runtime";
+import { useRef as b, useLayoutEffect as g } from "react";
+import h from "./Toast.js";
+import { useToasterContext as x } from "../context/ToasterContext.js";
 function v({ t }) {
   const {
     updateOffsets: s,
-    position: c,
-    animateTransformOrigin: l
-  } = h(), r = d(null);
-  b(() => {
-    const e = r.current;
+    position: f,
+    animateTransformOrigin: c,
+    swipeToClose: p
+  } = x(), i = b(null);
+  g(() => {
+    const e = i.current;
     if (!e) return;
     const a = new ResizeObserver(() => {
-      const p = e.offsetHeight;
-      e.style.setProperty("--toast-height", `${p}px`), s();
+      const T = e.offsetHeight;
+      e.style.setProperty("--toast-height", `${T}px`), s();
     });
     return a.observe(e), () => a.disconnect();
   }, [s]);
@@ -24,11 +25,11 @@ function v({ t }) {
     "bottom-left",
     "bottom-center",
     "bottom-right"
-  ], i = t.position || c, o = m.includes(i) ? i : "top-center", n = o?.includes("bottom"), u = typeof t.animateTransformOrigin == "boolean" ? t.animateTransformOrigin : l;
-  return /* @__PURE__ */ f(
+  ], r = t.position || f, o = m.includes(r) ? r : "top-center", n = o?.includes("bottom"), u = typeof t.animateTransformOrigin == "boolean" ? t.animateTransformOrigin : !!c, d = typeof t.swipeToClose == "boolean" ? t.swipeToClose : !!p;
+  return /* @__PURE__ */ l(
     "div",
     {
-      ref: r,
+      ref: i,
       "data-toast-container": !0,
       "data-toast-position": o,
       style: {
@@ -43,12 +44,13 @@ function v({ t }) {
         bottom: n ? 0 : "auto",
         transform: `translateY(calc(var(--toast-offset-y, 0px) * ${n ? -1 : 1}))`
       },
-      children: /* @__PURE__ */ f(
-        g,
+      children: /* @__PURE__ */ l(
+        h,
         {
           t,
           position: o,
-          shouldAnimateTransformOrigin: u
+          shouldAnimateTransformOrigin: u,
+          swipeToClose: d
         }
       )
     }

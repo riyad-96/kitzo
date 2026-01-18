@@ -1,3 +1,5 @@
+import './style.css';
+
 import {
   useCallback,
   useEffect,
@@ -20,6 +22,7 @@ export default function Toaster(props: ToasterProps) {
     edgeOffset = 16,
     isDark = window.matchMedia('(prefers-color-scheme: dark)').matches,
     pauseOnHover = true,
+    swipeToClose = true,
   } = props;
 
   const [toasts, setToasts] = useState<Toast[]>([]);
@@ -64,6 +67,7 @@ export default function Toaster(props: ToasterProps) {
 
   useLayoutEffect(() => {
     updateOffsets();
+    console.log(toasts);
   }, [toasts, updateOffsets]);
 
   return (
@@ -96,6 +100,7 @@ export default function Toaster(props: ToasterProps) {
             edgeOffset,
             animateTransformOrigin,
             pauseOnHover,
+            swipeToClose,
             setToasts,
             updateOffsets,
           }}

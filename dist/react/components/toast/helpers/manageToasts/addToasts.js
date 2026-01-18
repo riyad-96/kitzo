@@ -1,12 +1,11 @@
-import { addTimers as f } from "./timers.js";
-function m({ toast: r, setToasts: e }) {
-  let n = !1;
-  e((i) => (n = !!i.find((d) => d.id === r.id), n ? i : [r, ...i])), !n && (requestAnimationFrame(() => {
-    e(
-      (i) => i.map((d) => d.id === r.id ? { ...d, status: "visible" } : d)
+import { addTimers as s } from "./timers.js";
+function e({ toast: d, setToasts: r }) {
+  r((i) => i.find((m) => m.id === d.id) ? i : [d, ...i]), requestAnimationFrame(() => {
+    r(
+      (i) => i.map((n) => n.id === d.id ? { ...n, status: "visible" } : n)
     );
-  }), f(r, e));
+  }), s(d, r);
 }
 export {
-  m as default
+  e as default
 };

@@ -27,15 +27,18 @@ export type ToastOptions = {
   animateTransformOrigin?: boolean;
   id?: string | number;
   type?: ToastType;
+  swipeToClose?: boolean;
 };
 
 export type ToastContent = ((dismiss: () => void) => ReactNode) | ReactNode;
 
 export type Toast = {
-  id: string | number;
+  id: string;
   type: ToastType;
   action: ToastAction;
   status: ToastStatus;
+  isPromise: boolean;
+  swipeToClose: boolean;
   content: ToastContent;
   zIndex: number;
   duration: number;
@@ -49,7 +52,7 @@ type ToastOptionsWithoutType = Omit<ToastOptions, 'type'>;
 type UpdateToastOptions = Omit<ToastOptions, 'id'>;
 type Options = ToastOptionsWithoutType;
 
-export type PromiseToastOptions = Omit<ToastOptions, 'id' | 'type'>;
+export type PromiseToastOptions = Omit<ToastOptions, 'id' | 'type' | 'swipeToClose'>;
 
 export type PromiseToastMsgs<T, E = unknown> = {
   loading: ReactNode;
@@ -87,4 +90,5 @@ export type ToasterProps = {
   edgeOffset?: number | `${number}`;
   isDark?: boolean;
   pauseOnHover?: boolean;
+  swipeToClose?: boolean;
 };

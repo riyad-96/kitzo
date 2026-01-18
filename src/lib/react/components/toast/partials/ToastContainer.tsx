@@ -3,15 +3,12 @@ import type { Positions, Toast } from '../types';
 import ToastContent from './Toast';
 import { useToasterContext } from '../context/ToasterContext';
 
-type ToastContainerProps = {
-  t: Toast;
-};
-
-export default function ToastContainer({ t }: ToastContainerProps) {
+export default function ToastContainer({ t }: { t: Toast }) {
   const {
     updateOffsets,
     position: containerPosition,
     animateTransformOrigin,
+    swipeToClose,
   } = useToasterContext();
 
   const ref = useRef<HTMLDivElement | null>(null);
@@ -49,7 +46,12 @@ export default function ToastContainer({ t }: ToastContainerProps) {
   const shouldAnimateTransformOrigin =
     typeof t.animateTransformOrigin === 'boolean'
       ? t.animateTransformOrigin
-      : animateTransformOrigin;
+      : Boolean(animateTransformOrigin);
+
+  const isSwipeToCloseAllowed =
+    typeof t.swipeToClose === 'boolean'
+      ? t.swipeToClose
+      : Boolean(swipeToClose);
 
   return (
     <div
@@ -77,6 +79,7 @@ export default function ToastContainer({ t }: ToastContainerProps) {
         t={t}
         position={position as Positions}
         shouldAnimateTransformOrigin={shouldAnimateTransformOrigin}
+        swipeToClose={isSwipeToCloseAllowed}
       />
     </div>
   );

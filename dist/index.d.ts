@@ -27,7 +27,7 @@ declare type PromiseToastMsgs<T, E = unknown> = {
     error: ReactNode | ((err: E) => ReactNode | Promise<ReactNode>);
 };
 
-declare type PromiseToastOptions = Omit<ToastOptions, 'id' | 'type'>;
+declare type PromiseToastOptions = Omit<ToastOptions, 'id' | 'type' | 'swipeToClose'>;
 
 export declare const toast: ToastFn;
 
@@ -43,6 +43,7 @@ declare type ToasterProps = {
     edgeOffset?: number | `${number}`;
     isDark?: boolean;
     pauseOnHover?: boolean;
+    swipeToClose?: boolean;
 };
 
 declare type ToastFn = {
@@ -66,6 +67,7 @@ declare type ToastOptions = {
     animateTransformOrigin?: boolean;
     id?: string | number;
     type?: ToastType;
+    swipeToClose?: boolean;
 };
 
 declare type ToastOptionsWithoutType = Omit<ToastOptions, 'type'>;

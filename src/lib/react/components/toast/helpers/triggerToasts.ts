@@ -20,7 +20,7 @@ const toast: ToastFn = (content, options) => {
 };
 
 toast.dismiss = (id) => {
-  notify({ action: 'dismiss', id });
+  notify({ action: 'dismiss', id: `${id}` });
 };
 
 toast.info = (content, options) => {
@@ -92,7 +92,7 @@ toast.custom = (content, options) => {
 
 toast.update = (id, content, options) => {
   if (content == null) return;
-  notify(updateToast({ id, content, options }));
+  notify(updateToast({ id: `${id}`, content, options }));
 };
 
 toast.promise = (async <T, E = unknown>(
@@ -107,6 +107,7 @@ toast.promise = (async <T, E = unknown>(
       action: 'add',
       type: 'loading',
       content: msgs.loading,
+      isPromise: true,
       options: { ...options, id, duration: Infinity },
     }),
   );
