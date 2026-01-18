@@ -121,7 +121,7 @@ document.addEventListener('pointerup', () => {
 
   if (dragStarted && allowed && Math.abs(currentX) > CLOSE_THRESHOLD) {
     const direction = currentX > 0 ? 1 : -1;
-    const exitDistance = window.innerWidth / 2 + 50;
+    const exitDistance = Math.abs(currentX) + 300;
     activeToast.style.setProperty('--exit-x', `${direction * exitDistance}px`);
     activeToast.dataset.exit = 'swipe';
     toast.dismiss(activeToastId);
