@@ -67,7 +67,6 @@ export default function Toaster(props: ToasterProps) {
 
   useLayoutEffect(() => {
     updateOffsets();
-    console.log(toasts);
   }, [toasts, updateOffsets]);
 
   return (

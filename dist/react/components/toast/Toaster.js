@@ -8,18 +8,18 @@ import { ToasterContext as w } from "./context/ToasterContext.js";
 function q(m) {
   const {
     position: d = "top-center",
-    richColors: f = !1,
+    richColors: c = !1,
     animateTransformOrigin: h = !0,
     gap: e = 8,
     edgeOffset: r = 16,
-    isDark: p = window.matchMedia("(prefers-color-scheme: dark)").matches,
+    isDark: f = window.matchMedia("(prefers-color-scheme: dark)").matches,
     pauseOnHover: g = !0,
     swipeToClose: y = !0
-  } = m, [a, l] = v([]);
+  } = m, [p, l] = v([]);
   x(() => O((o) => z({ toast: o, setToasts: l })), []);
-  const i = T(null), n = C(() => {
-    if (!i.current) return;
-    const t = i.current.querySelectorAll("[data-toast-container]"), o = {
+  const a = T(null), i = C(() => {
+    if (!a.current) return;
+    const t = a.current.querySelectorAll("[data-toast-container]"), o = {
       "top-left": 0,
       "top-center": 0,
       "top-right": 0,
@@ -27,19 +27,19 @@ function q(m) {
       "bottom-center": 0,
       "bottom-right": 0
     };
-    t.forEach((c) => {
-      const u = c.getAttribute("data-toast-position") || "top-center", b = parseFloat(c.style.getPropertyValue("--toast-height")) || 0;
-      c.style.setProperty("--toast-offset-y", `${o[u]}px`);
+    t.forEach((n) => {
+      const u = n.getAttribute("data-toast-position") || "top-center", b = parseFloat(n.style.getPropertyValue("--toast-height")) || 0;
+      n.style.setProperty("--toast-offset-y", `${o[u]}px`);
       const k = isNaN(+e) ? 8 : +e;
       o[u] += b + k;
     });
   }, [e]);
   return E(() => {
-    n(), console.log(a);
-  }, [a, n]), /* @__PURE__ */ s(
+    i();
+  }, [p, i]), /* @__PURE__ */ s(
     "div",
     {
-      ref: i,
+      ref: a,
       style: {
         position: "fixed",
         inset: 0,
@@ -48,7 +48,7 @@ function q(m) {
         display: "grid",
         padding: r != null ? `${Math.max(Math.min(+r, 200), 0)}px` : 16
       },
-      className: `kitzo-toaster ${f ? "kitzo-toaster-rich-colors" : ""} ${p ? "kitzo-toaster-dark" : ""}`,
+      className: `kitzo-toaster ${c ? "kitzo-toaster-rich-colors" : ""} ${f ? "kitzo-toaster-dark" : ""}`,
       children: /* @__PURE__ */ s(
         "div",
         {
@@ -60,17 +60,17 @@ function q(m) {
             {
               value: {
                 position: d,
-                richColors: f,
-                isDark: p,
+                richColors: c,
+                isDark: f,
                 gap: e,
                 edgeOffset: r,
                 animateTransformOrigin: h,
                 pauseOnHover: g,
                 swipeToClose: y,
                 setToasts: l,
-                updateOffsets: n
+                updateOffsets: i
               },
-              children: a.map((t) => /* @__PURE__ */ s($, { t }, t.id))
+              children: p.map((t) => /* @__PURE__ */ s($, { t }, t.id))
             }
           )
         }
