@@ -69,13 +69,11 @@ function endDrag(releasePointer = true) {
   }
 }
 
-// Pointer Events
+// pointer down event
 document.addEventListener('pointerdown', (e: PointerEvent) => {
   const target = e.target as HTMLElement;
   const toastEl = target.closest('.kitzo-toast') as HTMLDivElement | null;
   if (!toastEl) return;
-
-  document.body.style.userSelect = 'none';
 
   activeToast = toastEl;
   activeToastId = toastEl.id;
@@ -85,14 +83,9 @@ document.addEventListener('pointerdown', (e: PointerEvent) => {
   isDragging = true;
   dragStarted = false;
   activePointerId = e.pointerId;
-
-  try {
-    toastEl.setPointerCapture(e.pointerId);
-  } catch {
-    console.error('');
-  }
 });
 
+// pointer move event
 document.addEventListener('pointermove', (e: PointerEvent) => {
   if (!isDragging || !activeToast) return;
 
@@ -101,6 +94,13 @@ document.addEventListener('pointermove', (e: PointerEvent) => {
   if (!dragStarted && Math.abs(currentX) > DRAG_THRESHOLD) {
     dragStarted = true;
     activeToast.classList.add('is-swiping');
+
+    try {
+      activeToast.setPointerCapture(e.pointerId);
+      document.body.style.userSelect = 'none';
+    } catch {
+      console.error('Failed to capture pointer');
+    }
   }
 
   if (!dragStarted) return;
@@ -111,6 +111,7 @@ document.addEventListener('pointermove', (e: PointerEvent) => {
   activeToast.style.setProperty('--swipe-x', `${displayX}px`);
 });
 
+// pointer up event
 document.addEventListener('pointerup', () => {
   if (!isDragging || !activeToast || activeToastId == null) {
     endDrag();

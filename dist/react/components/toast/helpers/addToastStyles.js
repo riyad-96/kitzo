@@ -96,7 +96,6 @@ const r = `.kitzo-toaster {
 
 .kitzo-toast.is-swiping {
   transition: none !important;
-  user-select: none;
 }
 
 /*! toast transfor origin */

@@ -31,17 +31,19 @@ function c(t = !0) {
 }
 document.addEventListener("pointerdown", (t) => {
   const s = t.target.closest(".kitzo-toast");
-  if (s) {
-    document.body.style.userSelect = "none", e = s, l = s.id, u = t.clientX, r = 0, i = !0, o = !1, a = t.pointerId;
-    try {
-      s.setPointerCapture(t.pointerId);
-    } catch {
-      console.error("");
-    }
-  }
+  s && (e = s, l = s.id, u = t.clientX, r = 0, i = !0, o = !1, a = t.pointerId);
 });
 document.addEventListener("pointermove", (t) => {
-  if (!i || !e || (r = t.clientX - u, !o && Math.abs(r) > w && (o = !0, e.classList.add("is-swiping")), !o)) return;
+  if (!i || !e) return;
+  if (r = t.clientX - u, !o && Math.abs(r) > w) {
+    o = !0, e.classList.add("is-swiping");
+    try {
+      e.setPointerCapture(t.pointerId), document.body.style.userSelect = "none";
+    } catch {
+      console.error("Failed to capture pointer");
+    }
+  }
+  if (!o) return;
   const s = d(e) ? r : b(r);
   e.style.setProperty("--swipe-x", `${s}px`);
 });
