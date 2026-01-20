@@ -1,27 +1,27 @@
-import { jsxs as x, jsx as e, Fragment as a } from "react/jsx-runtime";
-import { resumeToast as d, pauseToast as m } from "../helpers/manageToasts/timers.js";
+import { jsxs as x, jsx as t, Fragment as o } from "react/jsx-runtime";
+import { resumeToast as m, pauseToast as p } from "../helpers/manageToasts/timers.js";
 import S from "../helpers/triggerToasts.js";
-import { InfoSvg as w, ErrorSvg as T, WarningSvg as E, SuccessSvg as k, LoadingSvg as I } from "./Svgs.js";
+import { InfoSvg as w, ErrorSvg as E, WarningSvg as T, SuccessSvg as k, LoadingSvg as I } from "./Svgs.js";
 import { useToasterContext as L } from "../context/ToasterContext.js";
 function C({
-  t: p,
-  position: o,
-  shouldAnimateTransformOrigin: u,
-  swipeToClose: f
+  t: f,
+  position: n,
+  shouldAnimateTransformOrigin: c,
+  swipeToClose: u
 }) {
-  const { setToasts: c, pauseOnHover: s } = L(), { id: t, type: r, action: g, content: i, status: v, showIcon: h, icon: n, isPromise: y } = p, l = {
-    loading: /* @__PURE__ */ e(I, {}),
-    success: /* @__PURE__ */ e(k, {}),
-    warning: /* @__PURE__ */ e(E, {}),
-    error: /* @__PURE__ */ e(T, {}),
-    info: /* @__PURE__ */ e(w, {}),
+  const { setToasts: l, pauseOnHover: s } = L(), { id: e, type: r, action: g, content: i, status: v, showIcon: h, icon: a, isPromise: y } = f, d = {
+    loading: /* @__PURE__ */ t(I, {}),
+    success: /* @__PURE__ */ t(k, {}),
+    warning: /* @__PURE__ */ t(T, {}),
+    error: /* @__PURE__ */ t(E, {}),
+    info: /* @__PURE__ */ t(w, {}),
     default: null,
     custom: null
   };
   return /* @__PURE__ */ x(
     "div",
     {
-      id: t,
+      id: e,
       style: {
         pointerEvents: "all",
         display: "flex",
@@ -32,34 +32,36 @@ function C({
       "data-action": g,
       "data-status": v,
       "data-type": r,
-      "data-screen-x": o.split("-")[1],
-      "data-screen-y": o.split("-")[0],
+      "data-position": n,
+      "data-screen-x": n.split("-")[1],
+      "data-screen-y": n.split("-")[0],
       "data-exit": "auto",
       "data-is-promise": y,
-      "data-swipeable": f,
-      className: `kitzo-toast ${u ? `transform-origin-${o}` : ""}`,
-      onPointerEnter: () => s && m(t),
-      onPointerLeave: () => s && d(t, c),
-      onMouseEnter: () => s && m(t),
-      onMouseLeave: () => s && d(t, c),
+      "data-swipeable": u,
+      "data-animate-transform-origin": c,
+      className: `kitzo-toast ${c ? `transform-origin-${n}` : ""}`,
+      onPointerEnter: () => s && p(e),
+      onPointerLeave: () => s && m(e, l),
+      onMouseEnter: () => s && p(e),
+      onMouseLeave: () => s && m(e, l),
       children: [
-        h && /* @__PURE__ */ e(a, { children: n ? /* @__PURE__ */ e(a, { children: typeof n == "string" || typeof n == "number" ? /* @__PURE__ */ e(
+        h && /* @__PURE__ */ t(o, { children: a ? /* @__PURE__ */ t(o, { children: typeof a == "string" || typeof a == "number" ? /* @__PURE__ */ t(
           "div",
           {
             style: {
               flexShrink: 0
             },
             className: "svg-container",
-            children: n
+            children: a
           }
-        ) : /* @__PURE__ */ e(a, { children: n }) }) : /* @__PURE__ */ e(a, { children: l[r] && /* @__PURE__ */ e("div", { style: { flexShrink: 0 }, className: "svg-container", children: l[r] }) }) }),
-        /* @__PURE__ */ e(
+        ) : /* @__PURE__ */ t(o, { children: a }) }) : /* @__PURE__ */ t(o, { children: d[r] && /* @__PURE__ */ t("div", { style: { flexShrink: 0 }, className: "svg-container", children: d[r] }) }) }),
+        /* @__PURE__ */ t(
           "div",
           {
             style: {
               flex: 1
             },
-            children: typeof i == "function" ? i(() => S.dismiss(t)) : i
+            children: typeof i == "function" ? i(() => S.dismiss(e)) : i
           }
         )
       ]

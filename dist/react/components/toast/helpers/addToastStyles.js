@@ -1,4 +1,4 @@
-const r = `.kitzo-toaster {
+const o = `.kitzo-toaster {
   --default-bg: hsl(0, 0%, 100%);
   --default-text: hsl(0, 0%, 10%);
   --default-border: hsl(0, 0%, 94%);
@@ -98,26 +98,6 @@ const r = `.kitzo-toaster {
   transition: none !important;
 }
 
-/*! toast transfor origin */
-.kitzo-toast.transform-origin-top-left {
-  transform-origin: top left;
-}
-.kitzo-toast.transform-origin-top-center {
-  transform-origin: top center;
-}
-.kitzo-toast.transform-origin-top-right {
-  transform-origin: top right;
-}
-.kitzo-toast.transform-origin-bottom-left {
-  transform-origin: bottom left;
-}
-.kitzo-toast.transform-origin-bottom-center {
-  transform-origin: bottom center;
-}
-.kitzo-toast.transform-origin-bottom-right {
-  transform-origin: bottom right;
-}
-
 /*! Toast theme styles  */
 .kitzo-toast[data-type='default'] {
   background-color: var(--default-bg);
@@ -175,12 +155,10 @@ const r = `.kitzo-toaster {
 
 .kitzo-toast[data-screen-y='top'] {
   --motion-y: -120%;
-  transform-origin: top;
 }
 
 .kitzo-toast[data-screen-y='bottom'] {
   --motion-y: 120%;
-  transform-origin: bottom;
 }
 
 .kitzo-toast[data-status='leaving'][data-exit='swipe'] {
@@ -217,6 +195,40 @@ const r = `.kitzo-toaster {
     opacity: 1;
     transform: scale(1);
   }
+}
+
+/*! toast transfor origin */
+.kitzo-toast[data-position^='top'] {
+  transform-origin: top;
+}
+.kitzo-toast[data-position^='bottom'] {
+  transform-origin: bottom;
+}
+
+.kitzo-toast[data-animate-transform-origin='true'][data-position='top-left'] {
+  transform-origin: top left;
+}
+.kitzo-toast[data-animate-transform-origin='true'][data-position='top-center'] {
+  transform-origin: top;
+}
+.kitzo-toast[data-animate-transform-origin='true'][data-position='top-right'] {
+  transform-origin: top right;
+}
+.kitzo-toast[data-animate-transform-origin='true'][data-position='bottom-left'] {
+  transform-origin: bottom left;
+}
+.kitzo-toast[data-animate-transform-origin='true'][data-position='bottom-center'] {
+  transform-origin: bottom;
+}
+.kitzo-toast[data-animate-transform-origin='true'][data-position='bottom-right'] {
+  transform-origin: bottom right;
+}
+
+.kitzo-toast[data-status='leaving'][data-position^='top'] {
+  transform-origin: top;
+}
+.kitzo-toast[data-status='leaving'][data-position^='bottom'] {
+  transform-origin: bottom;
 }
 
 /*! svg stylings */
@@ -259,12 +271,12 @@ const r = `.kitzo-toaster {
     rotate: 360deg;
   }
 }`;
-function o() {
+function a() {
   if (!document.getElementById("kitzo-toast-styles")) {
     const t = document.createElement("style");
-    t.id = "kitzo-toast-styles", t.textContent = r, document.head.appendChild(t);
+    t.id = "kitzo-toast-styles", t.textContent = o, document.head.appendChild(t);
   }
 }
 export {
-  o as default
+  a as default
 };

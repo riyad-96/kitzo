@@ -43,11 +43,13 @@ export default function ToastContent({
       data-action={action}
       data-status={status}
       data-type={type}
+      data-position={position}
       data-screen-x={position.split('-')[1]}
       data-screen-y={position.split('-')[0]}
       data-exit={'auto'}
       data-is-promise={isPromise}
       data-swipeable={swipeToClose}
+      data-animate-transform-origin={shouldAnimateTransformOrigin}
       className={`kitzo-toast ${shouldAnimateTransformOrigin ? `transform-origin-${position}` : ''}`}
       onPointerEnter={() => pauseOnHover && pauseToast(id)}
       onPointerLeave={() => pauseOnHover && resumeToast(id, setToasts)}
