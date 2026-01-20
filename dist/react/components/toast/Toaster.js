@@ -1,30 +1,34 @@
-import { jsx as r } from "react/jsx-runtime";
-import { useState as k, useEffect as v, useRef as x, useCallback as C, useLayoutEffect as w } from "react";
+import { jsx as a } from "react/jsx-runtime";
+import t from "react";
 import { subscribe as E } from "./helpers/listenar.js";
-import O from "./helpers/manageToasts/manageToasts.js";
-import z from "./partials/ToastContainer.js";
-import { ToasterContext as S } from "./context/ToasterContext.js";
-import { initSwipeToClose as $ } from "./helpers/manageToasts/swipeClose.js";
-function D(m) {
+import w from "./helpers/manageToasts/manageToasts.js";
+import M from "./partials/ToastContainer.js";
+import { ToasterContext as O } from "./context/ToasterContext.js";
+import { initSwipeToClose as S } from "./helpers/manageToasts/swipeClose.js";
+function I(d) {
   const {
-    position: d = "top-center",
-    richColors: c = !1,
-    animateTransformOrigin: h = !0,
-    gap: o = 8,
-    edgeOffset: a = 16,
-    isDark: p = window.matchMedia("(prefers-color-scheme: dark)").matches,
-    pauseOnHover: g = !0,
-    swipeToClose: b = !0
-  } = m, [f, l] = k([]);
-  v(() => {
-    const t = E((e) => O({ toast: e, setToasts: l })), s = $();
+    position: h = "top-center",
+    richColors: p = !1,
+    animateTransformOrigin: g = !0,
+    gap: s = 8,
+    edgeOffset: i = 16,
+    isDark: n,
+    pauseOnHover: b = !0,
+    swipeToClose: y = !0
+  } = d, [k, T] = t.useState(!1);
+  t.useEffect(() => {
+    T(!0);
+  }, []);
+  const [u, l] = t.useState([]);
+  t.useEffect(() => {
+    const e = E((o) => w({ toast: o, setToasts: l })), r = S();
     return () => {
-      t(), s();
+      e(), r();
     };
   }, []);
-  const i = x(null), n = C(() => {
-    if (!i.current) return;
-    const t = i.current.querySelectorAll("[data-toast-container]"), s = {
+  const c = t.useRef(null), f = t.useCallback(() => {
+    if (!c.current) return;
+    const e = c.current.querySelectorAll("[data-toast-container]"), r = {
       "top-left": 0,
       "top-center": 0,
       "top-right": 0,
@@ -32,50 +36,52 @@ function D(m) {
       "bottom-center": 0,
       "bottom-right": 0
     };
-    t.forEach((e) => {
-      const u = e.getAttribute("data-toast-position") || "top-center", y = parseFloat(e.style.getPropertyValue("--toast-height")) || 0;
-      e.style.setProperty("--toast-offset-y", `${s[u]}px`);
-      const T = isNaN(+o) ? 8 : +o;
-      s[u] += y + T;
+    e.forEach((o) => {
+      const m = o.getAttribute("data-toast-position") || "top-center", x = parseFloat(o.style.getPropertyValue("--toast-height")) || 0;
+      o.style.setProperty("--toast-offset-y", `${r[m]}px`);
+      const C = isNaN(+s) ? 8 : +s;
+      r[m] += x + C;
     });
-  }, [o]);
-  return w(() => {
-    n();
-  }, [f, n]), /* @__PURE__ */ r(
+  }, [s]);
+  if (t.useLayoutEffect(() => {
+    f();
+  }, [u, f]), !k) return null;
+  const v = typeof n == "boolean" ? n : window.matchMedia("(prefers-color-scheme: dark)").matches;
+  return /* @__PURE__ */ a(
     "div",
     {
-      ref: i,
+      ref: c,
       style: {
         position: "fixed",
         inset: 0,
         zIndex: 2147483647,
         pointerEvents: "none",
         display: "grid",
-        padding: a != null ? `${Math.max(Math.min(+a, 200), 0)}px` : 16
+        padding: i != null ? `${Math.max(Math.min(+i, 200), 0)}px` : 16
       },
-      className: `kitzo-toaster ${c ? "kitzo-toaster-rich-colors" : ""} ${p ? "kitzo-toaster-dark" : ""}`,
-      children: /* @__PURE__ */ r(
+      className: `kitzo-toaster ${p ? "kitzo-toaster-rich-colors" : ""} ${v ? "kitzo-toaster-dark" : ""}`,
+      children: /* @__PURE__ */ a(
         "div",
         {
           style: {
             position: "relative"
           },
-          children: /* @__PURE__ */ r(
-            S.Provider,
+          children: /* @__PURE__ */ a(
+            O.Provider,
             {
               value: {
-                position: d,
-                richColors: c,
-                isDark: p,
-                gap: o,
-                edgeOffset: a,
-                animateTransformOrigin: h,
-                pauseOnHover: g,
-                swipeToClose: b,
+                position: h,
+                richColors: p,
+                isDark: n,
+                gap: s,
+                edgeOffset: i,
+                animateTransformOrigin: g,
+                pauseOnHover: b,
+                swipeToClose: y,
                 setToasts: l,
-                updateOffsets: n
+                updateOffsets: f
               },
-              children: f.map((t) => /* @__PURE__ */ r(z, { t }, t.id))
+              children: u.map((e) => /* @__PURE__ */ a(M, { t: e }, e.id))
             }
           )
         }
@@ -84,5 +90,5 @@ function D(m) {
   );
 }
 export {
-  D as default
+  I as default
 };

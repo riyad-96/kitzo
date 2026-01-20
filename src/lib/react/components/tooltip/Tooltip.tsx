@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode } from 'react';
+import React, { type CSSProperties, type ReactNode } from 'react';
 import addTooltipStyles from './helpers/addTooltipStyles';
 import type { AnimationOptions, TooltipProps } from './types';
 import getPositionClass from './helpers/getPositionClass';
@@ -17,6 +17,15 @@ export default function Tooltip(props: TooltipProps): ReactNode {
     hideOnTouch = true,
     isDark,
   } = props;
+
+  const [isMounted, setIsMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsMounted(true);
+    addTooltipStyles();
+  }, []);
+
+  if (!isMounted) return null;
 
   if (typeof isHidden === 'boolean' && isHidden) return <>{children}</>;
 
@@ -57,9 +66,6 @@ export default function Tooltip(props: TooltipProps): ReactNode {
   const finalAnimationProperties = getAnimationProperties(
     animationObj as AnimationOptions,
   );
-
-  // Add styles once
-  addTooltipStyles();
 
   return (
     <div

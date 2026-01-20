@@ -1,12 +1,4 @@
-'use client';
-
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import React from 'react';
 import type { Positions, Toast, ToasterProps } from './types';
 import { subscribe } from './helpers/listenar';
 import manageToasts from './helpers/manageToasts/manageToasts';
@@ -21,14 +13,20 @@ export default function Toaster(props: ToasterProps) {
     animateTransformOrigin = true,
     gap = 8,
     edgeOffset = 16,
-    isDark = window.matchMedia('(prefers-color-scheme: dark)').matches,
+    isDark,
     pauseOnHover = true,
     swipeToClose = true,
   } = props;
 
-  const [toasts, setToasts] = useState<Toast[]>([]);
+  const [isMounted, setIsMounted] = React.useState(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const [toasts, setToasts] = React.useState<Toast[]>([]);
+
+  React.useEffect(() => {
     const unsub = subscribe((toast) => manageToasts({ toast, setToasts }));
     const unsubscribeSwipeToClose = initSwipeToClose();
     return () => {
@@ -37,10 +35,10 @@ export default function Toaster(props: ToasterProps) {
     };
   }, []);
 
-  const toasterRef = useRef<HTMLDivElement | null>(null);
+  const toasterRef = React.useRef<HTMLDivElement | null>(null);
 
   // direct dom update
-  const updateOffsets = useCallback(() => {
+  const updateOffsets = React.useCallback(() => {
     if (!toasterRef.current) return;
 
     // get all toast elements
@@ -70,9 +68,16 @@ export default function Toaster(props: ToasterProps) {
     });
   }, [gap]);
 
-  useLayoutEffect(() => {
+  React.useLayoutEffect(() => {
     updateOffsets();
   }, [toasts, updateOffsets]);
+
+  if (!isMounted) return null;
+
+  const prefersDark =
+    typeof isDark === 'boolean'
+      ? isDark
+      : window.matchMedia('(prefers-color-scheme: dark)').matches;
 
   return (
     <div
@@ -88,7 +93,7 @@ export default function Toaster(props: ToasterProps) {
             ? `${Math.max(Math.min(+edgeOffset, 200), 0)}px`
             : 16,
       }}
-      className={`kitzo-toaster ${richColors ? 'kitzo-toaster-rich-colors' : ''} ${isDark ? 'kitzo-toaster-dark' : ''}`}
+      className={`kitzo-toaster ${richColors ? 'kitzo-toaster-rich-colors' : ''} ${prefersDark ? 'kitzo-toaster-dark' : ''}`}
     >
       <div
         style={{

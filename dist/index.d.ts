@@ -33,7 +33,7 @@ export declare const toast: ToastFn;
 
 declare type ToastContent = ((dismiss: () => void) => ReactNode) | ReactNode;
 
-export declare function Toaster(props: ToasterProps): JSX.Element;
+export declare function Toaster(props: ToasterProps): JSX.Element | null;
 
 declare type ToasterProps = {
     position?: Positions;
