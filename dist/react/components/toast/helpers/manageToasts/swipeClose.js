@@ -1,70 +1,78 @@
-import f from "../triggerToasts.js";
-let e = null, l = null, u = 0, r = 0, i = !1, o = !1, a = null;
-const w = 2, m = 90, v = 20, E = 100;
-function b(t) {
-  const n = Math.sign(t) || 1, s = Math.abs(t), p = v * (1 - Math.exp(-s / E));
-  return n * p;
+import b from "../triggerToasts.js";
+let s = !1, t = null, c = null, w = 0, r = 0, a = !1, l = null;
+const L = 2, y = 90, S = 20, g = 100;
+function P(e) {
+  const o = Math.sign(e) || 1, n = Math.abs(e), h = S * (1 - Math.exp(-n / g));
+  return o * h;
 }
-function d(t) {
-  if (!t) return !1;
-  const n = t.dataset.swipeable === "true", s = t.dataset.isPromise === "true";
-  return n && !s;
+function E(e) {
+  if (!e) return !1;
+  const o = e.dataset.swipeable === "true", n = e.dataset.isPromise === "true";
+  return o && !n;
 }
-function c(t = !0) {
-  if (!e) return;
-  if (document.body.style.userSelect = "auto", t && a != null)
+function i(e = !0) {
+  if (!t) return;
+  if (document.body.style.userSelect = "auto", e && l != null)
     try {
-      e.releasePointerCapture(a);
+      t.releasePointerCapture(l);
     } catch {
       console.error("");
     }
-  e.style.setProperty("--swipe-x", "0px"), e.classList.remove("is-swiping");
-  const n = e;
-  if (e = null, l = null, a = null, i = !1, o = !1, r = 0, !n.matches(":hover")) {
-    const s = new MouseEvent("mouseleave", {
+  t.style.setProperty("--swipe-x", "0px"), t.classList.remove("is-swiping");
+  const o = t;
+  if (t = null, c = null, l = null, a = !1, s = !1, r = 0, !o.matches(":hover")) {
+    const n = new MouseEvent("mouseleave", {
       bubbles: !0,
       cancelable: !0,
       view: window
     });
-    n.dispatchEvent(s);
+    o.dispatchEvent(n);
   }
 }
-document.addEventListener("pointerdown", (t) => {
-  const s = t.target.closest(".kitzo-toast");
-  s && (e = s, l = s.id, u = t.clientX, r = 0, i = !0, o = !1, a = t.pointerId);
-});
-document.addEventListener("pointermove", (t) => {
-  if (!i || !e) return;
-  if (r = t.clientX - u, !o && Math.abs(r) > w) {
-    o = !0, e.classList.add("is-swiping");
+function d(e) {
+  const n = e.target.closest(".kitzo-toast");
+  n && (t = n, c = n.id, w = e.clientX, r = 0, a = !0, s = !1, l = e.pointerId);
+}
+function p(e) {
+  if (!a || !t) return;
+  if (r = e.clientX - w, !s && Math.abs(r) > L) {
+    s = !0, t.classList.add("is-swiping");
     try {
-      e.setPointerCapture(t.pointerId), document.body.style.userSelect = "none";
+      t.setPointerCapture(e.pointerId), document.body.style.userSelect = "none";
     } catch {
       console.error("Failed to capture pointer");
     }
   }
-  if (!o) return;
-  const s = d(e) ? r : b(r);
-  e.style.setProperty("--swipe-x", `${s}px`);
-});
-document.addEventListener("pointerup", () => {
-  if (!i || !e || l == null) {
-    c();
+  if (!s) return;
+  const n = E(t) ? r : P(r);
+  t.style.setProperty("--swipe-x", `${n}px`);
+}
+function f() {
+  if (!a || !t || c == null) {
+    i();
     return;
   }
-  const t = d(e);
-  if (o && t && Math.abs(r) > m) {
-    const n = r > 0 ? 1 : -1, s = Math.abs(r) + 300;
-    e.style.setProperty("--exit-x", `${n * s}px`), e.dataset.exit = "swipe", f.dismiss(l);
+  const e = E(t);
+  if (s && e && Math.abs(r) > y) {
+    const o = r > 0 ? 1 : -1, n = Math.abs(r) + 220;
+    t.style.setProperty("--exit-x", `${o * n}px`), t.dataset.exit = "swipe", b.dismiss(c);
   }
-  c();
-});
-document.addEventListener("pointercancel", () => {
-  c();
-});
-window.addEventListener("blur", () => {
-  i && c();
-});
+  i();
+}
+function v() {
+  i();
+}
+function m() {
+  a && i();
+}
+let u = !1;
+function M() {
+  return u ? () => {
+  } : (u = !0, document.addEventListener("pointerdown", d), document.addEventListener("pointermove", p), document.addEventListener("pointerup", f), document.addEventListener("pointercancel", v), window.addEventListener("blur", m), () => {
+    i(), u = !1, document.removeEventListener("pointerdown", d), document.removeEventListener("pointermove", p), document.removeEventListener("pointerup", f), document.removeEventListener("pointercancel", v), window.removeEventListener("blur", m);
+  });
+}
 export {
-  o as dragStarted
+  s as dragStarted,
+  M as initSwipeToClose
 };
