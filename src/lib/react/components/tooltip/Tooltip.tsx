@@ -5,9 +5,6 @@ import getPositionClass from './helpers/getPositionClass';
 import TooltipWrapper from './partials/TooltipWrapper';
 import getAnimationProperties from './helpers/getAnimationProperties';
 
-const isWindowThemeDark = () =>
-  window.matchMedia('(prefers-color-scheme: dark)').matches;
-
 export default function Tooltip(props: TooltipProps): ReactNode {
   const {
     content,
@@ -18,27 +15,40 @@ export default function Tooltip(props: TooltipProps): ReactNode {
     offset = 8,
     smartHover = true,
     hideOnTouch = true,
+    isDark,
   } = props;
 
-  let { isDark } = props;
-
-  if (typeof isHidden === 'boolean' && isHidden) return children;
+  if (typeof isHidden === 'boolean' && isHidden) return <>{children}</>;
 
   if (content == null) {
-    return children;
+    return <>{children}</>;
   }
 
+  // define final options
   const finalOptions = {
     offset: !isNaN(Number(offset)) ? Number(offset) : 8,
-    // arrow: typeof arrow === 'boolean' ? arrow : false,
     smartHover: typeof smartHover === 'boolean' ? smartHover : true,
     hideOnTouch: typeof hideOnTouch === 'boolean' ? hideOnTouch : true,
   };
 
-  // Hide on touch device
-  const isTouch = window.matchMedia('(pointer: coarse)').matches;
+  // theme & touch
+  let prefersDark = false;
+  let isTouch = false;
+
+  if (typeof window !== 'undefined') {
+    isTouch =
+      window.matchMedia('(pointer: coarse)').matches ||
+      navigator.maxTouchPoints > 0;
+
+    prefersDark =
+      typeof isDark === 'boolean'
+        ? isDark
+        : window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+
   if (isTouch && finalOptions.hideOnTouch) return children;
 
+  // get position class
   const positionClass = getPositionClass(position);
 
   // Define animations
@@ -47,9 +57,6 @@ export default function Tooltip(props: TooltipProps): ReactNode {
   const finalAnimationProperties = getAnimationProperties(
     animationObj as AnimationOptions,
   );
-
-  // theme
-  isDark = typeof isDark === 'boolean' ? isDark : isWindowThemeDark();
 
   // Add styles once
   addTooltipStyles();
@@ -68,11 +75,9 @@ export default function Tooltip(props: TooltipProps): ReactNode {
           '--endDuration': Math.max(0, finalAnimationProperties.endDuration),
           '--startDelay': Math.max(0, finalAnimationProperties.startDelay),
           '--endDelay': Math.max(0, finalAnimationProperties.endDelay),
-          // '--arrow-color': arrowStyle?.['--arrow-color'],
-          // '--arrow-size': arrowStyle?.['--arrow-size'],
         } as CSSProperties
       }
-      className={`kitzo-tooltip-root ${isDark ? 'tooltip-theme-dark' : ''} ${finalOptions.smartHover ? 'smart-hover' : ''} ${animationEnabled ? 'animate-tooltip' : ''}`}
+      className={`kitzo-tooltip-root ${prefersDark ? 'tooltip-theme-dark' : ''} ${finalOptions.smartHover ? 'smart-hover' : ''} ${animationEnabled ? 'animate-tooltip' : ''}`}
     >
       {children}
 

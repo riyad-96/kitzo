@@ -1,59 +1,57 @@
-import { jsxs as d, jsx as h } from "react/jsx-runtime";
-import y from "./helpers/addTooltipStyles.js";
-import D from "./helpers/getPositionClass.js";
-import b from "./partials/TooltipWrapper.js";
-import T from "./helpers/getAnimationProperties.js";
-const x = () => window.matchMedia("(prefers-color-scheme: dark)").matches;
-function H(n) {
+import { jsx as i, Fragment as u, jsxs as b } from "react/jsx-runtime";
+import x from "./helpers/addTooltipStyles.js";
+import T from "./helpers/getPositionClass.js";
+import v from "./partials/TooltipWrapper.js";
+import w from "./helpers/getAnimationProperties.js";
+function H(c) {
   const {
     content: r,
     children: t,
-    position: c = "top",
-    animation: i = !0,
-    isHidden: s = !1,
-    offset: m = 8,
-    smartHover: l = !0,
-    hideOnTouch: f = !0
-  } = n;
-  let { isDark: o } = n;
-  if (typeof s == "boolean" && s || r == null)
-    return t;
-  const e = {
-    offset: isNaN(Number(m)) ? 8 : Number(m),
-    // arrow: typeof arrow === 'boolean' ? arrow : false,
-    smartHover: typeof l == "boolean" ? l : !0,
-    hideOnTouch: typeof f == "boolean" ? f : !0
+    position: h = "top",
+    animation: a = !0,
+    isHidden: n = !1,
+    offset: s = 8,
+    smartHover: m = !0,
+    hideOnTouch: l = !0,
+    isDark: f
+  } = c;
+  if (typeof n == "boolean" && n) return /* @__PURE__ */ i(u, { children: t });
+  if (r == null)
+    return /* @__PURE__ */ i(u, { children: t });
+  const o = {
+    offset: isNaN(Number(s)) ? 8 : Number(s),
+    smartHover: typeof m == "boolean" ? m : !0,
+    hideOnTouch: typeof l == "boolean" ? l : !0
   };
-  if (window.matchMedia("(pointer: coarse)").matches && e.hideOnTouch) return t;
-  const p = D(c), u = !!i, a = T(
-    i === !0 ? {} : i
+  let p = !1, d = !1;
+  if (typeof window < "u" && (d = window.matchMedia("(pointer: coarse)").matches || navigator.maxTouchPoints > 0, p = typeof f == "boolean" ? f : window.matchMedia("(prefers-color-scheme: dark)").matches), d && o.hideOnTouch) return t;
+  const y = T(h), D = !!a, e = w(
+    a === !0 ? {} : a
   );
-  return o = typeof o == "boolean" ? o : x(), y(), /* @__PURE__ */ d(
+  return x(), /* @__PURE__ */ b(
     "div",
     {
       style: {
         position: "relative",
         width: "fit-content",
-        "--offset": Math.max(0, e.offset),
+        "--offset": Math.max(0, o.offset),
         "--startDuration": Math.max(
           0,
-          a.startDuration
+          e.startDuration
         ),
-        "--endDuration": Math.max(0, a.endDuration),
-        "--startDelay": Math.max(0, a.startDelay),
-        "--endDelay": Math.max(0, a.endDelay)
-        // '--arrow-color': arrowStyle?.['--arrow-color'],
-        // '--arrow-size': arrowStyle?.['--arrow-size'],
+        "--endDuration": Math.max(0, e.endDuration),
+        "--startDelay": Math.max(0, e.startDelay),
+        "--endDelay": Math.max(0, e.endDelay)
       },
-      className: `kitzo-tooltip-root ${o ? "tooltip-theme-dark" : ""} ${e.smartHover ? "smart-hover" : ""} ${u ? "animate-tooltip" : ""}`,
+      className: `kitzo-tooltip-root ${p ? "tooltip-theme-dark" : ""} ${o.smartHover ? "smart-hover" : ""} ${D ? "animate-tooltip" : ""}`,
       children: [
         t,
-        /* @__PURE__ */ h(
-          b,
+        /* @__PURE__ */ i(
+          v,
           {
             content: r,
-            positionClass: p,
-            finalOptions: e
+            positionClass: y,
+            finalOptions: o
           }
         )
       ]
