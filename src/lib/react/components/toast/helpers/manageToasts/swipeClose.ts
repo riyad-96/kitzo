@@ -1,12 +1,13 @@
 import toast from '../triggerToasts';
 
+export let dragStarted = false;
+
 let activeToast: HTMLDivElement | null = null;
 let activeToastId: string | number | null = null;
 
 let startX = 0;
 let currentX = 0;
 let isDragging = false;
-export let dragStarted = false;
 
 let activePointerId: number | null = null;
 
@@ -70,7 +71,7 @@ function endDrag(releasePointer = true) {
 }
 
 // pointer down event
-document.addEventListener('pointerdown', (e: PointerEvent) => {
+function handlePointerDown(e: PointerEvent) {
   const target = e.target as HTMLElement;
   const toastEl = target.closest('.kitzo-toast') as HTMLDivElement | null;
   if (!toastEl) return;
@@ -83,10 +84,10 @@ document.addEventListener('pointerdown', (e: PointerEvent) => {
   isDragging = true;
   dragStarted = false;
   activePointerId = e.pointerId;
-});
+}
 
 // pointer move event
-document.addEventListener('pointermove', (e: PointerEvent) => {
+function handlePointerMove(e: PointerEvent) {
   if (!isDragging || !activeToast) return;
 
   currentX = e.clientX - startX;
@@ -109,10 +110,10 @@ document.addEventListener('pointermove', (e: PointerEvent) => {
   const displayX = allowed ? currentX : resisted(currentX);
 
   activeToast.style.setProperty('--swipe-x', `${displayX}px`);
-});
+}
 
 // pointer up event
-document.addEventListener('pointerup', () => {
+function handlePointerUp() {
   if (!isDragging || !activeToast || activeToastId == null) {
     endDrag();
     return;
@@ -122,21 +123,44 @@ document.addEventListener('pointerup', () => {
 
   if (dragStarted && allowed && Math.abs(currentX) > CLOSE_THRESHOLD) {
     const direction = currentX > 0 ? 1 : -1;
-    const exitDistance = Math.abs(currentX) + 300;
+    const exitDistance = Math.abs(currentX) + 220;
     activeToast.style.setProperty('--exit-x', `${direction * exitDistance}px`);
     activeToast.dataset.exit = 'swipe';
     toast.dismiss(activeToastId);
   }
 
   endDrag();
-});
+}
 
 // fires when browser cancels the pointer
-document.addEventListener('pointercancel', () => {
+function handlePointerCancel() {
   endDrag();
-});
+}
 
 // safety net: tab switch or window blur
-window.addEventListener('blur', () => {
+function handleBlur() {
   if (isDragging) endDrag();
-});
+}
+
+let attached = false;
+
+export function initSwipeToClose() {
+  if (attached) return () => {};
+  attached = true;
+
+  document.addEventListener('pointerdown', handlePointerDown);
+  document.addEventListener('pointermove', handlePointerMove);
+  document.addEventListener('pointerup', handlePointerUp);
+  document.addEventListener('pointercancel', handlePointerCancel);
+  window.addEventListener('blur', handleBlur);
+
+  return () => {
+    endDrag();
+    attached = false;
+    document.removeEventListener('pointerdown', handlePointerDown);
+    document.removeEventListener('pointermove', handlePointerMove);
+    document.removeEventListener('pointerup', handlePointerUp);
+    document.removeEventListener('pointercancel', handlePointerCancel);
+    window.removeEventListener('blur', handleBlur);
+  };
+}

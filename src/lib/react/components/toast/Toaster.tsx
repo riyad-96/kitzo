@@ -10,6 +10,7 @@ import { subscribe } from './helpers/listenar';
 import manageToasts from './helpers/manageToasts/manageToasts';
 import ToastContainer from './partials/ToastContainer';
 import { ToasterContext } from './context/ToasterContext';
+import { initSwipeToClose } from './helpers/manageToasts/swipeClose';
 
 export default function Toaster(props: ToasterProps) {
   const {
@@ -27,7 +28,11 @@ export default function Toaster(props: ToasterProps) {
 
   useEffect(() => {
     const unsub = subscribe((toast) => manageToasts({ toast, setToasts }));
-    return unsub;
+    const unsubscribeSwipeToClose = initSwipeToClose();
+    return () => {
+      unsub();
+      unsubscribeSwipeToClose();
+    };
   }, []);
 
   const toasterRef = useRef<HTMLDivElement | null>(null);
