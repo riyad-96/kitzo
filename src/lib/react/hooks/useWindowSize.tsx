@@ -30,8 +30,10 @@ export default function useWindowSize(updateDelay: number = 30) {
     }
 
     return () => {
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('resize', updateScreenSize);
+      }
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      window.removeEventListener('resize', updateScreenSize);
     };
   }, [updateDelay]);
 

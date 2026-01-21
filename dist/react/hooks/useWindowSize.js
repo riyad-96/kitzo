@@ -1,6 +1,6 @@
 import t from "react";
-function o(i = 30) {
-  const [r, c] = t.useState({
+function c(i = 30) {
+  const [r, o] = t.useState({
     screenWidth: 0,
     screenHeight: 0
   }), e = t.useRef(null);
@@ -8,7 +8,7 @@ function o(i = 30) {
     function n() {
       e.current && clearTimeout(e.current), e.current = setTimeout(
         () => {
-          c({
+          o({
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight
           });
@@ -17,10 +17,10 @@ function o(i = 30) {
       );
     }
     return typeof window < "u" && (n(), window.addEventListener("resize", n)), () => {
-      e.current && clearTimeout(e.current), window.removeEventListener("resize", n);
+      typeof window < "u" && window.removeEventListener("resize", n), e.current && clearTimeout(e.current);
     };
   }, [i]), r;
 }
 export {
-  o as default
+  c as default
 };
