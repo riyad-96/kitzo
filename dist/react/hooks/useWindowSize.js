@@ -1,26 +1,26 @@
-import { useState as o, useRef as u, useEffect as c } from "react";
-function d(n = 30) {
-  const [t, r] = o({
-    screenWidth: window.innerWidth,
-    screenHeight: window.innerHeight
-  }), e = u(null);
-  return c(() => {
-    function i() {
+import t from "react";
+function o(i = 30) {
+  const [r, c] = t.useState({
+    screenWidth: 0,
+    screenHeight: 0
+  }), e = t.useRef(null);
+  return t.useEffect(() => {
+    function n() {
       e.current && clearTimeout(e.current), e.current = setTimeout(
         () => {
-          r({
+          c({
             screenWidth: window.innerWidth,
             screenHeight: window.innerHeight
           });
         },
-        Math.max(0, +n)
+        Math.max(0, +i)
       );
     }
-    return typeof window < "u" && window.addEventListener("resize", i), () => {
-      e.current && clearTimeout(e.current), window.removeEventListener("resize", i);
+    return typeof window < "u" && (n(), window.addEventListener("resize", n)), () => {
+      e.current && clearTimeout(e.current), window.removeEventListener("resize", n);
     };
-  }, [n]), t;
+  }, [i]), r;
 }
 export {
-  d as default
+  o as default
 };
