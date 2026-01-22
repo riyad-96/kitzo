@@ -25,7 +25,7 @@ export default function Tooltip(props: TooltipProps): ReactNode {
     addTooltipStyles();
   }, []);
 
-  if (!isMounted) return null;
+  if (!isMounted) return <>{children}</>;
 
   if (typeof isHidden === 'boolean' && isHidden) return <>{children}</>;
 
