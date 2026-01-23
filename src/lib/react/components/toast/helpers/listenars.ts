@@ -29,19 +29,27 @@ export function subscribe(
 }
 
 function addIdPrefix(prefix: string, id?: string) {
+  if (id == null) return undefined;
   id = `${id}`;
 
   return id.startsWith(prefix) ? id : `${prefix}${id}`;
 }
 
 export function notify(toast: Partial<Toast>) {
+  if (toast.id == null) {
+    listeners.forEach((s) => {
+      s.forEach((fn) => fn({ ...(toast as Toast) }));
+    });
+    return;
+  }
+
   const id = addIdPrefix('toast-id:', toast.id);
   const toasterId = addIdPrefix(
     'toaster-id:',
     toast.toasterId ?? DEFAULT_TOASTER_ID,
   );
 
-  const set = listeners.get(toasterId);
+  const set = listeners.get(toasterId as string);
   if (!set) return;
 
   set.forEach((fn) => fn({ ...toast, id, toasterId } as Toast));

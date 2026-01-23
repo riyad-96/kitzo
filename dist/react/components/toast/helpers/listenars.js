@@ -1,24 +1,31 @@
-import f from "./addToastStyles.js";
-const s = /* @__PURE__ */ new Map(), i = "default";
-function u(e, t = i) {
-  f(), t = `toaster-id:${t ?? i}`, s.has(t) || s.set(t, /* @__PURE__ */ new Set());
-  const n = s.get(t);
-  return n && n.add(e), () => {
-    n?.delete(e), n?.size === 0 && s.delete(t);
+import u from "./addToastStyles.js";
+const r = /* @__PURE__ */ new Map(), s = "default";
+function l(t, e = s) {
+  u(), e = `toaster-id:${e ?? s}`, r.has(e) || r.set(e, /* @__PURE__ */ new Set());
+  const n = r.get(e);
+  return n && n.add(t), () => {
+    n?.delete(t), n?.size === 0 && r.delete(e);
   };
 }
-function r(e, t) {
-  return t = `${t}`, t.startsWith(e) ? t : `${e}${t}`;
+function o(t, e) {
+  if (e != null)
+    return e = `${e}`, e.startsWith(t) ? e : `${t}${e}`;
 }
-function a(e) {
-  const t = r("toast-id:", e.id), n = r(
+function a(t) {
+  if (t.id == null) {
+    r.forEach((i) => {
+      i.forEach((c) => c({ ...t }));
+    });
+    return;
+  }
+  const e = o("toast-id:", t.id), n = o(
     "toaster-id:",
-    e.toasterId ?? i
-  ), o = s.get(n);
-  o && o.forEach((c) => c({ ...e, id: t, toasterId: n }));
+    t.toasterId ?? s
+  ), f = r.get(n);
+  f && f.forEach((i) => i({ ...t, id: e, toasterId: n }));
 }
 export {
-  i as DEFAULT_TOASTER_ID,
+  s as DEFAULT_TOASTER_ID,
   a as notify,
-  u as subscribe
+  l as subscribe
 };
