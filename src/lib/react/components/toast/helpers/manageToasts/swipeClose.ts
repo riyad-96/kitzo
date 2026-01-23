@@ -30,8 +30,7 @@ function resisted(dx: number) {
 function isSwipeAllowed(el: HTMLDivElement | null) {
   if (!el) return false;
   const swipeable = el.dataset.swipeable === 'true';
-  const isPromise = el.dataset.isPromise === 'true';
-  return swipeable && !isPromise;
+  return swipeable;
 }
 
 // single cleanup source
@@ -126,7 +125,7 @@ function handlePointerUp() {
     const exitDistance = Math.abs(currentX) + 220;
     activeToast.style.setProperty('--exit-x', `${direction * exitDistance}px`);
     activeToast.dataset.exit = 'swipe';
-    toast.dismiss(activeToastId);
+    toast.dismiss(activeToastId, activeToast.dataset.toasterId);
   }
 
   endDrag();

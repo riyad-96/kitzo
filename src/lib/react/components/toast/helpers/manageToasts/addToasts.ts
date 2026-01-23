@@ -14,5 +14,5 @@ export default function addToasts({ toast, setToasts }: ManageToastsProps) {
     );
   });
 
-  addTimers(toast, setToasts);
+  addTimers(toast);
 }

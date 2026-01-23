@@ -5,6 +5,7 @@ import type {
   ToastOptions,
   ToastType,
 } from '../types';
+import { DEFAULT_TOASTER_ID } from './listenars';
 
 const DEFAULTS = {
   duration: 2800,
@@ -22,7 +23,6 @@ type CreateToastProps = {
   type: ToastType;
   action: ToastAction;
   content: ToastContent;
-  isPromise?: boolean;
   options?: ToastOptions;
 };
 
@@ -30,13 +30,13 @@ export function createToast({
   type,
   action,
   content,
-  isPromise,
   options,
 }: CreateToastProps) {
   const opts = typeof options === 'object' && options !== null ? options : {};
 
   const newToast: Toast = {
-    id: `toast-id:${opts.id ?? genId()}`,
+    id: `${opts.id ?? genId()}`,
+    toasterId: `${opts.toasterId ?? DEFAULT_TOASTER_ID}`,
     duration: opts.duration ?? DEFAULTS.duration,
     showIcon: opts.showIcon ?? DEFAULTS.showIcon,
     animateTransformOrigin:
@@ -48,8 +48,8 @@ export function createToast({
     zIndex: ++zIndex,
     content,
     action,
-    isPromise: Boolean(isPromise),
     swipeToClose: opts.swipeToClose ?? DEFAULTS.swipeToClose,
+    updateState: 'initial',
   };
 
   return newToast;
@@ -66,11 +66,11 @@ export function updateToast({ id, content, options }: UpdateToastProps) {
 
   const updatedToast = {
     ...opts,
-    id: `toast-id:${id}`,
+    id,
     content,
     action: 'update' as ToastAction,
-    isPromise: false,
     duration: opts.duration ?? DEFAULTS.duration,
+    toasterId: `${opts.toasterId ?? DEFAULT_TOASTER_ID}`,
   };
 
   return updatedToast;

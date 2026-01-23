@@ -1,49 +1,50 @@
-const n = {
+import { DEFAULT_TOASTER_ID as r } from "./listenars.js";
+const e = {
   duration: 2800,
   showIcon: !0,
   animateTransformOrigin: void 0,
   swipeToClose: void 0
 };
-let r = 0;
-const d = () => crypto.randomUUID?.() ?? ++r;
+let s = 0;
+const d = () => crypto.randomUUID?.() ?? ++s;
 let u = 1;
-function T({
-  type: e,
-  action: s,
-  content: t,
-  isPromise: i,
-  options: a
+function p({
+  type: a,
+  action: i,
+  content: n,
+  options: o
 }) {
-  const o = typeof a == "object" && a !== null ? a : {};
+  const t = typeof o == "object" && o !== null ? o : {};
   return {
-    id: `toast-id:${o.id ?? d()}`,
-    duration: o.duration ?? n.duration,
-    showIcon: o.showIcon ?? n.showIcon,
-    animateTransformOrigin: o.animateTransformOrigin ?? n.animateTransformOrigin,
-    position: o.position,
-    icon: o.icon,
-    type: e === "default" ? o.type ?? "default" : e,
+    id: `${t.id ?? d()}`,
+    toasterId: `${t.toasterId ?? r}`,
+    duration: t.duration ?? e.duration,
+    showIcon: t.showIcon ?? e.showIcon,
+    animateTransformOrigin: t.animateTransformOrigin ?? e.animateTransformOrigin,
+    position: t.position,
+    icon: t.icon,
+    type: a === "default" ? t.type ?? "default" : a,
     status: "entering",
     zIndex: ++u,
-    content: t,
-    action: s,
-    isPromise: !!i,
-    swipeToClose: o.swipeToClose ?? n.swipeToClose
+    content: n,
+    action: i,
+    swipeToClose: t.swipeToClose ?? e.swipeToClose,
+    updateState: "initial"
   };
 }
-function l({ id: e, content: s, options: t }) {
-  const i = typeof t == "object" && t !== null ? t : {};
+function l({ id: a, content: i, options: n }) {
+  const o = typeof n == "object" && n !== null ? n : {};
   return {
-    ...i,
-    id: `toast-id:${e}`,
-    content: s,
+    ...o,
+    id: a,
+    content: i,
     action: "update",
-    isPromise: !1,
-    duration: i.duration ?? n.duration
+    duration: o.duration ?? e.duration,
+    toasterId: `${o.toasterId ?? r}`
   };
 }
 export {
-  T as createToast,
+  p as createToast,
   d as genId,
   l as updateToast
 };

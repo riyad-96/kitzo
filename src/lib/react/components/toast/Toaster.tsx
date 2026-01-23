@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Positions, Toast, ToasterProps } from './types';
-import { subscribe } from './helpers/listenar';
+import { subscribe } from './helpers/listenars';
 import manageToasts from './helpers/manageToasts/manageToasts';
 import ToastContainer from './partials/ToastContainer';
 import { ToasterContext } from './context/ToasterContext';
@@ -26,14 +26,18 @@ export default function Toaster(props: ToasterProps) {
 
   const [toasts, setToasts] = React.useState<Toast[]>([]);
 
+  // subscriber
   React.useEffect(() => {
-    const unsub = subscribe((toast) => manageToasts({ toast, setToasts }));
+    const unsub = subscribe(
+      (toast) => manageToasts({ toast, setToasts }),
+      props.toasterId,
+    );
     const unsubscribeSwipeToClose = initSwipeToClose();
     return () => {
       unsub();
       unsubscribeSwipeToClose();
     };
-  }, []);
+  }, [props.toasterId]);
 
   const toasterRef = React.useRef<HTMLDivElement | null>(null);
 

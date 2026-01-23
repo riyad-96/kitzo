@@ -7,10 +7,21 @@ export default function updateToasts({ toast, setToasts }: ManageToastsProps) {
     if (!exists) {
       return prev;
     }
+
     clearTimer(toast.id);
-    addTimers(toast, setToasts);
+    addTimers(toast);
+
     return prev.map((t) =>
-      t.id === toast.id ? { ...t, ...toast, status: 'visible' } : t,
+      t.id === toast.id
+        ? {
+            ...t,
+            ...toast,
+            status: 'visible',
+            updateState: t.updateState?.includes('again')
+              ? 'updated'
+              : 'updated-again',
+          }
+        : t,
     );
   });
 }

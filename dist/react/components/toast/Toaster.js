@@ -1,34 +1,37 @@
 import { jsx as a } from "react/jsx-runtime";
 import t from "react";
-import { subscribe as E } from "./helpers/listenar.js";
+import { subscribe as E } from "./helpers/listenars.js";
 import w from "./helpers/manageToasts/manageToasts.js";
 import M from "./partials/ToastContainer.js";
 import { ToasterContext as O } from "./context/ToasterContext.js";
 import { initSwipeToClose as S } from "./helpers/manageToasts/swipeClose.js";
-function I(d) {
+function D(i) {
   const {
     position: h = "top-center",
-    richColors: p = !1,
+    richColors: l = !1,
     animateTransformOrigin: g = !0,
     gap: s = 8,
-    edgeOffset: i = 16,
-    isDark: n,
+    edgeOffset: n = 16,
+    isDark: c,
     pauseOnHover: b = !0,
     swipeToClose: y = !0
-  } = d, [k, T] = t.useState(!1);
+  } = i, [k, T] = t.useState(!1);
   t.useEffect(() => {
     T(!0);
   }, []);
-  const [u, l] = t.useState([]);
+  const [p, m] = t.useState([]);
   t.useEffect(() => {
-    const e = E((o) => w({ toast: o, setToasts: l })), r = S();
+    const e = E(
+      (o) => w({ toast: o, setToasts: m }),
+      i.toasterId
+    ), r = S();
     return () => {
       e(), r();
     };
-  }, []);
-  const c = t.useRef(null), f = t.useCallback(() => {
-    if (!c.current) return;
-    const e = c.current.querySelectorAll("[data-toast-container]"), r = {
+  }, [i.toasterId]);
+  const f = t.useRef(null), u = t.useCallback(() => {
+    if (!f.current) return;
+    const e = f.current.querySelectorAll("[data-toast-container]"), r = {
       "top-left": 0,
       "top-center": 0,
       "top-right": 0,
@@ -37,29 +40,29 @@ function I(d) {
       "bottom-right": 0
     };
     e.forEach((o) => {
-      const m = o.getAttribute("data-toast-position") || "top-center", x = parseFloat(o.style.getPropertyValue("--toast-height")) || 0;
-      o.style.setProperty("--toast-offset-y", `${r[m]}px`);
+      const d = o.getAttribute("data-toast-position") || "top-center", x = parseFloat(o.style.getPropertyValue("--toast-height")) || 0;
+      o.style.setProperty("--toast-offset-y", `${r[d]}px`);
       const C = isNaN(+s) ? 8 : +s;
-      r[m] += x + C;
+      r[d] += x + C;
     });
   }, [s]);
   if (t.useLayoutEffect(() => {
-    f();
-  }, [u, f]), !k) return null;
-  const v = typeof n == "boolean" ? n : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    u();
+  }, [p, u]), !k) return null;
+  const v = typeof c == "boolean" ? c : window.matchMedia("(prefers-color-scheme: dark)").matches;
   return /* @__PURE__ */ a(
     "div",
     {
-      ref: c,
+      ref: f,
       style: {
         position: "fixed",
         inset: 0,
         zIndex: 2147483647,
         pointerEvents: "none",
         display: "grid",
-        padding: i != null ? `${Math.max(Math.min(+i, 200), 0)}px` : 16
+        padding: n != null ? `${Math.max(Math.min(+n, 200), 0)}px` : 16
       },
-      className: `kitzo-toaster ${p ? "kitzo-toaster-rich-colors" : ""} ${v ? "kitzo-toaster-dark" : ""}`,
+      className: `kitzo-toaster ${l ? "kitzo-toaster-rich-colors" : ""} ${v ? "kitzo-toaster-dark" : ""}`,
       children: /* @__PURE__ */ a(
         "div",
         {
@@ -71,17 +74,17 @@ function I(d) {
             {
               value: {
                 position: h,
-                richColors: p,
-                isDark: n,
+                richColors: l,
+                isDark: c,
                 gap: s,
-                edgeOffset: i,
+                edgeOffset: n,
                 animateTransformOrigin: g,
                 pauseOnHover: b,
                 swipeToClose: y,
-                setToasts: l,
-                updateOffsets: f
+                setToasts: m,
+                updateOffsets: u
               },
-              children: u.map((e) => /* @__PURE__ */ a(M, { t: e }, e.id))
+              children: p.map((e) => /* @__PURE__ */ a(M, { t: e }, e.id))
             }
           )
         }
@@ -90,5 +93,5 @@ function I(d) {
   );
 }
 export {
-  I as default
+  D as default
 };

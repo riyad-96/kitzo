@@ -1,9 +1,14 @@
-import { clearTimer as n, addTimers as u } from "./timers.js";
-function s({ toast: i, setToasts: r }) {
-  r((e) => e.find((d) => d.id === i.id) ? (n(i.id), u(i, r), e.map(
-    (d) => d.id === i.id ? { ...d, ...i, status: "visible" } : d
+import { clearTimer as u, addTimers as t } from "./timers.js";
+function r({ toast: d, setToasts: a }) {
+  a((e) => e.find((i) => i.id === d.id) ? (u(d.id), t(d), e.map(
+    (i) => i.id === d.id ? {
+      ...i,
+      ...d,
+      status: "visible",
+      updateState: i.updateState?.includes("again") ? "updated" : "updated-again"
+    } : i
   )) : e);
 }
 export {
-  s as default
+  r as default
 };

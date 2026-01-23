@@ -18,16 +18,15 @@ export default function dismissToasts({ toast, setToasts }: ManageToastsProps) {
   clearTimer(toast.id);
 
   // set toast status leaving
-  const id = toast.id.includes('toast-id:') ? toast.id : `toast-id:${toast.id}`;
 
   setToasts((prev) =>
-    prev.map((t) => (t.id === id ? { ...t, status: 'leaving' } : t)),
+    prev.map((t) => (t.id === toast.id ? { ...t, status: 'leaving' } : t)),
   );
 
   // remove toast
   setTimeout(() => {
     setToasts((prev) =>
-      prev.filter((t) => !(t.id === id && t.status === 'leaving')),
+      prev.filter((t) => !(t.id === toast.id && t.status === 'leaving')),
     );
   }, LEAVE_DELAY);
 }

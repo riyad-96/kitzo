@@ -28,37 +28,40 @@ export type ToastOptions = {
   id?: string | number;
   type?: ToastType;
   swipeToClose?: boolean;
+  toasterId?: string | number;
 };
 
 export type ToastContent = ((dismiss: () => void) => ReactNode) | ReactNode;
 
 export type Toast = {
   id: string;
+  toasterId: string;
   type: ToastType;
   action: ToastAction;
   status: ToastStatus;
-  isPromise: boolean;
-  swipeToClose: boolean | undefined;
   content: ToastContent;
   zIndex: number;
   duration: number;
   showIcon: boolean;
-  icon: ReactNode | undefined;
-  position: Positions | undefined;
-  animateTransformOrigin: boolean | undefined;
+  position?: Positions;
+  swipeToClose?: boolean;
+  icon?: ReactNode;
+  animateTransformOrigin?: boolean;
+  updateState?: string;
 };
 
 type ToastOptionsWithoutType = Omit<ToastOptions, 'type'>;
 type UpdateToastOptions = Omit<ToastOptions, 'id'>;
 type Options = ToastOptionsWithoutType;
 
-export type PromiseToastOptions = Omit<ToastOptions, 'id' | 'type' | 'swipeToClose'>;
+export type PromiseToastOptions = Omit<ToastOptions, 'id' | 'type'>;
 
 export type PromiseToastMsgs<T, E = unknown> = {
   loading: ReactNode;
   success: ReactNode | ((res: T) => ReactNode | Promise<ReactNode>);
   error: ReactNode | ((err: E) => ReactNode | Promise<ReactNode>);
 };
+
 export type PromiseToastFn = <T, E = unknown>(
   promise: Promise<T>,
   msgs: PromiseToastMsgs<T, E>,
@@ -74,7 +77,7 @@ export type ToastFn = {
   promise: PromiseToastFn;
   loading: (content: ToastContent, options?: Options) => void;
   custom: (content: ToastContent, options?: Options) => void;
-  dismiss: (id?: string | number) => void;
+  dismiss: (id?: string | number, toasterId?: string | number) => void;
   update: (
     id: string | number,
     content: ToastContent,
@@ -91,4 +94,5 @@ export type ToasterProps = {
   isDark?: boolean;
   pauseOnHover?: boolean;
   swipeToClose?: boolean;
+  toasterId?: string | number;
 };

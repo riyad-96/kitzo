@@ -5,7 +5,7 @@ import type {
   ToastFn,
 } from '../types';
 import { createToast, genId, updateToast } from './createToast';
-import { notify } from './listenar';
+import { notify } from './listenars';
 
 const toast: ToastFn = (content, options) => {
   if (content == null) return;
@@ -19,8 +19,8 @@ const toast: ToastFn = (content, options) => {
   );
 };
 
-toast.dismiss = (id) => {
-  notify({ action: 'dismiss', id: id as string });
+toast.dismiss = (id, toasterId) => {
+  notify({ action: 'dismiss', id: id as string, toasterId: `${toasterId}` });
 };
 
 toast.info = (content, options) => {
@@ -91,6 +91,7 @@ toast.custom = (content, options) => {
 };
 
 toast.update = (id, content, options) => {
+  if (id == null) return;
   if (content == null) return;
   notify(updateToast({ id: `${id}`, content, options }));
 };
@@ -107,8 +108,7 @@ toast.promise = (async <T, E = unknown>(
       action: 'add',
       type: 'loading',
       content: msgs.loading,
-      isPromise: true,
-      options: { ...options, id, duration: Infinity },
+      options: { ...options, id, duration: Infinity, swipeToClose: false },
     }),
   );
 

@@ -1,4 +1,4 @@
-const o = `.kitzo-toaster {
+const a = `.kitzo-toaster {
   --default-bg: hsl(0, 0%, 100%);
   --default-text: hsl(0, 0%, 10%);
   --default-border: hsl(0, 0%, 94%);
@@ -182,14 +182,27 @@ const o = `.kitzo-toaster {
     translateY(var(--motion-y)) scale(var(--scale));
 }
 
-.kitzo-toast[data-action='update'] {
-  animation: update 150ms ease;
+.kitzo-toast[data-update-state='updated'] {
+  animation: update 250ms ease;
+}
+.kitzo-toast[data-update-state='updated-again'] {
+  animation: update-again 250ms ease;
 }
 
 @keyframes update {
   0% {
-    transform: scale(0.95);
-    opacity: 0.5;
+    transform: scale(0.96);
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes update-again {
+  0% {
+    transform: scale(0.96);
+    opacity: 0.8;
   }
   100% {
     opacity: 1;
@@ -271,12 +284,12 @@ const o = `.kitzo-toaster {
     rotate: 360deg;
   }
 }`;
-function a() {
+function o() {
   if (!document.getElementById("kitzo-toast-styles")) {
     const t = document.createElement("style");
-    t.id = "kitzo-toast-styles", t.textContent = o, document.head.appendChild(t);
+    t.id = "kitzo-toast-styles", t.textContent = a, document.head.appendChild(t);
   }
 }
 export {
-  a as default
+  o as default
 };

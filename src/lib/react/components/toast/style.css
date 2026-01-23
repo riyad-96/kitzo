@@ -182,14 +182,27 @@
     translateY(var(--motion-y)) scale(var(--scale));
 }
 
-.kitzo-toast[data-action='update'] {
-  animation: update 150ms ease;
+.kitzo-toast[data-update-state='updated'] {
+  animation: update 250ms ease;
+}
+.kitzo-toast[data-update-state='updated-again'] {
+  animation: update-again 250ms ease;
 }
 
 @keyframes update {
   0% {
-    transform: scale(0.95);
-    opacity: 0.5;
+    transform: scale(0.96);
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes update-again {
+  0% {
+    transform: scale(0.96);
+    opacity: 0.8;
   }
   100% {
     opacity: 1;

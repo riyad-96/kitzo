@@ -1,11 +1,11 @@
-import { addTimers as s } from "./timers.js";
-function e({ toast: d, setToasts: r }) {
-  r((i) => i.find((m) => m.id === d.id) ? i : [d, ...i]), requestAnimationFrame(() => {
-    r(
-      (i) => i.map((n) => n.id === d.id ? { ...n, status: "visible" } : n)
+import { addTimers as e } from "./timers.js";
+function u({ toast: d, setToasts: n }) {
+  n((i) => i.find((r) => r.id === d.id) ? i : [d, ...i]), requestAnimationFrame(() => {
+    n(
+      (i) => i.map((s) => s.id === d.id ? { ...s, status: "visible" } : s)
     );
-  }), s(d, r);
+  }), e(d);
 }
 export {
-  e as default
+  u as default
 };

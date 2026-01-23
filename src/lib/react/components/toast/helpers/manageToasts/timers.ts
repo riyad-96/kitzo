@@ -1,15 +1,15 @@
-import type { Dispatch, SetStateAction } from 'react';
 import type { Toast } from '../../types';
 import { dragStarted } from './swipeClose';
+import { notify } from '../listenars';
 
 type TimersKey = string | number;
 type TimersValue = {
-  leavingTimeoutId: number;
-  leftTimeoutId: number;
+  timeoutId: number;
   startingTime: number;
   totalTime: number;
   remainningTime: number;
   paused: boolean;
+  toasterId: string;
 };
 
 const timers = new Map<TimersKey, TimersValue>();
@@ -23,13 +23,7 @@ function getDurations(duration: number) {
   const d = Number(duration);
   if (!isFinite(d)) return null;
 
-  const visible = Math.max(MIN_VISIBLE, d);
-
-  return {
-    totalTime: visible,
-    leavingDuration: visible,
-    leftDuration: visible + LEAVE_DELAY,
-  };
+  return Math.max(MIN_VISIBLE, d);
 }
 
 // clear a timer
@@ -37,50 +31,43 @@ export function clearTimer(id: string | number) {
   const timer = timers.get(id);
 
   if (!timer) return;
-  clearTimeout(timer.leavingTimeoutId);
-  clearTimeout(timer.leftTimeoutId);
+  clearTimeout(timer.timeoutId);
   timers.delete(id);
 }
 
 // clear all timers;
 export function clearAllTimers() {
-  timers.forEach(({ leavingTimeoutId, leftTimeoutId }) => {
-    clearTimeout(leavingTimeoutId);
-    clearTimeout(leftTimeoutId);
+  timers.forEach(({ timeoutId }) => {
+    clearTimeout(timeoutId);
   });
   timers.clear();
 }
 
-type SetToasts = Dispatch<SetStateAction<Toast[]>>;
-
 // add timer to close the toast on time
-export function addTimers(toast: Toast, setToasts: SetToasts) {
-  const durations = getDurations(toast.duration);
-  if (!durations) return;
+export function addTimers(toast: Toast) {
+  const duration = getDurations(toast.duration);
+  if (!duration) return;
 
   clearTimer(toast.id);
 
-  const leavingTimeoutId = setTimeout(() => {
-    setToasts((prev) =>
-      prev.map((t) => (t.id === toast.id ? { ...t, status: 'leaving' } : t)),
-    );
-  }, durations.leavingDuration + TRANSITION_DURATION);
-
-  const leftTimeoutId = setTimeout(() => {
-    setToasts((prev) => prev.filter((t) => t.id !== toast.id));
-    clearTimer(toast.id);
+  const timeoutId = setTimeout(() => {
+    notify({
+      action: 'dismiss',
+      id: toast.id,
+      toasterId: toast.toasterId,
+    });
     timers.delete(toast.id);
-  }, durations.leftDuration + TRANSITION_DURATION);
+  }, duration);
 
   const startingTime = Date.now();
 
   timers.set(toast.id, {
-    leavingTimeoutId,
-    leftTimeoutId,
+    timeoutId,
     startingTime,
-    totalTime: durations.totalTime,
+    totalTime: duration,
     remainningTime: 0,
     paused: false,
+    toasterId: toast.toasterId,
   });
 }
 
@@ -104,40 +91,37 @@ export function pauseToast(id: string | number) {
 
   timers.set(id, { ...timer, remainningTime, paused: true });
 
-  clearTimeout(timer.leavingTimeoutId);
-  clearTimeout(timer.leftTimeoutId);
+  clearTimeout(timer.timeoutId);
 }
 
 // Resume toast with remainning time
-export function resumeToast(id: string | number, setToasts: SetToasts) {
+export function resumeToast(id?: string) {
   if (dragStarted) return;
+  if (!id) return;
 
   const timer = timers.get(id);
   if (!timer) return;
 
   if (!timer.paused) return;
 
-  const durations = getDurations(timer.remainningTime);
-  if (!durations) return;
+  const duration = getDurations(timer.remainningTime);
+  if (!duration) return;
 
-  const leavingTimeoutId = setTimeout(() => {
-    setToasts((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, status: 'leaving' } : t)),
-    );
-  }, durations.leavingDuration + TRANSITION_DURATION);
-
-  const leftTimeoutId = setTimeout(() => {
-    setToasts((prev) => prev.filter((t) => t.id !== id));
-    clearTimer(id);
+  const timeoutId = setTimeout(() => {
+    notify({
+      action: 'dismiss',
+      id: id,
+      toasterId: timer.toasterId,
+    });
     timers.delete(id);
-  }, durations.leftDuration + TRANSITION_DURATION);
+  }, duration);
 
   timers.set(id, {
+    timeoutId,
     startingTime: Date.now(),
     totalTime: timer.remainningTime,
     remainningTime: 0,
-    leavingTimeoutId,
-    leftTimeoutId,
     paused: false,
+    toasterId: timer.toasterId,
   });
 }

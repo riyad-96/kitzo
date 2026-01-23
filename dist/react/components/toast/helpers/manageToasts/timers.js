@@ -1,79 +1,73 @@
-import { dragStarted as c } from "./swipeClose.js";
-const r = /* @__PURE__ */ new Map(), m = 280, f = 500, d = 0;
-function T(e) {
-  const t = Number(e);
-  if (!isFinite(t)) return null;
-  const i = Math.max(d, t);
-  return {
-    totalTime: i,
-    leavingDuration: i,
-    leftDuration: i + f
-  };
+import { dragStarted as m } from "./swipeClose.js";
+import { notify as s } from "../listenars.js";
+const i = /* @__PURE__ */ new Map(), T = 500, u = 0;
+function a(t) {
+  const e = Number(t);
+  return isFinite(e) ? Math.max(u, e) : null;
 }
-function s(e) {
-  const t = r.get(e);
-  t && (clearTimeout(t.leavingTimeoutId), clearTimeout(t.leftTimeoutId), r.delete(e));
+function c(t) {
+  const e = i.get(t);
+  e && (clearTimeout(e.timeoutId), i.delete(t));
 }
-function I() {
-  r.forEach(({ leavingTimeoutId: e, leftTimeoutId: t }) => {
-    clearTimeout(e), clearTimeout(t);
-  }), r.clear();
+function l() {
+  i.forEach(({ timeoutId: t }) => {
+    clearTimeout(t);
+  }), i.clear();
 }
-function p(e, t) {
-  const i = T(e.duration);
-  if (!i) return;
-  s(e.id);
-  const o = setTimeout(() => {
-    t(
-      (a) => a.map((n) => n.id === e.id ? { ...n, status: "leaving" } : n)
-    );
-  }, i.leavingDuration + m), u = setTimeout(() => {
-    t((a) => a.filter((n) => n.id !== e.id)), s(e.id), r.delete(e.id);
-  }, i.leftDuration + m), l = Date.now();
-  r.set(e.id, {
-    leavingTimeoutId: o,
-    leftTimeoutId: u,
-    startingTime: l,
-    totalTime: i.totalTime,
+function I(t) {
+  const e = a(t.duration);
+  if (!e) return;
+  c(t.id);
+  const n = setTimeout(() => {
+    s({
+      action: "dismiss",
+      id: t.id,
+      toasterId: t.toasterId
+    }), i.delete(t.id);
+  }, e), r = Date.now();
+  i.set(t.id, {
+    timeoutId: n,
+    startingTime: r,
+    totalTime: e,
     remainningTime: 0,
-    paused: !1
+    paused: !1,
+    toasterId: t.toasterId
   });
 }
-function D(e) {
-  const t = r.get(e);
-  if (!t || t.paused) return;
-  const o = Date.now() - t.startingTime, u = Math.max(t.totalTime - o, 0);
-  u !== 0 && (r.set(e, { ...t, remainningTime: u, paused: !0 }), clearTimeout(t.leavingTimeoutId), clearTimeout(t.leftTimeoutId));
+function g(t) {
+  const e = i.get(t);
+  if (!e || e.paused) return;
+  const r = Date.now() - e.startingTime, o = Math.max(e.totalTime - r, 0);
+  o !== 0 && (i.set(t, { ...e, remainningTime: o, paused: !0 }), clearTimeout(e.timeoutId));
 }
-function v(e, t) {
-  if (c) return;
-  const i = r.get(e);
-  if (!i || !i.paused) return;
-  const o = T(i.remainningTime);
-  if (!o) return;
-  const u = setTimeout(() => {
-    t(
-      (a) => a.map((n) => n.id === e ? { ...n, status: "leaving" } : n)
-    );
-  }, o.leavingDuration + m), l = setTimeout(() => {
-    t((a) => a.filter((n) => n.id !== e)), s(e), r.delete(e);
-  }, o.leftDuration + m);
-  r.set(e, {
+function p(t) {
+  if (m || !t) return;
+  const e = i.get(t);
+  if (!e || !e.paused) return;
+  const n = a(e.remainningTime);
+  if (!n) return;
+  const r = setTimeout(() => {
+    s({
+      action: "dismiss",
+      id: t,
+      toasterId: e.toasterId
+    }), i.delete(t);
+  }, n);
+  i.set(t, {
+    timeoutId: r,
     startingTime: Date.now(),
-    totalTime: i.remainningTime,
+    totalTime: e.remainningTime,
     remainningTime: 0,
-    leavingTimeoutId: u,
-    leftTimeoutId: l,
-    paused: !1
+    paused: !1,
+    toasterId: e.toasterId
   });
 }
 export {
-  f as LEAVE_DELAY,
-  d as MIN_VISIBLE,
-  m as TRANSITION_DURATION,
-  p as addTimers,
-  I as clearAllTimers,
-  s as clearTimer,
-  D as pauseToast,
-  v as resumeToast
+  T as LEAVE_DELAY,
+  u as MIN_VISIBLE,
+  I as addTimers,
+  l as clearAllTimers,
+  c as clearTimer,
+  g as pauseToast,
+  p as resumeToast
 };
