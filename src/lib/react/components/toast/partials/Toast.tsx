@@ -42,7 +42,7 @@ export default function ToastContent({
 
   return (
     <div
-      id={id}
+      id={id as string}
       style={{
         pointerEvents: 'all',
         display: 'flex',

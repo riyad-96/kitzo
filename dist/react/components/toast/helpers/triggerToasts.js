@@ -1,8 +1,8 @@
-import { createToast as a, updateToast as s, genId as c } from "./createToast.js";
+import { createToast as n, updateToast as s, genId as c } from "./createToast.js";
 import { notify as i } from "./listenars.js";
 const e = (r, t) => {
   r != null && i(
-    a({
+    n({
       type: "default",
       action: "add",
       content: r,
@@ -11,11 +11,15 @@ const e = (r, t) => {
   );
 };
 e.dismiss = (r, t) => {
-  i({ action: "dismiss", id: r, toasterId: `${t}` });
+  i({
+    action: "dismiss",
+    id: r,
+    toasterId: t
+  });
 };
 e.info = (r, t) => {
   r != null && i(
-    a({
+    n({
       action: "add",
       type: "info",
       content: r,
@@ -25,7 +29,7 @@ e.info = (r, t) => {
 };
 e.success = (r, t) => {
   r != null && i(
-    a({
+    n({
       action: "add",
       type: "success",
       content: r,
@@ -35,7 +39,7 @@ e.success = (r, t) => {
 };
 e.warning = (r, t) => {
   r != null && i(
-    a({
+    n({
       action: "add",
       type: "warning",
       content: r,
@@ -45,7 +49,7 @@ e.warning = (r, t) => {
 };
 e.error = (r, t) => {
   r != null && i(
-    a({
+    n({
       action: "add",
       type: "error",
       content: r,
@@ -55,7 +59,7 @@ e.error = (r, t) => {
 };
 e.loading = (r, t) => {
   r != null && i(
-    a({
+    n({
       action: "add",
       type: "loading",
       content: r,
@@ -65,7 +69,7 @@ e.loading = (r, t) => {
 };
 e.custom = (r, t) => {
   r != null && i(
-    a({
+    n({
       action: "add",
       type: "custom",
       content: r,
@@ -73,25 +77,25 @@ e.custom = (r, t) => {
     })
   );
 };
-e.update = (r, t, n) => {
-  r != null && t != null && i(s({ id: `${r}`, content: t, options: n }));
+e.update = (r, t, a) => {
+  r != null && t != null && i(s({ id: `${r}`, content: t, options: a }));
 };
-e.promise = (async (r, t, n) => {
+e.promise = (async (r, t, a) => {
   const u = c();
   i(
-    a({
+    n({
       action: "add",
       type: "loading",
       content: t.loading,
-      options: { ...n, id: u, duration: 1 / 0, swipeToClose: !1 }
+      options: { ...a, id: u, duration: 1 / 0, swipeToClose: !1 }
     })
   );
   try {
     const o = await r, d = typeof t.success == "function" ? await t.success(o) : t.success;
-    return e.update(u, d, { ...n, type: "success" }), o;
+    return e.update(u, d, { ...a, type: "success" }), o;
   } catch (o) {
     const d = typeof t.error == "function" ? await t.error(o) : t.error;
-    throw e.update(u, d, { ...n, type: "error" }), o;
+    throw e.update(u, d, { ...a, type: "error" }), o;
   }
 });
 export {

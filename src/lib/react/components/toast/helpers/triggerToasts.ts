@@ -20,7 +20,11 @@ const toast: ToastFn = (content, options) => {
 };
 
 toast.dismiss = (id, toasterId) => {
-  notify({ action: 'dismiss', id: id as string, toasterId: `${toasterId}` });
+  notify({
+    action: 'dismiss',
+    id,
+    toasterId,
+  });
 };
 
 toast.info = (content, options) => {

@@ -34,8 +34,8 @@ export type ToastOptions = {
 export type ToastContent = ((dismiss: () => void) => ReactNode) | ReactNode;
 
 export type Toast = {
-  id: string;
-  toasterId: string;
+  id: string | number;
+  toasterId: string | number;
   type: ToastType;
   action: ToastAction;
   status: ToastStatus;

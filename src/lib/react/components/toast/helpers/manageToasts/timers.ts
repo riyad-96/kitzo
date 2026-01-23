@@ -9,7 +9,7 @@ type TimersValue = {
   totalTime: number;
   remainningTime: number;
   paused: boolean;
-  toasterId: string;
+  toasterId: string | number;
 };
 
 const timers = new Map<TimersKey, TimersValue>();
@@ -95,7 +95,7 @@ export function pauseToast(id: string | number) {
 }
 
 // Resume toast with remainning time
-export function resumeToast(id?: string) {
+export function resumeToast(id?: string | number) {
   if (dragStarted) return;
   if (!id) return;
 

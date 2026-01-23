@@ -28,7 +28,7 @@ export function subscribe(
   };
 }
 
-function addIdPrefix(prefix: string, id?: string) {
+function addIdPrefix(prefix: string, id?: string | number) {
   if (id == null) return undefined;
   id = `${id}`;
 

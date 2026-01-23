@@ -12,7 +12,7 @@ let isDragging = false;
 let activePointerId: number | null = null;
 
 const DRAG_THRESHOLD = 2;
-const CLOSE_THRESHOLD = 90;
+const CLOSE_THRESHOLD = 65;
 
 // Resistance settings
 const RESTRICTED_MAX = 20;
