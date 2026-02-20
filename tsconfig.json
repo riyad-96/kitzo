@@ -18,8 +18,8 @@
     "noEmit": false,
     "declaration": true,
     "emitDeclarationOnly": true,
-    "declarationDir": "dist", // <--- Forces types into dist
-    "outDir": "dist", // <--- Forces everything into dist
+    "declarationDir": "dist",
+    "outDir": "dist",
 
     "jsx": "react-jsx",
 
@@ -29,7 +29,11 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@react": ["./src/lib/react/index.ts"]
+    }
   },
   "include": ["src"]
 }
