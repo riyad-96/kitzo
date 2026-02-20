@@ -1,10 +1,12 @@
 @import 'tailwindcss';
 @plugin 'daisyui';
 
-.test-wrapper {
-  @apply p-6;
+@media (pointer: fine) {
+  button {
+    cursor: pointer;
+  }
 }
 
-.btn {
-  @apply btn btn-sm;
+[data-variant='default'] {
+  @apply rounded-lg bg-neutral-900 px-3 py-1.75 text-sm text-white transition-colors duration-150 pointer-fine:hover:bg-neutral-800;
 }

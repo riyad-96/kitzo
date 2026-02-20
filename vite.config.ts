@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react-swc';
 import dts from 'vite-plugin-dts';
 import { resolve } from 'path';
 import tailwindcss from '@tailwindcss/vite';
+import path from 'path';
 
 export default defineConfig({
   plugins: [
@@ -36,6 +37,12 @@ export default defineConfig({
         preserveModulesRoot: 'src/lib',
         entryFileNames: ({ name }) => `${name}.js`,
       },
+    },
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+      '@react': path.resolve(__dirname, './src/lib/react/index.ts'),
     },
   },
 });
