@@ -8,7 +8,7 @@ export default function Test() {
     swipeToClose: true,
     pauseOnHover: true,
     position: 'top-right',
-    animateTransformOrigin: false,
+    animateTransformOrigin: true,
     richColors: true,
     compact: false,
   });
@@ -124,6 +124,38 @@ export default function Test() {
               data-variant="default"
             >
               Custom
+            </button>
+
+            <button
+              onClick={() => {
+                toast.success('Cool toast', {
+                  duration: 5000,
+                  position: 'top-left',
+                });
+                toast.success('Cool toast', {
+                  duration: 5000,
+                  position: 'top-center',
+                });
+                toast.success('Cool toast', {
+                  duration: 5000,
+                  position: 'top-right',
+                });
+                toast.success('Cool toast', {
+                  duration: 5000,
+                  position: 'bottom-left',
+                });
+                toast.success('Cool toast', {
+                  duration: 5000,
+                  position: 'bottom-center',
+                });
+                toast.success('Cool toast', {
+                  duration: 5000,
+                  position: 'bottom-right',
+                });
+              }}
+              data-variant="default"
+            >
+              All positions
             </button>
           </div>
         </div>

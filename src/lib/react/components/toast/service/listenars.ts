@@ -1,5 +1,5 @@
 import type { Toast } from '../types';
-import addToastStyles from './addToastStyles';
+// import addToastStyles from './addToastStyles';
 
 type ListenerHandler = (toast: Toast) => void;
 
@@ -10,7 +10,7 @@ export function subscribe(
   fn: ListenerHandler,
   toasterId: string | number = DEFAULT_TOASTER_ID,
 ) {
-  addToastStyles();
+  // addToastStyles(); // TODO uncomment this line.
   toasterId = `toaster-id:${toasterId ?? DEFAULT_TOASTER_ID}`;
 
   if (!listeners.has(toasterId)) {

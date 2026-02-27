@@ -1,10 +1,11 @@
+import './style.css';
 import React from 'react';
 import type { ToastPositions, Toast, ToasterProps } from './types';
-import { subscribe } from './helpers/listenars';
-import manageToasts from './helpers/manageToasts/manageToasts';
+import { subscribe } from './service/listenars';
+import manageToasts from './service/manageToasts/manageToasts';
 import ToastContainer from './partials/ToastContainer';
 import { ToasterContext } from './context/ToasterContext';
-import { initSwipeToClose } from './helpers/manageToasts/swipeClose';
+import { initSwipeToClose } from './service/manageToasts/swipeClose';
 
 export function Toaster(props: ToasterProps) {
   const {
