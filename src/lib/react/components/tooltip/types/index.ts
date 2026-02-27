@@ -1,6 +1,6 @@
 import type { PropsWithChildren, ReactNode } from 'react';
 
-export type Position =
+export type TooltipPosition =
   | 'top'
   | 'top-start'
   | 'top-end'
@@ -29,7 +29,7 @@ export type TooltipCoreProps = {
    * content is necessary
    */
   content: ReactNode;
-  position?: Position;
+  position?: TooltipPosition;
 
   offset?: number;
   smartHover?: boolean;

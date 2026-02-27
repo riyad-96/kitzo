@@ -1,0 +1,5 @@
+---
+'kitzo': patch
+---
+
+fixed exports

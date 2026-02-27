@@ -25,7 +25,7 @@ async function writeToClipboard(text: string) {
 }
 
 // Main exported function
-export default async function copy(doc: unknown) {
+export async function copy(doc: unknown) {
   let text;
 
   try {

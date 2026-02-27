@@ -1,6 +1,5 @@
-import { Toaster, toast } from '@react';
 import { useState } from 'react';
-import type { ToasterProps } from './lib/react/components/toast/types';
+import { Toaster, toast, type ToasterProps } from 'kitzo';
 
 export default function Test() {
   // toggles

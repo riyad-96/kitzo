@@ -5,7 +5,7 @@ import getPositionClass from './helpers/getPositionClass';
 import TooltipWrapper from './partials/TooltipWrapper';
 import getAnimationProperties from './helpers/getAnimationProperties';
 
-export default function Tooltip(props: TooltipProps): ReactNode {
+export function Tooltip(props: TooltipProps): ReactNode {
   const {
     content,
     children,

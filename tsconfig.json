@@ -30,8 +30,8 @@
     "noUncheckedSideEffectImports": true,
     "paths": {
       "@/*": ["./src/*"],
-      "@fns": ["./src/lib/functions/index.ts"],
-      "@react": ["./src/lib/react/index.ts"]
+      "kitzo": ["./src/lib/index.ts"],
+      "kitzo/fns": ["./src/lib/fns.ts"]
     }
   },
   "include": ["src"]

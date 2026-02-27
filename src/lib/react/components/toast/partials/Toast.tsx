@@ -1,5 +1,5 @@
 import { pauseToast, resumeToast } from '../helpers/manageToasts/timers';
-import toast from '../helpers/triggerToasts';
+import { toast } from '../helpers/triggerToasts';
 import type { ToastPositions, Toast } from '../types';
 import { ErrorSvg, InfoSvg, LoadingSvg, SuccessSvg, WarningSvg } from './Svgs';
 import { useToasterContext } from '../context/ToasterContext';

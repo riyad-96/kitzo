@@ -6,7 +6,7 @@ import ToastContainer from './partials/ToastContainer';
 import { ToasterContext } from './context/ToasterContext';
 import { initSwipeToClose } from './helpers/manageToasts/swipeClose';
 
-export default function Toaster(props: ToasterProps) {
+export function Toaster(props: ToasterProps) {
   const {
     position = 'top-center',
     richColors = false,

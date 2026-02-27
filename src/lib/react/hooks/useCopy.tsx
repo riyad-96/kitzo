@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
-import copyToClipboard from '../../functions/copy/copy';
+import { copy as copyToClipboard } from '../../fns';
 
 export type CopyStatus = 'standby' | 'copying' | 'copied' | 'error';
 
@@ -13,7 +13,7 @@ type UseCopyReturn = {
   isStandby: boolean;
 };
 
-export default function useCopy(resetDelay: number = 1500): UseCopyReturn {
+export function useCopy(resetDelay: number = 1500): UseCopyReturn {
   const [status, setStatus] = useState<CopyStatus>('standby');
   const [error, setError] = useState<Error | null>(null);
 

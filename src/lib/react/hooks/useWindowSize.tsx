@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function useWindowSize(updateDelay: number = 30) {
+export function useWindowSize(updateDelay: number = 30) {
   const [screenSize, setScreenSize] = React.useState({
     screenWidth: 0,
     screenHeight: 0,
