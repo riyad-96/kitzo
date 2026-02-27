@@ -61,10 +61,13 @@ export default function ToastContent({
       data-animate-transform-origin={shouldAnimateTransformOrigin}
       data-compact={compact}
       data-update-state={updateState}
-      onPointerEnter={() => pauseOnHover && pauseToast(id)}
-      onPointerLeave={() => pauseOnHover && resumeToast(id)}
-      onMouseEnter={() => pauseOnHover && pauseToast(id)}
-      onMouseLeave={() => pauseOnHover && resumeToast(id)}
+      data-pause-on-hover={pauseOnHover}
+      onPointerEnter={(e) => {
+        if (pauseOnHover && e.pointerType === 'mouse') {
+          pauseToast(id);
+        }
+      }}
+      onPointerLeave={() => resumeToast(id)}
       className="kitzo-toast"
     >
       {showIcon && (

@@ -1,4 +1,5 @@
 import { toast } from '../triggerToasts';
+import { pauseToast, resumeToast } from './timers';
 
 export let dragStarted = false;
 
@@ -15,14 +16,15 @@ const DRAG_THRESHOLD = 2;
 const CLOSE_THRESHOLD = 65;
 
 // Resistance settings
-const RESTRICTED_MAX = 20;
-const RESTRICTED_SMOOTHNESS = 100;
+const RESTRICTED_MAX = 25;
 
 // smooth resistance curve
 function resisted(dx: number) {
+  if (!activeToast) return;
+
   const sign = Math.sign(dx) || 1;
   const abs = Math.abs(dx);
-  const r = RESTRICTED_MAX * (1 - Math.exp(-abs / RESTRICTED_SMOOTHNESS));
+  const r = RESTRICTED_MAX * (1 - Math.exp((-abs / 400) * 0.75));
   return sign * r;
 }
 
@@ -43,7 +45,7 @@ function endDrag(releasePointer = true) {
     try {
       activeToast.releasePointerCapture(activePointerId);
     } catch {
-      console.error('');
+      console.log('Failed to release pointer');
     }
   }
 
@@ -51,6 +53,8 @@ function endDrag(releasePointer = true) {
   activeToast.classList.remove('is-swiping');
 
   const element = activeToast;
+  const idToResume = activeToast.id;
+  const isPauseOnHoverEnabled = element.dataset.pauseOnHover === 'true';
 
   activeToast = null;
   activeToastId = null;
@@ -59,13 +63,13 @@ function endDrag(releasePointer = true) {
   dragStarted = false;
   currentX = 0;
 
-  if (!element.matches(':hover')) {
-    const event = new MouseEvent('mouseleave', {
-      bubbles: true,
-      cancelable: true,
-      view: window,
-    });
-    element.dispatchEvent(event);
+  if (element && document.body.contains(element)) {
+    const isMouseHovering = element.matches(':hover');
+    const shouldStayPaused = isMouseHovering && isPauseOnHoverEnabled;
+
+    if (!shouldStayPaused) {
+      resumeToast(idToResume);
+    }
   }
 }
 
@@ -87,12 +91,14 @@ function handlePointerDown(e: PointerEvent) {
 
 // pointer move event
 function handlePointerMove(e: PointerEvent) {
-  if (!isDragging || !activeToast) return;
+  if (!isDragging || !activeToast || activeToastId == null) return;
 
   currentX = e.clientX - startX;
 
   if (!dragStarted && Math.abs(currentX) > DRAG_THRESHOLD) {
     dragStarted = true;
+    // pause toast
+    pauseToast(activeToastId);
     activeToast.classList.add('is-swiping');
 
     try {

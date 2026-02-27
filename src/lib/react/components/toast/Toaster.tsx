@@ -1,4 +1,3 @@
-import './style.css';
 import React from 'react';
 import type { ToastPositions, Toast, ToasterProps } from './types';
 import { subscribe } from './service/listenars';
@@ -6,18 +5,20 @@ import manageToasts from './service/manageToasts/manageToasts';
 import ToastContainer from './partials/ToastContainer';
 import { ToasterContext } from './context/ToasterContext';
 import { initSwipeToClose } from './service/manageToasts/swipeClose';
+import { clampedValue } from './service/utils';
 
 export function Toaster(props: ToasterProps) {
   const {
     position = 'top-center',
-    richColors = false,
-    animateTransformOrigin = true,
     gap = props?.compact ? 8 : 12,
     edgeOffset = 16,
     dark,
+    compact = false,
+    richColors = false,
     pauseOnHover = true,
     swipeToClose = true,
-    compact = false,
+    animateScale = false,
+    animateTransformOrigin = true,
   } = props;
 
   const [isMounted, setIsMounted] = React.useState(false);
@@ -49,7 +50,7 @@ export function Toaster(props: ToasterProps) {
 
     // get all toast elements
     const toastElements: NodeListOf<HTMLElement> =
-      toasterRef.current.querySelectorAll('[data-toast-container]');
+      toasterRef.current.querySelectorAll('[data-kitzo-toast-container]');
 
     const stackOffsets = {
       'top-left': 0,
@@ -69,10 +70,14 @@ export function Toaster(props: ToasterProps) {
 
       el.style.setProperty('--toast-offset-y', `${stackOffsets[pos]}px`);
 
-      const effectiveGap = isNaN(+gap) ? 8 : +gap;
-      stackOffsets[pos] += height + effectiveGap;
+      const effectiveGap = isNaN(Number(gap))
+        ? props?.compact
+          ? 8
+          : 12
+        : Number(gap);
+      stackOffsets[pos] += height + clampedValue(effectiveGap, 0, 32);
     });
-  }, [gap]);
+  }, [gap, props?.compact]);
 
   React.useLayoutEffect(() => {
     updateOffsets();
@@ -96,10 +101,10 @@ export function Toaster(props: ToasterProps) {
         display: 'grid',
         padding:
           edgeOffset != null
-            ? `${Math.max(Math.min(+edgeOffset, 200), 0)}px`
+            ? `${clampedValue(Number(edgeOffset), 0, 32)}px`
             : 16,
       }}
-      className={`kitzo-toaster ${richColors ? 'kitzo-toaster-rich-colors' : ''} ${prefersDark ? 'kitzo-toaster-dark' : ''}`}
+      className={`kitzo-toaster ${richColors ? 'kitzo-toaster-rich-colors' : ''} ${prefersDark ? 'dark kitzo-toaster-dark' : ''}`}
     >
       <div
         style={{
@@ -118,6 +123,7 @@ export function Toaster(props: ToasterProps) {
             richColors,
             swipeToClose,
             pauseOnHover,
+            animateScale,
             animateTransformOrigin,
           }}
         >
