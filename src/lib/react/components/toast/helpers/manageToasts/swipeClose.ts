@@ -1,4 +1,4 @@
-import toast from '../triggerToasts';
+import { toast } from '../triggerToasts';
 
 export let dragStarted = false;
 

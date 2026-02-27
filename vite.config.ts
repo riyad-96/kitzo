@@ -20,8 +20,8 @@ export default defineConfig({
     emptyOutDir: true,
     lib: {
       entry: {
-        index: path.resolve(__dirname, 'src/lib/react/index.ts'),
-        fns: path.resolve(__dirname, 'src/lib/functions/index.ts'),
+        index: path.resolve(__dirname, 'src/lib/index.ts'),
+        fns: path.resolve(__dirname, 'src/lib/fns.ts'),
       },
       formats: ['es'],
     },
@@ -37,8 +37,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@/*': path.resolve(__dirname, './src'),
-      '@fns': path.resolve(__dirname, './src/lib/functions/index.ts'),
-      '@react': path.resolve(__dirname, './src/lib/react/index.ts'),
+      kitzo: path.resolve(__dirname, './src/lib/index.ts'),
+      'kitzo/fns': path.resolve(__dirname, './src/lib/fns.ts'),
     },
   },
 });

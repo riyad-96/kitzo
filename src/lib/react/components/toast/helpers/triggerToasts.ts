@@ -139,4 +139,4 @@ toast.promise = (async <T, E = unknown>(
   }
 }) as PromiseToastFn;
 
-export default toast;
+export { toast };

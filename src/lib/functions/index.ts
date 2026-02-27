@@ -1,3 +1,1 @@
-import copy from './copy/copy';
-
-export { copy };
+export { copy } from './copy';

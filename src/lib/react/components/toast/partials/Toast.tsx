@@ -1,12 +1,12 @@
 import { pauseToast, resumeToast } from '../helpers/manageToasts/timers';
-import toast from '../helpers/triggerToasts';
-import type { Positions, Toast } from '../types';
+import { toast } from '../helpers/triggerToasts';
+import type { ToastPositions, Toast } from '../types';
 import { ErrorSvg, InfoSvg, LoadingSvg, SuccessSvg, WarningSvg } from './Svgs';
 import { useToasterContext } from '../context/ToasterContext';
 
 type ToastProps = {
   t: Toast;
-  position: Positions;
+  position: ToastPositions;
   shouldAnimateTransformOrigin: boolean;
   swipeToClose: boolean;
 };
@@ -17,7 +17,7 @@ export default function ToastContent({
   shouldAnimateTransformOrigin,
   swipeToClose,
 }: ToastProps) {
-  const { pauseOnHover } = useToasterContext();
+  const { pauseOnHover, compact } = useToasterContext();
   const {
     id,
     type,
@@ -48,7 +48,6 @@ export default function ToastContent({
         display: 'flex',
         alignItems: 'center',
         gap: 8,
-        whiteSpace: 'pre-wrap',
       }}
       data-toaster-id={toasterId}
       data-action={action}
@@ -60,12 +59,13 @@ export default function ToastContent({
       data-exit={'auto'}
       data-swipeable={swipeToClose}
       data-animate-transform-origin={shouldAnimateTransformOrigin}
+      data-compact={compact}
       data-update-state={updateState}
       onPointerEnter={() => pauseOnHover && pauseToast(id)}
       onPointerLeave={() => pauseOnHover && resumeToast(id)}
       onMouseEnter={() => pauseOnHover && pauseToast(id)}
       onMouseLeave={() => pauseOnHover && resumeToast(id)}
-      className={`kitzo-toast ${shouldAnimateTransformOrigin ? `transform-origin-${position}` : ''}`}
+      className="kitzo-toast"
     >
       {showIcon && (
         <>
