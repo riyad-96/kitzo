@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-export type Positions =
+export type ToastPositions =
   | 'top-left'
   | 'top-center'
   | 'top-right'
@@ -23,7 +23,7 @@ export type ToastOptions = {
   duration?: number;
   showIcon?: boolean;
   icon?: ReactNode;
-  position?: Positions;
+  position?: ToastPositions;
   animateTransformOrigin?: boolean;
   id?: string | number;
   type?: ToastType;
@@ -43,7 +43,7 @@ export type Toast = {
   zIndex: number;
   duration: number;
   showIcon: boolean;
-  position?: Positions;
+  position?: ToastPositions;
   swipeToClose?: boolean;
   icon?: ReactNode;
   animateTransformOrigin?: boolean;
@@ -85,14 +85,16 @@ export type ToastFn = {
   ) => void;
 };
 
+//! toaster props
 export type ToasterProps = {
-  position?: Positions;
-  richColors?: boolean;
-  animateTransformOrigin?: boolean;
+  position?: ToastPositions;
   gap?: number | `${number}`;
   edgeOffset?: number | `${number}`;
-  isDark?: boolean;
+  toasterId?: string | number;
+  dark?: boolean;
+  compact?: boolean;
+  richColors?: boolean;
   pauseOnHover?: boolean;
   swipeToClose?: boolean;
-  toasterId?: string | number;
+  animateTransformOrigin?: boolean;
 };
