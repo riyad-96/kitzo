@@ -97,4 +97,5 @@ export type ToasterProps = {
   pauseOnHover?: boolean;
   swipeToClose?: boolean;
   animateTransformOrigin?: boolean;
+  animateScale?: boolean;
 };

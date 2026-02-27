@@ -7,6 +7,7 @@ export default function ToastContainer({ t }: { t: Toast }) {
   const {
     updateOffsets,
     position: containerPosition,
+    animateScale,
     animateTransformOrigin,
     swipeToClose,
   } = useToasterContext();
@@ -56,14 +57,16 @@ export default function ToastContainer({ t }: { t: Toast }) {
   return (
     <div
       ref={ref}
-      data-toast-container
+      data-kitzo-toast-container
       data-toast-position={position}
+      data-animate-scale={animateScale}
+      className="kitzo-toast-container"
       style={{
         position: 'absolute',
         zIndex: t.zIndex,
         left: 0,
         right: 0,
-        transition: 'transform 180ms',
+        transition: `transform ${animateScale ? '220ms' : '280ms'}`,
         display: 'flex',
         justifyContent: position?.includes('left')
           ? 'flex-start'

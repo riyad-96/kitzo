@@ -94,7 +94,6 @@ const toastStyles = `.kitzo-toaster {
   font-family: inherit;
   font-size: 0.875rem;
   white-space: pre-wrap;
-  text-wrap: balance;
 }
 
 .kitzo-toast.is-swiping {
@@ -143,7 +142,7 @@ const toastStyles = `.kitzo-toaster {
 .kitzo-toast[data-type='warning'],
 .kitzo-toast[data-type='error'],
 .kitzo-toast[data-type='info'] {
-  border-radius: 0.425rem;
+  border-radius: 0.5525rem;
   padding: 0.375rem 0.625rem;
   box-shadow: 0 3px 8px -3px hsl(0, 0%, 0%, 0.15);
 }
@@ -162,16 +161,22 @@ const toastStyles = `.kitzo-toaster {
 .kitzo-toast {
   --swipe-x: 0px;
   --motion-y: 0%;
-  --scale: 0.6;
+  --scale: 1;
   --exit-x: 0px;
 }
 
+.kitzo-toast-container[data-animate-scale='true'] {
+  .kitzo-toast {
+    --scale: 0.6;
+  }
+}
+
 .kitzo-toast[data-screen-y='top'] {
-  --motion-y: -120%;
+  --motion-y: -100%;
 }
 
 .kitzo-toast[data-screen-y='bottom'] {
-  --motion-y: 120%;
+  --motion-y: 100%;
 }
 
 .kitzo-toast[data-status='leaving'][data-exit='swipe'] {
@@ -196,10 +201,10 @@ const toastStyles = `.kitzo-toaster {
 }
 
 .kitzo-toast[data-update-state='updated'] {
-  animation: update 250ms ease;
+  animation: update 280ms ease;
 }
 .kitzo-toast[data-update-state='updated-again'] {
-  animation: update-again 250ms ease;
+  animation: update-again 280ms ease;
 }
 
 @keyframes update {
@@ -223,31 +228,32 @@ const toastStyles = `.kitzo-toaster {
   }
 }
 
-/*! toast transfor origin */
+/*! toast transform origin */
 .kitzo-toast[data-position^='top'] {
   transform-origin: top;
 }
 .kitzo-toast[data-position^='bottom'] {
   transform-origin: bottom;
 }
-
-.kitzo-toast[data-animate-transform-origin='true'][data-position='top-left'] {
-  transform-origin: top left;
-}
-.kitzo-toast[data-animate-transform-origin='true'][data-position='top-center'] {
-  transform-origin: top;
-}
-.kitzo-toast[data-animate-transform-origin='true'][data-position='top-right'] {
-  transform-origin: top right;
-}
-.kitzo-toast[data-animate-transform-origin='true'][data-position='bottom-left'] {
-  transform-origin: bottom left;
-}
-.kitzo-toast[data-animate-transform-origin='true'][data-position='bottom-center'] {
-  transform-origin: bottom;
-}
-.kitzo-toast[data-animate-transform-origin='true'][data-position='bottom-right'] {
-  transform-origin: bottom right;
+@media (width > 380px) {
+  .kitzo-toast[data-animate-transform-origin='true'][data-position='top-left'] {
+    transform-origin: top left;
+  }
+  .kitzo-toast[data-animate-transform-origin='true'][data-position='top-center'] {
+    transform-origin: top;
+  }
+  .kitzo-toast[data-animate-transform-origin='true'][data-position='top-right'] {
+    transform-origin: top right;
+  }
+  .kitzo-toast[data-animate-transform-origin='true'][data-position='bottom-left'] {
+    transform-origin: bottom left;
+  }
+  .kitzo-toast[data-animate-transform-origin='true'][data-position='bottom-center'] {
+    transform-origin: bottom;
+  }
+  .kitzo-toast[data-animate-transform-origin='true'][data-position='bottom-right'] {
+    transform-origin: bottom right;
+  }
 }
 
 .kitzo-toast[data-status='leaving'][data-position^='top'] {

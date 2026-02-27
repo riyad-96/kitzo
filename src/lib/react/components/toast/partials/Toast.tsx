@@ -1,5 +1,5 @@
-import { pauseToast, resumeToast } from '../helpers/manageToasts/timers';
-import { toast } from '../helpers/triggerToasts';
+import { pauseToast, resumeToast } from '../service/manageToasts/timers';
+import { toast } from '../service/triggerToasts';
 import type { ToastPositions, Toast } from '../types';
 import { ErrorSvg, InfoSvg, LoadingSvg, SuccessSvg, WarningSvg } from './Svgs';
 import { useToasterContext } from '../context/ToasterContext';
@@ -61,10 +61,13 @@ export default function ToastContent({
       data-animate-transform-origin={shouldAnimateTransformOrigin}
       data-compact={compact}
       data-update-state={updateState}
-      onPointerEnter={() => pauseOnHover && pauseToast(id)}
-      onPointerLeave={() => pauseOnHover && resumeToast(id)}
-      onMouseEnter={() => pauseOnHover && pauseToast(id)}
-      onMouseLeave={() => pauseOnHover && resumeToast(id)}
+      data-pause-on-hover={pauseOnHover}
+      onPointerEnter={(e) => {
+        if (pauseOnHover && e.pointerType === 'mouse') {
+          pauseToast(id);
+        }
+      }}
+      onPointerLeave={() => resumeToast(id)}
       className="kitzo-toast"
     >
       {showIcon && (
