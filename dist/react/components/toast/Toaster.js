@@ -1,37 +1,38 @@
-import { jsx as a } from "react/jsx-runtime";
+import { jsx as n } from "react/jsx-runtime";
 import t from "react";
-import { subscribe as E } from "./helpers/listenars.js";
-import w from "./helpers/manageToasts/manageToasts.js";
-import M from "./partials/ToastContainer.js";
-import { ToasterContext as O } from "./context/ToasterContext.js";
-import { initSwipeToClose as S } from "./helpers/manageToasts/swipeClose.js";
-function D(i) {
+import { subscribe as w } from "./helpers/listenars.js";
+import M from "./helpers/manageToasts/manageToasts.js";
+import O from "./partials/ToastContainer.js";
+import { ToasterContext as S } from "./context/ToasterContext.js";
+import { initSwipeToClose as z } from "./helpers/manageToasts/swipeClose.js";
+function q(s) {
   const {
     position: h = "top-center",
-    richColors: l = !1,
+    richColors: u = !1,
     animateTransformOrigin: g = !0,
-    gap: s = 8,
-    edgeOffset: n = 16,
-    isDark: c,
+    gap: r = s?.compact ? 8 : 12,
+    edgeOffset: i = 16,
+    dark: c,
     pauseOnHover: b = !0,
-    swipeToClose: y = !0
-  } = i, [k, T] = t.useState(!1);
+    swipeToClose: y = !0,
+    compact: k = !1
+  } = s, [T, v] = t.useState(!1);
   t.useEffect(() => {
-    T(!0);
+    v(!0);
   }, []);
   const [p, m] = t.useState([]);
   t.useEffect(() => {
-    const e = E(
-      (o) => w({ toast: o, setToasts: m }),
-      i.toasterId
-    ), r = S();
+    const e = w(
+      (o) => M({ toast: o, setToasts: m }),
+      s.toasterId
+    ), a = z();
     return () => {
-      e(), r();
+      e(), a();
     };
-  }, [i.toasterId]);
-  const f = t.useRef(null), u = t.useCallback(() => {
+  }, [s.toasterId]);
+  const f = t.useRef(null), l = t.useCallback(() => {
     if (!f.current) return;
-    const e = f.current.querySelectorAll("[data-toast-container]"), r = {
+    const e = f.current.querySelectorAll("[data-toast-container]"), a = {
       "top-left": 0,
       "top-center": 0,
       "top-right": 0,
@@ -40,17 +41,17 @@ function D(i) {
       "bottom-right": 0
     };
     e.forEach((o) => {
-      const d = o.getAttribute("data-toast-position") || "top-center", x = parseFloat(o.style.getPropertyValue("--toast-height")) || 0;
-      o.style.setProperty("--toast-offset-y", `${r[d]}px`);
-      const C = isNaN(+s) ? 8 : +s;
-      r[d] += x + C;
+      const d = o.getAttribute("data-toast-position") || "top-center", C = parseFloat(o.style.getPropertyValue("--toast-height")) || 0;
+      o.style.setProperty("--toast-offset-y", `${a[d]}px`);
+      const E = isNaN(+r) ? 8 : +r;
+      a[d] += C + E;
     });
-  }, [s]);
+  }, [r]);
   if (t.useLayoutEffect(() => {
-    u();
-  }, [p, u]), !k) return null;
-  const v = typeof c == "boolean" ? c : window.matchMedia("(prefers-color-scheme: dark)").matches;
-  return /* @__PURE__ */ a(
+    l();
+  }, [p, l]), !T) return null;
+  const x = typeof c == "boolean" ? c : window.matchMedia("(prefers-color-scheme: dark)").matches;
+  return /* @__PURE__ */ n(
     "div",
     {
       ref: f,
@@ -60,31 +61,32 @@ function D(i) {
         zIndex: 2147483647,
         pointerEvents: "none",
         display: "grid",
-        padding: n != null ? `${Math.max(Math.min(+n, 200), 0)}px` : 16
+        padding: i != null ? `${Math.max(Math.min(+i, 200), 0)}px` : 16
       },
-      className: `kitzo-toaster ${l ? "kitzo-toaster-rich-colors" : ""} ${v ? "kitzo-toaster-dark" : ""}`,
-      children: /* @__PURE__ */ a(
+      className: `kitzo-toaster ${u ? "kitzo-toaster-rich-colors" : ""} ${x ? "kitzo-toaster-dark" : ""}`,
+      children: /* @__PURE__ */ n(
         "div",
         {
           style: {
             position: "relative"
           },
-          children: /* @__PURE__ */ a(
-            O.Provider,
+          children: /* @__PURE__ */ n(
+            S.Provider,
             {
               value: {
                 position: h,
-                richColors: l,
-                isDark: c,
-                gap: s,
-                edgeOffset: n,
-                animateTransformOrigin: g,
-                pauseOnHover: b,
-                swipeToClose: y,
+                gap: r,
+                edgeOffset: i,
                 setToasts: m,
-                updateOffsets: u
+                updateOffsets: l,
+                dark: c,
+                compact: k,
+                richColors: u,
+                swipeToClose: y,
+                pauseOnHover: b,
+                animateTransformOrigin: g
               },
-              children: p.map((e) => /* @__PURE__ */ a(M, { t: e }, e.id))
+              children: p.map((e) => /* @__PURE__ */ n(O, { t: e }, e.id))
             }
           )
         }
@@ -93,5 +95,5 @@ function D(i) {
   );
 }
 export {
-  D as default
+  q as default
 };

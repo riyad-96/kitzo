@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef } from 'react';
-import type { Positions, Toast } from '../types';
+import type { ToastPositions, Toast } from '../types';
 import ToastContent from './Toast';
 import { useToasterContext } from '../context/ToasterContext';
 
@@ -77,7 +77,7 @@ export default function ToastContainer({ t }: { t: Toast }) {
     >
       <ToastContent
         t={t}
-        position={position as Positions}
+        position={position as ToastPositions}
         shouldAnimateTransformOrigin={shouldAnimateTransformOrigin}
         swipeToClose={isSwipeToCloseAllowed}
       />

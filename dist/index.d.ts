@@ -17,8 +17,6 @@ declare type Options = ToastOptionsWithoutType;
 
 declare type Position = 'top' | 'top-start' | 'top-end' | 'right' | 'right-start' | 'right-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end';
 
-declare type Positions = 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
-
 declare type PromiseToastFn = <T, E = unknown>(promise: Promise<T>, msgs: PromiseToastMsgs<T, E>, options?: PromiseToastOptions) => Promise<T>;
 
 declare type PromiseToastMsgs<T, E = unknown> = {
@@ -35,16 +33,17 @@ declare type ToastContent = ((dismiss: () => void) => ReactNode) | ReactNode;
 
 export declare function Toaster(props: ToasterProps): JSX.Element | null;
 
-declare type ToasterProps = {
-    position?: Positions;
-    richColors?: boolean;
-    animateTransformOrigin?: boolean;
+export declare type ToasterProps = {
+    position?: ToastPositions;
     gap?: number | `${number}`;
     edgeOffset?: number | `${number}`;
-    isDark?: boolean;
+    toasterId?: string | number;
+    dark?: boolean;
+    compact?: boolean;
+    richColors?: boolean;
     pauseOnHover?: boolean;
     swipeToClose?: boolean;
-    toasterId?: string | number;
+    animateTransformOrigin?: boolean;
 };
 
 declare type ToastFn = {
@@ -64,7 +63,7 @@ declare type ToastOptions = {
     duration?: number;
     showIcon?: boolean;
     icon?: ReactNode;
-    position?: Positions;
+    position?: ToastPositions;
     animateTransformOrigin?: boolean;
     id?: string | number;
     type?: ToastType;
@@ -73,6 +72,8 @@ declare type ToastOptions = {
 };
 
 declare type ToastOptionsWithoutType = Omit<ToastOptions, 'type'>;
+
+export declare type ToastPositions = 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
 
 declare type ToastType = 'default' | 'success' | 'warning' | 'error' | 'info' | 'custom' | 'loading';
 

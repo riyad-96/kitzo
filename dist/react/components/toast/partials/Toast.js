@@ -1,34 +1,34 @@
-import { jsxs as x, jsx as t, Fragment as s } from "react/jsx-runtime";
-import { resumeToast as p, pauseToast as u } from "../helpers/manageToasts/timers.js";
-import S from "../helpers/triggerToasts.js";
-import { InfoSvg as w, ErrorSvg as I, WarningSvg as E, SuccessSvg as k, LoadingSvg as L } from "./Svgs.js";
+import { jsxs as S, jsx as t, Fragment as o } from "react/jsx-runtime";
+import { resumeToast as l, pauseToast as m } from "../helpers/manageToasts/timers.js";
+import I from "../helpers/triggerToasts.js";
+import { InfoSvg as E, ErrorSvg as T, WarningSvg as k, SuccessSvg as w, LoadingSvg as L } from "./Svgs.js";
 import { useToasterContext as M } from "../context/ToasterContext.js";
-function P({
-  t: d,
-  position: n,
-  shouldAnimateTransformOrigin: c,
-  swipeToClose: m
+function z({
+  t: c,
+  position: s,
+  shouldAnimateTransformOrigin: p,
+  swipeToClose: u
 }) {
-  const { pauseOnHover: o } = M(), {
+  const { pauseOnHover: n, compact: f } = M(), {
     id: e,
     type: r,
-    action: f,
+    action: g,
     content: i,
-    status: g,
-    showIcon: v,
+    status: v,
+    showIcon: h,
     icon: a,
-    toasterId: h,
-    updateState: y
-  } = d, l = {
+    toasterId: y,
+    updateState: x
+  } = c, d = {
     loading: /* @__PURE__ */ t(L, {}),
-    success: /* @__PURE__ */ t(k, {}),
-    warning: /* @__PURE__ */ t(E, {}),
-    error: /* @__PURE__ */ t(I, {}),
-    info: /* @__PURE__ */ t(w, {}),
+    success: /* @__PURE__ */ t(w, {}),
+    warning: /* @__PURE__ */ t(k, {}),
+    error: /* @__PURE__ */ t(T, {}),
+    info: /* @__PURE__ */ t(E, {}),
     default: null,
     custom: null
   };
-  return /* @__PURE__ */ x(
+  return /* @__PURE__ */ S(
     "div",
     {
       id: e,
@@ -36,27 +36,27 @@ function P({
         pointerEvents: "all",
         display: "flex",
         alignItems: "center",
-        gap: 8,
-        whiteSpace: "pre-wrap"
+        gap: 8
       },
-      "data-toaster-id": h,
-      "data-action": f,
-      "data-status": g,
+      "data-toaster-id": y,
+      "data-action": g,
+      "data-status": v,
       "data-type": r,
-      "data-position": n,
-      "data-screen-x": n.split("-")[1],
-      "data-screen-y": n.split("-")[0],
+      "data-position": s,
+      "data-screen-x": s.split("-")[1],
+      "data-screen-y": s.split("-")[0],
       "data-exit": "auto",
-      "data-swipeable": m,
-      "data-animate-transform-origin": c,
-      "data-update-state": y,
-      onPointerEnter: () => o && u(e),
-      onPointerLeave: () => o && p(e),
-      onMouseEnter: () => o && u(e),
-      onMouseLeave: () => o && p(e),
-      className: `kitzo-toast ${c ? `transform-origin-${n}` : ""}`,
+      "data-swipeable": u,
+      "data-animate-transform-origin": p,
+      "data-compact": f,
+      "data-update-state": x,
+      onPointerEnter: () => n && m(e),
+      onPointerLeave: () => n && l(e),
+      onMouseEnter: () => n && m(e),
+      onMouseLeave: () => n && l(e),
+      className: "kitzo-toast",
       children: [
-        v && /* @__PURE__ */ t(s, { children: a ? /* @__PURE__ */ t(s, { children: typeof a == "string" || typeof a == "number" ? /* @__PURE__ */ t(
+        h && /* @__PURE__ */ t(o, { children: a ? /* @__PURE__ */ t(o, { children: typeof a == "string" || typeof a == "number" ? /* @__PURE__ */ t(
           "div",
           {
             style: {
@@ -65,14 +65,14 @@ function P({
             className: "svg-container",
             children: a
           }
-        ) : /* @__PURE__ */ t(s, { children: a }) }) : /* @__PURE__ */ t(s, { children: l[r] && /* @__PURE__ */ t("div", { style: { flexShrink: 0 }, className: "svg-container", children: l[r] }) }) }),
+        ) : /* @__PURE__ */ t(o, { children: a }) }) : /* @__PURE__ */ t(o, { children: d[r] && /* @__PURE__ */ t("div", { style: { flexShrink: 0 }, className: "svg-container", children: d[r] }) }) }),
         /* @__PURE__ */ t(
           "div",
           {
             style: {
               flex: 1
             },
-            children: typeof i == "function" ? i(() => S.dismiss(e, d.toasterId)) : i
+            children: typeof i == "function" ? i(() => I.dismiss(e, c.toasterId)) : i
           }
         )
       ]
@@ -80,5 +80,5 @@ function P({
   );
 }
 export {
-  P as default
+  z as default
 };

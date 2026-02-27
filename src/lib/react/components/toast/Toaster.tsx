@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Positions, Toast, ToasterProps } from './types';
+import type { ToastPositions, Toast, ToasterProps } from './types';
 import { subscribe } from './helpers/listenars';
 import manageToasts from './helpers/manageToasts/manageToasts';
 import ToastContainer from './partials/ToastContainer';
@@ -11,11 +11,12 @@ export default function Toaster(props: ToasterProps) {
     position = 'top-center',
     richColors = false,
     animateTransformOrigin = true,
-    gap = 8,
+    gap = props?.compact ? 8 : 12,
     edgeOffset = 16,
-    isDark,
+    dark,
     pauseOnHover = true,
     swipeToClose = true,
+    compact = false,
   } = props;
 
   const [isMounted, setIsMounted] = React.useState(false);
@@ -59,9 +60,9 @@ export default function Toaster(props: ToasterProps) {
     };
 
     toastElements.forEach((el) => {
-      const pos: Positions =
-        (el.getAttribute('data-toast-position') as Positions) ||
-        ('top-center' as Positions);
+      const pos: ToastPositions =
+        (el.getAttribute('data-toast-position') as ToastPositions) ||
+        ('top-center' as ToastPositions);
       const height =
         parseFloat(el.style.getPropertyValue('--toast-height')) || 0;
 
@@ -79,8 +80,8 @@ export default function Toaster(props: ToasterProps) {
   if (!isMounted) return null;
 
   const prefersDark =
-    typeof isDark === 'boolean'
-      ? isDark
+    typeof dark === 'boolean'
+      ? dark
       : window.matchMedia('(prefers-color-scheme: dark)').matches;
 
   return (
@@ -107,15 +108,16 @@ export default function Toaster(props: ToasterProps) {
         <ToasterContext.Provider
           value={{
             position,
-            richColors,
-            isDark,
             gap,
             edgeOffset,
-            animateTransformOrigin,
-            pauseOnHover,
-            swipeToClose,
             setToasts,
             updateOffsets,
+            dark,
+            compact,
+            richColors,
+            swipeToClose,
+            pauseOnHover,
+            animateTransformOrigin,
           }}
         >
           {toasts.map((t) => (
