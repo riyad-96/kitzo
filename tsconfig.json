@@ -15,11 +15,9 @@
     "moduleDetection": "force",
 
     /* FIX: Redirect output and allow emission */
-    "noEmit": false,
+    "noEmit": true,
     "declaration": true,
     "emitDeclarationOnly": true,
-    "declarationDir": "dist",
-    "outDir": "dist",
 
     "jsx": "react-jsx",
 
@@ -32,6 +30,7 @@
     "noUncheckedSideEffectImports": true,
     "paths": {
       "@/*": ["./src/*"],
+      "@fns": ["./src/lib/functions/index.ts"],
       "@react": ["./src/lib/react/index.ts"]
     }
   },
