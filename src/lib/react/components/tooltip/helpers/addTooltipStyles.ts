@@ -1,4 +1,5 @@
-const tooltipStyles = `.kitzo-tooltip-root {
+const tooltipStyles = `/*! Default styling */
+.kitzo-tooltip-root {
   --bg-clr: hsl(0, 0%, 15%);
   --text-clr: hsl(0, 0%, 95%);
 
@@ -6,6 +7,8 @@ const tooltipStyles = `.kitzo-tooltip-root {
   --transition-endDuration: calc(var(--endDuration) * 1ms);
   --transition-startDelay: calc(var(--startDelay) * 1ms);
   --transition-endDelay: calc(var(--endDelay) * 1ms);
+
+  --tooltip-offset: calc(var(--offset) * 1px + 1px);
 }
 
 .kitzo-tooltip-root.tooltip-theme-dark {
@@ -32,12 +35,11 @@ const tooltipStyles = `.kitzo-tooltip-root {
   color: var(--text-clr);
   padding-block: 0.25rem;
   padding-inline: 0.5rem;
-  border-radius: 0.325rem;
+  border-radius: 0.425rem;
 }
 
-/* Tooltip positioning */
+/*! Tooltip transitions */
 .kitzo-tooltip-wrapper {
-  --tooltip-offset: calc(var(--offset) * 1px + 1px);
   opacity: 0;
   transition-property: opacity;
   transition-delay: calc(
@@ -50,80 +52,6 @@ const tooltipStyles = `.kitzo-tooltip-root {
   transition-delay: 0ms;
 }
 
-/* Top */
-.kitzo-tooltip-wrapper.top {
-  bottom: 100%;
-  padding-block-end: var(--tooltip-offset);
-}
-.kitzo-tooltip-wrapper.top {
-  left: 50%;
-  translate: -50% 0;
-}
-.kitzo-tooltip-wrapper.top.start {
-  left: 0;
-  translate: 0 0;
-}
-.kitzo-tooltip-wrapper.top.end {
-  left: auto;
-  right: 0;
-  translate: 0 0;
-}
-
-/* Right */
-.kitzo-tooltip-wrapper.right {
-  left: 100%;
-  padding-inline-start: var(--tooltip-offset);
-}
-.kitzo-tooltip-wrapper.right {
-  top: 50%;
-  translate: 0 -50%;
-}
-.kitzo-tooltip-wrapper.right.start {
-  top: 0;
-  translate: 0 0;
-}
-.kitzo-tooltip-wrapper.right.end {
-  top: 100%;
-  translate: 0 -100%;
-}
-
-/* Bottom */
-.kitzo-tooltip-wrapper.bottom {
-  top: 100%;
-  padding-block-start: var(--tooltip-offset);
-}
-.kitzo-tooltip-wrapper.bottom {
-  left: 50%;
-  translate: -50% 0;
-}
-.kitzo-tooltip-wrapper.bottom.start {
-  left: 0;
-  translate: 0 0;
-}
-.kitzo-tooltip-wrapper.bottom.end {
-  left: 100%;
-  translate: -100% 0;
-}
-
-/* Left */
-.kitzo-tooltip-wrapper.left {
-  right: 100%;
-  padding-inline-end: var(--tooltip-offset);
-}
-.kitzo-tooltip-wrapper.left {
-  top: 50%;
-  translate: 0 -50%;
-}
-.kitzo-tooltip-wrapper.left.start {
-  top: 0;
-  translate: 0 0;
-}
-.kitzo-tooltip-wrapper.left.end {
-  top: 100%;
-  translate: 0 -100%;
-}
-
-/* Tooltip transitions */
 .kitzo-tooltip-root.animate-tooltip {
   .kitzo-tooltip-content {
     text-rendering: optimizeLegibility;
@@ -170,7 +98,7 @@ const tooltipStyles = `.kitzo-tooltip-root {
   }
 }
 
-/* smart hover persistence feature */
+/*! smart hover persistence feature */
 .kitzo-tooltip-root {
   .kitzo-tooltip-wrapper {
     pointer-events: none;
@@ -180,7 +108,73 @@ const tooltipStyles = `.kitzo-tooltip-root {
   .kitzo-tooltip-wrapper {
     pointer-events: all;
   }
-}`;
+}
+
+/*! Tooltip positioning */
+/*? Top */
+.kitzo-tooltip-wrapper[data-position^='top'] {
+  bottom: 100%;
+  padding-block-end: var(--tooltip-offset);
+}
+.kitzo-tooltip-wrapper[data-position='top'] {
+  left: 50%;
+  translate: -50% 0;
+}
+.kitzo-tooltip-wrapper[data-position='top-start'] {
+  left: 0;
+}
+.kitzo-tooltip-wrapper[data-position='top-end'] {
+  right: 0;
+}
+
+/*? Right */
+.kitzo-tooltip-wrapper[data-position^='right'] {
+  inset-inline-start: 100%;
+  padding-inline-start: var(--tooltip-offset);
+}
+.kitzo-tooltip-wrapper[data-position='right'] {
+  top: 50%;
+  translate: 0 -50%;
+}
+.kitzo-tooltip-wrapper[data-position='right-start'] {
+  top: 0;
+}
+.kitzo-tooltip-wrapper[data-position='right-end'] {
+  bottom: 0;
+}
+
+/*? Bottom */
+.kitzo-tooltip-wrapper[data-position^='bottom'] {
+  top: 100%;
+  padding-block-start: var(--tooltip-offset);
+}
+.kitzo-tooltip-wrapper[data-position='bottom'] {
+  left: 50%;
+  translate: -50% 0;
+}
+.kitzo-tooltip-wrapper[data-position='bottom-start'] {
+  left: 0;
+}
+.kitzo-tooltip-wrapper[data-position='bottom-end'] {
+  right: 0;
+}
+
+/*? Left */
+.kitzo-tooltip-wrapper[data-position^='left'] {
+  inset-inline-end: 100%;
+  padding-inline-end: var(--tooltip-offset);
+}
+.kitzo-tooltip-wrapper[data-position='left'] {
+  top: 50%;
+  translate: 0 -50%;
+}
+.kitzo-tooltip-wrapper[data-position='left-start'] {
+  top: 0;
+}
+.kitzo-tooltip-wrapper[data-position='left-end'] {
+  bottom: 0;
+}
+`;
 
 function addTooltipStyles() {
   if (!document.getElementById('kitzo-tooltip-styles')) {

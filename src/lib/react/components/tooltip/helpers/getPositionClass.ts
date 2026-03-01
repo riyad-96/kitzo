@@ -1,15 +1,15 @@
 const allowedPositions = [
-  'top-start',
   'top',
+  'top-start',
   'top-end',
-  'right-start',
   'right',
+  'right-start',
   'right-end',
-  'bottom-start',
   'bottom',
+  'bottom-start',
   'bottom-end',
-  'left-start',
   'left',
+  'left-start',
   'left-end',
 ];
 
@@ -20,10 +20,5 @@ export default function getPositionClass(position = '') {
   const allowedPos = allowedPositions.find((p) => p === position);
   if (!allowedPos) return 'top';
 
-  if (allowedPos.includes('-')) {
-    const [dir, state] = allowedPos.split('-');
-    return `${dir} ${state}`;
-  } else {
-    return allowedPos;
-  }
+  return allowedPos;
 }

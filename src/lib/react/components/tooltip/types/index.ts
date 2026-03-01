@@ -35,8 +35,8 @@ export type TooltipCoreProps = {
   smartHover?: boolean;
   hideOnTouch?: boolean;
   animation?: TooltipAnimation;
-  isHidden?: boolean;
-  isDark?: boolean;
+  hidden?: boolean;
+  dark?: boolean;
 };
 
 export type TooltipProps = PropsWithChildren<TooltipCoreProps>;
