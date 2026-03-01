@@ -1,5 +1,11 @@
 # kitzo
 
+## 2.5.2
+
+### Patch Changes
+
+- 5dc2709: Fixed tooltip position issues
+
 ## 2.5.1
 
 ### Patch Changes
