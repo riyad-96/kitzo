@@ -16,10 +16,10 @@ export default function TooltipWrapper({
       style={{
         position: 'absolute',
         whiteSpace: 'pre-wrap',
-        width: 'max-content',
+        inlineSize: 'max-content',
       }}
-      tabIndex={-1}
       className={`kitzo-tooltip-wrapper ${positionClass}`}
+      data-position={positionClass}
     >
       <div
         className={`kitzo-tooltip-content ${positionClass} ${finalOptions.arrow ? 'tooltip-arrow' : ''}`}

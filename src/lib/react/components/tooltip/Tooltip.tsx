@@ -11,11 +11,11 @@ export function Tooltip(props: TooltipProps): ReactNode {
     children,
     position = 'top',
     animation = true,
-    isHidden = false,
+    hidden = false,
     offset = 8,
     smartHover = true,
     hideOnTouch = true,
-    isDark,
+    dark,
   } = props;
 
   const [isMounted, setIsMounted] = React.useState(false);
@@ -27,7 +27,7 @@ export function Tooltip(props: TooltipProps): ReactNode {
 
   if (!isMounted) return <>{children}</>;
 
-  if (typeof isHidden === 'boolean' && isHidden) return <>{children}</>;
+  if (typeof hidden === 'boolean' && hidden) return <>{children}</>;
 
   if (content == null) {
     return <>{children}</>;
@@ -50,8 +50,8 @@ export function Tooltip(props: TooltipProps): ReactNode {
       navigator.maxTouchPoints > 0;
 
     prefersDark =
-      typeof isDark === 'boolean'
-        ? isDark
+      typeof dark === 'boolean'
+        ? dark
         : window.matchMedia('(prefers-color-scheme: dark)').matches;
   }
 
@@ -72,7 +72,7 @@ export function Tooltip(props: TooltipProps): ReactNode {
       style={
         {
           position: 'relative',
-          width: 'fit-content',
+          inlineSize: 'fit-content',
           '--offset': Math.max(0, finalOptions.offset),
           '--startDuration': Math.max(
             0,
@@ -83,7 +83,7 @@ export function Tooltip(props: TooltipProps): ReactNode {
           '--endDelay': Math.max(0, finalAnimationProperties.endDelay),
         } as CSSProperties
       }
-      className={`kitzo-tooltip-root ${prefersDark ? 'tooltip-theme-dark' : ''} ${finalOptions.smartHover ? 'smart-hover' : ''} ${animationEnabled ? 'animate-tooltip' : ''}`}
+      className={`kitzo-tooltip-root ${prefersDark ? 'dark tooltip-theme-dark' : ''} ${finalOptions.smartHover ? 'smart-hover' : ''} ${animationEnabled ? 'animate-tooltip' : ''}`}
     >
       {children}
 
