@@ -1,5 +1,11 @@
 # kitzo
 
+## 2.5.5
+
+### Patch Changes
+
+- da9621e: improved useLocalStorage hook
+
 ## 2.5.4
 
 ### Patch Changes
