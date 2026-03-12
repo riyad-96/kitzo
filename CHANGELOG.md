@@ -1,5 +1,11 @@
 # kitzo
 
+## 2.5.4
+
+### Patch Changes
+
+- 5cd8304: Make useLocalStorage hook ssr safe
+
 ## 2.5.3
 
 ### Patch Changes
