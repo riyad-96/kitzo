@@ -1,5 +1,12 @@
 # kitzo
 
+## 2.5.3
+
+### Patch Changes
+
+- e2431b3: hook: useDebouncedCallback added
+- 7db8916: hook: useLocalStorage added
+
 ## 2.5.2
 
 ### Patch Changes
