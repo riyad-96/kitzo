@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from 'react';
-import { Button } from '@ui';
+import { Button } from '@/ui';
 
 type PreviewButtonProps = PropsWithChildren & {
   className?: string;

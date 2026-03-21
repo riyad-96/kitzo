@@ -12,7 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
   Slider,
-} from '@ui';
+} from '@/ui';
 import {
   useToasterStore,
   type Positions,
@@ -131,6 +131,7 @@ export default function ConfigurationSection() {
             </label>
             <Slider
               id="edgeOffset"
+              step={1}
               min={0}
               max={32}
               value={[edgeOffset]}
