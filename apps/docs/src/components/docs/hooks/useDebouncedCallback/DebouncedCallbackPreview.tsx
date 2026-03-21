@@ -1,6 +1,6 @@
 'use client';
 
-import { BaseInput } from '@/components/ui/Inputs';
+import { BaseInput } from '@/components/snippets/Inputs';
 import { useDebouncedCallback } from 'kitzo';
 import { useState } from 'react';
 

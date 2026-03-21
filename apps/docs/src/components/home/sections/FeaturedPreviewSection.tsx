@@ -1,6 +1,6 @@
 'use client';
 
-import PreviewButton from '@/components/ui/PreviewButton';
+import PreviewButton from '@/components/snippets/PreviewButton';
 import { useThemeStore } from '@/store/theme.store';
 import {
   toast,

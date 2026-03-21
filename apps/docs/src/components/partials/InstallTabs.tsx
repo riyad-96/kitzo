@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import ShikiCode from '@/components/code/ShikiCode';
-import CopyButton from '@/components/ui/CopyButton';
+import CopyButton from '@/components/snippets/CopyButton';
 
 type PackageManager = 'npm' | 'yarn' | 'pnpm' | 'bun';
 

@@ -1,10 +1,10 @@
 'use client';
 
-import Toggle from '@/components/ui/Toggle';
+import Toggle from '@/components/snippets/Toggle';
 import { positions } from '@/data/componentData/tooltipData';
 import { useTooltipStore } from '@/store/components.store/tooltipPage.store';
 import LiveDemoTooltip from './usage/LiveDemoTooltip';
-import { BaseInput, SelectInput, Slider } from '@/components/ui/Inputs';
+import { BaseInput, SelectInput, Slider } from '@/components/snippets/Inputs';
 import { type TooltipPosition } from 'kitzo';
 
 export default function ConfigurationSection() {

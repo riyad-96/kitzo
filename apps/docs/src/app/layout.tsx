@@ -1,8 +1,11 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Geist } from 'next/font/google';
 import './globals.css';
 import { cookies } from 'next/headers';
 import { ProgressProvider } from '@/components/layout/ProgressProvider';
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const inter = Inter({
   subsets: ['latin'],
@@ -25,7 +28,7 @@ export default async function RootLayout({
   const htmlClass = theme === 'dark' ? 'dark' : '';
 
   return (
-    <html lang="en" className={htmlClass}>
+    <html lang="en" className={cn(htmlClass, "font-sans", geist.variable)}>
       <body
         className={`${inter.variable} font-inter bg-white text-neutral-950 antialiased dark:bg-neutral-950 dark:text-neutral-100`}
       >

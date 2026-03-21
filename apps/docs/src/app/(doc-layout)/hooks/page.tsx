@@ -1,4 +1,4 @@
-import NavLink from '@/components/ui/NavLink';
+import NavLink from '@/components/snippets/NavLink';
 import routeData from '@/data/routeData';
 
 export default function HooksInitialPage() {

@@ -1,9 +1,18 @@
 'use client';
 
 import CodeBlock from '@/components/code/CodeBlock';
-import { SelectInput, Slider } from '@/components/ui/Inputs';
-import PreviewButton from '@/components/ui/PreviewButton';
-import Toggle from '@/components/ui/Toggle';
+import { Slider } from '@/components/snippets/Inputs';
+import PreviewButton from '@/components/snippets/PreviewButton';
+import Toggle from '@/components/snippets/Toggle';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import {
   useToasterStore,
   type Positions,
@@ -64,7 +73,7 @@ export default function ConfigurationSection() {
               Position
             </label>
 
-            <SelectInput
+            {/* <SelectInput
               id="position"
               value={position}
               onChange={(e) => setPosition(e.target.value as Positions)}
@@ -74,7 +83,26 @@ export default function ConfigurationSection() {
                   {pos}
                 </option>
               ))}
-            </SelectInput>
+            </SelectInput> */}
+
+            <Select
+              value={position}
+              onValueChange={(v) => setPosition(v as Positions)}
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder={position} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Positions</SelectLabel>
+                  {positions.map((pos) => (
+                    <SelectItem key={pos} value={pos}>
+                      {pos}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </div>
 
           {/* Gap */}

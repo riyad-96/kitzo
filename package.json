@@ -7,6 +7,7 @@
     "dev:kitzo": "pnpm --filter kitzo dev",
     "build": "pnpm -r build",
     "lint": "pnpm -r lint",
+    "type-check": "pnpm -r type-check",
     "cs": "changeset"
   },
   "devDependencies": {

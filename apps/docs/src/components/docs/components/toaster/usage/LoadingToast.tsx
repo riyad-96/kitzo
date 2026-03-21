@@ -2,7 +2,7 @@
 
 import CodeBlock from '@/components/code/CodeBlock';
 import Tab from '@/components/partials/Tab';
-import PreviewButton from '@/components/ui/PreviewButton';
+import PreviewButton from '@/components/snippets/PreviewButton';
 import { toast } from 'kitzo';
 
 export default function LoadingToast() {

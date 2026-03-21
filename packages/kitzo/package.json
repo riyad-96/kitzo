@@ -23,6 +23,7 @@
     "dev": "vite",
     "dev:host": "vite --host",
     "build": "tsc -b && vite build",
+    "type-check": "tsc --noEmit",
     "lint": "eslint .",
     "preview": "vite preview",
     "cs": "changeset"

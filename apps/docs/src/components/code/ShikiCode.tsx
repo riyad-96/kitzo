@@ -1,4 +1,4 @@
-import { getCode, type LoadedLangs } from '@/utils/shikiCode';
+import { getCode, type LoadedLangs } from '@/lib/shiki-code';
 
 type ShikicodeProps = {
   code: string;
