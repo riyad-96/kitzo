@@ -10,7 +10,7 @@ export type ManageToastsProps = {
 };
 
 export default function manageToasts({ toast, setToasts }: ManageToastsProps) {
-  if(toast.action === 'dismiss') dismissToasts({ toast, setToasts });
-  if(toast.action === 'add') addToasts({ toast, setToasts });
-  if(toast.action === 'update') updateToasts({ toast, setToasts });
+  if (toast.action === 'dismiss') dismissToasts({ toast, setToasts });
+  if (toast.action === 'add') addToasts({ toast, setToasts });
+  if (toast.action === 'update') updateToasts({ toast, setToasts });
 }

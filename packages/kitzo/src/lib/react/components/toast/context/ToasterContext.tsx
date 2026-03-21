@@ -1,10 +1,15 @@
-import { createContext, useContext, type Dispatch, type SetStateAction } from 'react';
+import {
+  createContext,
+  useContext,
+  type Dispatch,
+  type SetStateAction,
+} from 'react';
 import type { Toast, ToasterProps } from '../types';
 
 type ToasterContextType = ToasterProps & {
   setToasts: Dispatch<SetStateAction<Toast[]>>;
   updateOffsets: () => void;
-}
+};
 
 export const ToasterContext = createContext<ToasterContextType | null>(null);
 
