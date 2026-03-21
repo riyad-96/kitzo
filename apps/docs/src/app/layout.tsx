@@ -30,7 +30,7 @@ export default async function RootLayout({
   return (
     <html lang="en" className={cn(htmlClass, "font-sans", geist.variable)}>
       <body
-        className={`${inter.variable} font-inter bg-white text-neutral-950 antialiased dark:bg-neutral-950 dark:text-neutral-100`}
+        className={`${inter.variable} font-inter bg-background text-foreground antialiased`}
       >
         <ProgressProvider>{children}</ProgressProvider>
       </body>
