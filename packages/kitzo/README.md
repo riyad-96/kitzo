@@ -2,6 +2,7 @@
 
 A lightweight, production-ready React micro-utility library providing essential components, hooks, and functions for modern web applications.
 
+
 ## Installation
 
 ```bash
@@ -34,6 +35,10 @@ A collection of hooks to simplify common React application logic:
 
 For full usage guides, API references, and live demonstrations, visit the documentation site:
 [https://kitzo.vercel.app](https://kitzo.vercel.app)
+
+Check out the [root project](file:///home/riyad/Desktop/kitzo-monorepo/README.md) for project-wide information.
+
+
 
 ## License
 
