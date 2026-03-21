@@ -1,0 +1,76 @@
+{
+  "name": "kitzo",
+  "version": "2.5.5",
+  "description": "A lightweight React micro-utility.",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./fns": {
+      "types": "./dist/fns.d.ts",
+      "import": "./dist/fns.js",
+      "default": "./dist/fns.js"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "dev:host": "vite --host",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "cs": "changeset"
+  },
+  "keywords": [
+    "kitzo",
+    "components",
+    "toast",
+    "toaster",
+    "tooltip",
+    "hooks",
+    "function",
+    "micro-utility",
+    "ui",
+    "react",
+    "reactjs"
+  ],
+  "author": "Riyad",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/riyad-96/kitzo.git"
+  },
+  "homepage": "https://github.com/riyad-96/kitzo#readme",
+  "peerDependencies": {
+    "react": ">=19",
+    "react-dom": ">=19"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@tailwindcss/vite": "^4.1.18",
+    "@types/node": "^25.0.6",
+    "@types/react": "^19.2.8",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react-swc": "^4.2.2",
+    "daisyui": "^5.5.14",
+    "eslint": "^9.39.2",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.26",
+    "globals": "^17.0.0",
+    "prettier": "^3.7.4",
+    "prettier-plugin-tailwindcss": "^0.7.2",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "tailwindcss": "^4.1.18",
+    "typescript": "~5.8.2",
+    "typescript-eslint": "^8.52.0",
+    "vite": "^7.3.1",
+    "vite-plugin-dts": "^4.5.4"
+  }
+}
