@@ -2,7 +2,6 @@
 
 A lightweight, production-ready React micro-utility library providing essential components, hooks, and functions for modern web applications.
 
-
 ## Installation
 
 ```bash
@@ -14,12 +13,14 @@ npm install kitzo
 ### React Components
 
 Essential, accessible, and performance-optimized UI components:
+
 - **Toast**: A flexible notification system with support for custom positions, animations, and interaction patterns.
 - **Tooltip**: A contextual information component with smart positioning and customizable delay and animations.
 
 ### React Hooks
 
 A collection of hooks to simplify common React application logic:
+
 - **useDebounce**: Delays value updates until a specified time has passed.
 - **useDebouncedCallback**: Returns a debounced version of a callback function.
 - **useThrottle**: Limits the execution rate of a frequently changing value.
@@ -37,8 +38,6 @@ For full usage guides, API references, and live demonstrations, visit the docume
 [https://kitzo.vercel.app](https://kitzo.vercel.app)
 
 Check out the [root project](file:///home/riyad/Desktop/kitzo-monorepo/README.md) for project-wide information.
-
-
 
 ## License
 

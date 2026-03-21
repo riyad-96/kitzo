@@ -4,8 +4,6 @@ This is the documentation site for the Kitzo library, built with Next.js. It pro
 
 Check out the [root project](file:///home/riyad/Desktop/kitzo-monorepo/README.md) for project-wide information.
 
-
-
 ## Features
 
 - **Interactive Previews**: Live, configurable demonstrations of components like Toasts and Tooltips.
