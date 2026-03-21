@@ -1,5 +1,11 @@
 # kitzo
 
+## 3.0.0
+
+### Major Changes
+
+- 88db947: trying to fix the publish issue
+
 ## 2.6.1
 
 ### Patch Changes
