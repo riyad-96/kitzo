@@ -1,4 +1,5 @@
 import type { PropsWithChildren } from 'react';
+import { Button } from '@/ui';
 
 type PreviewButtonProps = PropsWithChildren & {
   className?: string;
@@ -13,13 +14,14 @@ export default function PreviewButton({
   disabled,
 }: PreviewButtonProps) {
   return (
-    <button
+    <Button
       onContextMenu={(e) => e.preventDefault()}
       onClick={onClick}
       disabled={disabled}
-      className={`rounded-lg border border-neutral-300 bg-white px-3.5 py-1.75 text-sm dark:border-neutral-700 dark:bg-neutral-950 dark:text-neutral-300 pointer-fine:hover:border-neutral-400 dark:pointer-fine:hover:border-neutral-600 ${className}`}
+      className={className}
+      variant="outline"
     >
       {children}
-    </button>
+    </Button>
   );
 }

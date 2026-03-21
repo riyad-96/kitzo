@@ -1,40 +1,54 @@
-# Kitzo
+# Kitzo Documentation
 
-**Lightweight React UI components and essential hooks.**
+This is the documentation site for the Kitzo library, built with Next.js. It provides interactive demonstrations, usage guides, and detailed API references for all components and hooks.
 
----
+Check out the [root project](file:///home/riyad/Desktop/kitzo-monorepo/README.md) for project-wide information.
+
+
+
+## Features
+
+- **Interactive Previews**: Live, configurable demonstrations of components like Toasts and Tooltips.
+- **Hook Documentation**: Detailed implementation guides and examples for utility hooks.
+- **Copy-Paste Code**: Pre-formatted code blocks for quick integration.
+- **Dark Mode Support**: Full theme support for the documentation and all component previews.
+
+## Getting Started
 
 ### Installation
 
+Ensure you have installed the project dependencies from the root directory:
+
 ```bash
-npm install kitzo
+pnpm install
 ```
 
----
+### Development Server
 
-### Core Features
+Run the documentation site locally:
 
-#### Components
+```bash
+pnpm dev
+```
 
-- **Toast** — Accessible, animated notifications.
-- **Tooltip** — Smart-positioned contextual labels.
+The site will be available at `http://localhost:3000`.
 
-#### Hooks
+### Building for Production
 
-- **useDebounce** — Optimize performance by delaying execution.
-- **useWindowSize** — Real-time viewport dimensions.
-- **useCopy** — Simple "copy to clipboard" functionality.
-- **useThrottle** — Limits how often a value can change within a specified time interval.
+Create an optimized production build:
 
----
+```bash
+pnpm build
+```
 
-### Documentation
+## Tech Stack
 
-For usage guides and live demos, visit documentation:
-[https://kitzo.vercel.app](https://kitzo.vercel.app)
+- **Next.js**: Framework for the documentation structure and routing.
+- **Tailwind CSS v4**: Styling and theme management.
+- **Lucide React**: Icons for the UI.
+- **Shiki**: Syntax highlighting for code examples.
+- **Zustand**: State management for interactive demos.
 
----
+## License
 
-### License
-
-MIT
+This project is licensed under the MIT License.

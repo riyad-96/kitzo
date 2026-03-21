@@ -1,4 +1,4 @@
-import Table, { DefaultTable } from '@/components/ui/tables';
+import Table, { DefaultTable } from '@/components/snippets/tables';
 
 const toastAPIData = [
   {

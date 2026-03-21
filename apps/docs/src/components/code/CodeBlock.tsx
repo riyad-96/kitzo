@@ -1,5 +1,5 @@
 import ShikiCode from './ShikiCode';
-import CopyButton from '../ui/CopyButton';
+import CopyButton from '../snippets/CopyButton';
 
 type CodeBlockProps = {
   code: string;

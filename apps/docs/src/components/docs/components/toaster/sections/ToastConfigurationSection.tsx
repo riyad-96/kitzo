@@ -1,9 +1,18 @@
 'use client';
 
 import CodeBlock from '@/components/code/CodeBlock';
-import { SelectInput, Slider } from '@/components/ui/Inputs';
-import PreviewButton from '@/components/ui/PreviewButton';
-import Toggle from '@/components/ui/Toggle';
+import PreviewButton from '@/components/snippets/PreviewButton';
+import Toggle from '@/components/snippets/Toggle';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+  Slider,
+} from '@/ui';
 import {
   useToasterStore,
   type Positions,
@@ -64,7 +73,7 @@ export default function ConfigurationSection() {
               Position
             </label>
 
-            <SelectInput
+            {/* <SelectInput
               id="position"
               value={position}
               onChange={(e) => setPosition(e.target.value as Positions)}
@@ -74,7 +83,26 @@ export default function ConfigurationSection() {
                   {pos}
                 </option>
               ))}
-            </SelectInput>
+            </SelectInput> */}
+
+            <Select
+              value={position}
+              onValueChange={(v) => setPosition(v as Positions)}
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder={position} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Positions</SelectLabel>
+                  {positions.map((pos) => (
+                    <SelectItem key={pos} value={pos}>
+                      {pos}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </div>
 
           {/* Gap */}
@@ -87,10 +115,10 @@ export default function ConfigurationSection() {
             </label>
             <Slider
               id="gap"
-              min="0"
-              max="32"
-              value={gap}
-              onChange={(e) => setGap(+e.target.value)}
+              min={0}
+              max={32}
+              value={[gap]}
+              onValueChange={(v) => setGap(v[0])}
             />
           </div>
 
@@ -103,10 +131,11 @@ export default function ConfigurationSection() {
             </label>
             <Slider
               id="edgeOffset"
-              min="0"
-              max="32"
-              value={edgeOffset}
-              onChange={(e) => setEdgeOffset(+e.target.value)}
+              step={1}
+              min={0}
+              max={32}
+              value={[edgeOffset]}
+              onValueChange={(v) => setEdgeOffset(v[0])}
             />
           </div>
 

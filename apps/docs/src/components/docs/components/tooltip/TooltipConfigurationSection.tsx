@@ -1,11 +1,22 @@
 'use client';
 
-import Toggle from '@/components/ui/Toggle';
+import Toggle from '@/components/snippets/Toggle';
 import { positions } from '@/data/componentData/tooltipData';
 import { useTooltipStore } from '@/store/components.store/tooltipPage.store';
 import LiveDemoTooltip from './usage/LiveDemoTooltip';
-import { BaseInput, SelectInput, Slider } from '@/components/ui/Inputs';
+import { BaseInput } from '@/components/snippets/Inputs';
 import { type TooltipPosition } from 'kitzo';
+import {
+  Button,
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+  Slider,
+} from '@/ui';
 
 export default function ConfigurationSection() {
   const {
@@ -42,29 +53,43 @@ export default function ConfigurationSection() {
             >
               Position
             </label>
-            <SelectInput
+
+            <Select
               value={position}
-              id="position-select"
-              onChange={(e) => setPosition(e.target.value as TooltipPosition)}
+              onValueChange={(v) => setPosition(v as TooltipPosition)}
             >
-              {positions.map((pos) => (
-                <SelectInput.option key={pos}>{pos}</SelectInput.option>
-              ))}
-            </SelectInput>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Position" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Position</SelectLabel>
+                  {positions.map((pos) => (
+                    <SelectItem key={pos} value={pos}>
+                      {pos}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </div>
 
           {/* Offset Slider */}
           <div className="space-y-2">
-            <label className="block text-sm text-neutral-700 dark:text-neutral-300">
+            <label
+              htmlFor="offset-slider"
+              className="block text-sm text-neutral-700 dark:text-neutral-300"
+            >
               Offset: {offset}px
             </label>
 
             <Slider
-              type="range"
+              id="offset-slider"
+              step={1}
               min={0}
               max={32}
-              value={offset}
-              onChange={(e) => setOffset(Number(e.target.value))}
+              value={[offset]}
+              onValueChange={(v) => setOffset(v[0])}
             />
           </div>
 
@@ -174,12 +199,9 @@ export default function ConfigurationSection() {
                   />
                 </div>
 
-                <button
-                  onClick={resetAnimation}
-                  className="rounded-md border border-neutral-200 px-3 py-1.5 text-xs text-neutral-700 dark:border-neutral-800 dark:text-neutral-300 pointer-fine:hover:bg-neutral-100 dark:pointer-fine:hover:bg-neutral-900"
-                >
+                <Button onClick={resetAnimation} variant="outline" size="sm">
                   Reset
-                </button>
+                </Button>
               </div>
             )}
           </div>

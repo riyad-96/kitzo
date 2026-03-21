@@ -5,9 +5,9 @@ import routeData from '@/data/routeData';
 import {
   resolveBreadcrumbs,
   type Breadcrumb,
-} from '@/utils/resolveBreadcrumbs';
+} from '@/utils/resolve-breadcrumbs';
 import { ChevronRight } from 'lucide-react';
-import NavLink from '../ui/NavLink';
+import NavLink from '../snippets/NavLink';
 import { usePathname } from 'next/navigation';
 
 export default function PathIndicator() {

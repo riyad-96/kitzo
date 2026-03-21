@@ -1,7 +1,7 @@
 'use client';
 
-import { BaseInput } from '@/components/ui/Inputs';
-import PreviewButton from '@/components/ui/PreviewButton';
+import { BaseInput } from '@/components/snippets/Inputs';
+import PreviewButton from '@/components/snippets/PreviewButton';
 import { useCopy } from 'kitzo';
 import { useState } from 'react';
 

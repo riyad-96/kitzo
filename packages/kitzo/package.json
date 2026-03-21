@@ -1,7 +1,7 @@
 {
   "name": "kitzo",
   "version": "2.5.5",
-  "description": "A lightweight React micro-utility.",
+  "description": "A lightweight production-ready React micro-utility library providing essential components, hooks, and functions for modern web applications.",
   "type": "module",
   "files": [
     "dist"
@@ -23,6 +23,7 @@
     "dev": "vite",
     "dev:host": "vite --host",
     "build": "tsc -b && vite build",
+    "type-check": "tsc --noEmit",
     "lint": "eslint .",
     "preview": "vite preview",
     "cs": "changeset"

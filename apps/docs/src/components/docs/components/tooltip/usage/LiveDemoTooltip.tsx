@@ -1,3 +1,4 @@
+import { Button } from '@/ui';
 import { useTooltipStore } from '@/store/components.store/tooltipPage.store';
 import { Tooltip } from 'kitzo';
 
@@ -31,11 +32,7 @@ export default function LiveDemoTooltip() {
           hidden={isHidden}
           animation={animation}
         >
-          <button
-            className={`rounded-lg border px-3 py-1.75 text-sm ${isDark ? 'border-neutral-700 bg-neutral-800 pointer-fine:hover:border-neutral-600 pointer-fine:hover:bg-neutral-700/50' : 'border-neutral-200 bg-white pointer-fine:hover:border-neutral-300 pointer-fine:hover:bg-neutral-100'}`}
-          >
-            Hover me
-          </button>
+          <Button variant="outline">Hover me</Button>
         </Tooltip>
       </div>
     </div>

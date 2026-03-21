@@ -26,6 +26,7 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
+      "@/ui": ["./src/components/ui"],
       "kitzo": ["../../packages/kitzo/src/lib/index.ts"],
       "kitzo/fns": ["../../packages/kitzo/src/lib/fns.ts"]
     }

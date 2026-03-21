@@ -2,7 +2,7 @@
 
 import routeData from '@/data/routeData';
 import useSidebarStore from '@/store/sidebar.store';
-import NavLink from '../ui/NavLink';
+import NavLink from '../snippets/NavLink';
 
 export default function Sidebar() {
   const { isOpen, close } = useSidebarStore();

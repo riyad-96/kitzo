@@ -1,4 +1,4 @@
-import { DefaultTable } from '@/components/ui/tables';
+import { DefaultTable } from '@/components/snippets/tables';
 
 const debounceTableData = [
   { id: 1, param: 'value', type: 'any', description: 'The value to debounce' },
