@@ -1,7 +1,6 @@
 'use client';
 
 import CodeBlock from '@/components/code/CodeBlock';
-import { Slider } from '@/components/snippets/Inputs';
 import PreviewButton from '@/components/snippets/PreviewButton';
 import Toggle from '@/components/snippets/Toggle';
 import {
@@ -12,7 +11,8 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+  Slider,
+} from '@ui';
 import {
   useToasterStore,
   type Positions,
@@ -115,10 +115,10 @@ export default function ConfigurationSection() {
             </label>
             <Slider
               id="gap"
-              min="0"
-              max="32"
-              value={gap}
-              onChange={(e) => setGap(+e.target.value)}
+              min={0}
+              max={32}
+              value={[gap]}
+              onValueChange={(v) => setGap(v[0])}
             />
           </div>
 
@@ -131,10 +131,10 @@ export default function ConfigurationSection() {
             </label>
             <Slider
               id="edgeOffset"
-              min="0"
-              max="32"
-              value={edgeOffset}
-              onChange={(e) => setEdgeOffset(+e.target.value)}
+              min={0}
+              max={32}
+              value={[edgeOffset]}
+              onValueChange={(v) => setEdgeOffset(v[0])}
             />
           </div>
 
