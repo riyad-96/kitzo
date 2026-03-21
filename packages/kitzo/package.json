@@ -1,7 +1,7 @@
 {
   "name": "kitzo",
   "version": "2.5.5",
-  "description": "A lightweight React micro-utility.",
+  "description": "A lightweight production-ready React micro-utility library providing essential components, hooks, and functions for modern web applications.",
   "type": "module",
   "files": [
     "dist"

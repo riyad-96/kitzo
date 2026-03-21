@@ -1,5 +1,5 @@
 {
-  "name": "kitzo-monorepo",
+  "name": "kitzo-project",
   "private": true,
   "scripts": {
     "dev": "pnpm --filter kitzo-docs dev",
