@@ -1,5 +1,11 @@
 # kitzo
 
+## 2.6.0
+
+### Minor Changes
+
+- eaf62f0: Project kitzo is now following the monorepo structure.
+
 ## 2.5.5
 
 ### Patch Changes
