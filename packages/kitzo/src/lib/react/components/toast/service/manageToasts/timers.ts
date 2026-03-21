@@ -4,7 +4,7 @@ import { notify } from '../listenars';
 
 type TimersKey = string | number;
 type TimersValue = {
-  timeoutId: number;
+  timeoutId: ReturnType<typeof setTimeout>;
   startingTime: number;
   totalTime: number;
   remainningTime: number;

@@ -25,9 +25,9 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"],
+      "kitzo": ["../../packages/kitzo/src/lib/index.ts"],
+      "kitzo/fns": ["../../packages/kitzo/src/lib/fns.ts"]
     }
   },
   "include": [
