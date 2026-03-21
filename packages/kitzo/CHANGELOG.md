@@ -1,5 +1,11 @@
 # kitzo
 
+## 2.6.1
+
+### Patch Changes
+
+- 833d4ed: trying fix the the publish error
+
 ## 2.6.0
 
 ### Minor Changes
