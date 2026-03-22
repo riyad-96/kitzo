@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [88db947]
+  - kitzo@3.0.0
+
 ## 0.1.2
 
 ### Patch Changes
