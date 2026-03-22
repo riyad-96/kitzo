@@ -6,8 +6,8 @@ Kitzo is a lightweight production-ready React micro-utility library designed for
 
 The repository is organized to contain the core library and its documentation.
 
-- [kitzo-docs](file:///home/riyad/Desktop/kitzo-monorepo/apps/docs/README.md): A Next.js application providing comprehensive documentation, live examples, and usage guidelines.
-- [kitzo](file:///home/riyad/Desktop/kitzo-monorepo/packages/kitzo/README.md): The core library containing React components, custom hooks, and utility functions.
+- [kitzo-docs](https://github.com/riyad-96/kitzo/tree/main/apps/docs): A Next.js application providing comprehensive documentation, live examples, and usage guidelines.
+- [kitzo](https://github.com/riyad-96/kitzo/tree/main/packages/kitzo): The core library containing React components, custom hooks, and utility functions.
 
 ## Core Features
 
