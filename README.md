@@ -1,65 +1,37 @@
-# Kitzo Project
+# Kitzo
 
-Kitzo is a lightweight production-ready React micro-utility library designed for modern web applications. It provides a foundational set of components, hooks, and utility functions that focus on simplicity, performance, and minimal overhead.
+Kitzo is a lightweight, production-ready React micro-utility library. This monorepo contains the core library and its documentation.
+
+[Live Documentation](https://kitzo.vercel.app) | [Documentation Source](https://github.com/riyad-96/kitzo/tree/main/apps/docs) | [Library Source](https://github.com/riyad-96/kitzo/tree/main/packages/kitzo)
 
 ## Project Structure
 
-The repository is organized to contain the core library and its documentation.
-
-- [kitzo-docs](https://github.com/riyad-96/kitzo/tree/main/apps/docs): A Next.js application providing comprehensive documentation, live examples, and usage guidelines.
-- [kitzo](https://github.com/riyad-96/kitzo/tree/main/packages/kitzo): The core library containing React components, custom hooks, and utility functions.
+- [`/packages/kitzo`](https://github.com/riyad-96/kitzo/tree/main/packages/kitzo): The core library featuring React components, hooks, and utilities.
+- [`/apps/docs`](https://github.com/riyad-96/kitzo/tree/main/apps/docs): Next.js documentation site with interactive examples.
 
 ## Core Features
 
-### React Components
+- **Components**: Toast system, Tooltip with smart positioning.
+- **Hooks**: `useCopy`, `useDebounce`, `useDebouncedCallback`, `useLocalStorage`, `useOverlay`, `useThrottle`, `useWindowSize`.
+- **Utilities**: Standalone `copy` function.
 
-The library includes essential UI components built with accessibility and performance in mind:
+## Development Workflows
 
-- **Toast**: A flexible notification system supporting various positions, animations, and interaction patterns.
-- **Tooltip**: A lightweight contextual information component with smart positioning and customizable delay/animations.
+This project uses `pnpm` for monorepo management.
 
-### React Hooks
-
-A collection of hooks for common application logic:
-
-- **useDebounce**: Delays the update of a value until a specified time has passed.
-- **useDebouncedCallback**: Returns a debounced version of a callback function.
-- **useThrottle**: Limits the execution rate of a frequently changing value.
-- **useLocalStorage**: Synchronizes state with browser local storage.
-- **useWindowSize**: Tracks the current dimensions of the browser window.
-- **useCopy**: Simplifies clipboard operations within React components.
-
-### Utility Functions
-
-- **copy**: A standalone function for programmatically interacting with the system clipboard.
-
-## Technology Stack
-
-The project utilizes a modern development stack:
-
-- **React 19**: Leverages the latest React features and improvements.
-- **Tailwind CSS v4**: Uses the latest iteration of Tailwind for styling with CSS-based configuration.
-- **TypeScript**: Ensures type safety across the entire codebase.
-- **Vite**: Used as the build tool and development server for the core library.
-- **Next.js**: Powers the documentation site for optimal performance and SEO.
-
-## Development
-
-### Installation
-
-Install dependencies from the root directory:
+### Setup
 
 ```bash
 pnpm install
 ```
 
-### Commands
+### Common Commands
 
-- **pnpm dev**: Starts the documentation site in development mode.
-- **pnpm build**: Builds both the core library and the documentation site.
-- **pnpm lint**: Runs linting across all packages.
-- **pnpm type-check**: Performs type checking across the project.
+- `pnpm dev`: Runs the documentation site locally.
+- `pnpm build`: Builds all packages and apps.
+- `pnpm lint`: Lints the entire codebase.
+- `pnpm type-check`: Runs TypeScript checks across the monorepo.
 
 ## License
 
-This project is licensed under the MIT License.
+MIT

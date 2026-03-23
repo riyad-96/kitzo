@@ -1,29 +1,10 @@
-# Kitzo Documentation
+# Kitzo Docs
 
-This is the documentation site for the Kitzo library, built with Next.js. It provides interactive demonstrations, usage guides, and detailed API references for all components and hooks.
+The Next.js powered documentation site for Kitzo. [Live Site](https://kitzo.vercel.app)
 
-Check out the [root project](https://github.com/riyad-96/kitzo/blob/main/README.md) for project-wide information.
+## Local Development
 
-## Features
-
-- **Interactive Previews**: Live, configurable demonstrations of components like Toasts and Tooltips.
-- **Hook Documentation**: Detailed implementation guides and examples for utility hooks.
-- **Copy-Paste Code**: Pre-formatted code blocks for quick integration.
-- **Dark Mode Support**: Full theme support for the documentation and all component previews.
-
-## Getting Started
-
-### Installation
-
-Ensure you have installed the project dependencies from the root directory:
-
-```bash
-pnpm install
-```
-
-### Development Server
-
-Run the documentation site locally:
+From the monorepo root:
 
 ```bash
 pnpm dev
@@ -31,22 +12,17 @@ pnpm dev
 
 The site will be available at `http://localhost:3000`.
 
-### Building for Production
+## Adding Content
 
-Create an optimized production build:
+- Add new modules to `packages/kitzo` and document them in `apps/docs`.
 
-```bash
-pnpm build
-```
+## Features
 
-## Tech Stack
+- **Next.js 16 & Tailwind CSS v4**
+- **Syntax Highlighting** via Shiki.
+- **Interactive Previews** for all components and hooks.
 
-- **Next.js**: Framework for the documentation structure and routing.
-- **Tailwind CSS v4**: Styling and theme management.
-- **Lucide React**: Icons for the UI.
-- **Shiki**: Syntax highlighting for code examples.
-- **Zustand**: State management for interactive demos.
+## See Also
 
-## License
-
-This project is licensed under the MIT License.
+- [Root Repository](https://github.com/riyad-96/kitzo)
+- [Kitzo Library](https://github.com/riyad-96/kitzo/tree/main/packages/kitzo)
