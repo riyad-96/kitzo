@@ -1,5 +1,11 @@
 # kitzo
 
+## 3.1.0
+
+### Minor Changes
+
+- 8fa24b1: Add useOverlay hook.
+
 ## 3.0.0
 
 ### Major Changes
