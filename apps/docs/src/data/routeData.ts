@@ -34,6 +34,10 @@ const routeData: RouteDataType[] = [
     slug: 'hooks',
     children: [
       {
+        label: 'useOverlay',
+        slug: 'use-overlay',
+      },
+      {
         label: 'useDebounce',
         slug: 'use-debounce',
       },

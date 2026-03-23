@@ -37,7 +37,7 @@ A collection of hooks to simplify common React application logic:
 For full usage guides, API references, and live demonstrations, visit the documentation site:
 [https://kitzo.vercel.app](https://kitzo.vercel.app)
 
-Check out the [root project](file:///home/riyad/Desktop/kitzo-monorepo/README.md) for project-wide information.
+Check out the [root project](https://github.com/riyad-96/kitzo) for project-wide information.
 
 ## License
 
