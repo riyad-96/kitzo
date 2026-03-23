@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.5
+
+### Patch Changes
+
+- fcf6c1c: Improved README.md files
+- Updated dependencies [fcf6c1c]
+  - kitzo@3.1.1
+
 ## 0.1.4
 
 ### Patch Changes
