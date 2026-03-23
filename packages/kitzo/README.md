@@ -1,44 +1,40 @@
 # Kitzo
 
-A lightweight, production-ready React micro-utility library providing essential components, hooks, and functions for modern web applications.
+Lightweight, production-ready React micro-utilities for modern web applications. Focus on simplicity, performance, and minimal footprint.
+
+[Full Documentation & Demos](https://kitzo.vercel.app)
 
 ## Installation
 
 ```bash
 npm install kitzo
+# or
+pnpm add kitzo
 ```
 
-## Core Features
+## Features
 
-### React Components
+### Components
+- **Toast**: Smart notification system with flexible positioning.
+- **Tooltip**: Contextual information with auto-positioning logic.
 
-Essential, accessible, and performance-optimized UI components:
+### Hooks
+- **useCopy**: Easy clipboard management.
+- **useDebounce**: Debounc any value.
+- **useDebouncedCallback**: Debounce function calls.
+- **useLocalStorage**: State persistence via storage.
+- **useOverlay**: History-synchronized overlay management.
+- **useThrottle**: Limit execution rate.
+- **useWindowSize**: Real-time window dimensions.
 
-- **Toast**: A flexible notification system with support for custom positions, animations, and interaction patterns.
-- **Tooltip**: A contextual information component with smart positioning and customizable delay and animations.
+### Utilities
+- **copy**: Standalone programmatic clipboard copy.
 
-### React Hooks
-
-A collection of hooks to simplify common React application logic:
-
-- **useDebounce**: Delays value updates until a specified time has passed.
-- **useDebouncedCallback**: Returns a debounced version of a callback function.
-- **useThrottle**: Limits the execution rate of a frequently changing value.
-- **useLocalStorage**: Synchronizes state with browser local storage.
-- **useWindowSize**: Provides real-time window dimensions.
-- **useCopy**: Simplifies clipboard operations within components.
-
-### Utility Functions
-
-- **copy**: A standalone function for programmatically interacting with the system clipboard.
-
-## Documentation
-
-For full usage guides, API references, and live demonstrations, visit the documentation site:
-[https://kitzo.vercel.app](https://kitzo.vercel.app)
-
-Check out the [root project](https://github.com/riyad-96/kitzo) for project-wide information.
+## See Also
+- [Root Repository](https://github.com/riyad-96/kitzo)
+- [Documentation](https://github.com/riyad-96/kitzo/tree/main/apps/docs)
 
 ## License
+MIT
 
-This project is licensed under the MIT License.
+
