@@ -1,5 +1,11 @@
 # kitzo
 
+## 3.1.1
+
+### Patch Changes
+
+- fcf6c1c: Improved README.md files
+
 ## 3.1.0
 
 ### Minor Changes
