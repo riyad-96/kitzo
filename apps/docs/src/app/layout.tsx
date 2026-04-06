@@ -32,7 +32,9 @@ export default async function RootLayout({
       <body
         className={`${inter.variable} font-inter bg-background text-foreground antialiased`}
       >
-        <ProgressProvider>{children}</ProgressProvider>
+        <ProgressProvider isDark={theme === 'dark'}>
+          {children}
+        </ProgressProvider>
       </body>
     </html>
   );

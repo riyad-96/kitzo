@@ -2,4 +2,8 @@ packages:
   - 'apps/*'
   - 'packages/*'
 allowBuilds:
-  msw: true
+  - '@swc/core'
+  - 'esbuild'
+  - 'msw'
+  - 'sharp'
+  - 'unrs-resolver'

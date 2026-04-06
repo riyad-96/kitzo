@@ -14,9 +14,7 @@ export default function LiveDemoTooltip() {
   } = useTooltipStore();
 
   return (
-    <div
-      className={`relative grid rounded-lg border border-neutral-200 p-6 dark:border-neutral-800 ${isDark ? 'bg-neutral-900 text-neutral-100' : 'bg-neutral-50 text-neutral-950'}`}
-    >
+    <div className="relative grid rounded-lg border border-neutral-200 p-6 dark:border-neutral-800 dark:bg-neutral-900">
       <span className="absolute top-6 left-6 text-sm font-medium">
         Live Demo
       </span>
