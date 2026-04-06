@@ -39,7 +39,7 @@ export function useOverlay(id: string) {
   if (!id) {
     throw new Error(
       'useOverlay requires a unique "id" parameter to manage history state correctly. ' +
-        "Recommendation: Use a page-scoped name like 'login-page:my-modal'."
+        "Recommendation: Use a page-scoped name like 'login-page:my-modal'.",
     );
   }
 
@@ -70,7 +70,7 @@ export function useOverlay(id: string) {
       const nextStack = [...overlays, id];
       window.history.pushState(
         { ...currentState, [OVERLAYS_KEY]: nextStack },
-        ''
+        '',
       );
 
       // Update global state and notify all active hooks

@@ -5,7 +5,8 @@ const useOverlayParamData = [
     id: 1,
     param: 'id',
     type: 'string',
-    description: 'A stable unique identifier for the overlay. Required for history synchronization.',
+    description:
+      'A stable unique identifier for the overlay. Required for history synchronization.',
   },
 ];
 
@@ -20,7 +21,8 @@ const useOverlayReturnData = [
     id: 2,
     param: 'open',
     type: '() => void',
-    description: 'Opens the overlay by pushing a new entry to the browser history.',
+    description:
+      'Opens the overlay by pushing a new entry to the browser history.',
   },
   {
     id: 3,

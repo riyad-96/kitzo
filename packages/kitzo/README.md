@@ -15,10 +15,12 @@ pnpm add kitzo
 ## Features
 
 ### Components
+
 - **Toast**: Smart notification system with flexible positioning.
 - **Tooltip**: Contextual information with auto-positioning logic.
 
 ### Hooks
+
 - **useCopy**: Easy clipboard management.
 - **useDebounce**: Debounc any value.
 - **useDebouncedCallback**: Debounce function calls.
@@ -28,13 +30,14 @@ pnpm add kitzo
 - **useWindowSize**: Real-time window dimensions.
 
 ### Utilities
+
 - **copy**: Standalone programmatic clipboard copy.
 
 ## See Also
+
 - [Root Repository](https://github.com/riyad-96/kitzo)
 - [Documentation](https://github.com/riyad-96/kitzo/tree/main/apps/docs)
 
 ## License
+
 MIT
-
-

@@ -18,33 +18,47 @@ export default function OverlayPreview() {
   const innerModal = useOverlay('use-overlay-page:nested-overlay');
 
   return (
-    <div className="flex flex-col items-center justify-center gap-6 py-12 rounded-lg border border-neutral-200 dark:border-neutral-800">
-      <div className="text-center space-y-2">
+    <div className="flex flex-col items-center justify-center gap-6 rounded-lg border border-neutral-200 py-12 dark:border-neutral-800">
+      <div className="space-y-2 text-center">
         <p className="text-sm text-neutral-500">
-          Try opening the modals and then use your browser&apos;s <span className="font-semibold text-neutral-900 dark:text-neutral-100 italic">Back</span> and <span className="font-semibold text-neutral-900 dark:text-neutral-100 italic">Forward</span> buttons.
+          Try opening the modals and then use your browser&apos;s{' '}
+          <span className="font-semibold text-neutral-900 italic dark:text-neutral-100">
+            Back
+          </span>{' '}
+          and{' '}
+          <span className="font-semibold text-neutral-900 italic dark:text-neutral-100">
+            Forward
+          </span>{' '}
+          buttons.
         </p>
       </div>
 
       <div className="flex gap-4">
         <Button onClick={modal.open} className="gap-2">
-          <Layers className="w-4 h-4" />
+          <Layers className="h-4 w-4" />
           Open Main Modal
         </Button>
       </div>
 
       {/* Main Modal */}
-      <Dialog open={modal.isOpen} onOpenChange={(open) => !open && modal.close()}>
+      <Dialog
+        open={modal.isOpen}
+        onOpenChange={(open) => !open && modal.close()}
+      >
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Main Overlay</DialogTitle>
             <DialogDescription>
-              This modal is synchronized with the browser history. Pressing back will close it.
+              This modal is synchronized with the browser history. Pressing back
+              will close it.
             </DialogDescription>
           </DialogHeader>
-          
-          <div className="py-6 flex flex-col items-center gap-4 border-y border-neutral-100 dark:border-neutral-800">
-            <p className="text-sm text-center px-4">
-              Since we provided a stable ID (&apos;docs:main-overlay&apos;), this modal will correctly reopen even if you navigate away and come back using the forward button.
+
+          <div className="flex flex-col items-center gap-4 border-y border-neutral-100 py-6 dark:border-neutral-800">
+            <p className="px-4 text-center text-sm">
+              Since we provided a stable ID (&apos;docs:main-overlay&apos;),
+              this modal will correctly reopen even if you navigate away and
+              come back using the forward button.
             </p>
             <Button variant="outline" onClick={innerModal.open}>
               Open Nested Modal
@@ -60,7 +74,10 @@ export default function OverlayPreview() {
       </Dialog>
 
       {/* Nested Modal */}
-      <Dialog open={innerModal.isOpen} onOpenChange={(open) => !open && innerModal.close()}>
+      <Dialog
+        open={innerModal.isOpen}
+        onOpenChange={(open) => !open && innerModal.close()}
+      >
         <DialogContent className="sm:max-w-[400px]">
           <DialogHeader>
             <DialogTitle>Nested Overlay</DialogTitle>
@@ -68,22 +85,23 @@ export default function OverlayPreview() {
               This is the second level of the overlay stack.
             </DialogDescription>
           </DialogHeader>
-          
-          <div className="p-8 bg-neutral-50 dark:bg-neutral-900/50 rounded-lg border border-dashed border-neutral-200 dark:border-neutral-800 flex flex-col items-center gap-4">
-             <div className="flex gap-2">
-               <ArrowLeft className="w-5 h-5 text-neutral-400 animate-pulse" />
-               <span className="text-xs font-mono uppercase tracking-widest text-neutral-500">History Stack</span>
-               <ArrowRight className="w-5 h-5 text-neutral-400 animate-pulse" />
-             </div>
-             <p className="text-xs text-center text-neutral-600 dark:text-neutral-400">
-               Pressing the browser Back button now will close THIS modal first, leaving the Main Modal open.
-             </p>
+
+          <div className="flex flex-col items-center gap-4 rounded-lg border border-dashed border-neutral-200 bg-neutral-50 p-8 dark:border-neutral-800 dark:bg-neutral-900/50">
+            <div className="flex gap-2">
+              <ArrowLeft className="h-5 w-5 animate-pulse text-neutral-400" />
+              <span className="font-mono text-xs tracking-widest text-neutral-500 uppercase">
+                History Stack
+              </span>
+              <ArrowRight className="h-5 w-5 animate-pulse text-neutral-400" />
+            </div>
+            <p className="text-center text-xs text-neutral-600 dark:text-neutral-400">
+              Pressing the browser Back button now will close THIS modal first,
+              leaving the Main Modal open.
+            </p>
           </div>
 
           <DialogFooter>
-            <Button onClick={innerModal.close}>
-              Close Nested
-            </Button>
+            <Button onClick={innerModal.close}>Close Nested</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

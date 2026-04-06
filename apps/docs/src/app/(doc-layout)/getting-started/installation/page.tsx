@@ -82,10 +82,10 @@ export default function InstallationPage() {
           </Link>
 
           <Link
-            href="/hooks/use-debounce"
+            href="/hooks/use-overlay"
             className="rounded-md border border-neutral-300 px-3 py-1.5 text-sm text-neutral-700 hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-900"
           >
-            View useDebounce
+            View useOverlay
           </Link>
         </div>
       </section>

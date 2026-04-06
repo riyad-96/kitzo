@@ -8,15 +8,15 @@ import { createToast, genId, updateToast } from './createToast';
 import { notify } from './listenars';
 
 const toast: ToastFn = (content, options) => {
-  if (content == null) return;
-  notify(
-    createToast({
-      type: 'default',
-      action: 'add',
-      content,
-      options,
-    }),
-  );
+  const newToast = createToast({
+    type: 'default',
+    action: 'add',
+    content,
+    options,
+  });
+  if (content == null) return newToast.id;
+  notify(newToast);
+  return newToast.id;
 };
 
 toast.dismiss = (id, toasterId) => {
@@ -25,79 +25,81 @@ toast.dismiss = (id, toasterId) => {
     id,
     toasterId,
   });
+  return id;
 };
 
 toast.info = (content, options) => {
-  if (content == null) return;
-  notify(
-    createToast({
-      action: 'add',
-      type: 'info',
-      content,
-      options,
-    }),
-  );
+  const newToast = createToast({
+    action: 'add',
+    type: 'info',
+    content,
+    options,
+  });
+  if (content == null) return newToast.id;
+  notify(newToast);
+  return newToast.id;
 };
 toast.success = (content, options) => {
-  if (content == null) return;
-  notify(
-    createToast({
-      action: 'add',
-      type: 'success',
-      content,
-      options,
-    }),
-  );
+  const newToast = createToast({
+    action: 'add',
+    type: 'success',
+    content,
+    options,
+  });
+  if (content == null) return newToast.id;
+  notify(newToast);
+  return newToast.id;
 };
 toast.warning = (content, options) => {
-  if (content == null) return;
-  notify(
-    createToast({
-      action: 'add',
-      type: 'warning',
-      content,
-      options,
-    }),
-  );
+  const newToast = createToast({
+    action: 'add',
+    type: 'warning',
+    content,
+    options,
+  });
+  if (content == null) return newToast.id;
+  notify(newToast);
+  return newToast.id;
 };
 toast.error = (content, options) => {
-  if (content == null) return;
-  notify(
-    createToast({
-      action: 'add',
-      type: 'error',
-      content,
-      options,
-    }),
-  );
+  const newToast = createToast({
+    action: 'add',
+    type: 'error',
+    content,
+    options,
+  });
+  if (content == null) return newToast.id;
+  notify(newToast);
+  return newToast.id;
 };
 toast.loading = (content, options) => {
-  if (content == null) return;
-  notify(
-    createToast({
-      action: 'add',
-      type: 'loading',
-      content,
-      options: { duration: Infinity, ...options },
-    }),
-  );
+  const newToast = createToast({
+    action: 'add',
+    type: 'loading',
+    content,
+    options: { duration: Infinity, ...options },
+  });
+  if (content == null) return newToast.id;
+  notify(newToast);
+  return newToast.id;
 };
 toast.custom = (content, options) => {
-  if (content == null) return;
-  notify(
-    createToast({
-      action: 'add',
-      type: 'custom',
-      content,
-      options,
-    }),
-  );
+  const newToast = createToast({
+    action: 'add',
+    type: 'custom',
+    content,
+    options,
+  });
+  if (content == null) return newToast.id;
+  notify(newToast);
+  return newToast.id;
 };
 
 toast.update = (id, content, options) => {
-  if (id == null) return;
-  if (content == null) return;
+  if (id == null) return '';
+  if (content == null) return id;
   notify(updateToast({ id: `${id}`, content, options }));
+  return id;
 };
 
 toast.promise = (async <T, E = unknown>(
