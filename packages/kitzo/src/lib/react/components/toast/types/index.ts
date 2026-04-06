@@ -69,20 +69,23 @@ export type PromiseToastFn = <T, E = unknown>(
 ) => Promise<T>;
 
 export type ToastFn = {
-  (content: ToastContent, options?: ToastOptions): void;
-  info: (content: ToastContent, options?: Options) => void;
-  success: (content: ToastContent, options?: Options) => void;
-  warning: (content: ToastContent, options?: Options) => void;
-  error: (content: ToastContent, options?: Options) => void;
+  (content: ToastContent, options?: ToastOptions): string | number;
+  info: (content: ToastContent, options?: Options) => string | number;
+  success: (content: ToastContent, options?: Options) => string | number;
+  warning: (content: ToastContent, options?: Options) => string | number;
+  error: (content: ToastContent, options?: Options) => string | number;
   promise: PromiseToastFn;
-  loading: (content: ToastContent, options?: Options) => void;
-  custom: (content: ToastContent, options?: Options) => void;
-  dismiss: (id?: string | number, toasterId?: string | number) => void;
+  loading: (content: ToastContent, options?: Options) => string | number;
+  custom: (content: ToastContent, options?: Options) => string | number;
+  dismiss: (
+    id?: string | number,
+    toasterId?: string | number,
+  ) => string | number | undefined;
   update: (
     id: string | number,
     content: ToastContent,
     options?: UpdateToastOptions,
-  ) => void;
+  ) => string | number;
 };
 
 //! toaster props

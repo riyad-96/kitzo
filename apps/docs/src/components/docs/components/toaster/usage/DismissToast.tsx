@@ -7,7 +7,7 @@ import { toast } from 'kitzo';
 import { useState } from 'react';
 
 export default function DismissToast() {
-  const [toastId, setToastId] = useState<string | number>('');
+  const [toastId, setToastId] = useState<string | number | null>(null);
 
   return (
     <div>
@@ -22,18 +22,25 @@ export default function DismissToast() {
             <div className="flex flex-wrap gap-2">
               <PreviewButton
                 onClick={() => {
-                  const id = 'dismissible-toast';
-                  setToastId(id);
+                  if (toastId) return;
+
+                  const id = 'dismiss-toast';
                   toast('This toast can be dismissed manually', {
                     id,
                     duration: Infinity,
                   });
+                  setToastId(id);
                 }}
               >
                 Create Persistent Toast
               </PreviewButton>
               <PreviewButton
-                onClick={() => toast.dismiss(toastId)}
+                onClick={() => {
+                  if (toastId) {
+                    toast.dismiss(toastId);
+                    setToastId(null);
+                  }
+                }}
                 disabled={!toastId}
               >
                 Dismiss this Toast

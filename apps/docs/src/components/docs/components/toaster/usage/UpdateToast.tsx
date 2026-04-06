@@ -7,7 +7,7 @@ import { toast } from 'kitzo';
 import { useState } from 'react';
 
 export default function UpdateToast() {
-  const [toastId, setToastId] = useState<string | number>('');
+  const [toastId, setToastId] = useState<string | number | null>(null);
 
   return (
     <div>

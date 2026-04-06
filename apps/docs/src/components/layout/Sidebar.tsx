@@ -40,7 +40,7 @@ export default function Sidebar() {
                         if (isOpen) close();
                       }}
                       className={(isActive) =>
-                        `-ml-px flex h-6.5 w-fit items-center border-l px-3 text-sm tracking-wide transition-all duration-75 ${isActive ? 'font-semibold text-neutral-900 dark:text-neutral-50 border-neutral-800 dark:border-neutral-200' : 'border-neutral-300 text-neutral-600 dark:border-neutral-700 dark:text-neutral-400 pointer-fine:hover:border-neutral-500 pointer-fine:hover:text-neutral-800 dark:pointer-fine:hover:border-neutral-400 dark:pointer-fine:hover:text-neutral-200'}`
+                        `-ml-px flex h-6.5 w-fit items-center border-l px-3 text-sm tracking-wide transition-all duration-75 ${isActive ? 'border-neutral-800 font-semibold text-neutral-900 dark:border-neutral-200 dark:text-neutral-50' : 'border-neutral-300 text-neutral-600 dark:border-neutral-700 dark:text-neutral-400 pointer-fine:hover:border-neutral-500 pointer-fine:hover:text-neutral-800 dark:pointer-fine:hover:border-neutral-400 dark:pointer-fine:hover:text-neutral-200'}`
                       }
                       key={nested.slug}
                       href={to}
