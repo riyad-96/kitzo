@@ -29,6 +29,7 @@ export type ToastOptions = {
   type?: ToastType;
   swipeToClose?: boolean;
   toasterId?: string | number;
+  onClose?: (id: string | number) => void;
 };
 
 export type ToastContent = ((dismiss: () => void) => ReactNode) | ReactNode;
@@ -48,6 +49,7 @@ export type Toast = {
   icon?: ReactNode;
   animateTransformOrigin?: boolean;
   updateState?: string;
+  onClose?: (id: string | number) => void;
 };
 
 type ToastOptionsWithoutType = Omit<ToastOptions, 'type'>;
