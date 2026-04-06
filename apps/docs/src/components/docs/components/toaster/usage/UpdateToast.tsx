@@ -35,6 +35,9 @@ export default function UpdateToast() {
                     toast.update(toastId, 'Processing complete!', {
                       type: 'success',
                       duration: 3000,
+                      onClose: () => {
+                        setToastId(null);
+                      },
                     });
                   }
                 }}
@@ -48,6 +51,9 @@ export default function UpdateToast() {
                     toast.update(toastId, 'An error occurred', {
                       type: 'error',
                       duration: 3000,
+                      onClose: () => {
+                        setToastId(null);
+                      },
                     });
                   }
                 }}
