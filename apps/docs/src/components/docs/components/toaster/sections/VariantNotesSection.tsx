@@ -31,6 +31,11 @@ export default function VariantNotesSection() {
           The <InlineCode>swipeToClose</InlineCode> option becomes active only
           after the promise is resolved.
         </li>
+
+        <li>
+          Every method returns toast id, which can be used to update or dismiss
+          the toast. except <InlineCode>toast.promise()</InlineCode>.
+        </li>
       </ul>
     </section>
   );

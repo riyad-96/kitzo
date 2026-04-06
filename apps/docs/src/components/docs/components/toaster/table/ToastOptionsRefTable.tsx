@@ -55,6 +55,12 @@ const toastOptionsTable = [
     type: 'boolean',
     desc: 'Allows the toast to be dismissed using a swipe gesture.',
   },
+  {
+    id: 10,
+    name: 'onClose',
+    type: '() => void',
+    desc: 'Callback function that executes when the toast is dismissed.',
+  },
 ];
 
 export default function ToastOptionsRefTable() {
