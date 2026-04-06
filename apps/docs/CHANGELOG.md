@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.0.0
+
+### Major Changes
+
+- 549d8e4: Stable release
+
+### Patch Changes
+
+- Updated dependencies [eb2b7cf]
+- Updated dependencies [549d8e4]
+  - kitzo@3.1.2
+
 ## 0.1.5
 
 ### Patch Changes

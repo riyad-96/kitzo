@@ -1,5 +1,12 @@
 # kitzo
 
+## 3.1.2
+
+### Patch Changes
+
+- eb2b7cf: added onClose callback support to toast service and trigger on dismissal
+- 549d8e4: Added return id feature to each toast call
+
 ## 3.1.1
 
 ### Patch Changes
