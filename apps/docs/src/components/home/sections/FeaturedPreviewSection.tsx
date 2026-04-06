@@ -2,116 +2,128 @@
 
 import PreviewButton from '@/components/snippets/PreviewButton';
 import { useThemeStore } from '@/store/theme.store';
+import { toast, Tooltip, useWindowSize, useCopy, useDebounce } from 'kitzo';
 import {
-  toast,
-  Tooltip,
-  useWindowSize,
-  useCopy,
-  useDebounce,
-  useThrottle,
-} from 'kitzo';
-import { X } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+  X,
+  Bell,
+  Info,
+  MousePointer2,
+  Copy,
+  Smartphone,
+  Timer,
+} from 'lucide-react';
+
 import { useState } from 'react';
+import { motion } from 'motion/react';
+import { cn } from '@/lib/utils';
+import Link from 'next/link';
 
 export default function FeaturedPreviewSection() {
   const { screenHeight, screenWidth } = useWindowSize(0);
   const { copy, isCopied, isCopying, isError } = useCopy();
   const [dCount, setDCount] = useState(1);
   const debouncedCount = useDebounce(dCount, 500);
-  const [tCount, setTCount] = useState(1);
-  const throttledCount = useThrottle(tCount, 500);
   const theme = useThemeStore((state) => state.theme);
 
   return (
-    <section className="mb-32">
-      <div className="mb-12">
-        <span className="text-sm font-medium tracking-wide text-neutral-500">
+    <section className="mb-40">
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="mb-16 border-l-2 border-neutral-900 pl-6 dark:border-neutral-100"
+      >
+        <span className="text-xs font-bold tracking-[0.2em] text-neutral-400 uppercase">
           Featured
         </span>
-        <h2 className="mt-2 text-2xl font-semibold text-neutral-900 dark:text-neutral-200">
+        <h2 className="mt-3 text-2xl font-semibold text-neutral-900 dark:text-neutral-100">
           Core utilities
         </h2>
-      </div>
+      </motion.div>
 
-      <div className="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-6 md:grid-rows-2">
+        {/* Toast - Large item */}
         <PreviewCard
-          title="Toast"
-          description="Lightweight notifications with full control."
+          title="Toast Notifications"
+          description="Lightweight notifications with full control over animations and lifecycles."
           href="/components/toaster"
+          className="md:col-span-3 md:row-span-1"
+          icon={Bell}
         >
           <PreviewButton
             onClick={() => {
-              toast.success('Toast message');
+              toast.success('System updated successfully');
             }}
           >
-            Show toast
+            Trigger Success
           </PreviewButton>
         </PreviewCard>
 
+        {/* Tooltip - Medium item */}
         <PreviewCard
-          title="Tooltip"
-          description="Accessible hints on hover or focus."
+          title="Tooltips"
+          description="Floating labels that appear on hover or focus."
           href="/components/tooltip"
+          className="md:col-span-3 md:row-span-1"
+          icon={Info}
         >
-          <Tooltip content="Tooltip" dark={theme === 'dark'}>
-            <PreviewButton>Hover me</PreviewButton>
+          <Tooltip content="Documentation" dark={theme === 'dark'}>
+            <PreviewButton className="flex items-center gap-2">
+              <MousePointer2 size={14} />
+              Hover me
+            </PreviewButton>
           </Tooltip>
         </PreviewCard>
 
+        {/* useDebounce - Small item */}
         <PreviewCard
           title="useDebounce"
-          description="Debounce values without mental overhead."
+          description="Delay value updates until activity stops."
           href="/hooks/use-debounce"
+          className="md:col-span-2 md:row-span-1"
+          icon={Timer}
         >
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col items-center gap-4">
             <PreviewButton onClick={() => setDCount((prev) => prev + 1)}>
-              Increase: {dCount}
+              Click fast: {dCount}
             </PreviewButton>
-            <span className="text-sm">Debounced: {debouncedCount}</span>
+            <div className="font-mono text-[10px] tracking-widest text-neutral-500 uppercase">
+              Result: {debouncedCount}
+            </div>
           </div>
         </PreviewCard>
 
-        <PreviewCard
-          title="useThrottle"
-          description="Throttle values without spamming updates."
-          href="/hooks/use-throttle"
-        >
-          <div className="flex items-center gap-4">
-            <PreviewButton onClick={() => setTCount((prev) => prev + 1)}>
-              Increase: {tCount}
-            </PreviewButton>
-            <span className="text-sm">Throttled: {throttledCount}</span>
-          </div>
-        </PreviewCard>
-
+        {/* useWindowSize - Small item */}
         <PreviewCard
           title="useWindowSize"
-          description="Reactive viewport dimensions hook."
+          description="Responsive viewport hook."
           href="/hooks/use-window-size"
+          className="md:col-span-2 md:row-span-1"
+          icon={Smartphone}
         >
-          <div className="flex items-center gap-2 text-xs text-neutral-600 dark:text-neutral-400">
-            <span className="rounded-md border border-neutral-200 bg-white px-2 py-1 dark:border-neutral-800 dark:bg-neutral-950">
-              {screenWidth}px
-            </span>
-            <span className="text-neutral-400 dark:text-neutral-500">
-              <X size="12" />
-            </span>
-            <span className="rounded-md border border-neutral-200 bg-white px-2 py-1 dark:border-neutral-800 dark:bg-neutral-950">
-              {screenHeight}px
-            </span>
+          <div className="flex items-center gap-2">
+            <div className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 font-mono text-xs dark:border-neutral-800 dark:bg-neutral-950">
+              {screenWidth}
+            </div>
+            <X size={12} className="text-neutral-300" />
+            <div className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 font-mono text-xs dark:border-neutral-800 dark:bg-neutral-950">
+              {screenHeight}
+            </div>
           </div>
         </PreviewCard>
 
+        {/* useCopy - Small item */}
         <PreviewCard
           title="useCopy"
-          description="One-line clipboard utility."
+          description="Simplified clipboard access."
           href="/hooks/use-copy"
+          className="md:col-span-2 md:row-span-1"
+          icon={Copy}
         >
-          <PreviewButton onClick={() => copy('kitzo: hello dev!')}>
-            {!isCopied && !isCopying && !isError && 'Copy Text'}
-            {isCopied && 'Copied!'}
-            {isError && 'Failed to copy'}
+          <PreviewButton onClick={() => copy('kitzo: minimal ui')}>
+            {!isCopied && !isCopying && !isError && 'Copy snippet'}
+            {isCopied && 'Copied to clipboard'}
+            {isError && 'Error copying'}
           </PreviewButton>
         </PreviewCard>
       </div>
@@ -124,33 +136,52 @@ function PreviewCard({
   description,
   href,
   children,
+  className,
+  icon: Icon,
 }: {
   title: string;
   description: string;
   href: string;
   children: React.ReactNode;
+  className?: string;
+  icon: React.ElementType;
 }) {
-  const navigate = useRouter();
-
   return (
-    <div
-      onClick={() => navigate.push(href)}
-      className="group rounded-xl border border-neutral-200 p-6 dark:border-neutral-800 pointer-fine:cursor-pointer pointer-fine:hover:border-neutral-300 pointer-fine:hover:shadow dark:pointer-fine:hover:border-neutral-700"
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className={cn(
+        'group relative flex flex-col overflow-hidden rounded-3xl border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-neutral-950/50',
+        'transition-colors duration-150 hover:border-neutral-400 dark:hover:border-neutral-600',
+        className,
+      )}
     >
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className="mb-6 flex h-38 cursor-default items-center justify-center rounded-lg bg-neutral-50 dark:bg-neutral-900 pointer-fine:group-hover:bg-neutral-100 dark:pointer-fine:group-hover:bg-neutral-800"
-      >
-        {children}
+      <Link href={href} className="absolute inset-0" />
+
+      <div className="flex h-full flex-col">
+        <div className="mb-4 flex items-center justify-between">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-neutral-200 bg-neutral-50 text-neutral-950 transition-colors duration-150 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-50">
+            <Icon size={18} strokeWidth={1.5} />
+          </div>
+        </div>
+
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className="z-1 mb-8 flex flex-1 cursor-default items-center justify-center rounded-2xl bg-neutral-50/50 p-6 transition-colors duration-150 group-hover:bg-neutral-50 dark:bg-neutral-900/30 dark:group-hover:bg-neutral-900"
+        >
+          {children}
+        </div>
+
+        <div>
+          <h3 className="mb-2 text-base font-semibold text-neutral-950 dark:text-neutral-50">
+            {title}
+          </h3>
+          <p className="text-sm leading-relaxed text-neutral-500 dark:text-neutral-400">
+            {description}
+          </p>
+        </div>
       </div>
-
-      <h3 className="mb-2 text-base font-semibold dark:text-neutral-200">
-        {title}
-      </h3>
-
-      <p className="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
-        {description}
-      </p>
-    </div>
+    </motion.div>
   );
 }
