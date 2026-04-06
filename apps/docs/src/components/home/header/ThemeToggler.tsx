@@ -14,7 +14,7 @@ export default function ThemeToggler() {
   return (
     <button
       onClick={toggleTheme}
-      className="relative grid size-8 place-items-center rounded-md pointer-fine:hover:bg-neutral-100 dark:pointer-fine:hover:bg-neutral-800 not-hover:text-neutral-600 dark:not-hover:text-neutral-400"
+      className="relative grid size-8 place-items-center rounded-md not-hover:text-neutral-600 dark:not-hover:text-neutral-400 pointer-fine:hover:bg-neutral-100 dark:pointer-fine:hover:bg-neutral-800"
     >
       {theme === 'dark' ? (
         <span className="absolute">
