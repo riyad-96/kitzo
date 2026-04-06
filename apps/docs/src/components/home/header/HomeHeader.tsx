@@ -1,6 +1,5 @@
 import { NpmjsSvg } from '@/assets/Svgs';
 import { Github } from 'lucide-react';
-import Version from './Version';
 import Link from 'next/link';
 import MobileMenu from './MobileMenu';
 import NavToggleBtn from './NavToggleBtn';
@@ -11,12 +10,10 @@ export default function HomeHeader() {
     <header className="sticky top-0 z-50 border-b border-neutral-200 bg-white/80 px-4 backdrop-blur-sm md:px-6 dark:border-neutral-800 dark:bg-black/80">
       <nav className="mx-auto flex h-15 max-w-300 items-center justify-between">
         <div className="flex items-center gap-6">
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center">
             <Link href="/" className="text-lg font-semibold">
               kitzo
             </Link>
-
-            <Version />
           </div>
 
           <div className="hidden items-center gap-2 md:flex">
