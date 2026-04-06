@@ -7,7 +7,14 @@ export default function dismissToasts({ toast, setToasts }: ManageToastsProps) {
     setToasts((prev) => prev.map((t) => ({ ...t, status: 'leaving' })));
 
     setTimeout(() => {
-      setToasts((prev) => prev.filter((t) => t.status !== 'leaving'));
+      setToasts((prev) => {
+        prev.forEach((t) => {
+          if (t.status === 'leaving') {
+            setTimeout(() => t.onClose?.(t.id), 0);
+          }
+        });
+        return prev.filter((t) => t.status !== 'leaving');
+      });
     }, LEAVE_DELAY);
 
     clearAllTimers();
@@ -28,8 +35,15 @@ export default function dismissToasts({ toast, setToasts }: ManageToastsProps) {
 
   // remove toast
   setTimeout(() => {
-    setToasts((prev) =>
-      prev.filter((t) => !(t.id === toast.id && t.status === 'leaving')),
-    );
+    setToasts((prev) => {
+      const removedToast = prev.find(
+        (t) => t.id === toast.id && t.status === 'leaving',
+      );
+      if (removedToast) {
+        setTimeout(() => removedToast.onClose?.(removedToast.id), 0);
+      }
+
+      return prev.filter((t) => !(t.id === toast.id && t.status === 'leaving'));
+    });
   }, LEAVE_DELAY);
 }

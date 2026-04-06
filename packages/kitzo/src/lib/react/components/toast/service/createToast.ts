@@ -50,6 +50,7 @@ export function createToast({
     action,
     swipeToClose: opts.swipeToClose ?? DEFAULTS.swipeToClose,
     updateState: 'initial',
+    onClose: opts.onClose,
   };
 
   return newToast;

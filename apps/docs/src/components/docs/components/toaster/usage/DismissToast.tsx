@@ -28,6 +28,9 @@ export default function DismissToast() {
                   toast('This toast can be dismissed manually', {
                     id,
                     duration: Infinity,
+                    onClose: () => {
+                      setToastId(null);
+                    },
                   });
                   setToastId(id);
                 }}
@@ -38,7 +41,6 @@ export default function DismissToast() {
                 onClick={() => {
                   if (toastId) {
                     toast.dismiss(toastId);
-                    setToastId(null);
                   }
                 }}
                 disabled={!toastId}
