@@ -54,6 +54,10 @@ const routeData: RouteDataType[] = [
         slug: 'use-local-storage',
       },
       {
+        label: 'useMounted',
+        slug: 'use-mounted',
+      },
+      {
         label: 'useWindowSize',
         slug: 'use-window-size',
       },
