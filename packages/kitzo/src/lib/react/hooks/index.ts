@@ -5,3 +5,4 @@ export { useWindowSize } from './useWindowSize';
 export { useDebouncedCallback } from './useDebouncedCallback';
 export { useLocalStorage } from './useLocalStorage';
 export { useOverlay } from './useOverlay';
+export { useMounted } from './useMounted';
