@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.1
+
+### Patch Changes
+
+- 00c2f32: useMounted hook added on the docs
+- Updated dependencies [00c2f32]
+  - kitzo@3.1.3
+
 ## 1.0.0
 
 ### Major Changes
