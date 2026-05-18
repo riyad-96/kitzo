@@ -83,7 +83,7 @@ export default function MountedPreview() {
   };
 
   return (
-    <div className="space-y-6 rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-800 dark:bg-neutral-950">
+    <div className="space-y-6 rounded-2xl border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
       <div className="flex flex-col justify-between gap-4 border-b border-neutral-100 pb-4 sm:flex-row sm:items-center dark:border-neutral-900">
         <div>
           <h4 className="text-sm font-semibold text-neutral-800 dark:text-neutral-200">

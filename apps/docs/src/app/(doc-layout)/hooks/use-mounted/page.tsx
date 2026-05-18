@@ -18,7 +18,8 @@ export default function UseMountedPage() {
         <h1 className="text-3xl font-semibold">useMounted</h1>
         <p className="text-neutral-600 dark:text-neutral-400">
           Detect when a React component has fully mounted on the client-side.
-          Extremely useful for avoiding hydration mismatches when rendering browser-only features.
+          Extremely useful for avoiding hydration mismatches when rendering
+          browser-only features.
         </p>
       </div>
 
@@ -70,16 +71,23 @@ function ClientOnly({ children }: { children: React.ReactNode }) {
         <h2 className="text-xl">Behavior</h2>
         <ul className="list-disc space-y-2 pl-5 text-sm text-neutral-700 dark:text-neutral-300">
           <li>
-            Guarantees a hydration-safe fallback during server-side rendering (SSR) and static generation (SSG).
+            Guarantees a hydration-safe fallback during server-side rendering
+            (SSR) and static generation (SSG).
           </li>
           <li>
-            Returns <InlineCode>false</InlineCode> on the server and initial client render, then transitions to <InlineCode>true</InlineCode> immediately after hydration.
+            Returns <InlineCode>false</InlineCode> on the server and initial
+            client render, then transitions to <InlineCode>true</InlineCode>{' '}
+            immediately after hydration.
           </li>
           <li>
-            Prevents React hydration mismatches caused by browser-only global APIs (e.g. <InlineCode>window</InlineCode>, <InlineCode>document</InlineCode>, or <InlineCode>localStorage</InlineCode>).
+            Prevents React hydration mismatches caused by browser-only global
+            APIs (e.g. <InlineCode>window</InlineCode>,{' '}
+            <InlineCode>document</InlineCode>, or{' '}
+            <InlineCode>localStorage</InlineCode>).
           </li>
           <li>
-            Triggers a single re-render upon mount to update layout and display client-only features.
+            Triggers a single re-render upon mount to update layout and display
+            client-only features.
           </li>
         </ul>
       </div>
