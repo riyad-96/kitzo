@@ -1,5 +1,11 @@
 # kitzo
 
+## 3.1.3
+
+### Patch Changes
+
+- 00c2f32: added useMounted hook
+
 ## 3.1.2
 
 ### Patch Changes
